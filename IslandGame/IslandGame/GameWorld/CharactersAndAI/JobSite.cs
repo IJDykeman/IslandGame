@@ -29,9 +29,9 @@ namespace IslandGame.GameWorld
         }
 
 
-        public virtual void makeFarmBlockGrow(BlockLoc blockLoc)
+        public virtual ResourceAmount makeFarmBlockGrowAndGetRescources(BlockLoc blockLoc)
         {
-            return;
+            return new ResourceAmount(0, ResourceType.Wheat);
         }
 
 

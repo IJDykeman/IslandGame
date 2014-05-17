@@ -17,6 +17,7 @@ namespace IslandGame.menus
         protected  MenuAction action;
         protected Vector2 location;
         protected float scale = 1;
+        protected Color color = Color.White;
 
         public UIElement() { }
 
@@ -33,6 +34,15 @@ namespace IslandGame.menus
             texture = ntexture;
             location = nLoc;
             scale = nScale;
+        }
+
+        public UIElement(MenuAction naction, Texture2D ntexture, Vector2 nLoc, float nScale, Color nColor)
+        {
+            action = naction;
+            texture = ntexture;
+            location = nLoc;
+            scale = nScale;
+            color = nColor;
         }
 
         public virtual List<MenuAction> click(Vector2 clickLoc)
@@ -58,6 +68,11 @@ namespace IslandGame.menus
         public Texture2D getTexture()
         {
             return texture;
+        }
+
+        public Color getColor()
+        {
+            return color;
         }
     }
 

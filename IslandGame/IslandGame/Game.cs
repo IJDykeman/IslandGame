@@ -369,11 +369,13 @@ namespace IslandGame
             Compositer.drawFinalImageFirst(player, false);
             Compositer.display(world, player, player.getControlledCharacter());
 
+            //Compositer.effect.CurrentTechnique = Compositer.effect.Techniques["GreyscaleToBrownsale"];
 
-            spriteBatch.Begin();
+
+            spriteBatch.Begin();//0, BlendState.Opaque, null, null, null, Compositer.effect);
                 IConsole.display(spriteBatch, Main.graphics.PreferredBackBufferWidth, Main.graphics.PreferredBackBufferHeight);
                 player.display2D(spriteBatch);
-                spriteBatch.End();
+            spriteBatch.End();
 
 
 

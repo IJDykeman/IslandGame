@@ -66,11 +66,12 @@ namespace IslandGame
             Vector3 moveVector = getMoveVector(currentKeyboardstate);
             moveVector.Normalize();
             moveVector *= embodiedCharacter.getSpeed();
+            embodiedCharacter.setRotationWithGivenDeltaVec(Player.getPlayerAimingAtPointAtDistance(1, currentMouseState) - Player.getPlayerAimingAtPointAtDistance(0, currentMouseState));
+
             if (moveVector.Length() > 0.0f)
             {
                 ActorAction moveAction = embodiedCharacter.getMoveToActionWithMoveByVector(moveVector);
                 embodiedCharacter.setIsWalkingOverride(true);
-                embodiedCharacter.setRotationWithGivenDeltaVec(Vector3.Normalize(moveVector));
                 result.Add(moveAction);
             }
             else

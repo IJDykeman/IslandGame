@@ -25,8 +25,18 @@ namespace IslandGame.GameWorld
             islands = new List<Island>();
             generationQueue = new List<Island>();
 
-            Vector3[] islandLocations = new Vector3[] {
-                    new Vector3(370, 0, 267),
+
+            Random rand = new Random();
+
+
+            if (!Player.galleryMode)
+            {
+                float islandLocationScalar = 3.0f;
+
+                generateAndAddIslandToList(new Island(new Vector3(370, 0, 267) * islandLocationScalar, Island.TerrainDifficulty.easy));
+
+                Vector3[] islandLocations = new Vector3[] {
+                    
                     new Vector3(370, 0, 90),
                     new Vector3(520, 0, 140),
                     new Vector3(600, 0, 270),
@@ -37,12 +47,6 @@ namespace IslandGame.GameWorld
                     new Vector3(192, 0, 170)
                                            };
 
-            Random rand = new Random();
-
-
-            if (!Player.galleryMode)
-            {
-                float islandLocationScalar = 3.0f;
 
                 
                 for (int i=0; i<islandLocations.Length; i++)
@@ -123,50 +127,55 @@ namespace IslandGame.GameWorld
         {
             while (true)
             {
-                lock(generationQueue)
+                lock (generationQueue)
                 {
 
-                        if (Player.galleryMode)
+                    if (Player.galleryMode)
+                    {
+                        generationQueue.Clear();
+                        bool timeToRegen = IslandGeneratorLoader.updateAndReturnIfNewCodeIsReady();
+                        if (timeToRegen)
                         {
-                            generationQueue.Clear();
-                            bool timeToRegen = IslandGeneratorLoader.updateAndReturnIfNewCodeIsReady();
-                            if (timeToRegen)
+                            lock (islands)
                             {
-                                lock (islands)
-                                {
-                                    islands.Clear();
-                                }
-                                Island island = new Island(new Vector3(), Island.TerrainDifficulty.easy);
-                                island.generateWithGenerator(IslandGeneratorLoader.getGenerator());
-                                lock (islands)
-                                {
-                                    addIsland(island);
-                                }
+                                islands.Clear();
+                            }
+                            Island island = new Island(new Vector3(), Island.TerrainDifficulty.easy);
+                            island.generateWithGenerator(IslandGeneratorLoader.getGenerator());
+                            lock (islands)
+                            {
+                                addIsland(island);
                             }
                         }
-                    
-
-                foreach (Island toUpdate in generationQueue)
-                {
-                    if (!toUpdate.hasBeenGenerated)
-                    {
-                        toUpdate.generateIsland();
-                        lock (islands)
-                        {
-                            addIsland(toUpdate);
-                        }
-                        toUpdate.hasBeenGenerated = true;
                     }
-                    
 
 
-                }
-                generationQueue.Clear();
+                    foreach (Island toUpdate in generationQueue)
+                    {
+                        if (!toUpdate.hasBeenGenerated)
+                        {
+                            generateAndAddIslandToList(toUpdate);
+                        }
 
-                
+
+
+                    }
+                    generationQueue.Clear();
+
+
                 }
                 Thread.Sleep(1);
             }
+        }
+
+        private void generateAndAddIslandToList(Island toUpdate)
+        {
+            toUpdate.generateIsland();
+            lock (islands)
+            {
+                addIsland(toUpdate);
+            }
+            toUpdate.hasBeenGenerated = true;
         }
 
         private void addIsland(Island toUpdate)

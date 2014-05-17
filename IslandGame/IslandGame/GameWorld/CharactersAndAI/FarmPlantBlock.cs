@@ -10,18 +10,26 @@ namespace IslandGame.GameWorld.CharactersAndAI
     {
         private static readonly byte maxGrowthLevel = 10;
         byte growth;
+        int wheatPerPlant = 1;
 
         public FarmPlantBlock()
         {
             growth = 0;
         }
 
-        public void growOneStage()
+        public int getTendedAndReturnWheatHarvested()
         {
-            if(!isFullyGrown())
+            if (!isFullyGrown())
             {
                 growth++;
+                return 0;
             }
+            else 
+            {
+                growth = 0;
+                return wheatPerPlant;
+            }
+
         }
 
         public byte getGrowthLevel()

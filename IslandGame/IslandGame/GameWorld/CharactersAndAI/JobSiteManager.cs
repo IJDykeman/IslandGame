@@ -14,11 +14,13 @@ namespace IslandGame.GameWorld
     {
 
         List<JobSite> jobSites;
+        ResourceManager rescourcesOnThisIsland;
+        
 
 
         public JobSiteManager(IslandPathingProfile profile)
-        {      
-
+        {
+            rescourcesOnThisIsland = new ResourceManager();
             jobSites = new List<JobSite>();
             jobSites.Add(new TreesJobSite(profile));
         }
@@ -343,7 +345,7 @@ namespace IslandGame.GameWorld
         {
             foreach (JobSite test in jobSites)
             {
-                test.makeFarmBlockGrow(blockLoc);
+                rescourcesOnThisIsland.addRescources(test.makeFarmBlockGrowAndGetRescources(blockLoc));
             }
         }
 

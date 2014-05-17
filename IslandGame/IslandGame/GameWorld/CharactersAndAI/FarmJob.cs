@@ -103,12 +103,15 @@ namespace IslandGame.GameWorld
                 new BlockLoc(character.getFootLocation()), farm.getProfile(),
                 nextBlocksToTend, 2);
             currentWalkJob = new TravelAlongPath(path);
-            currentGoalBlock = currentWalkJob.getGoalBlock();
+            if (currentWalkJob.isUseable())
+            {
+                currentGoalBlock = currentWalkJob.getGoalBlock();
+            }
         }
 
         public override bool isComplete()
         {
-            return farm.allBlocksAreGrown();
+            return false;
         }
 
         public override bool isUseable()

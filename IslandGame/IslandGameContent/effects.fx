@@ -1,10 +1,3 @@
-//------------------------------------------------------
-//--                                                  --
-//--		   www.riemers.net                    --
-//--   		    Basic shaders                     --
-//--		Use/modify as you like                --
-//--                                                  --
-//------------------------------------------------------
 
 struct VertexToPixel
 {
@@ -277,5 +270,21 @@ technique PointSprites
 	{   
 		VertexShader = compile vs_2_0 PointSpriteVS();
 		PixelShader  = compile ps_2_0 PointSpritePS();
+	}
+}
+
+
+PixelToFrame  GreyscaleToBrownsalePS(VertexToPixel PSIn) : COLOR0
+{
+    PixelToFrame Output = (PixelToFrame)0;
+    Output.Color = tex2D(TextureSampler, PSIn.TextureCoords);
+    return Output;
+}
+
+technique GreyscaleToBrownsale
+{
+	pass Pass0
+	{   
+		PixelShader  = compile ps_2_0 GreyscaleToBrownsalePS();
 	}
 }

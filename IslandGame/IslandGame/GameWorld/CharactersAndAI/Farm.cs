@@ -13,6 +13,7 @@ namespace IslandGame.GameWorld
     {
         //HashSet<BlockLoc> BlocksToBeFarmedIn;
         Dictionary<BlockLoc, FarmPlantBlock> PlantBlocks;
+        bool harvestTime;
         
 
         public Farm(IslandPathingProfile nProfile, IEnumerable<BlockLoc> nBlocksToBeFarmedOnTopOf)
@@ -65,14 +66,67 @@ namespace IslandGame.GameWorld
             return PlantBlocks.Keys;
         }
 
+        private bool allBlocksAreGrown()
+        {
+            foreach (BlockLoc key in PlantBlocks.Keys)
+            {
+                if (!PlantBlocks[key].isFullyGrown())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool noBlocksArePlanted()
+        {
+            foreach (BlockLoc key in PlantBlocks.Keys)
+            {
+                if (PlantBlocks[key].getGrowthLevel() != 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
         internal IEnumerable<BlockLoc> getBlocksNeedingTending()
         {
-            byte leastGrownBlockLevel = byte.MaxValue;
+            int leastGrownBlockLevel = int.MaxValue;
             List<BlockLoc> leastGrownBlocks = new List<BlockLoc>();
-            List<BlockLoc> toRemove = new List<BlockLoc>();
+
+
+            if (allBlocksAreGrown())
+            {
+                harvestTime = true;
+            }
+
+            if (harvestTime)
+            {
+                if (noBlocksArePlanted())
+                {
+                    harvestTime = false;
+                }
+                else
+                {
+                    List<BlockLoc> result = new List<BlockLoc>();
+                    foreach (BlockLoc test in PlantBlocks.Keys)
+                    {
+                        if(PlantBlocks[test].isFullyGrown())
+                        {
+                            result.Add(test);
+                        }
+                    }
+                    return result;
+                }
+            }
+
+
             foreach (BlockLoc test in PlantBlocks.Keys)
             {
-                if(PlantBlocks[test].getGrowthLevel()<leastGrownBlockLevel)
+
+                if (PlantBlocks[test].getGrowthLevel() < leastGrownBlockLevel)
                 {
                     leastGrownBlockLevel = PlantBlocks[test].getGrowthLevel();
                     leastGrownBlocks.Clear();
@@ -82,33 +136,22 @@ namespace IslandGame.GameWorld
                 {
                     leastGrownBlocks.Add(test);
                 }
-
-
-
             }
 
             return leastGrownBlocks;
+
         }
 
-        public override void makeFarmBlockGrow(BlockLoc toFarm)
+        public override ResourceAmount makeFarmBlockGrowAndGetRescources(BlockLoc toFarm)
         {
             if (PlantBlocks.ContainsKey(toFarm))
             {
-                PlantBlocks[toFarm].growOneStage();
+                return new ResourceAmount(PlantBlocks[toFarm].getTendedAndReturnWheatHarvested(),ResourceType.Wheat);
             }
+            return new ResourceAmount(0, ResourceType.Wheat);
         }
 
-        internal bool allBlocksAreGrown()
-        {
-            foreach (BlockLoc key in PlantBlocks.Keys)
-            {
-                if (!PlantBlocks[key].isFullyGrown())
-                {
-                    return false;
-                }
-            }
-            return true; 
-        }
+
 
         public override HashSet<BlockLoc> getAllBlocksInSite()
         {

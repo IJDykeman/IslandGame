@@ -72,11 +72,12 @@ namespace IslandGame.menus
                 int horizontalPadding = 50;
                 int verticlePadding = 50;
                 float scale = 1f;
-                buttonList.Add(new UIElement(new ExcavationHudButtonClick(), ContentDistributor.excavationIcon, new Vector2(width - horizontalPadding, height - verticlePadding), scale));
-                buttonList.Add(new UIElement(new FarmHudButtonClick(), ContentDistributor.farmIcon, new Vector2(width - horizontalPadding * 2, height - verticlePadding), scale));
-                buttonList.Add(new UIElement(new WoodBuildHudClick(), ContentDistributor.woodBlockIcon, new Vector2(width - horizontalPadding * 3, height - verticlePadding), scale));
-                buttonList.Add(new UIElement(new PlayerBuildHudClick(), ContentDistributor.playerBuildIcon, new Vector2(width - horizontalPadding * 4, height - verticlePadding), scale));
-                buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding), scale));
+                Color hudTint = Color.Wheat;
+                buttonList.Add(new UIElement(new ExcavationHudButtonClick(), ContentDistributor.excavationIcon, new Vector2(width - horizontalPadding, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new FarmHudButtonClick(), ContentDistributor.farmIcon, new Vector2(width - horizontalPadding * 2, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new WoodBuildHudClick(), ContentDistributor.woodBlockIcon, new Vector2(width - horizontalPadding * 3, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new PlayerBuildHudClick(), ContentDistributor.playerBuildIcon, new Vector2(width - horizontalPadding * 4, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding), scale, hudTint));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;
             }
@@ -94,7 +95,7 @@ namespace IslandGame.menus
             {
                 foreach (UIElement button in buttons)
                 {
-                    spriteBatch.Draw(button.getTexture(), button.getRectangle(), Color.White);
+                    spriteBatch.Draw(button.getTexture(), button.getRectangle(), button.getColor());
                 }
             }
 
