@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{4FECBE83-32F1-481E-B91E-84F069D78AC1}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IslandGame</RootNamespace>
+    <AssemblyName>IslandGame</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>911bcb76-1390-4396-9213-42a569a38716</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlockLoc.cs" />
+    <Compile Include="Box.cs" />
+    <Compile Include="CubeStudioCode\AnimationFunctions.cs" />
+    <Compile Include="CubeStudioCode\Animation\AnimatedBodyPartGroup.cs" />
+    <Compile Include="CubeStudioCode\Animation\AnimationSystem.cs" />
+    <Compile Include="CubeStudioCode\Animation\headAnimation.cs" />
+    <Compile Include="CubeStudioCode\Animation\LeftArm.cs" />
+    <Compile Include="CubeStudioCode\Animation\LeftLeg.cs" />
+    <Compile Include="CubeStudioCode\Animation\LowerLeftArmAnimation.cs" />
+    <Compile Include="CubeStudioCode\Animation\LowerLeftLegAnimation.cs" />
+    <Compile Include="CubeStudioCode\Animation\TorsoAnimation.cs" />
+    <Compile Include="CubeStudioCode\Animation\WheelAnimation.cs" />
+    <Compile Include="console\ConsoleAction.cs" />
+    <Compile Include="console\IConsole.cs" />
+    <Compile Include="CubeStudioCode\bodyPart.cs" />
+    <Compile Include="CubeStudioCode\BodyPartTypeManager.cs" />
+    <Compile Include="CubeStudioCode\BodyPartWithHitLoc.cs" />
+    <Compile Include="CubeStudioCode\ExponentialInterpolator.cs" />
+    <Compile Include="CubeStudioCode\LoadedCubeSpaceData.cs" />
+    <Compile Include="CubeStudioCode\ModelLoader.cs" />
+    <Compile Include="CubeStudioCode\MovementTarget.cs" />
+    <Compile Include="CubeStudioCode\PositionForTime.cs" />
+    <Compile Include="FirstPersonInputHandler.cs" />
+    <Compile Include="GameWorld\AxisAlignedBoundingBox.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ActorStateProfile.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\AggressiveStanceJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\AttackActorJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\BoatBuildSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\CaptainingBoatJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\WanderAroundJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ObjectBuildingJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ObjectJobSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Actor.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Boat.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\BuildSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\BuildJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Character.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ActorAction.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\CharacterTaskTracker.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ActorManager.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\CharacterTask.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ExcavateJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ExcavationSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Farm.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\FarmPlantBlock.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Job.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\JobSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\LoggingJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\MultiblockJobSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\MultiBlockOngoingJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\StoneBuildSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\TreeJobSite.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\WalkToAndCompleteTaskJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\WalkToAndDestroyBlock.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\TravelAlongPath.cs" />
+    <Compile Include="GameWorld\Chunk.cs" />
+    <Compile Include="GameWorld\ColorPallete.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\FarmJob.cs" />
+    <Compile Include="GameWorld\DecorativePlant.cs" />
+    <Compile Include="GameWorld\IslandGeneration\Generators.cs" />
+    <Compile Include="GameWorld\IslandGeneration\IslandGenerator.cs" />
+    <Compile Include="GameWorld\IslandGeneration\IslandGeneratorLoader.cs" />
+    <Compile Include="GameWorld\IslandLocationProfile.cs" />
+    <Compile Include="GameWorld\IslandPathingProfile.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\JobSiteManager.cs" />
+    <Compile Include="GameWorld\LocationInterpolator.cs" />
+    <Compile Include="GameWorld\MeshBuilder.cs" />
+    <Compile Include="GameWorld\PathHandler.cs" />
+    <Compile Include="GameWorld\PathHandlerPreferringLowerBlocks.cs" />
+    <Compile Include="GameWorld\PathNode.cs" />
+    <Compile Include="GameWorld\PathNodePriorityQueue.cs" />
+    <Compile Include="GameWorld\PathNodeWithSecondarySearchGoal.cs" />
+    <Compile Include="GameWorld\PhysicsHandler.cs" />
+    <Compile Include="GameWorld\GeometryFunctions.cs" />
+    <Compile Include="GameWorld\NoiseGenerator.cs" />
+    <Compile Include="GameWorld\SetPiece.cs" />
+    <Compile Include="GameWorld\SetPieceManager.cs" />
+    <Compile Include="GameWorld\structs.cs" />
+    <Compile Include="GameWorld\WorldPathingProfile.cs" />
+    <Compile Include="Graphics\LocationInterpolator.cs" />
+    <Compile Include="menus\Image.cs" />
+    <Compile Include="menus\UIElementWithChildren.cs" />
+    <Compile Include="ThirdPersonInputHandler.cs" />
+    <Compile Include="GameWorld\Tree.cs" />
+    <Compile Include="GameWorld\VerticesAndIndices.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\WaitJob.cs" />
+    <Compile Include="Graphics\CloudManager.cs" />
+    <Compile Include="Graphics\Compositor.cs" />
+    <Compile Include="ContentDistributor.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameWorld\ChunkSpace.cs" />
+    <Compile Include="GameWorld\Island.cs" />
+    <Compile Include="GameWorld\IslandManager.cs" />
+    <Compile Include="Graphics\PositionWithScale.cs" />
+    <Compile Include="Graphics\Sky.cs" />
+    <Compile Include="Graphics\WorldMarkupHandler.cs" />
+    <Compile Include="IntVector3.cs" />
+    <Compile Include="menus\ColorPallete.cs" />
+    <Compile Include="menus\UIElement.cs" />
+    <Compile Include="menus\MenuAction.cs" />
+    <Compile Include="menus\MenuScreen.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerAction.cs" />
+    <Compile Include="PlayerInputHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="GameWorld\Ocean.cs" />
+    <Compile Include="GameWorld\PaintedCubeSpace.cs" />
+    <Compile Include="GameWorld\World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IslandGameContent\IslandGameContent.contentproj">
+      <Name>IslandGameContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Xna.Framework.4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>
