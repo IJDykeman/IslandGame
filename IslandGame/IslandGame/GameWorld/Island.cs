@@ -41,7 +41,7 @@ namespace IslandGame.GameWorld
                 new SmoothWithBluffsGenerator(),new PoplarForestGenerator()};
 
             generators[(int)TerrainDifficulty.medium] = new IslandGenerator[]{ 
-                new HillyGenerator(), new PlainsGenerator()};
+                new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator()};
 
             generators[(int)TerrainDifficulty.hard] = new IslandGenerator[]{ 
                 new Volcanic()};

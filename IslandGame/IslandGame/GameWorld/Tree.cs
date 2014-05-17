@@ -48,6 +48,24 @@ namespace IslandGame.GameWorld
                         @"C:\Users\Public\CubeStudio\poplarTree\" + poplarName + ".chr", .2f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
+                case treeTypes.pine:
+                    height = 5;
+
+                    string[] pineNames = { "tree" };
+                    string pineName = pineNames[rand.Next(pineNames.Length)];//"fallTree1";
+                    setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
+                        @"C:\Users\Public\CubeStudio\pineTree\" + pineName + ".chr", .4f + (float)rand.NextDouble()*.3f);
+                    setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
+                    break;
+                case treeTypes.redwood:
+                    height = 5;
+
+                    string[] redwoodNames = { "tree" };
+                    string redwoodName = redwoodNames[rand.Next(redwoodNames.Length)];//"fallTree1";
+                    setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
+                        @"C:\Users\Public\CubeStudio\redwood\" + redwoodName + ".chr", .2f);
+                    setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
+                    break;
                 default:
                     break;
             }

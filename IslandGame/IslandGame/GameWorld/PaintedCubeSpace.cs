@@ -29,6 +29,9 @@ namespace IslandGame.GameWorld
         [NonSerialized] public short[] indices; //having this be a short could be causing the chunk complexity limit issue
         [NonSerialized] public IndexBuffer indexBuffer;
         [NonSerialized] public VertexBuffer vertexBuffer;
+
+        PaintedCubeSpaceDisplayComponant displayer;
+
         public byte[, ,] array;
 
         public static readonly byte AIR = 0;

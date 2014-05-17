@@ -176,6 +176,7 @@
     <Compile Include="GameWorld\CharactersAndAI\JobSiteManager.cs" />
     <Compile Include="GameWorld\LocationInterpolator.cs" />
     <Compile Include="GameWorld\MeshBuilder.cs" />
+    <Compile Include="GameWorld\PaintedCubeSpaceDisplayComponant.cs" />
     <Compile Include="GameWorld\PathHandler.cs" />
     <Compile Include="GameWorld\PathHandlerPreferringLowerBlocks.cs" />
     <Compile Include="GameWorld\PathNode.cs" />
