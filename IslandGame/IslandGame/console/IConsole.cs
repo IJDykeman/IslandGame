@@ -104,11 +104,11 @@ namespace IslandGame
             {
                 result.Add(new PlaceIslandConsoleAction());
             }
-            else if (command.Equals("PLACECHAR"))
+            else if (command.Equals("PLACECHAR") || command.Equals("PC"))
             {
                 result.Add(new AddNewCharacterConsoleAction() );
             }
-            else if (command.Equals("PLACEENEMY"))
+            else if (command.Equals("PLACEENEMY") || command.Equals("PE"))
             {
                 result.Add(new AddNewEnemyConsoleAction());
             }

@@ -60,6 +60,11 @@ namespace CubeAnimator{
             return main.getNumChildren() == 0;
         }
 
+        public void setMip(int mipLevel)
+        {
+            main.setMipRecursive(mipLevel);
+        }
+
         public void updateAnimations(List<AnimationType> animations)
         {
             updatePositionQueue();

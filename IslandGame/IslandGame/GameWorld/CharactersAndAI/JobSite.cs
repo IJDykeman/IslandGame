@@ -35,14 +35,19 @@ namespace IslandGame.GameWorld
         }
 
 
-        public virtual void chopBlock(BlockLoc blockLoc)
+        public virtual ResourceAmount chopBlockAndGetRescources(BlockLoc blockLoc)
         {
-            return;
+            return new ResourceAmount(0,ResourceType.Wood);
         }
 
         public virtual HashSet<BlockLoc> getAllBlocksInSite()
         {
             return new HashSet<BlockLoc>();
+        }
+
+        public virtual void updateMesh(int mipLevel)
+        {
+            
         }
     }
 }

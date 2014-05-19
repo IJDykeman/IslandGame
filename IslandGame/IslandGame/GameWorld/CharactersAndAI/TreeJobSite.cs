@@ -63,6 +63,14 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return new LoggingJob(newWorker, this);
         }
 
+        public override void updateMesh(int mipLevel)
+        {
+            foreach (Tree toUpdate in trees)
+            {
+                toUpdate.setMip(mipLevel);
+            }
+        }
+
         public void placeTree(BlockLoc loc, Tree.treeTypes type)
         {
             lock (trees)
@@ -98,7 +106,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return null;
         }
 
-        public override void chopBlock(BlockLoc blockLoc)
+        public override ResourceAmount chopBlockAndGetRescources(BlockLoc blockLoc)
         {
             Tree toChop = getTreeWithTrunkBlock(blockLoc);
             if (toChop != null)
@@ -107,8 +115,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
                 if (toChop.needsToBeDeleted())
                 {
                     trees.Remove(toChop);
+                    return new ResourceAmount(25, ResourceType.Wood);
                 }
             }
+            return new ResourceAmount(0, ResourceType.Wood);
         }
 
         public bool hasAtLeastOneTree()

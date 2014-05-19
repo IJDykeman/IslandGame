@@ -16,11 +16,13 @@ using Microsoft.Xna.Framework.Media;
 using IslandGame.GameWorld;
 using IslandGame;
 
+
 namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS THE SAME ARRAY POINTERS!!!!!!!!!!!!!!!!!!
 {
     static class ModelLoader
     {
         static Dictionary<string, LoadedCubeSpaceData> loadedByteArrays = new Dictionary<string, LoadedCubeSpaceData>();
+        static Dictionary<string, VertexAndIndexBuffers> memoizedMips = new Dictionary<string, VertexAndIndexBuffers>();
 
 
         public static PaintedCubeSpace loadSpaceFromName(string folderPath)
@@ -69,7 +71,7 @@ namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS 
             dataToSave.indexBuffer = paintedCubeSpace.getIndexBuffer();
             loadedByteArrays.Add(path, dataToSave);
 
-
+            paintedCubeSpace.setLoadedFrompath(path);
             return paintedCubeSpace;
         }
 
@@ -79,10 +81,33 @@ namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS 
 
             PaintedCubeSpace space = new PaintedCubeSpace(data.spaceWidth, data.spaceHeight, new Vector3());
             space.array = /*new byte[data.spaceWidth, data.spaceHeight, data.spaceWidth];*/data.array;
-            //data.array.CopyTo(space.array, 0);
-            space.setBuffers(data.vertexBuffer, data.indexBuffer);
-
+            //data.unmippedArray.CopyTo(space.unmippedArray, 0);
+            space.setUnmippedBuffers(data.vertexBuffer, data.indexBuffer);
+            space.setLoadedFrompath(path);
             return space;
+        }
+
+        public static bool hasMipAtPathAndLevel(string path, int mipLevel)
+        {
+            return memoizedMips.Keys.Contains(getPathWidthMipString(path, mipLevel));
+        }
+
+        public static VertexAndIndexBuffers getBuffersAtPathAtMipLevel(string path, int mipLevel)
+        {
+            return memoizedMips[getPathWidthMipString(path, mipLevel)];
+        }
+
+        public static void addPathAndMipForMemoization(string path, int mipLevel, VertexAndIndexBuffers buffers)
+        {
+            if (!memoizedMips.Keys.Contains(getPathWidthMipString(path, mipLevel)))
+            {
+                memoizedMips.Add(getPathWidthMipString(path, mipLevel), buffers);
+            }
+        }
+
+        private static string getPathWidthMipString(string path, int mipLevel)
+        {
+            return path + mipLevel;
         }
 
     }

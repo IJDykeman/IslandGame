@@ -468,7 +468,7 @@ namespace IslandGame.GameWorld
 
         static byte[][] cornersCoveredAlongforAOArray(int x, int y, int z, byte[, ,] array, int spaceWidth, int spaceHeight)
         {
-            //these are in array order
+            //these are in unmippedArray order
             byte[] resultX = new byte[8];
             byte[] resultY = new byte[8];
             byte[] resultZ = new byte[8];

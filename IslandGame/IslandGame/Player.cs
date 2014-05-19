@@ -40,7 +40,7 @@ namespace IslandGame
 
         public static float floatingCameraSpeed = .4f;
 
-        public static float leftRightRot = -2.6f;
+        public static float leftRightRot = -5.6f;
         public static float upDownRot = 0;
 
         int age = 0;
@@ -53,7 +53,7 @@ namespace IslandGame
 
         public Player()
         {
-            smoothCam = new LocationInterpolator(new Vector3(1261, 79, 945));
+            smoothCam = new LocationInterpolator(new Vector3(2079, 50, 1590));
 
         }
 

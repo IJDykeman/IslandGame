@@ -49,13 +49,13 @@ namespace IslandGame.GameWorld
             }
         }
 
-        public void updateAllMeshes()
+        public void updateAllMeshes(int mipLevel)
         {
             for (int x = 0; x < widthInChunks; x++)
             {
                 for (int z = 0; z < widthInChunks; z++)
                 {
-                    chunks[x, z].updateMesh();
+                    chunks[x, z].updateMesh(mipLevel);
                 }
             }
         }
@@ -154,16 +154,7 @@ namespace IslandGame.GameWorld
             return location + new Vector3(widthInChunks * chunkWidth / 2.0f, chunkHeight / 2.0f, widthInChunks * chunkWidth / 2.0f);
         }
 
-        public void setMipLevel(int level)
-        {
-            for (int x = 0; x < widthInChunks; x++)
-            {
-                for (int z = 0; z < widthInChunks; z++)
-                {
-                    chunks[x, z].setMipLevel(level);
-                }
-            }
-        }
+
 
         public bool withinChunkSpaceInChunkSpace(int x, int y, int z)
         {

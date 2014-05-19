@@ -59,7 +59,7 @@ namespace IslandGame.GameWorld
                     return finalPath;
                 }
 
-                //adding new nodes to the openNodes array
+                //adding new nodes to the openNodes unmippedArray
                 foreach (BlockLoc next in nextSteps)
                 {
 

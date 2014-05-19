@@ -60,7 +60,7 @@ namespace IslandGame.GameWorld
 
                 List<BlockLoc> nextSteps = profile.getSpacesThatCanBeMovedToFrom(from.loc, heightOfEntity);
 
-                //adding new nodes to the openNodes array
+                //adding new nodes to the openNodes unmippedArray
                 foreach (BlockLoc next in nextSteps)
                 {
                     if (!visitedLocations.Contains(next))

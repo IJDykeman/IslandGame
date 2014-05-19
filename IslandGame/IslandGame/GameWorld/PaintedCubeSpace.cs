@@ -18,19 +18,18 @@ namespace IslandGame.GameWorld
     [Serializable]
     public class PaintedCubeSpace
     {
-        public int mipLevel = 0;
+        
 
         public int spaceWidth;
         public int spaceHeight;
 
         public int numFaces = 0;
 
-        [NonSerialized] public VertexPostitionColorPaintNormal[] vertices;
-        [NonSerialized] public short[] indices; //having this be a short could be causing the chunk complexity limit issue
-        [NonSerialized] public IndexBuffer indexBuffer;
-        [NonSerialized] public VertexBuffer vertexBuffer;
+        string pathThatThisSpaceWasLoadedFromCANBENULL = null;
 
-        PaintedCubeSpaceDisplayComponant displayer;
+
+
+        PaintedCubeSpaceDisplayComponant unMippedDisplayer, mippedDisplayer;
 
         public byte[, ,] array;
 
@@ -39,7 +38,7 @@ namespace IslandGame.GameWorld
 
         public float scale = 1f;
 
-        bool readyToBeDisplayed = false;
+        
 
         public bool serializedAfterLastChange = false; //must be set to false when the chunk is generated or changed
 
@@ -67,6 +66,8 @@ namespace IslandGame.GameWorld
 
         public PaintedCubeSpace(int width, int height, Vector3 nLoc)
         {
+            unMippedDisplayer = new PaintedCubeSpaceDisplayComponant(0);
+            mippedDisplayer = null;
             array = new byte[width, height, width];
 
 
@@ -81,65 +82,94 @@ namespace IslandGame.GameWorld
 
         }
 
-        public void flagForMeshUpdate()
+
+        public void setLoadedFrompath(string nPath)
         {
-            readyToBeDisplayed = false;
+            pathThatThisSpaceWasLoadedFromCANBENULL = nPath;
         }
 
-    
-
-        public void drawForChunk(GraphicsDevice device, Effect effect, Matrix superMatrix)
+        public void setMipLevel(int level)
         {
-
-            effect.Parameters["xWorld"].SetValue(getMatrix()*superMatrix);
-
-            device.Indices = indexBuffer;
-            device.SetVertexBuffer(vertexBuffer);
-
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            if (level == 0)
             {
-                pass.Apply();
-                //NO OLD BAD WRONG//world.device.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length, indices, 0, indices.Length / (3), VertexPositionNormalTexture.VertexDeclaration);
-                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0,
-                    vertexBuffer.VertexCount, 0,
-                    indexBuffer.IndexCount / 3);
+                mippedDisplayer = null;
+
+
+
 
             }
-            //effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-        }
 
-        public void drawForBodyPart(GraphicsDevice device, Effect effect, Matrix superMatrix, Quaternion rotation, bool highLighted)
-        {
-            setBuffersForDraw(device);
-            drawWithoutSettingBuffers(effect, ref superMatrix, ref rotation);
+            else if (mippedDisplayer == null || mippedDisplayer.getMipLevel() != level)
+            {
+                mippedDisplayer = new PaintedCubeSpaceDisplayComponant(level);
+                if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
+                {
+                    if (CubeAnimator.ModelLoader.hasMipAtPathAndLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level))
+                    {
+                        mippedDisplayer.setBuffers(CubeAnimator.ModelLoader.getBuffersAtPathAtMipLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level));
+
+                    }
+                    else
+                    {
+                        mippedDisplayer.createModel(Compositer.device, array, spaceWidth, spaceHeight);
+
+                        CubeAnimator.ModelLoader.addPathAndMipForMemoization(pathThatThisSpaceWasLoadedFromCANBENULL, level,
+new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.getIndexBuffer()));
+                    }
+                }
+                else
+                {
+
+                    mippedDisplayer.createModel(Compositer.device, array, spaceWidth, spaceHeight);
+
+                }
+
+
+            }
+
         }
 
         public void drawForBodyPartWithPresetBuffers(Effect effect, Matrix superMatrix, Quaternion rotation, bool highLighted)
         {
-            drawWithoutSettingBuffers(effect, ref superMatrix, ref rotation);
+            getCurrentDisplayer().drawForBodyPartWithPresetBuffers(effect,Matrix.CreateScale((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))* getMatrix(superMatrix, rotation), highLighted);
         }
 
-        private void drawWithoutSettingBuffers(Effect effect, ref Matrix superMatrix, ref Quaternion rotation)
+        public void drawForBodyPart(GraphicsDevice device, Effect effect, Matrix superMatrix, Quaternion rotation, bool highLighted)
         {
-            effect.Parameters["xWorld"].SetValue(getMatrix(superMatrix, rotation));
+            getCurrentDisplayer().drawForBodyPart(device, effect, Matrix.CreateScale((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))*getMatrix(superMatrix, rotation), highLighted);
+        }
 
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+        public void drawForChunk(GraphicsDevice device, Effect effect, Matrix superMatrix)
+        {
+            getCurrentDisplayer().drawForChunk(device, effect, Matrix.CreateScale((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))* getMatrix() * superMatrix);
+        }
+
+        public void createModel(GraphicsDevice device)
+        {
+            getCurrentDisplayer().createModel(device, array, spaceWidth, spaceHeight);
+        }
+
+        public IndexBuffer getIndexBuffer()
+        {
+            return getCurrentDisplayer().getIndexBuffer();
+        }
+
+        public VertexBuffer getVertexBuffer()
+        {
+            return getCurrentDisplayer().getVertexBuffer();
+        }
+
+        private PaintedCubeSpaceDisplayComponant getCurrentDisplayer()
+        {
+            if (mippedDisplayer != null&& mippedDisplayer.canBeDrawn())
             {
-                pass.Apply();
-                //NO OLD BAD WRONG//world.device.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length, indices, 0, indices.Length / (3), VertexPositionNormalTexture.VertexDeclaration);
-                Main.graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0,
-                    vertexBuffer.VertexCount, 0,
-                    indexBuffer.IndexCount / 3);
+                return mippedDisplayer;
             }
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+            else
+            {
+                return unMippedDisplayer;
+            }
         }
-
-        private void setBuffersForDraw(GraphicsDevice device)
-        {
-            device.Indices = indexBuffer;
-            device.SetVertexBuffer(vertexBuffer);
-        }
-
 
         public bool isTransparentAt(int x, int y, int z)
         {
@@ -157,58 +187,10 @@ namespace IslandGame.GameWorld
 
         public bool canBeDrawn()
         {
-            if (!readyToBeDisplayed || vertexBuffer == null || indexBuffer == null)
-            {
-                return false;
-            }
-            return true;
+            return getCurrentDisplayer().canBeDrawn();
         }
 
 
-
-        public void createModel(GraphicsDevice device)
-        {
-            
-            VerticesAndIndices vertsAndInts = MeshBuilder.buildMesh(array, spaceWidth, spaceHeight);
-
-            vertices = vertsAndInts.vertices;
-            indices = vertsAndInts.indices;
-            
-
-            //copyFromTempIntAndVertexListIntoArrays(vertsAndInts.indices,vertsAndInts.vertices);
-
-
-            if (vertices.Length == 0)
-            {
-                return;
-            }
-            copyToBuffers();
-
-            readyToBeDisplayed = true;
-
-            // the code that you want to measure comes here
-            //watch.Stop();
-            //var elapsedMs = watch.ElapsedMilliseconds;
-            //if (spaceHeight == 64)
-               // Console.WriteLine(elapsedMs);
-        }
-
-        public void copyFromTempIntAndVertexListIntoArrays(List<short> tempIntList, List<VertexPostitionColorPaintNormal> tempVertexList)
-        {
-            vertices = tempVertexList.ToArray();
-            indices = tempIntList.ToArray();
-        }
-
-        public void copyFromTempIntAndVertexListIntoArrays(List<int> tempIntList, List<VertexPostitionColorPaintNormal> tempVertexList)
-        {
-            vertices = tempVertexList.ToArray();
-            indices = new short[tempIntList.Count];
-
-            for (int i = 0; i < tempIntList.Count; i++)
-            {
-                indices[i] = (short)tempIntList[i];
-            }
-        }
 
         public void serializeChunk(string savePath)
         {
@@ -252,7 +234,7 @@ namespace IslandGame.GameWorld
 
                             numCubesOfSameTypeSoFar++;
                         }
-                        if (y + 1 >= spaceHeight || array[x, y, z] != (byte)currentType || numCubesOfSameTypeSoFar > 250) //put the current numbers into the array  
+                        if (y + 1 >= spaceHeight || array[x, y, z] != (byte)currentType || numCubesOfSameTypeSoFar > 250) //put the current numbers into the unmippedArray  
                         {
                             numberList.Add((byte)(numCubesOfSameTypeSoFar));
                             numberList.Add((byte)currentType);
@@ -295,8 +277,8 @@ namespace IslandGame.GameWorld
 
         public void comeIntoView(GraphicsDevice device)
         {
-            createModel(device);
-            readyToBeDisplayed = true;
+            getCurrentDisplayer().comeIntoView(device,array,spaceWidth,spaceHeight);
+
         }
 
         public void flipSpace()
@@ -321,7 +303,7 @@ namespace IslandGame.GameWorld
 
         public void moveWork(Vector3 move)
         {
-            //expands whole array
+            //expands whole unmippedArray
             byte[, ,] newArray = new byte[spaceWidth + 2, spaceHeight + 2, spaceWidth + 2];
             for (int x = 0; x < spaceWidth; x++)
             {
@@ -343,33 +325,8 @@ namespace IslandGame.GameWorld
 
         }
 
-        private void copyToBuffers()
-        {
-
-            vertexBuffer = new VertexBuffer(Main.graphics.GraphicsDevice, VertexPostitionColorPaintNormal.VertexDeclaration, vertices.Length, BufferUsage.WriteOnly);
-            vertexBuffer.SetData<VertexPostitionColorPaintNormal>(vertices);
-            indexBuffer = new IndexBuffer(Main.graphics.GraphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
-            indexBuffer.SetData(indices);
 
 
-        }
-
-        public VertexBuffer getVertexBuffer()
-        {
-            return vertexBuffer;
-        }
-
-        public IndexBuffer getIndexBuffer()
-        {
-            return indexBuffer;
-        }
-
-        public void setBuffers(VertexBuffer nVertexBuffer, IndexBuffer nIndexBuffer)
-        {
-            vertexBuffer = nVertexBuffer;
-            indexBuffer = nIndexBuffer;
-            readyToBeDisplayed = true;
-        }
 
 
         public void buildRect(Vector3 loc1, Vector3 loc2, byte type)
@@ -521,11 +478,21 @@ namespace IslandGame.GameWorld
             return result;
         }
 
+        public void setUnmippedBuffers(VertexBuffer nVertexBuffer,IndexBuffer nIndexBuffer)
+        {
+            getUnmippedDisplayer().setBuffers(nVertexBuffer, nIndexBuffer);
+        }
+
+        private PaintedCubeSpaceDisplayComponant getUnmippedDisplayer()
+        {
+            return unMippedDisplayer;
+        }
+
         public Matrix getMatrix()
         {
             Vector3 cubeSpaceOffset = getOffset();
 
-            return  Matrix.CreateScale(scale) * Matrix.CreateTranslation(-cubeSpaceOffset) * Matrix.CreateTranslation(loc)
+            return Matrix.CreateScale(scale ) * Matrix.CreateTranslation(-cubeSpaceOffset) * Matrix.CreateTranslation(loc)
                 * Matrix.CreateTranslation(cubeSpaceOffset)  ;
         }
 
@@ -535,9 +502,9 @@ namespace IslandGame.GameWorld
             /*Quaternion superRotation;
             Vector3 superScale;
             Vector3 superTranslation;
-            superMatrix.Decompose(out superScale,out superRotation, out superTranslation);*/
-            
-            return (Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(-cubeSpaceOffset)
+            worldMatrix.Decompose(out superScale,out superRotation, out superTranslation);*/
+
+            return (Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateScale(scale ) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(-cubeSpaceOffset)
                 * Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateTranslation(loc)) * superMatrix;
         }
 
@@ -776,7 +743,7 @@ namespace IslandGame.GameWorld
             }
             /*if (nearest != null)  //delete found block
             {
-                array[(int)((Vector3)nearest).X, (int)((Vector3)nearest).Y, (int)((Vector3)nearest).Z]=0;
+                unmippedArray[(int)((Vector3)nearest).X, (int)((Vector3)nearest).Y, (int)((Vector3)nearest).Z]=0;
                 createModel(Compositer.device);
             }*/
             return nearest;

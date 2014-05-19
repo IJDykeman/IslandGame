@@ -129,6 +129,7 @@
     <Compile Include="CubeStudioCode\ModelLoader.cs" />
     <Compile Include="CubeStudioCode\MovementTarget.cs" />
     <Compile Include="CubeStudioCode\PositionForTime.cs" />
+    <Compile Include="CubeStudioCode\VertexAndIndexBuffers.cs" />
     <Compile Include="FirstPersonInputHandler.cs" />
     <Compile Include="GameWorld\AxisAlignedBoundingBox.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ActorStateProfile.cs" />

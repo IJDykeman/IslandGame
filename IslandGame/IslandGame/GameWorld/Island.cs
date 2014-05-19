@@ -17,34 +17,49 @@ namespace IslandGame.GameWorld
         SetPieceManager setPieceManager;
         JobSiteManager jobSiteManager;
         IslandGenerator gen;
+        int mipLevel = 0;
 
         IslandGenerator[][] generators;
-        TerrainDifficulty terrainDifficulty;
+        TerrainType terrainDifficulty;
 
 
         public bool hasBeenGenerated = false;
 
 
 
-        public enum TerrainDifficulty
+        public enum TerrainType
         {
             easy,
             medium,
-            hard
+            hard,
+            any,
+            PineForest,
+            PoplarForest,
+            Plains,
+            SmoothWithBluffs
         }
         
 
-        public Island(Vector3 loc, TerrainDifficulty nTerrainDifficulty)
+        public Island(Vector3 loc, TerrainType nTerrainDifficulty)
         {
-            generators = new IslandGenerator[3][];
-            generators[(int)TerrainDifficulty.easy] = new IslandGenerator[]{ 
+            generators = new IslandGenerator[Enum.GetValues(typeof(Island.TerrainType)).Length][];
+            generators[(int)TerrainType.easy] = new IslandGenerator[]{ 
                 new SmoothWithBluffsGenerator(),new PoplarForestGenerator()};
 
-            generators[(int)TerrainDifficulty.medium] = new IslandGenerator[]{ 
+            generators[(int)TerrainType.medium] = new IslandGenerator[]{ 
                 new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator()};
 
-            generators[(int)TerrainDifficulty.hard] = new IslandGenerator[]{ 
+            generators[(int)TerrainType.hard] = new IslandGenerator[]{ 
                 new Volcanic()};
+            generators[(int)TerrainType.any] = new IslandGenerator[]{ 
+                new SmoothWithBluffsGenerator(),new PoplarForestGenerator(), 
+                new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator(),
+                new Volcanic()};
+            generators[(int)TerrainType.PineForest] = new IslandGenerator[]{  new PineForestGenerator()};
+            generators[(int)TerrainType.PoplarForest] = new IslandGenerator[] { new PoplarForestGenerator() };
+            generators[(int)TerrainType.Plains] = new IslandGenerator[] { new PlainsGenerator() };
+            generators[(int)TerrainType.SmoothWithBluffs] = new IslandGenerator[] { new SmoothWithBluffsGenerator() };
+
 
             terrainDifficulty = nTerrainDifficulty;
 
@@ -84,7 +99,8 @@ namespace IslandGame.GameWorld
 
         public void updateMeshes()
         {
-            chunkSpace.updateAllMeshes();
+            chunkSpace.updateAllMeshes(mipLevel);
+            jobSiteManager.updateAllMeshes(mipLevel);
         }
 
         public Vector3 getCenterAtYZero()
@@ -96,7 +112,7 @@ namespace IslandGame.GameWorld
 
         public void setMipLevel(int level)
         {
-            chunkSpace.setMipLevel(level);
+            mipLevel = level;
         }
 
         public void display(GraphicsDevice device, Effect effect)

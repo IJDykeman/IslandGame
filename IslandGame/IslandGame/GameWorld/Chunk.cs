@@ -12,8 +12,7 @@ namespace IslandGame.GameWorld
     class Chunk
     {
         PaintedCubeSpace space;
-        PaintedCubeSpace mippedSpace;
-        public int mipLevel = 0;
+
 
         public Chunk(int nChunkWidth, int nChunkHeight, int xOffset, int zOffset)
         {
@@ -27,58 +26,29 @@ namespace IslandGame.GameWorld
         {
             space.array[x, y, z] = type;
         }
-
-        public void updateMesh()
+        
+        public void updateMesh(int mipLevel)
         {
 
-            if (mippedSpace == null && !space.canBeDrawn())
+            if (!space.canBeDrawn())
             {
                 space.createModel(Compositer.device);
             }
-            else
-            {
-                updateMip();
-            }
-        }
+            space.setMipLevel(mipLevel);
 
+        }
+        
         public void forceUpdateMesh()
         {
             space.createModel(Compositer.device);
-            updateMip();
         }
 
         public bool needsMeshUpdate()
         {
-            if (mippedSpace == null)
-            {
-                return space.canBeDrawn();
-            }
-            return mippedSpace.canBeDrawn();
+            return space.canBeDrawn();
         }
 
-        void setupMippedSpace(int nmipLevel)
-        {
 
-            int scaleDivisor =(int)Math.Pow(2, nmipLevel);
-            byte[, ,] mippedArray = new byte[space.spaceWidth / scaleDivisor, space.spaceHeight / scaleDivisor, space.spaceWidth / scaleDivisor];
-            mippedSpace = new PaintedCubeSpace(space.spaceWidth / scaleDivisor, space.spaceHeight / scaleDivisor, space.loc);
-            for (int x = 0; x < space.spaceWidth; x += scaleDivisor)
-            {
-                for (int y = 0; y < space.spaceHeight; y += scaleDivisor)
-                {
-                    for (int z = 0; z < space.spaceWidth; z += scaleDivisor)
-                    {
-                        mippedArray[x / scaleDivisor, y / scaleDivisor, z / scaleDivisor] = getMostAbundantBlockType(space.array, new IntVector3(x, y, z), scaleDivisor);//space.array[i, y, z];
-                    }
-                }
-            }
-            mippedSpace.array = mippedArray;
-            mippedSpace.createModel(Compositer.device);
-            mippedSpace.scale = scaleDivisor;
-
-            mippedSpace.mipLevel = mipLevel;
-            
-        }
 
         byte getMostAbundantBlockType(byte[, ,] originalArray, IntVector3 locationOfTestArea, int widthOfTestArea)
         {
@@ -120,32 +90,7 @@ namespace IslandGame.GameWorld
         }
 
 
-        public void setMipLevel(int level)
-        {
-            mipLevel = level;
 
-        }
-
-        void updateMip()
-        {
-            if (mipLevel == 0)
-            {
-                mippedSpace = null;
-
-                if (space.canBeDrawn())
-                {
-                    return;
-                }
-
-                
-
-            }
-
-            if (mippedSpace == null || !mippedSpace.canBeDrawn() || mipLevel != mippedSpace.mipLevel)
-            {
-                setupMippedSpace(mipLevel);
-            }
-        }
 
         public void saveChunk(string folderPath)
         {
@@ -160,27 +105,24 @@ namespace IslandGame.GameWorld
 
         public void display(GraphicsDevice device, Effect effect, Vector3 chunkSpaceLocation)
         {
-            
 
-            if (mippedSpace != null && mippedSpace.canBeDrawn())
-            {
-                mippedSpace.drawForChunk(device, effect, getOffsetMatrixForMipLevel() * Matrix.CreateTranslation(chunkSpaceLocation));
-            }
-            else if (space.canBeDrawn())
+            if (space.canBeDrawn())
             {
                 space.drawForChunk(device, effect, Matrix.CreateTranslation(chunkSpaceLocation));
             }
+            
 
         }
 
-        Matrix getOffsetMatrixForMipLevel()
+        /*Matrix getOffsetMatrixForMipLevel()
         {
+
             if (mippedSpace == null)
             {
                 return Matrix.Identity;
             }
             return Matrix.CreateTranslation(new Vector3(0, -(int)Math.Pow(2,mippedSpace.mipLevel) + 1, 0));
-        }
+        }*/
 
         public Vector3? getNearestBlockAlongRayFromInsideChunkSpaceContext(Ray ray)
         {
@@ -202,5 +144,7 @@ namespace IslandGame.GameWorld
         {
             return new BoundingBox(space.loc, space.loc + new Vector3(space.spaceWidth, space.spaceHeight, space.spaceWidth));
         }
+
+
     }
 }

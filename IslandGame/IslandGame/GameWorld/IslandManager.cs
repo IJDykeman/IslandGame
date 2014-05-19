@@ -31,37 +31,55 @@ namespace IslandGame.GameWorld
 
             if (!Player.galleryMode)
             {
-                float islandLocationScalar = 3.0f;
+                float islandLocationScalar = 5.0f;
 
-                generateAndAddIslandToList(new Island(new Vector3(370, 0, 267) * islandLocationScalar, Island.TerrainDifficulty.easy));
+                generateAndAddIslandToList(new Island(new Vector3(370, 0, 267) * islandLocationScalar, Island.TerrainType.PoplarForest));
 
                 Vector3[] islandLocations = new Vector3[] {
                     
                     new Vector3(370, 0, 90),
                     new Vector3(520, 0, 140),
-                    new Vector3(600, 0, 270),
-                    new Vector3(520, 0, 450),
+                    //new Vector3(600, 0, 270),
+                    //new Vector3(520, 0, 450),
                     new Vector3(380, 0, 490),
-                    new Vector3(230, 0, 440),
+                    //new Vector3(230, 0, 440),
                     new Vector3(150, 0, 300),
-                    new Vector3(192, 0, 170)
+                    //new Vector3(192, 0, 170)
                                            };
 
 
                 
                 for (int i=0; i<islandLocations.Length; i++)
                 {
-                    Array values = Enum.GetValues(typeof(Island.TerrainDifficulty));
+                    Array values = Enum.GetValues(typeof(Island.TerrainType));
                     Random random = new Random();
-                    Island.TerrainDifficulty terrainDifficultyToUse = (Island.TerrainDifficulty)values.GetValue(random.Next(values.Length));
+                    Island.TerrainType terrainDifficultyToUse = Island.TerrainType.medium;
+                    //(Island.TerrainType)values.GetValue(random.Next(values.Length));
 
                     Vector3 location = islandLocations[i];
 
-                    if (i == 0) // ifIsStartingIsland  
+                    switch (i)
                     {
-
-                        terrainDifficultyToUse = Island.TerrainDifficulty.easy;
+                        case 0:
+                            terrainDifficultyToUse = Island.TerrainType.hard;
+                            break;
+                        case 1:
+                            terrainDifficultyToUse = Island.TerrainType.PineForest;
+                            break;
+                        case 2:
+                            terrainDifficultyToUse = Island.TerrainType.SmoothWithBluffs;
+                            break;
+                        case 3:
+                            terrainDifficultyToUse = Island.TerrainType.Plains;
+                            break;
+                        case 4:
+                            terrainDifficultyToUse = Island.TerrainType.hard;
+                            break;
+                        case 5:
+                            break;
                     }
+                        
+                    
 
 
                     generationQueue.Add(new Island(location*islandLocationScalar, terrainDifficultyToUse));
@@ -72,7 +90,7 @@ namespace IslandGame.GameWorld
             }
             else
             {
-                generationQueue.Add(new Island(new Vector3(0, 0, 0), Island.TerrainDifficulty.easy));
+                generationQueue.Add(new Island(new Vector3(0, 0, 0), Island.TerrainType.easy));
             }
 
             setUpThreads();
@@ -140,7 +158,7 @@ namespace IslandGame.GameWorld
                             {
                                 islands.Clear();
                             }
-                            Island island = new Island(new Vector3(), Island.TerrainDifficulty.easy);
+                            Island island = new Island(new Vector3(), Island.TerrainType.easy);
                             island.generateWithGenerator(IslandGeneratorLoader.getGenerator());
                             lock (islands)
                             {
@@ -210,7 +228,7 @@ namespace IslandGame.GameWorld
         {
 
             //TODO parametrize island aspects
-            generationQueue.Add(new Island(new Vector3(location.X, 0, location.Y), Island.TerrainDifficulty.easy));
+            generationQueue.Add(new Island(new Vector3(location.X, 0, location.Y), Island.TerrainType.easy));
 
         }
 
@@ -268,7 +286,7 @@ namespace IslandGame.GameWorld
 
         int getMipLevelAtDistance(int distance)
         {
-            return distance / 700;
+            return distance / 400;
         }
 
         public Vector3? getNearestBlockHit(Ray ray)

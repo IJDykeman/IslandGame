@@ -307,7 +307,7 @@ namespace CubeAnimator
         {
             if (toReplace == this)
             {
-                //model.replaceArrayWith(replacement.array);
+                //model.replaceArrayWith(replacement.unmippedArray);
                 type = replacement;
                 return;
             }
@@ -368,6 +368,15 @@ namespace CubeAnimator
             return null;
         }
 
+        public void setMipRecursive(int mipLevel)
+        {
+            model.setMipLevel(mipLevel);
+            foreach (BodyPart child in children)
+            {
+                child.setMipRecursive(mipLevel);
+            }
+        }
+
         public void setScale(float nScale)
         {
             if (nScale > 0)
@@ -390,6 +399,8 @@ namespace CubeAnimator
         {
             return model.loc;
         }
+
+
 
     }
 }

@@ -336,7 +336,7 @@ namespace IslandGame.GameWorld
         {
             foreach (JobSite test in jobSites)
             {
-                test.chopBlock(blockLoc);
+                rescourcesOnThisIsland.addRescources(test.chopBlockAndGetRescources(blockLoc));
             }
         }
 
@@ -367,7 +367,7 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        internal void acceptStrikeAt(BlockLoc blockLoc, JobType jobType)
+        public void acceptStrikeAt(BlockLoc blockLoc, JobType jobType)
         {
             switch (jobType)
             {
@@ -377,6 +377,14 @@ namespace IslandGame.GameWorld
                 case JobType.logging:
                     chopBlock(blockLoc);
                     break;
+            }
+        }
+
+        public void updateAllMeshes(int mipLevel)
+        {
+            foreach (JobSite toMeshUpdate in jobSites)
+            {
+                toMeshUpdate.updateMesh(mipLevel);
             }
         }
     }
