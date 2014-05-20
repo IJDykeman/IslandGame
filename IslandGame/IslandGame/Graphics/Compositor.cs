@@ -77,7 +77,7 @@ namespace IslandGame
             lightDirection.Normalize();
             lightDirection *= (float).3f;
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(.7f);
+            effect.Parameters["xAmbient"].SetValue(.8f);
             effect.Parameters["xOpacity"].SetValue(1f);
             effect.Parameters["xCamPos"].SetValue(player.getCameraLoc());
 

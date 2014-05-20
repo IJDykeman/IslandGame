@@ -227,7 +227,7 @@ namespace IslandGame
 
                            foreach (BlockLoc test in draggedBlocks)
                            {
-                                   WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\worldMarkup\farmMarker.chr",
+                                   WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"worldMarkup\farmMarker.chr",
                                        test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
                            }
                         }

@@ -20,6 +20,7 @@ namespace IslandGame
         public static Texture2D crossReticle;
         public static Texture2D random;
         public static SpriteFont techFont;
+        static string cubeStudioRootPath = @"C:\Users\Public\CubeStudio\";
 
         public static void loadContent(ContentManager content)
         {
@@ -46,6 +47,11 @@ namespace IslandGame
             crossReticle = content.Load<Texture2D>("UI/crossReticle");
 
             techFont = content.Load<SpriteFont>("SpriteFont1");
+        }
+
+        public static string getRootPath()
+        {
+            return cubeStudioRootPath;
         }
     }
 }

@@ -13,12 +13,13 @@ namespace IslandGame.menus
         public Color[] colorArray;
         byte selectedBlock;
 
-        readonly int colorPickerBlockWidth = 28;
-        readonly int colorPickerBlockHeight = 21;
+        readonly int colorPickerBlockWidth;
+        readonly int colorPickerBlockHeight;
 
         public ColorPallete(Texture2D nTexture, Texture2D nHighlightBoxTexture, Vector2 nLoc)
         {
-
+            colorPickerBlockWidth = ContentDistributor.colorPallete.Width / 16;
+            colorPickerBlockHeight = ContentDistributor.colorPallete.Height / 16;
             highlightBoxTexture = nHighlightBoxTexture;
             texture = nTexture;
             location = nLoc;
