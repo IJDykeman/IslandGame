@@ -20,6 +20,7 @@ namespace IslandGame.GameWorld
 
         public void display(GraphicsDevice device, Effect effect, Character playerIsInhabiting)
         {
+
             foreach (Actor test in actors)
             {
                 if (test != playerIsInhabiting)

@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\NewGameButton.xnb</Output>
-      <Time>2014-05-12T22:36:25.7896533-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\NewGameButton.xnb</Output>
+      <Time>2014-05-19T17:58:27.4569912-04:00</Time>
     </Item>
     <Item>
       <Source>UI\QuitButton.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\QuitButton.xnb</Output>
-      <Time>2014-05-12T22:39:44.3530105-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\QuitButton.xnb</Output>
+      <Time>2014-05-19T17:58:27.4569912-04:00</Time>
     </Item>
     <Item>
       <Source>UI\consoleBGPixel.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\consoleBGPixel.xnb</Output>
-      <Time>2014-01-30T17:43:08-05:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\consoleBGPixel.xnb</Output>
+      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
     </Item>
     <Item>
       <Source>UI\SaveGameButton.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\SaveGameButton.xnb</Output>
-      <Time>2014-05-12T22:41:01.7534375-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\SaveGameButton.xnb</Output>
+      <Time>2014-05-19T17:58:27.4579913-04:00</Time>
     </Item>
     <Item>
       <Source>UI\LoadGameButton.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\LoadGameButton.xnb</Output>
-      <Time>2014-05-12T22:37:22.7259099-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\LoadGameButton.xnb</Output>
+      <Time>2014-05-19T17:58:27.4559912-04:00</Time>
     </Item>
     <Item>
       <Source>UI\continueButton.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\continueButton.xnb</Output>
-      <Time>2014-05-12T22:36:04.8414551-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\continueButton.xnb</Output>
+      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
     </Item>
     <Item>
       <Source>UI\crossReticle.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\crossReticle.xnb</Output>
-      <Time>2014-01-30T17:43:10-05:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\crossReticle.xnb</Output>
+      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
     </Item>
     <Item>
       <Source>random.png</Source>
@@ -73,8 +73,8 @@
         <Data Key="GenerateMipmaps">True</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\random.xnb</Output>
-      <Time>2014-01-30T17:43:05-05:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\random.xnb</Output>
+      <Time>2014-05-19T17:58:27.4809926-04:00</Time>
     </Item>
     <Item>
       <Source>UI\excavationIcon.png</Source>
@@ -82,8 +82,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\excavationIcon.xnb</Output>
-      <Time>2014-05-13T09:40:53.1888848-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\excavationIcon.xnb</Output>
+      <Time>2014-05-19T17:58:27.4609915-04:00</Time>
     </Item>
     <Item>
       <Source>UI\farmIcon.png</Source>
@@ -91,8 +91,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\farmIcon.xnb</Output>
-      <Time>2014-05-13T09:40:53.2278871-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\farmIcon.xnb</Output>
+      <Time>2014-05-19T17:58:27.4609915-04:00</Time>
     </Item>
     <Item>
       <Source>UI\woodBlockIcon.png</Source>
@@ -100,8 +100,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodBlockIcon.xnb</Output>
-      <Time>2014-05-13T09:40:53.2878905-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodBlockIcon.xnb</Output>
+      <Time>2014-05-19T17:58:27.4739922-04:00</Time>
     </Item>
     <Item>
       <Source>UI\colorsImage.png</Source>
@@ -109,8 +109,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorsImage.xnb</Output>
-      <Time>2014-03-15T17:24:22.2328552-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorsImage.xnb</Output>
+      <Time>2014-05-19T17:58:27.4589913-04:00</Time>
     </Item>
     <Item>
       <Source>UI\colorSwatchHighlightBox.png</Source>
@@ -118,8 +118,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchHighlightBox.xnb</Output>
-      <Time>2014-03-15T17:24:27.6091627-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchHighlightBox.xnb</Output>
+      <Time>2014-05-19T17:58:27.4589913-04:00</Time>
     </Item>
     <Item>
       <Source>UI\playerBuildIcon.png</Source>
@@ -127,8 +127,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\playerBuildIcon.xnb</Output>
-      <Time>2014-05-13T09:40:53.2658892-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\playerBuildIcon.xnb</Output>
+      <Time>2014-05-19T17:58:27.4729921-04:00</Time>
     </Item>
     <Item>
       <Source>UI\boatIcon.png</Source>
@@ -136,8 +136,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\boatIcon.xnb</Output>
-      <Time>2014-05-13T09:40:53.1468824-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\boatIcon.xnb</Output>
+      <Time>2014-05-19T17:58:27.4579913-04:00</Time>
     </Item>
     <Item>
       <Source>UI\MainMenuBackground.png</Source>
@@ -145,8 +145,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\MainMenuBackground.xnb</Output>
-      <Time>2014-05-13T00:39:47.4880062-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\MainMenuBackground.xnb</Output>
+      <Time>2014-05-19T17:58:27.4559912-04:00</Time>
     </Item>
     <Item>
       <Source>effects.fx</Source>
@@ -154,8 +154,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-05-16T22:29:09.5211584-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
+      <Time>2014-05-19T17:58:27.4739922-04:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -163,8 +163,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
-      <Time>2014-03-15T16:04:48.3308036-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
+      <Time>2014-05-19T17:58:27.4809926-04:00</Time>
     </Item>
     <Item>
       <Source>SpriteFont1.spritefont</Source>
@@ -172,8 +172,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2014-01-30T17:43:06-05:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2014-05-19T17:58:27.4539911-04:00</Time>
     </Item>
     <Item>
       <Source>sphere.x</Source>
@@ -181,11 +181,11 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sphere.xnb</Output>
-      <Time>2014-03-15T14:29:46.1796592-04:00</Time>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sphere.xnb</Output>
+      <Time>2014-05-19T17:58:27.4849928-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\sphere_0.xml</Key>
-        <Value>2014-05-16T22:05:09.537796-04:00</Value>
+        <Value>2014-05-19T18:00:11.4309382-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -193,7 +193,7 @@
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\sphere_0.xml</Output>
-      <Time>2014-03-15T14:29:46.1796592-04:00</Time>
+      <Time>2014-05-19T17:58:27.4849928-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -201,10 +201,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGameContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGameContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Isaac\Google Drive\Computer_Science\aXNA\IslandGameGit\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGameContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGameContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
