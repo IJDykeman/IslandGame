@@ -20,7 +20,7 @@ namespace IslandGame
             cloudManager = new CloudManager();
             skyEffect = content.Load<Effect>("sky");
             sphere = content.Load<Model>("sphere");
-            //sphere.Meshes[0].Effects = new ModelEffectCollection();
+            //plane.Meshes[0].Effects = new ModelEffectCollection();
         }
 
         public void draw(GraphicsDevice device, Effect effect, Matrix view, Matrix projection, Vector3 centerLocation)
@@ -38,7 +38,7 @@ namespace IslandGame
                 }
                 mesh.Draw();
             }
-            //sphere.Draw(Matrix.CreateTranslation(0,0,0)* Matrix.CreateScale(30),view, projection);
+            //plane.Draw(Matrix.CreateTranslation(0,0,0)* Matrix.CreateScale(30),view, projection);
         }
     }
 }

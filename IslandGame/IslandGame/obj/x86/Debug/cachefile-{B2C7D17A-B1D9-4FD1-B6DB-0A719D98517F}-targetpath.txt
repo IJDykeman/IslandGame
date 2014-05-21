@@ -18,3 +18,5 @@ Content\effects.xnb
 Content\sky.xnb
 Content\SpriteFont1.xnb
 Content\sphere.xnb
+Content\Ocean.xnb
+Content\plane.xnb

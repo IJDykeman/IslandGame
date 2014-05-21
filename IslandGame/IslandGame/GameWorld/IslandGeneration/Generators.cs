@@ -693,7 +693,7 @@ namespace IslandGame.GameWorld
                         {
                             if (y <= 1)
                             {
-                                chunkSpace.setBlockAt(56, x, y, z);//sand
+                                chunkSpace.setBlockAt(53, x, y, z);//sand
                             }
                             else
                             {
@@ -713,7 +713,7 @@ namespace IslandGame.GameWorld
 
                                         else
                                         {
-                                            chunkSpace.setBlockAt(249, x, y, z);
+                                            chunkSpace.setBlockAt(60, x, y, z);
                                         }
                                     }
                                     else
@@ -722,8 +722,8 @@ namespace IslandGame.GameWorld
                                         {
                                             setPieceManager.placeDecorativePlant(new BlockLoc(locationProfile.profileSpaceToWorldSpace(new IntVector3(x, y, z).toVector3())));
                                         }
-
-                                        chunkSpace.setBlockAt((y > 2) ? (byte)184 : (byte)194, x, y, z);
+                                        byte grassPick = ((float)NoiseGenerator.Noise(z*3 + 443, x*3 + 72)+rand.NextDouble()*.1>0) ? (byte)184 : (byte)200;
+                                        chunkSpace.setBlockAt((y > 2) ? (byte)grassPick : (byte)199, x, y, z);
                                     }
 
                                 }

@@ -274,17 +274,3 @@ technique PointSprites
 }
 
 
-PixelToFrame  GreyscaleToBrownsalePS(VertexToPixel PSIn) : COLOR0
-{
-    PixelToFrame Output = (PixelToFrame)0;
-    Output.Color = tex2D(TextureSampler, PSIn.TextureCoords);
-    return Output;
-}
-
-technique GreyscaleToBrownsale
-{
-	pass Pass0
-	{   
-		PixelShader  = compile ps_2_0 GreyscaleToBrownsalePS();
-	}
-}

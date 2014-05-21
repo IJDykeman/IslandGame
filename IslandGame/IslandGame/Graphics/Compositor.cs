@@ -20,6 +20,7 @@ namespace IslandGame
         public static Matrix projectionMatrix;
         public static Effect effect;
         static Sky sky;
+        static Ocean ocean;
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
 
@@ -40,6 +41,9 @@ namespace IslandGame
             sky = new Sky();
             sky.loadContent(content);
 
+            ocean = new Ocean();
+            ocean.loadContent(content);
+
         }
 
         public static void drawFinalImageFirst(Player player, bool isAnimating)
@@ -56,9 +60,6 @@ namespace IslandGame
             device.DepthStencilState = new DepthStencilState()
             {
                 DepthBufferEnable = true
-
-
-
             };
             RasterizerState rs = new RasterizerState();
 
@@ -77,7 +78,7 @@ namespace IslandGame
             lightDirection.Normalize();
             lightDirection *= (float).3f;
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(.8f);
+            effect.Parameters["xAmbient"].SetValue(.9f);
             effect.Parameters["xOpacity"].SetValue(1f);
             effect.Parameters["xCamPos"].SetValue(player.getCameraLoc());
 
@@ -95,7 +96,6 @@ namespace IslandGame
 
             player.display3D();
 
-            displayOcean(player.getCameraLoc());
 
             //effect.Parameters["xOpacity"].SetValue(.4f);
             foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
@@ -113,6 +113,7 @@ namespace IslandGame
             Random rand = new Random();
 
 
+            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc());
 
             sky.draw(device, effect, viewMatrix, projectionMatrix, player.getCameraLoc());
 
@@ -257,13 +258,6 @@ namespace IslandGame
             return device.Viewport.Height;
         }
 
-        static void displayOcean(Vector3 center)
-        {
-            float oceanWidth = 100;
-            AnimatedBodyPartGroup ocean = new AnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\world_decoration\blueCubeAtYNeg1.chr", oceanWidth);
-            ocean.setRootPartLocation(new Vector3(center.X, -oceanWidth/2.0f+.6f, center.Z));
-            addAnimatedBodyPartGroupForThisFrame(ocean);
 
-        }
     }
 }
