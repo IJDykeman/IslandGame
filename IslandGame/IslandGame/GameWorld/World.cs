@@ -13,12 +13,14 @@ namespace IslandGame.GameWorld
     {
         IslandManager islandManager;
         ActorManager actorManager;
+        GameDirector gameDirector;
 
 
         public World()
         {
             setupIslandManager();
             actorManager = new ActorManager();
+            gameDirector = new GameDirector();
 
         }
 
@@ -30,6 +32,8 @@ namespace IslandGame.GameWorld
 
         public void update()
         {
+            gameDirector.update();
+            Compositer.setSkyColors(gameDirector.getSkyHorizonColor(), gameDirector.getSkyZenithColor(), gameDirector.getAmbientBrighness());
             handleActorActions(actorManager.update());
             islandManager.update();
         }

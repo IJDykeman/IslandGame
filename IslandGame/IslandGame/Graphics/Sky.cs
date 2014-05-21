@@ -40,5 +40,11 @@ namespace IslandGame
             }
             //plane.Draw(Matrix.CreateTranslation(0,0,0)* Matrix.CreateScale(30),view, projection);
         }
+
+        public void setColors(Vector4 horizonColor, Vector4 zenithColor)
+        {
+            skyEffect.Parameters["HorizonColor"].SetValue(horizonColor);
+            skyEffect.Parameters["ZenithColor"].SetValue(zenithColor);
+        }
     }
 }

@@ -1,6 +1,8 @@
 float4x4 World;
 float4x4 View;
 float4x4 Projection;
+float4 HorizonColor;
+float4 ZenithColor;
 
 
 // TODO: add effect parameters here.
@@ -32,8 +34,8 @@ VertexToPixel VertexShaderFunction( float4 inPos : POSITION, float4 inColor : CO
 PixelToFrame PixelShaderFunction(VertexToPixel PSIn)
 {
 	PixelToFrame Output = (PixelToFrame)0;    
-	float4 horizonColor = float4(.392,.584,.733,1);
-	float4 highColor = float4(.019,.243,.549,1)*1.7;
+	float4 horizonColor = HorizonColor;
+	float4 highColor = ZenithColor;
 	float y = PSIn.Position3D.y;
 	y = clamp(y,0,10000000);
 	float heightFactor = pow(y/500.0,.6);

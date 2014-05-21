@@ -21,6 +21,7 @@ namespace IslandGame
         public static Effect effect;
         static Sky sky;
         static Ocean ocean;
+        static float ambientBrightness = .9f;
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
 
@@ -78,7 +79,7 @@ namespace IslandGame
             lightDirection.Normalize();
             lightDirection *= (float).3f;
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(.9f);
+            effect.Parameters["xAmbient"].SetValue(ambientBrightness);
             effect.Parameters["xOpacity"].SetValue(1f);
             effect.Parameters["xCamPos"].SetValue(player.getCameraLoc());
 
@@ -113,7 +114,7 @@ namespace IslandGame
             Random rand = new Random();
 
 
-            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc());
+            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc(),ambientBrightness);
 
             sky.draw(device, effect, viewMatrix, projectionMatrix, player.getCameraLoc());
 
@@ -256,6 +257,12 @@ namespace IslandGame
         internal static int getScreenHeight()
         {
             return device.Viewport.Height;
+        }
+
+        public static void setSkyColors(Vector4 horizonColor, Vector4 zenithColor, float nambientBrightness)
+        {
+            sky.setColors(horizonColor, zenithColor);
+            ambientBrightness = nambientBrightness;
         }
 
 

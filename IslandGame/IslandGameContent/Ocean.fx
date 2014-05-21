@@ -2,7 +2,7 @@ float4x4 xWorld;
 float4x4 View;
 float4x4 Projection;
 float3 CameraLoc;
-
+float xAmbient;
 
 // TODO: add effect parameters here.
 
@@ -34,7 +34,7 @@ PixelToFrame OceanPixelShaderFunction(VertexToPixel PSIn)
 {
 	PixelToFrame Output = (PixelToFrame)0;    
 
-     Output.Color = float4(0,.2588,.4274,1);
+     Output.Color = float4(0,.2588,.4274,1)*xAmbient;
 	 Output.Color.a = 1;
      return Output;
 }

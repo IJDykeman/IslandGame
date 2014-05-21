@@ -168,7 +168,9 @@
     <Compile Include="GameWorld\Chunk.cs" />
     <Compile Include="GameWorld\ColorPallete.cs" />
     <Compile Include="GameWorld\CharactersAndAI\FarmJob.cs" />
+    <Compile Include="GameWorld\DayNightCycler.cs" />
     <Compile Include="GameWorld\DecorativePlant.cs" />
+    <Compile Include="GameWorld\GameDirector.cs" />
     <Compile Include="GameWorld\IslandGeneration\Generators.cs" />
     <Compile Include="GameWorld\IslandGeneration\IslandGenerator.cs" />
     <Compile Include="GameWorld\IslandGeneration\IslandGeneratorLoader.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="GameWorld\SetPiece.cs" />
     <Compile Include="GameWorld\SetPieceManager.cs" />
     <Compile Include="GameWorld\structs.cs" />
+    <Compile Include="GameWorld\TimeOfDay.cs" />
     <Compile Include="GameWorld\WorldPathingProfile.cs" />
     <Compile Include="Graphics\LocationInterpolator.cs" />
     <Compile Include="menus\Image.cs" />

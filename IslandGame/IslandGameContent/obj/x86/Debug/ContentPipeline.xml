@@ -155,7 +155,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-05-21T09:17:41.3445988-04:00</Time>
+      <Time>2014-05-21T11:05:54.7810922-04:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -164,7 +164,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
-      <Time>2014-05-19T17:58:27.4809926-04:00</Time>
+      <Time>2014-05-21T10:29:16.6143569-04:00</Time>
     </Item>
     <Item>
       <Source>SpriteFont1.spritefont</Source>
@@ -202,7 +202,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\Ocean.xnb</Output>
-      <Time>2014-05-21T10:03:43.1256185-04:00</Time>
+      <Time>2014-05-21T11:04:29.0401881-04:00</Time>
     </Item>
     <Item>
       <Source>plane.x</Source>

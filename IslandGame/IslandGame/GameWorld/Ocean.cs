@@ -23,7 +23,7 @@ namespace IslandGame.GameWorld
             //plane.Meshes[0].Effects = new ModelEffectCollection();
         }
 
-        public void draw(GraphicsDevice device,  Matrix view, Matrix projection, Vector3 centerLocation)
+        public void draw(GraphicsDevice device,  Matrix view, Matrix projection, Vector3 centerLocation, float ambientBrightness)
         {
 
 
@@ -34,6 +34,7 @@ namespace IslandGame.GameWorld
                     part.Effect = skyEffect;
                     skyEffect.Parameters["xWorld"].SetValue(Matrix.CreateScale(100, 1, 100) * Matrix.CreateTranslation(new Vector3(centerLocation.X, .5f, centerLocation.Z)) * mesh.ParentBone.Transform);
                     skyEffect.Parameters["View"].SetValue(view);
+                    skyEffect.Parameters["xAmbient"].SetValue(ambientBrightness);
                     skyEffect.Parameters["Projection"].SetValue(projection);
                 }
                 mesh.Draw();

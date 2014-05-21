@@ -100,7 +100,8 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
 	Output.Color.rgb *=  (PSIn.LightingFactor  +xAmbient)*saturate(   ((-1.2)*(pow(PSIn.Color.r*4,1)/6) + 1) );
 	//Output.Color.rgb *= tex2D(TextureSampler, float2(PSIn.Position.x+PSIn.TextureCoords.y,PSIn.TextureCoords.y));
 
-	float4 fogColor = float4(.392,.573,.722,1);
+	float4 fogColor = float4(.392,.573,.722,1)*xAmbient;
+	//fogColor.a=1;
 	float distanceFactor = (sqrt(pow(xCamPos.x-PSIn.Position3D.x,2) + pow(xCamPos.y-PSIn.Position3D.y,2) + pow(xCamPos.z-PSIn.Position3D.z,2))-1000)/400.0;
 	distanceFactor = clamp(distanceFactor,0,1);
     Output.Color = fogColor*distanceFactor + Output.Color*(1.0-distanceFactor);
