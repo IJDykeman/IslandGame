@@ -60,6 +60,35 @@ namespace IslandGame.GameWorld
                 priorityQueue.AddLast(toInsert);
             }
         }
+
+        public bool contains(PathNode toAdd)
+        {
+            return priorityQueue.Contains(toAdd);
+        }
+
+        public bool hasNodeWithLoc(BlockLoc toAdd)
+        {
+            foreach (PathNode test in priorityQueue)
+            {
+                if (test.loc.Equals(toAdd))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public PathNode getNodeWithLoc(BlockLoc toAdd)
+        {
+            foreach (PathNode test in priorityQueue)
+            {
+                if (test.loc.Equals(toAdd))
+                {
+                    return test;
+                }
+            }
+            return null;
+        }
     }
 
 }

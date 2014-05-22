@@ -13,6 +13,7 @@ namespace IslandGame.GameWorld
         WaitJob currentWait = null;
         Character character;
         BlockLoc currentGoalBlock;
+        bool hasFailedToFindBlock = false;
 
 
         public FarmJob(Farm nFarm, Character nCharacter)
@@ -107,16 +108,20 @@ namespace IslandGame.GameWorld
             {
                 currentGoalBlock = currentWalkJob.getGoalBlock();
             }
+            else
+            {
+                hasFailedToFindBlock = true;
+            }
         }
 
         public override bool isComplete()
         {
-            return false;
+            return hasFailedToFindBlock;
         }
 
         public override bool isUseable()
         {
-            return true;
+            return !hasFailedToFindBlock;
         }
 
         public override BlockLoc? getCurrentGoalBlock()

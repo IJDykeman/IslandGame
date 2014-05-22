@@ -50,21 +50,23 @@ namespace IslandGame.GameWorld
 
             PathNodePriorityQueue openNodes = new PathNodePriorityQueue();
             HashSet<BlockLoc> visitedLocations = new HashSet<BlockLoc>();
+            
 
             openNodes.insertNode(new PathNode(null, startLoc, 0, goals.First()));
 
             IslandPathingProfile profile = startProfile;
             while (openNodes.size() > 0)
             {
+                //return null;
                 PathNode from = openNodes.pop();
 
                 List<BlockLoc> nextSteps = profile.getSpacesThatCanBeMovedToFrom(from.loc, heightOfEntity);
 
-                //adding new nodes to the openNodes unmippedArray
+                //adding new nodes to the openNodes array
+                
                 foreach (BlockLoc next in nextSteps)
                 {
-                    if (!visitedLocations.Contains(next))
-                    {
+
 
                         PathNode toAdd = new PathNode(from, next, from.costToGetHere + 1, goals.First());
 
@@ -74,18 +76,40 @@ namespace IslandGame.GameWorld
                             finalPath.RemoveAt(0);
                             finalPath.Add(toAdd.loc);
 
-                            
+
                             Console.WriteLine(finalPath.Count);
                             return finalPath;
                         }
 
-                        openNodes.insertNode(toAdd);
-                        visitedLocations.Add(next);
+                        bool skipThis = false;
+                        PathNode alreadyInOpenNodes = openNodes.getNodeWithLoc(toAdd.loc);
+                        if (alreadyInOpenNodes != null)
+                        {
+                            //if (alreadyInOpenNodes.costToGetHere < toAdd.costToGetHere)
+                           // {
+                                skipThis = true;
+                            //}
+                        }
 
-                    }
+                        if ( visitedLocations.Contains(toAdd.loc))
+                        {
+
+                            skipThis = true;
+                        }
+
+                        if (!skipThis)
+                        {
+                            openNodes.insertNode(toAdd);
+                        }
+
+                      
+                    
+                        
+
                 }
+                visitedLocations.Add(from.loc);
 
-
+                //return null;
 
             }
             return null;//no path found

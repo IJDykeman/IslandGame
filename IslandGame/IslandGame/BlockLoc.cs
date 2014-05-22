@@ -110,6 +110,29 @@ namespace IslandGame
             return toHash.GetHashCode();
         }
 
+        public override bool Equals(System.Object obj)
+    
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            else if (obj is BlockLoc)
+            {
+                BlockLoc value2 = (BlockLoc)obj;
+                return (worldSpaceX == value2.worldSpaceX &&
+                    worldSpaceY == value2.worldSpaceY &&
+                    worldSpaceZ == value2.worldSpaceZ);
+            }
+            else
+            {
+                return false;
+            }
+
+
+            
+        }
+
         public static bool operator ==(BlockLoc value1, BlockLoc value2)
         {
             return value1.worldSpaceX == value2.worldSpaceX &&

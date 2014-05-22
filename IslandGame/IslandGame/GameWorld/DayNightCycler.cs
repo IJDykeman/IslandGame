@@ -10,26 +10,26 @@ namespace IslandGame.GameWorld
     {
         TimeOfDay[] timesOfDay;
 
-        int timeLeftInCurrentTimeOfDay = 70;
+        float timeLeftInCurrentTimeOfDayInSeconds = 0;
         int placeInList = 0;
 
         public DayNightCycler()
         {
-            TimeOfDay morning = new TimeOfDay(new Vector4(.498f, .1843f, .0627f, 1), new Vector4(.0863f, .098f, .1569f, 1), .4f);
-            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f);
-            TimeOfDay evening = new TimeOfDay(new Vector4(.694f, .416f, .306f, 1), new Vector4(.0588f, .2706f, .512f, 1), .4f);
-            TimeOfDay night = new TimeOfDay(new Vector4(0, 0, 0, 1), new Vector4(0, 0, 0, 1), .2f);
+            TimeOfDay morning = new TimeOfDay(new Vector4(.498f, .1843f, .0627f, 1), new Vector4(.0863f, .098f, .1569f, 1), .4f, 4);
+            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f, 4);
+            TimeOfDay evening = new TimeOfDay(new Vector4(.694f, .416f, .306f, 1), new Vector4(.0588f, .2706f, .512f, 1), .4f, 4);
+            TimeOfDay night = new TimeOfDay(new Vector4(0, 0, 0, 1), new Vector4(0, 0, 0, 1), .2f, 4);
 
             timesOfDay = new TimeOfDay []{ morning, broadDay, evening,night };
         }
 
         public void update()
         {
-            timeLeftInCurrentTimeOfDay--;
-            if (timeLeftInCurrentTimeOfDay <= 0)
+            timeLeftInCurrentTimeOfDayInSeconds-= 1/60.0f;
+            if (timeLeftInCurrentTimeOfDayInSeconds <= 0)
             {
                 incrementPlaceInList();
-                timeLeftInCurrentTimeOfDay = 70;
+                timeLeftInCurrentTimeOfDayInSeconds = getCurrentTimeOfDay().getLengthInSeconds();
             }
         }
 
@@ -60,7 +60,7 @@ namespace IslandGame.GameWorld
 
         private float getSkyBlendRatio()
         {
-            float ratio = (70.0f-timeLeftInCurrentTimeOfDay) / 70.0f;
+            float ratio = (getCurrentTimeOfDay().getLengthInSeconds() - timeLeftInCurrentTimeOfDayInSeconds) / getCurrentTimeOfDay().getLengthInSeconds();
             return ratio;
         }
 
