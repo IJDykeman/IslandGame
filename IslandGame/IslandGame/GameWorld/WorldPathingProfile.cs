@@ -14,7 +14,10 @@ namespace IslandGame.GameWorld
             islandManager = nIslandManager;
         }
 
-
+        protected override bool isInProfileScope(BlockLoc loc)
+        {
+            return true;
+        }
 
         public override bool isProfileSolidAt(BlockLoc loc)
         {

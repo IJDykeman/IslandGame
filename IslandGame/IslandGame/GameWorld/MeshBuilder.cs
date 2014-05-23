@@ -41,17 +41,17 @@ namespace IslandGame.GameWorld
         /*
 
 
-                    drawFront(space, indexList, vertexList, IslandSpace, AOarray[2]);
+                    drawFront(space, indexList, vertexList, loc, AOarray[2]);
 
-                    drawBack(space, indexList, vertexList, IslandSpace, AOarray[2]);
+                    drawBack(space, indexList, vertexList, loc, AOarray[2]);
 
-                    drawRight(space, indexList, vertexList, IslandSpace, AOarray[0]);
+                    drawRight(space, indexList, vertexList, loc, AOarray[0]);
 
-                    drawLeft(space, indexList, vertexList, IslandSpace, AOarray[0]);
+                    drawLeft(space, indexList, vertexList, loc, AOarray[0]);
 
-                    drawBottom(space, indexList, vertexList, IslandSpace, AOarray[1]);
+                    drawBottom(space, indexList, vertexList, loc, AOarray[1]);
 
-                    drawTop(space, indexList, vertexList, IslandSpace, AOarray[1]);
+                    drawTop(space, indexList, vertexList, loc, AOarray[1]);
         */
 
 

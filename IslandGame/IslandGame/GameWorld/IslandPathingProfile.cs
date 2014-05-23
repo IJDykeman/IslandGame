@@ -86,7 +86,7 @@ namespace IslandGame.GameWorld
         public bool isStandableAtWithHeight(BlockLoc IslandSpace, int entityHeight)
         {
             BlockLoc underFoot = new BlockLoc(IslandSpace.WSX(), IslandSpace.WSY() - 1, IslandSpace.WSZ());//locInPath + new IntVector3(0, -1, 0);
-            if (!isProfileSolidAt(IslandSpace))
+            if (!isProfileSolidAt(IslandSpace) && isInProfileScope(IslandSpace))
             {
                 if (isProfileSolidAt(underFoot))
                 {
@@ -139,17 +139,28 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public bool isSwimableAtWithHeightAndWithinIsland(BlockLoc loc, int entityHeight)
+        {
+
+            return isSwimableAtWithHeight(loc, entityHeight) && isInProfileScope(loc);
+        }
+
         private bool withinIsland(IntVector3 loc)
         {
             return chunkSpace.withinChunkSpaceInChunkSpace((int)loc.X, (int)loc.Y, (int)loc.Z);
         }
 
+        protected virtual bool isInProfileScope(BlockLoc loc)
+        {
+            return chunkSpace.withinChunkSpaceInChunkSpace((int)loc.toISIntVec3(this).X, (int)loc.toISIntVec3(this).Y, (int)loc.toISIntVec3(this).Z);
+        }
+
         public List<BlockLoc> getSpacesThatCanBeMovedToFrom(BlockLoc from, int entityHeight)
         {
-            List<BlockLoc> result = new List<BlockLoc>(4);
+            List<BlockLoc> result = new List<BlockLoc>(8);
             foreach (IntVector3 move in possibleMoves)
             {
-                if (isStandableAtWithHeight(BlockLoc.AddIntVec3(from, move), entityHeight) || isSwimableAtWithHeight(BlockLoc.AddIntVec3(from, move), entityHeight))
+                if (isStandableAtWithHeight(BlockLoc.AddIntVec3(from, move), entityHeight) || isSwimableAtWithHeightAndWithinIsland(BlockLoc.AddIntVec3(from, move), entityHeight))
                 {
                     result.Add(BlockLoc.AddIntVec3(from, move));
                 }
