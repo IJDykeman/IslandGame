@@ -11,14 +11,16 @@ namespace IslandGame.GameWorld
         Vector4 skyHorizonColor;
         Vector4 skyZenithColor;
         float ambientBrightness;
-        float lengthInSeconds = 100; 
+        float lengthInSeconds = 100;
+        bool spawnsMonsters = false;
 
-        public TimeOfDay(Vector4 nHorizonColor, Vector4 nZenithColor, float nAmbientBrightness, float nNumSeconds)
+        public TimeOfDay(Vector4 nHorizonColor, Vector4 nZenithColor, float nAmbientBrightness, float nNumSeconds, bool nSpawnsMonsters)
         {
             skyHorizonColor = nHorizonColor;
             skyZenithColor = nZenithColor;
             ambientBrightness = nAmbientBrightness;
             lengthInSeconds = nNumSeconds;
+            spawnsMonsters = nSpawnsMonsters;
         }
 
         public Vector4 getSkyHorizonColor()
@@ -40,6 +42,11 @@ namespace IslandGame.GameWorld
         internal float getLengthInSeconds()
         {
             return lengthInSeconds;
+        }
+
+        public bool monstersSpawnAtThisTime()
+        {
+            return spawnsMonsters;
         }
     }
 }

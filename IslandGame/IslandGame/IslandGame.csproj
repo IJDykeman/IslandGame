@@ -180,11 +180,11 @@
     <Compile Include="GameWorld\LocationInterpolator.cs" />
     <Compile Include="GameWorld\MeshBuilder.cs" />
     <Compile Include="GameWorld\PaintedCubeSpaceDisplayComponant.cs" />
-    <Compile Include="GameWorld\PathHandler.cs" />
-    <Compile Include="GameWorld\PathHandlerPreferringLowerBlocks.cs" />
-    <Compile Include="GameWorld\PathNode.cs" />
-    <Compile Include="GameWorld\PathNodePriorityQueue.cs" />
-    <Compile Include="GameWorld\PathNodeWithSecondarySearchGoal.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\PathHandler.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\PathHandlerPreferringLowerBlocks.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\PathNode.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\PathNodePriorityQueue.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\PathNodeWithSecondarySearchGoal.cs" />
     <Compile Include="GameWorld\PhysicsHandler.cs" />
     <Compile Include="GameWorld\GeometryFunctions.cs" />
     <Compile Include="GameWorld\NoiseGenerator.cs" />
