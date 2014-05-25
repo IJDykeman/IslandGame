@@ -28,15 +28,6 @@ namespace IslandGame.GameWorld
                     test.update();
                     test.draw(device, effect);
 
-                    if (test is Tree)
-                    {
-                        List<BlockLoc> trunkBlocks = ((Tree)test).getTrunkBlocks();
-                        foreach (BlockLoc trunkBlock in trunkBlocks)
-                        {
-                            WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\worldMarkup\redCubeOutline.chr",
-                                           trunkBlock.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
-                        }
-                    }
 
                 }
             }

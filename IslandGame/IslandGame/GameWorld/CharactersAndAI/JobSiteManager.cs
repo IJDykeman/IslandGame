@@ -38,6 +38,7 @@ namespace IslandGame.GameWorld
         {
             for (int i = jobSites.Count-1; i >=0; i--)
             {
+                jobSites[i].update();
                 if (jobSites[i].isComplete())
                 {
                     jobSites.RemoveAt(i);

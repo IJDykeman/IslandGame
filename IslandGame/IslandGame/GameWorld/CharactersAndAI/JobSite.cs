@@ -18,6 +18,13 @@ namespace IslandGame.GameWorld
         public abstract void blockWasDestroyed(BlockLoc toDestroy);
         public abstract void blockWasBuilt(BlockLoc toDestroy);
 
+        public virtual void update()
+        {
+
+        }
+
+        
+
         public virtual bool isComplete()
         {
             return false;

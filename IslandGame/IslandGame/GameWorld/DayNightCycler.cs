@@ -16,7 +16,7 @@ namespace IslandGame.GameWorld
         public DayNightCycler()
         {
             TimeOfDay morning = new TimeOfDay(new Vector4(.498f, .1843f, .0627f, 1), new Vector4(.0863f, .098f, .1569f, 1), .4f, 4, false);
-            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f, 4, false);
+            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f, 6, false);
             TimeOfDay evening = new TimeOfDay(new Vector4(.694f, .416f, .306f, 1), new Vector4(.0588f, .2706f, .512f, 1), .4f, 4, false);
             TimeOfDay night = new TimeOfDay(new Vector4(0, 0, 0, 1), new Vector4(0, 0, 0, 1), .2f, 4, true);
 

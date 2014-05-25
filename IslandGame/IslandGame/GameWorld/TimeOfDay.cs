@@ -14,12 +14,12 @@ namespace IslandGame.GameWorld
         float lengthInSeconds = 100;
         bool spawnsMonsters = false;
 
-        public TimeOfDay(Vector4 nHorizonColor, Vector4 nZenithColor, float nAmbientBrightness, float nNumSeconds, bool nSpawnsMonsters)
+        public TimeOfDay(Vector4 nHorizonColor, Vector4 nZenithColor, float nAmbientBrightness, float numMinutes, bool nSpawnsMonsters)
         {
             skyHorizonColor = nHorizonColor;
             skyZenithColor = nZenithColor;
             ambientBrightness = nAmbientBrightness;
-            lengthInSeconds = nNumSeconds;
+            lengthInSeconds = numMinutes*60.0f;
             spawnsMonsters = nSpawnsMonsters;
         }
 

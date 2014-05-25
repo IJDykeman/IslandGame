@@ -146,5 +146,14 @@ namespace IslandGame
                 value1.worldSpaceY != value2.worldSpaceY ||
                 value1.worldSpaceZ != value2.worldSpaceZ;
         }
+
+        public float? intersects(Ray ray)
+        {
+
+            BoundingBox boundingBox = new BoundingBox(
+                getMiddleInWorldSpace() - new Vector3(.5f, .5f, .5f), getMiddleInWorldSpace() + new Vector3(.5f, .5f, .5f));
+            return ray.Intersects(boundingBox);
+
+        }
     }
 }

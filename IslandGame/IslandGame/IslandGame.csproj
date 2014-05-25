@@ -139,6 +139,7 @@
     <Compile Include="GameWorld\CharactersAndAI\CaptainingBoatJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\RescourceManager.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ResourceAmount.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\ResourceBlock.cs" />
     <Compile Include="GameWorld\CharactersAndAI\WanderAroundJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ObjectBuildingJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ObjectJobSite.cs" />

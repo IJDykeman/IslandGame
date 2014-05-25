@@ -30,6 +30,20 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         }
 
+        public override void update()
+        {
+            if (trees.Count > 0)
+            {
+                for (int i = trees.Count - 1; i >= 0; i--)
+                {
+                    if (trees[i].needsToBeDeleted())
+                    {
+                        trees.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
         public override void blockWasBuilt(BlockLoc toDestroy)
         {
             
