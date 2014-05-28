@@ -301,8 +301,6 @@ namespace IslandGame.GameWorld
             readyToBeDisplayed = true;
         }
 
-
-
         public int getMipLevel()
         {
             return mipLevel;

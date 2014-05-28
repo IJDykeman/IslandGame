@@ -20,3 +20,4 @@ Content\SpriteFont1.xnb
 Content\sphere.xnb
 Content\Ocean.xnb
 Content\plane.xnb
+Content\UI\lockedChest.xnb

@@ -78,6 +78,7 @@ namespace IslandGame.menus
                 buttonList.Add(new UIElement(new WoodBuildHudClick(), ContentDistributor.woodBlockIcon, new Vector2(width - horizontalPadding * 3, height - verticlePadding), scale, hudTint));
                 buttonList.Add(new UIElement(new PlayerBuildHudClick(), ContentDistributor.playerBuildIcon, new Vector2(width - horizontalPadding * 4, height - verticlePadding), scale, hudTint));
                 buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new PlayerPlaceStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 6, height - verticlePadding), scale, hudTint));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;
             }

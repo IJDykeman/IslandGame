@@ -25,9 +25,11 @@ namespace IslandGame
             LoadGame,
             PlaceExcavationMarker,
             ExcavationMouseover,
-            StartPlacingFarm,
-            FinishPlacingFarm,
-            DraggingFarmPlacement,
+            StartDragging,
+            FinishDragging,
+            Dragging,
+
+
             PlaceWoodBlockPlan,
             RemoveWoodBlockPlan,
             PlayerBuildBlock,
@@ -90,14 +92,54 @@ namespace IslandGame
             }
         }
 
-        public class StartPlacingFarm : MouseAction
+
+        public class StartDragging : Dragging
         {
-            public StartPlacingFarm(Vector3 nNearPoint, Vector3 nFarPoint)
+            public StartDragging(Vector3 nNearPoint, Vector3 nFarPoint, DragType nDragType)
             {
+                dragType = nDragType;
                 nearPoint = nNearPoint;
                 farPoint = nFarPoint;
 
-                type = Type.StartPlacingFarm;
+                type = Type.StartDragging;
+            }
+
+
+        }
+        public class FinishDragging : Dragging
+        {
+            public FinishDragging(Vector3 nNearPoint, Vector3 nFarPoint, DragType nDragType)
+            {
+                dragType = nDragType;
+                nearPoint = nNearPoint;
+                farPoint = nFarPoint;
+
+                type = Type.FinishDragging;
+            }
+
+
+        }
+        public class Dragging : MouseAction
+        {
+            public enum DragType
+            {
+                farm,
+                storage
+            }
+
+            protected DragType dragType;
+            public Dragging(){}
+            public Dragging(Vector3 nNearPoint, Vector3 nFarPoint, DragType nDragType)
+            {
+                dragType = nDragType;
+                nearPoint = nNearPoint;
+                farPoint = nFarPoint;
+                
+                type = Type.Dragging;
+            }
+            public Dragging.DragType getType()
+            {
+                return dragType;
             }
         }
 
@@ -114,34 +156,13 @@ namespace IslandGame
 
         public class RemoveWoodBlockPlan : MouseAction
         {
+
             public RemoveWoodBlockPlan(Vector3 nNearPoint, Vector3 nFarPoint)
             {
                 nearPoint = nNearPoint;
                 farPoint = nFarPoint;
 
                 type = Type.RemoveWoodBlockPlan;
-            }
-        }
-
-        public class FinishPlacingFarm : MouseAction
-        {
-            public FinishPlacingFarm(Vector3 nNearPoint, Vector3 nFarPoint)
-            {
-                nearPoint = nNearPoint;
-                farPoint = nFarPoint;
-
-                type = Type.FinishPlacingFarm;
-            }
-        }
-
-        public class DraggingFarmPlacement : MouseAction
-        {
-            public DraggingFarmPlacement(Vector3 nNearPoint, Vector3 nFarPoint)
-            {
-                nearPoint = nNearPoint;
-                farPoint = nFarPoint;
-
-                type = Type.DraggingFarmPlacement;
             }
         }
 

@@ -36,15 +36,14 @@ namespace IslandGame.GameWorld
         }
 
 
-        public virtual ResourceAmount makeFarmBlockGrowAndGetRescources(BlockLoc blockLoc)
+        public virtual void makeFarmBlockGrow(BlockLoc blockLoc)
         {
-            return new ResourceAmount(0, ResourceType.Wheat);
+            
         }
 
 
-        public virtual ResourceAmount chopBlockAndGetRescources(BlockLoc blockLoc)
+        public virtual void chopBlock(BlockLoc blockLoc)
         {
-            return new ResourceAmount(0,ResourceType.Wood);
         }
 
         public virtual HashSet<BlockLoc> getAllBlocksInSite()

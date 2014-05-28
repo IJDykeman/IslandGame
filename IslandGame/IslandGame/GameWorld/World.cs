@@ -503,10 +503,10 @@ namespace IslandGame.GameWorld
             return false;
 
         }
-
-        public void addFarm(Vector3 addedFrom, IEnumerable<BlockLoc> blocksToAdd)
+        
+        public void handlePlayerFinishDrag(Vector3 addedFrom, IEnumerable<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
         {
-            islandManager.getClosestIslandToLocation(addedFrom).addFarmWithBlocks(blocksToAdd);
+            islandManager.getClosestIslandToLocation(addedFrom).addPlayerDraggedJobsiteWithBlocks(blocksToAdd, dragType);
         }
 
         public void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay)
@@ -537,6 +537,8 @@ namespace IslandGame.GameWorld
         {
             actorManager.addBoatAt(nLoc);
         }
+
+
 
 
     }

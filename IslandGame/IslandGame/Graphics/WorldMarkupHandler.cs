@@ -11,20 +11,32 @@ namespace IslandGame
 {
     static class WorldMarkupHandler
     {
+        
+
         private static Dictionary<string, List<PositionScaleOpacity>> FilePathsAndPositions = new Dictionary<string, List<PositionScaleOpacity>>();
         //private static Dictionary
 
         public static void addFlagPathWithPosition(string path, Vector3 position)
         {
-            path = path.ToUpper();
+            path = getProperPath(path);
             float scale = 1;
-            if (path.Contains(("Outline.chr").ToUpper()) || path.Contains(("farmMarker.chr").ToUpper()) || path.Contains(("wheatGrowthStage").ToUpper()))
+            if (path.Contains(("Outline.chr").ToUpper()) || path.Contains(("Marker.chr").ToUpper()) || path.Contains(("wheatGrowthStage").ToUpper()))
             {
                 scale = 1.0f / 12f;
             }
             addFlagPathWithPosition(path, position, scale);
             
 
+        }
+
+        private static string getProperPath(string path)
+        {
+            path = path.ToUpper();
+            if (!path.Contains(@"C:\".ToUpper()))
+            {
+                path = ContentDistributor.getRootPath() + path;
+            }
+            return path;
         }
 
         public static void addFlagPathWithPosition(string path, Vector3 position,float scale, float opacity)

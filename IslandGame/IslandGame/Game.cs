@@ -204,47 +204,54 @@ namespace IslandGame
                         break;
 
 
-                    case PlayerAction.Type.StartPlacingFarm:
-                        PlayerAction.StartPlacingFarm starFarmClick = (PlayerAction.StartPlacingFarm)action;
-                        Ray startFarmRay = starFarmClick.getRay();
-                        Vector3? firstFarmBlock = world.getBlockAlongRay(startFarmRay);
-                        if (firstFarmBlock.HasValue)
+                    case PlayerAction.Type.StartDragging:
+                        PlayerAction.StartDragging starDragClick = (PlayerAction.StartDragging)action;
+                        Ray startFarmRay = starDragClick.getRay();
+                        Vector3? firstDragBlock = world.getBlockAlongRay(startFarmRay);
+                        if (firstDragBlock.HasValue)
                         {
-                            player.setFirstBlockInDrag(new BlockLoc((Vector3)firstFarmBlock));
+                            player.setFirstBlockInDrag(new BlockLoc((Vector3)firstDragBlock));
                         }
                         break;
 
 
-                    case PlayerAction.Type.DraggingFarmPlacement:
-                        PlayerAction.DraggingFarmPlacement dragFarmClick = (PlayerAction.DraggingFarmPlacement)action;
-                        Ray dragFarmRay = dragFarmClick.getRay();
-                        Vector3? dragFarmBlock = world.getBlockAlongRay(dragFarmRay);
+                    case PlayerAction.Type.Dragging:
+                        PlayerAction.Dragging dragClick = (PlayerAction.Dragging)action;
+                        Ray dragRay = dragClick.getRay();
+                        Vector3? dragBlock = world.getBlockAlongRay(dragRay);
 
-                        if (dragFarmBlock.HasValue)
+                        if (dragBlock.HasValue)
                         {
-                           BlockLoc currentDragBlock= new BlockLoc((int)((Vector3)dragFarmBlock).X,(int)((Vector3)dragFarmBlock).Y,(int)((Vector3)dragFarmBlock).Z);
+                           BlockLoc currentDragBlock= new BlockLoc((int)((Vector3)dragBlock).X,(int)((Vector3)dragBlock).Y,(int)((Vector3)dragBlock).Z);
                            IEnumerable<BlockLoc> draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentDragBlock);
 
                            foreach (BlockLoc test in draggedBlocks)
                            {
-                                   WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"worldMarkup\farmMarker.chr",
-                                       test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                               switch (dragClick.getType())
+                               {
+                                   case PlayerAction.Dragging.DragType.farm:
+                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\farmMarker.chr",
+                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                                       break;
+                                   case PlayerAction.Dragging.DragType.storage:
+                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\storageMarker.chr",
+                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                                       break;
+                               }
                            }
                         }
                         break;
 
 
-                    case PlayerAction.Type.FinishPlacingFarm:
-                        PlayerAction.FinishPlacingFarm finishFarmClick = (PlayerAction.FinishPlacingFarm)action;
-                        Ray finishFarmRay = finishFarmClick.getRay();
-                        Vector3? finishFarmBlock = world.getBlockAlongRay(finishFarmRay);
-
-                        if (finishFarmBlock.HasValue)
+                    case PlayerAction.Type.FinishDragging:
+                        PlayerAction.FinishDragging finishDragClick = (PlayerAction.FinishDragging)action;
+                        Ray finishDragRay = finishDragClick.getRay();
+                        Vector3? finishDragBlock = world.getBlockAlongRay(finishDragRay);
+                        if (finishDragBlock.HasValue)
                         {
-                           BlockLoc currentFinishBlock = new BlockLoc((int)((Vector3)finishFarmBlock).X, (int)((Vector3)finishFarmBlock).Y, (int)((Vector3)finishFarmBlock).Z);
-                           IEnumerable<BlockLoc> draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
-
-                           world.addFarm(player.getCameraLoc(), draggedBlocks);
+                            BlockLoc currentFinishBlock = new BlockLoc((int)((Vector3)finishDragBlock).X, (int)((Vector3)finishDragBlock).Y, (int)((Vector3)finishDragBlock).Z);
+                            IEnumerable<BlockLoc> draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
+                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks, finishDragClick.getType());
                         }
                         break;
 

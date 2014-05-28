@@ -120,7 +120,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return null;
         }
 
-        public override ResourceAmount chopBlockAndGetRescources(BlockLoc blockLoc)
+        public override void chopBlock(BlockLoc blockLoc)
         {
             Tree toChop = getTreeWithTrunkBlock(blockLoc);
             if (toChop != null)
@@ -129,10 +129,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
                 if (toChop.needsToBeDeleted())
                 {
                     trees.Remove(toChop);
-                    return new ResourceAmount(25, ResourceType.Wood);
+
                 }
             }
-            return new ResourceAmount(0, ResourceType.Wood);
+
         }
 
         public bool hasAtLeastOneTree()

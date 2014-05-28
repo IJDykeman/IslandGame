@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\NewGameButton.xnb</Output>
-      <Time>2014-05-19T17:58:27.4569912-04:00</Time>
+      <Time>2014-05-26T21:02:22.2083385-04:00</Time>
     </Item>
     <Item>
       <Source>UI\QuitButton.png</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\QuitButton.xnb</Output>
-      <Time>2014-05-19T17:58:27.4569912-04:00</Time>
+      <Time>2014-05-26T21:02:22.2083385-04:00</Time>
     </Item>
     <Item>
       <Source>UI\consoleBGPixel.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\consoleBGPixel.xnb</Output>
-      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
+      <Time>2014-05-26T21:02:22.2103386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\SaveGameButton.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\SaveGameButton.xnb</Output>
-      <Time>2014-05-19T17:58:27.4579913-04:00</Time>
+      <Time>2014-05-26T21:02:22.2093385-04:00</Time>
     </Item>
     <Item>
       <Source>UI\LoadGameButton.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\LoadGameButton.xnb</Output>
-      <Time>2014-05-19T17:58:27.4559912-04:00</Time>
+      <Time>2014-05-26T21:02:22.2063383-04:00</Time>
     </Item>
     <Item>
       <Source>UI\continueButton.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\continueButton.xnb</Output>
-      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
+      <Time>2014-05-26T21:02:22.2113386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\crossReticle.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\crossReticle.xnb</Output>
-      <Time>2014-05-19T17:58:27.4599914-04:00</Time>
+      <Time>2014-05-26T21:02:22.2113386-04:00</Time>
     </Item>
     <Item>
       <Source>random.png</Source>
@@ -74,7 +74,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\random.xnb</Output>
-      <Time>2014-05-19T17:58:27.4809926-04:00</Time>
+      <Time>2014-05-26T21:02:22.2323398-04:00</Time>
     </Item>
     <Item>
       <Source>UI\excavationIcon.png</Source>
@@ -83,7 +83,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\excavationIcon.xnb</Output>
-      <Time>2014-05-19T17:58:27.4609915-04:00</Time>
+      <Time>2014-05-26T21:02:22.2113386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\farmIcon.png</Source>
@@ -92,7 +92,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\farmIcon.xnb</Output>
-      <Time>2014-05-19T17:58:27.4609915-04:00</Time>
+      <Time>2014-05-26T21:02:22.2113386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\woodBlockIcon.png</Source>
@@ -101,7 +101,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodBlockIcon.xnb</Output>
-      <Time>2014-05-19T17:58:27.4739922-04:00</Time>
+      <Time>2014-05-26T21:02:22.2243394-04:00</Time>
     </Item>
     <Item>
       <Source>UI\colorsImage.png</Source>
@@ -110,7 +110,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorsImage.xnb</Output>
-      <Time>2014-05-20T12:28:45.2692639-04:00</Time>
+      <Time>2014-05-26T21:02:22.2103386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\colorSwatchHighlightBox.png</Source>
@@ -119,7 +119,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchHighlightBox.xnb</Output>
-      <Time>2014-05-19T17:58:27.4589913-04:00</Time>
+      <Time>2014-05-26T21:02:22.2103386-04:00</Time>
     </Item>
     <Item>
       <Source>UI\playerBuildIcon.png</Source>
@@ -128,7 +128,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\playerBuildIcon.xnb</Output>
-      <Time>2014-05-19T17:58:27.4729921-04:00</Time>
+      <Time>2014-05-26T21:02:22.2243394-04:00</Time>
     </Item>
     <Item>
       <Source>UI\boatIcon.png</Source>
@@ -137,7 +137,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\boatIcon.xnb</Output>
-      <Time>2014-05-19T17:58:27.4579913-04:00</Time>
+      <Time>2014-05-26T21:02:22.2093385-04:00</Time>
     </Item>
     <Item>
       <Source>UI\MainMenuBackground.png</Source>
@@ -146,7 +146,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\MainMenuBackground.xnb</Output>
-      <Time>2014-05-19T17:58:27.4559912-04:00</Time>
+      <Time>2014-05-26T21:02:22.2073384-04:00</Time>
     </Item>
     <Item>
       <Source>effects.fx</Source>
@@ -155,7 +155,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-05-25T15:35:31.7911776-04:00</Time>
+      <Time>2014-05-26T21:02:22.2253394-04:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -164,7 +164,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
-      <Time>2014-05-21T10:29:16.6143569-04:00</Time>
+      <Time>2014-05-26T21:02:22.2323398-04:00</Time>
     </Item>
     <Item>
       <Source>SpriteFont1.spritefont</Source>
@@ -173,7 +173,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2014-05-19T17:58:27.4539911-04:00</Time>
+      <Time>2014-05-26T21:02:22.2053383-04:00</Time>
     </Item>
     <Item>
       <Source>sphere.x</Source>
@@ -182,10 +182,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sphere.xnb</Output>
-      <Time>2014-05-19T17:58:27.4849928-04:00</Time>
+      <Time>2014-05-26T21:02:22.2363401-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\sphere_0.xml</Key>
-        <Value>2014-05-19T18:00:11.4309382-04:00</Value>
+        <Value>2014-05-26T21:12:50.9212988-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -193,7 +193,7 @@
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\sphere_0.xml</Output>
-      <Time>2014-05-19T17:58:27.4849928-04:00</Time>
+      <Time>2014-05-26T21:02:22.2363401-04:00</Time>
     </Item>
     <Item>
       <Source>Ocean.fx</Source>
@@ -202,7 +202,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\Ocean.xnb</Output>
-      <Time>2014-05-21T11:04:29.0401881-04:00</Time>
+      <Time>2014-05-26T21:02:22.2053383-04:00</Time>
     </Item>
     <Item>
       <Source>plane.x</Source>
@@ -211,10 +211,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\plane.xnb</Output>
-      <Time>2014-05-21T10:02:05.558038-04:00</Time>
+      <Time>2014-05-26T21:02:22.2303397-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\plane_0.xml</Key>
-        <Value>2014-05-21T10:02:06.7171043-04:00</Value>
+        <Value>2014-05-26T21:12:51.0013034-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -222,7 +222,16 @@
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\plane_0.xml</Output>
-      <Time>2014-05-21T10:02:05.558038-04:00</Time>
+      <Time>2014-05-26T21:02:22.2303397-04:00</Time>
+    </Item>
+    <Item>
+      <Source>UI\lockedChest.png</Source>
+      <Name>UI\lockedChest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\lockedChest.xnb</Output>
+      <Time>2014-05-27T21:25:56.3110394-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

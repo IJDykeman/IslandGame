@@ -159,29 +159,41 @@ namespace IslandGame
                 result.Add(new PlayerAction.RightClick(nearPoint, farPoint));
             }
 
-            if (currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton != ButtonState.Released)
-            {
 
-                    if (currentInterfaceState == InterfaceStates.placingFarm)
-                    {
-                        result.Add(new PlayerAction.FinishPlacingFarm(nearPoint, farPoint));
-                    }
+            if (leftMouseButtonReleased(ref currentMouseState, ref oldMouseState) )
+            {
+                   
+                switch (currentInterfaceState)
+                {
+                    case InterfaceStates.placingFarm:
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
+                        break;
+                    case InterfaceStates.placingStorage:
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storage));
+                        break;
+                        
+
+                }
+                currentInterfaceState = InterfaceStates.playing; 
                 
             }
 
-
+            //left mouse button held
             if (currentMouseState.LeftButton == ButtonState.Pressed)
             {
-
+                    
                     switch (currentInterfaceState)
                     {
                         case InterfaceStates.placingFarm:
 
-                            result.Add(new PlayerAction.DraggingFarmPlacement(nearPoint,
-                                farPoint));
+                            result.Add(new PlayerAction.Dragging(nearPoint,
+                                farPoint,PlayerAction.Dragging.DragType.farm));
+                            break;
+                        case InterfaceStates.placingStorage:
+                            result.Add(new PlayerAction.Dragging(nearPoint,
+                                farPoint, PlayerAction.Dragging.DragType.storage));
                             break;
                         case InterfaceStates.placingExcavation:
-
                             result.Add(new PlayerAction.ExcavationMouseHover(nearPoint,
                                 farPoint));
                             break;
@@ -192,6 +204,11 @@ namespace IslandGame
             timeSinceLastLeftClick++;
             return result;
 
+        }
+
+        private static bool leftMouseButtonReleased(ref MouseState currentMouseState, ref MouseState oldMouseState)
+        {
+            return currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton != ButtonState.Released;
         }
 
 
@@ -258,10 +275,13 @@ namespace IslandGame
                         result.Add(new PlayerAction.BoatPlacement(nearPoint,farPoint));
                         break;
                     case InterfaceStates.placingFarm:
-                        result.Add(new PlayerAction.StartPlacingFarm(nearPoint,farPoint));
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
                         break;
                     case InterfaceStates.placingWoodPlanBlocks:
                         result.Add(new PlayerAction.RemoveWoodBlockPlan(nearPoint,farPoint));
+                        break;
+                    case InterfaceStates.placingStorage:
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storage));
                         break;
 
                 }

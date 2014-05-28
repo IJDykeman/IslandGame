@@ -14,15 +14,15 @@ namespace IslandGame.GameWorld
     {
 
         List<JobSite> jobSites;
-        ResourceManager rescourcesOnThisIsland;
-        
+        ResourceBlockjobSite resourceBlockJobsite;
 
 
         public JobSiteManager(IslandPathingProfile profile)
         {
-            rescourcesOnThisIsland = new ResourceManager();
             jobSites = new List<JobSite>();
             jobSites.Add(new TreesJobSite(profile));
+            resourceBlockJobsite = new ResourceBlockjobSite();
+            jobSites.Add(resourceBlockJobsite);
         }
 
         public void display(GraphicsDevice device, Effect effect, IslandLocationProfile locationProfile)
@@ -109,9 +109,70 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        internal void addFarmWithGivenBlocksToFarmOn(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile)
+        internal void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile, PlayerAction.Dragging.DragType dragType)
+        {
+            switch (dragType)
+            {
+                case PlayerAction.Dragging.DragType.farm:
+                    placeFarmWithBlocks(blocksToAdd, profile);
+                    break;
+                case PlayerAction.Dragging.DragType.storage:
+                    placeStorageAreaWithBlocks(blocksToAdd, profile);
+                    break;
+            }
+        }
+
+        private void placeStorageAreaWithBlocks(IEnumerable<BlockLoc> blocksToPlaceSiteOn, IslandPathingProfile profile)
+        {
+
+            List<BlockLoc> blocksForSite = new List<BlockLoc>();
+            foreach (BlockLoc inGround in blocksToPlaceSiteOn)
+            {
+                blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0)));
+                blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0)));
+            }
+
+            HashSet<BlockLoc> locsNotOfWork = new HashSet<BlockLoc>();
+            removeAllBlocksAtOrBelowWorkBlock(blocksForSite, locsNotOfWork);
+            if (locsNotOfWork.Count > 0)
+            {
+                HashSet<BlockLoc> locsNotSolid = new HashSet<BlockLoc>();
+                foreach (BlockLoc test in locsNotOfWork)
+                {
+                    if (!profile.isProfileSolidAt(test))
+                    {
+                        locsNotSolid.Add(test);
+                    }
+                    
+                }
+                jobSites.Add(new StockpileJobSite(locsNotSolid));
+                
+            }
+
+        }
+
+        private void placeFarmWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile)
         {
             HashSet<BlockLoc> locs = new HashSet<BlockLoc>();
+            removeAllBlocksAtOrBelowWorkBlock(blocksToAdd, locs);
+
+            if (locs.Count > 0)
+            {
+                jobSites.Add(new Farm(profile, locs));
+            }
+        }
+
+        private void removeAllBlocksAtOrBelowWorkBlock(IEnumerable<BlockLoc> blocksToAdd, HashSet<BlockLoc> locs)
+        {
+            HashSet<BlockLoc> blocksToNotBeFarmed = removeAllBlocksOfWorkFrom(blocksToAdd, locs);
+            foreach (BlockLoc alreadyOccupiedBlock in blocksToNotBeFarmed)
+            {
+                locs.Remove(BlockLoc.AddIntVec3(alreadyOccupiedBlock, new IntVector3(0, -1, 0)));
+            }
+        }
+
+        private HashSet<BlockLoc> removeAllBlocksOfWorkFrom(IEnumerable<BlockLoc> blocksToAdd, HashSet<BlockLoc> locs)
+        {
             HashSet<BlockLoc> blocksToNotBeFarmed = allBlocksWithJobSites();
             foreach (BlockLoc test in blocksToAdd)
             {
@@ -121,15 +182,7 @@ namespace IslandGame.GameWorld
             {
                 locs.Remove(alreadyOccupiedBlock);
             }
-            foreach (BlockLoc alreadyOccupiedBlock in blocksToNotBeFarmed)
-            {
-                locs.Remove(BlockLoc.AddIntVec3(alreadyOccupiedBlock, new IntVector3(0,-1,0)));
-            }
-
-            if (locs.Count > 0)
-            {
-                jobSites.Add(new Farm(profile, locs));
-            }
+            return blocksToNotBeFarmed;
         }
 
         private IEnumerable<Farm> getFarmEnumerable()
@@ -184,66 +237,14 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        internal void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay, Vector3? exactSpaceHitLocOnIsland, IslandPathingProfile profile)
+        public void makeFarmBlockGrow(BlockLoc blockLoc)
         {
-
-
-            IEnumerable<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable();
-            placeWoodBlockClickRay.Direction.Normalize();
-
-            if (woodBuildSites.Count() == 0)
+            foreach (JobSite test in jobSites)
             {
-                jobSites.Add(new WoodBuildSite(profile));
+                test.makeFarmBlockGrow(blockLoc);
             }
-            woodBuildSites = getWoodBuildSiteEnumerable();
-
-            WoodBuildSite buildSite= null;
-
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
-            {
-                buildSite = toAddToPotentially;
-            }
-            
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
-            {
-                float? intersectsJobSite = toAddToPotentially.intersects(placeWoodBlockClickRay);
-                if (intersectsJobSite.HasValue)
-                {
-                    
-                    Vector3 locationOfSelectedSpaceOnJobSite = placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite-.01f);
-
-                    if (exactSpaceHitLocOnIsland.HasValue)
-                    {
-                        if (Vector3.Distance((Vector3)exactSpaceHitLocOnIsland, placeWoodBlockClickRay.Position) >
-                            Vector3.Distance(locationOfSelectedSpaceOnJobSite, placeWoodBlockClickRay.Position))
-                        {
-                            BlockLoc newBlockToPlace = new BlockLoc(locationOfSelectedSpaceOnJobSite);
-                            addBlockToBuildSite(toAddToPotentially, newBlockToPlace);
-                            return;
-                        }
-                    }
-                    else
-                    {
-
-                        BlockLoc newBlockToPlace = new BlockLoc(placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite-.01f));
-                        
-                       // toAddToPotentially.addBlock(newBlockToPlace);
-                        return;
-                    }
-                }
-            }
-            if (exactSpaceHitLocOnIsland.HasValue)
-            {
-
-                BlockLoc newBlockToPlace = new BlockLoc((Vector3)exactSpaceHitLocOnIsland - placeWoodBlockClickRay.Direction*.01f);
-                if (!profile.isProfileSolidAt(newBlockToPlace))
-                {
-                    addBlockToBuildSite(buildSite, newBlockToPlace);
-                }
-                return;
-            }
-            
         }
+
 
         private void addBlockToBuildSite(WoodBuildSite toAddToPotentially, BlockLoc newBlockToPlace)
         {
@@ -315,6 +316,7 @@ namespace IslandGame.GameWorld
 
         }
 
+
         private TreesJobSite getLoggingSiteInJobList()
         {
             foreach (JobSite test in jobSites)
@@ -332,23 +334,78 @@ namespace IslandGame.GameWorld
             getLoggingSiteInJobList().placeTree(loc, type);
         }
 
-
         public void chopBlock(BlockLoc blockLoc)
         {
             foreach (JobSite test in jobSites)
             {
-                rescourcesOnThisIsland.addRescources(test.chopBlockAndGetRescources(blockLoc));
+                chopBlock(blockLoc);
             }
         }
 
-
-        public void makeFarmBlockGrow(BlockLoc blockLoc)
+        internal void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay, Vector3? exactSpaceHitLocOnIsland, IslandPathingProfile profile)
         {
-            foreach (JobSite test in jobSites)
+
+
+            IEnumerable<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable();
+            placeWoodBlockClickRay.Direction.Normalize();
+
+            if (woodBuildSites.Count() == 0)
             {
-                rescourcesOnThisIsland.addRescources(test.makeFarmBlockGrowAndGetRescources(blockLoc));
+                jobSites.Add(new WoodBuildSite(profile));
             }
+            woodBuildSites = getWoodBuildSiteEnumerable();
+
+            WoodBuildSite buildSite = null;
+
+            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
+            {
+                buildSite = toAddToPotentially;
+            }
+
+            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
+            {
+                float? intersectsJobSite = toAddToPotentially.intersects(placeWoodBlockClickRay);
+                if (intersectsJobSite.HasValue)
+                {
+
+                    Vector3 locationOfSelectedSpaceOnJobSite = placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite - .01f);
+
+                    if (exactSpaceHitLocOnIsland.HasValue)
+                    {
+                        if (Vector3.Distance((Vector3)exactSpaceHitLocOnIsland, placeWoodBlockClickRay.Position) >
+                            Vector3.Distance(locationOfSelectedSpaceOnJobSite, placeWoodBlockClickRay.Position))
+                        {
+                            BlockLoc newBlockToPlace = new BlockLoc(locationOfSelectedSpaceOnJobSite);
+                            addBlockToBuildSite(toAddToPotentially, newBlockToPlace);
+                            return;
+                        }
+                    }
+                    else
+                    {
+
+                        BlockLoc newBlockToPlace = new BlockLoc(placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite - .01f));
+
+                        // toAddToPotentially.addBlock(newBlockToPlace);
+                        return;
+                    }
+                }
+            }
+            if (exactSpaceHitLocOnIsland.HasValue)
+            {
+
+                BlockLoc newBlockToPlace = new BlockLoc((Vector3)exactSpaceHitLocOnIsland - placeWoodBlockClickRay.Direction * .01f);
+                if (!profile.isProfileSolidAt(newBlockToPlace))
+                {
+                    addBlockToBuildSite(buildSite, newBlockToPlace);
+                }
+                return;
+            }
+
         }
+
+
+
+
 
         public void addJobSite(JobSite newJobSite)
         {
@@ -387,6 +444,11 @@ namespace IslandGame.GameWorld
             {
                 toMeshUpdate.updateMesh(mipLevel);
             }
+        }
+
+        public void addResourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
+        {
+            resourceBlockJobsite.placeRescourceBlock(loc, type);
         }
     }
 }

@@ -7,13 +7,18 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
-    class ResourceBlock : JobSite
+    class ResourceBlockjobSite : JobSite
     {
-        BlockLoc location;
+        Dictionary<BlockLoc, ResourceBlock> resourceBlocks;
+
+        public ResourceBlockjobSite()
+        {
+            resourceBlocks = new Dictionary<BlockLoc, ResourceBlock>();
+        }
 
         public override float? intersects(Ray ray)
         {
-            return location.intersects(ray);
+            return 99000900900;
         }
 
         public override Job getJob(Character newWorker)
@@ -34,25 +39,34 @@ namespace IslandGame.GameWorld
 
         public override void blockWasDestroyed(BlockLoc toDestroy)
         {
-            return;
+            
         }
 
 
 
         public override void draw(GraphicsDevice device, Effect effect)
         {
+            foreach (BlockLoc key in resourceBlocks.Keys)
+            {
 
                 WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\resources\log.chr",
-                                           location.getMiddleInWorldSpace());
+                                           key.getMiddleInWorldSpace());
+            }
 
         }
 
-
+        public void placeRescourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
+        {
+            resourceBlocks.Add(loc, new ResourceBlock(type));
+        }
 
         public override HashSet<BlockLoc> getAllBlocksInSite()
         {
             HashSet<BlockLoc> result = new HashSet<BlockLoc>();
-            result.Add(location);
+            foreach (BlockLoc test in resourceBlocks.Keys)
+            {
+                result.Add(test);
+            }
             return result;
         }
     }

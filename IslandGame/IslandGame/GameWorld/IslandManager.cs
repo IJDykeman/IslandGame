@@ -406,5 +406,10 @@ namespace IslandGame.GameWorld
             relevantIsland.acceptWorkStrike(actorStrikeAction);
 
         }
+
+        public void addResourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
+        {
+            getClosestIslandToLocation(loc.toWorldSpaceVector3()).addResourceBlock(loc, type);
+        }
     }
 }

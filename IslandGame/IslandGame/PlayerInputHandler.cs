@@ -28,6 +28,7 @@ namespace IslandGame
             placingBlocks,
             placingExcavation,
             placingFarm,
+            placingStorage,
             placingWoodPlanBlocks,
             buildingDirectly,
             placingBoat
@@ -132,6 +133,10 @@ namespace IslandGame
                     case MenuActionType.FarmHudButtonClick:
                         result.Add(new PlayerAction.DeselectCharacter());
                         setInterfaceState(PlayerInputHandler.InterfaceStates.placingFarm);
+                        break;
+                    case MenuActionType.StorageHudClick:
+                        result.Add(new PlayerAction.DeselectCharacter());
+                        setInterfaceState(PlayerInputHandler.InterfaceStates.placingStorage);
                         break;
                     case MenuActionType.WoodBuildHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());

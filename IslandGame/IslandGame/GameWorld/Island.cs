@@ -351,9 +351,9 @@ namespace IslandGame.GameWorld
             return jobSiteManager.getJobSiteAlongRay(ray);
         }
 
-        public void addFarmWithBlocks(IEnumerable<BlockLoc> blocksToAdd)
+        public void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
         {
-            jobSiteManager.addFarmWithGivenBlocksToFarmOn(blocksToAdd, getPathingProfile());
+            jobSiteManager.addPlayerDraggedJobsiteWithBlocks(blocksToAdd, getPathingProfile(), dragType);
         }
 
         internal void placeWoodBlockPlan(Ray placeWoodBlockClickRay)
@@ -485,6 +485,11 @@ namespace IslandGame.GameWorld
                     destroyBlock(strikeBlock.getStrikeTarget());
                     break;
             }
+        }
+
+        public void addResourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
+        {
+            jobSiteManager.addResourceBlock(loc, type);
         }
 
 

@@ -12,16 +12,16 @@ namespace IslandGame.GameWorld
     class Farm : MultiblockJobSite
     {
         //HashSet<BlockLoc> BlocksToBeFarmedIn;
-        Dictionary<BlockLoc, FarmPlantBlock> PlantBlocks;
+        Dictionary<BlockLoc, FarmPlantBlock> plantBlocks;
         bool harvestTime;
         
 
         public Farm(IslandPathingProfile nProfile, IEnumerable<BlockLoc> nBlocksToBeFarmedOnTopOf)
         {
-            PlantBlocks = new Dictionary<BlockLoc, FarmPlantBlock>();
+            plantBlocks = new Dictionary<BlockLoc, FarmPlantBlock>();
             foreach (BlockLoc test in nBlocksToBeFarmedOnTopOf)
             {
-                PlantBlocks.Add(test.getVector3WithAddedIntvec(new IntVector3(0,1,0)), new FarmPlantBlock());
+                plantBlocks.Add(test.getVector3WithAddedIntvec(new IntVector3(0,1,0)), new FarmPlantBlock());
             }
             profile = nProfile;
         }
@@ -32,25 +32,25 @@ namespace IslandGame.GameWorld
 
         public override float? intersects(Microsoft.Xna.Framework.Ray ray)
         {
-            return intersects(ray, PlantBlocks.Keys.ToList());
+            return intersects(ray, plantBlocks.Keys.ToList());
         }
 
         public override void blockWasDestroyed(BlockLoc toDestroy)
         {
-            PlantBlocks.Remove(toDestroy);
-            PlantBlocks.Remove(BlockLoc.AddIntVec3(toDestroy, new IntVector3(0, 1, 0)));
+            plantBlocks.Remove(toDestroy);
+            plantBlocks.Remove(BlockLoc.AddIntVec3(toDestroy, new IntVector3(0, 1, 0)));
         }
 
         public override void blockWasBuilt(BlockLoc toDestroy)
         {
-            PlantBlocks.Remove(toDestroy);
+            plantBlocks.Remove(toDestroy);
         }
 
         public override void draw(GraphicsDevice device, Effect effect)
         {
-            foreach (BlockLoc test in PlantBlocks.Keys)
+            foreach (BlockLoc test in plantBlocks.Keys)
             {
-                string number = PlantBlocks[test].getGrowthLevel() + "";
+                string number = plantBlocks[test].getGrowthLevel() + "";
                 WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\worldMarkup\wheatGrowthStage"+number+".chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, -.5f, .5f));
             }
@@ -58,19 +58,19 @@ namespace IslandGame.GameWorld
 
         public int getNumFarmBlocks()
         {
-            return PlantBlocks.Count();
+            return plantBlocks.Count();
         }
 
         public IEnumerable<BlockLoc> getBlocksToBeFarmedIn()
         {
-            return PlantBlocks.Keys;
+            return plantBlocks.Keys;
         }
 
         private bool allBlocksAreGrown()
         {
-            foreach (BlockLoc key in PlantBlocks.Keys)
+            foreach (BlockLoc key in plantBlocks.Keys)
             {
-                if (!PlantBlocks[key].isFullyGrown())
+                if (!plantBlocks[key].isFullyGrown())
                 {
                     return false;
                 }
@@ -80,9 +80,9 @@ namespace IslandGame.GameWorld
 
         private bool noBlocksArePlanted()
         {
-            foreach (BlockLoc key in PlantBlocks.Keys)
+            foreach (BlockLoc key in plantBlocks.Keys)
             {
-                if (PlantBlocks[key].getGrowthLevel() != 0)
+                if (plantBlocks[key].getGrowthLevel() != 0)
                 {
                     return false;
                 }
@@ -111,9 +111,9 @@ namespace IslandGame.GameWorld
                 else
                 {
                     List<BlockLoc> result = new List<BlockLoc>();
-                    foreach (BlockLoc test in PlantBlocks.Keys)
+                    foreach (BlockLoc test in plantBlocks.Keys)
                     {
-                        if(PlantBlocks[test].isFullyGrown())
+                        if(plantBlocks[test].isFullyGrown())
                         {
                             result.Add(test);
                         }
@@ -123,16 +123,16 @@ namespace IslandGame.GameWorld
             }
 
 
-            foreach (BlockLoc test in PlantBlocks.Keys)
+            foreach (BlockLoc test in plantBlocks.Keys)
             {
 
-                if (PlantBlocks[test].getGrowthLevel() < leastGrownBlockLevel)
+                if (plantBlocks[test].getGrowthLevel() < leastGrownBlockLevel)
                 {
-                    leastGrownBlockLevel = PlantBlocks[test].getGrowthLevel();
+                    leastGrownBlockLevel = plantBlocks[test].getGrowthLevel();
                     leastGrownBlocks.Clear();
                     leastGrownBlocks.Add(test);
                 }
-                else if (PlantBlocks[test].getGrowthLevel() == leastGrownBlockLevel)
+                else if (plantBlocks[test].getGrowthLevel() == leastGrownBlockLevel)
                 {
                     leastGrownBlocks.Add(test);
                 }
@@ -142,13 +142,13 @@ namespace IslandGame.GameWorld
 
         }
 
-        public override ResourceAmount makeFarmBlockGrowAndGetRescources(BlockLoc toFarm)
+        public override void makeFarmBlockGrow(BlockLoc toFarm)
         {
-            if (PlantBlocks.ContainsKey(toFarm))
+            if (plantBlocks.ContainsKey(toFarm))
             {
-                return new ResourceAmount(PlantBlocks[toFarm].getTendedAndReturnWheatHarvested(),ResourceType.Wheat);
+                plantBlocks[toFarm].getTendedAndReturnWheatHarvested();
             }
-            return new ResourceAmount(0, ResourceType.Wheat);
+ 
         }
 
 

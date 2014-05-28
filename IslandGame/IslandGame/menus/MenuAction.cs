@@ -15,6 +15,7 @@ namespace IslandGame.menus
         ExcavationHudButtonClick, 
         FarmHudButtonClick, 
         WoodBuildHudClick, 
+        StorageHudClick,
         ColorPalleteColorSelection,
         PlayerBuildHudClick,
         PlayerBuildBoatHudClick
@@ -103,6 +104,14 @@ namespace IslandGame.menus
         public PlayerBuildBoatHudClick()
         {
             type = MenuActionType.PlayerBuildBoatHudClick;
+        }
+    }
+
+    public class PlayerPlaceStorageHudClick : MenuAction
+    {
+        public PlayerPlaceStorageHudClick()
+        {
+            type = MenuActionType.StorageHudClick;
         }
     }
 

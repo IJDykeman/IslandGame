@@ -17,17 +17,17 @@ namespace IslandGame.GameWorld.CharactersAndAI
             growth = 0;
         }
 
-        public int getTendedAndReturnWheatHarvested()
+        public void getTendedAndReturnWheatHarvested()
         {
             if (!isFullyGrown())
             {
                 growth++;
-                return 0;
+
             }
             else 
             {
                 growth = 0;
-                return wheatPerPlant;
+
             }
 
         }
