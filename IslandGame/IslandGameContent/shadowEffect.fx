@@ -72,7 +72,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
 
 	//float distanceFactor = (sqrt(pow(xCamPos.x-PSIn.Position3D.x,2) + pow(xCamPos.y-PSIn.Position3D.y,2) + pow(xCamPos.z-PSIn.Position3D.z,2))-1000)/400.0;
 	float dist = distance(PSIn.Position3D, xCamPos);
-    Output.Color = dist/300.0;
+    Output.Color = dist/200.0;
 
 
 

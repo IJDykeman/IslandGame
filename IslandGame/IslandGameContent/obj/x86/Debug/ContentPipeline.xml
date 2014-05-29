@@ -155,7 +155,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-05-29T03:38:18.6901736-04:00</Time>
+      <Time>2014-05-29T04:04:55.5185069-04:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -240,7 +240,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb</Output>
-      <Time>2014-05-29T03:34:38.6775896-04:00</Time>
+      <Time>2014-05-29T03:57:59.8117299-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

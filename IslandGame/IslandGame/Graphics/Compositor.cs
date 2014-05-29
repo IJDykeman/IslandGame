@@ -52,7 +52,7 @@ namespace IslandGame
             renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
             
-            shadowRendertarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
+            shadowRendertarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth*2, device.PresentationParameters.BackBufferHeight*2,
                  false,
                                                     SurfaceFormat.Single,
                                                     DepthFormat.Depth24);
@@ -198,7 +198,7 @@ namespace IslandGame
         private static Matrix getShadowViewMatrix(Player player)
         {
             Vector3 lightLoc = getLightLoc(player);
-            Matrix View = Matrix.CreateLookAt(lightLoc, lightLoc + new Vector3(0, -4,8), new Vector3(0, 1, 0));
+            Matrix View = Matrix.CreateLookAt(lightLoc, lightLoc + new Vector3(2, -4,8), new Vector3(0, 1, 0));
             return View;
         }
 
