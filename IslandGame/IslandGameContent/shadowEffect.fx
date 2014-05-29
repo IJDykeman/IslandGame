@@ -23,6 +23,7 @@ float4x4 xView;
 float4x4 xProjection;
 float4x4 xWorld;
 
+
 float3 xLightDirection;
 float xAmbient;
 float xOpacity;
@@ -39,45 +40,22 @@ sampler TextureSampler = sampler_state { texture = <xTexture>; magfilter = POINT
 //change LINEAR to POINT for blocky textures
 
 
-//------- Technique: Colored --------
-
-VertexToPixel ColoredVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float4 inColor: COLOR, float4 inPaint: COLOR1)
+struct CreateShadowMap_VSOut
+{
+    float4 Position : POSITION;
+    float Depth     : TEXCOORD0;
+};
+CreateShadowMap_VSOut ColoredVS(float4 Position: POSITION)
 {	
-	VertexToPixel Output = (VertexToPixel)0;
-	float4x4 preViewProjection = mul (xView, xProjection);
-	float4x4 preWorldViewProjection = mul (xWorld, preViewProjection);
-    
-	Output.Position = mul(inPos, preWorldViewProjection) ;
-	Output.Position3D = mul(inPos, xWorld) ;
-	Output.TextureCoords =inPos;
-	Output.Color = inColor;
-	
-	Output.Paint = inPaint;
-	float3 Normal = normalize(mul(normalize(inNormal), xWorld));	
-	Output.LightingFactor = 1;
-	if (xEnableLighting)
-		Output.LightingFactor = saturate(dot(Normal, -xLightDirection));
-    
-	
-	return Output;    
+    CreateShadowMap_VSOut Out;
+    Out.Position = mul(Position, mul(xWorld, mul(xView,xProjection))); 
+    Out.Depth = Out.Position.z / Out.Position.w;    
+    return Out;
 }
 
-PixelToFrame ColoredPS(VertexToPixel PSIn) 
+float4 ColoredPS(CreateShadowMap_VSOut input) : COLOR
 {
-	PixelToFrame Output = (PixelToFrame)0;		
-    
-	Output.Color = PSIn.Paint;
-
-
-
-	//float distanceFactor = (sqrt(pow(xCamPos.x-PSIn.Position3D.x,2) + pow(xCamPos.y-PSIn.Position3D.y,2) + pow(xCamPos.z-PSIn.Position3D.z,2))-1000)/400.0;
-	float dist = distance(PSIn.Position3D, xCamPos);
-    Output.Color = dist/200.0;
-
-
-
-	Output.Color.a=xOpacity;
-	return Output;
+    return float4(input.Depth, 0, 0, 0);
 }
 
 technique Colored

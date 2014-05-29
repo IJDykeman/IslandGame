@@ -17,7 +17,7 @@ namespace IslandGame
 
         static SpriteBatch spriteBatch;
         public static Matrix viewMatrix;
-        public static Matrix projectionMatrix;
+
         static Effect effect;
         static Effect shadowEffect;
         static Sky sky;
@@ -32,6 +32,8 @@ namespace IslandGame
         static Texture2D shadowMap;
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
+
+        static float shadowBufferScale = 3.2f;
 
 
 
@@ -51,14 +53,24 @@ namespace IslandGame
 
             renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
-            
-            shadowRendertarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth*2, device.PresentationParameters.BackBufferHeight*2,
+
+            shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
                  false,
                                                     SurfaceFormat.Single,
                                                     DepthFormat.Depth24);
 
 
 
+        }
+
+        private static int getShadowBufferHeight()
+        {
+            return (int)(device.PresentationParameters.BackBufferHeight * shadowBufferScale);
+        }
+
+        private static int getShadowBufferWidth()
+        {
+            return (int)(device.PresentationParameters.BackBufferWidth * shadowBufferScale);
         }
 
         public static void drawFinalImageFirst(Player player, bool isAnimating)
@@ -82,14 +94,16 @@ namespace IslandGame
 
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
             effect.Parameters["xView"].SetValue(viewMatrix);
-            effect.Parameters["xProjection"].SetValue(projectionMatrix);
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
 
             effect.Parameters["xShadowWorld"].SetValue(getShadowWorldMatrix());
             effect.Parameters["xShadowView"].SetValue(getShadowViewMatrix(player));
             effect.Parameters["xShadowProjection"].SetValue(getShadowProjectionMatrix());
             effect.Parameters["xTexture"].SetValue(shadowMap);
             effect.Parameters["xLightPos"].SetValue(getLightLoc(player));
-
+            Vector2 shadowMapPixelSize = new Vector2(0.5f / shadowRendertarget.Width, 0.5f / shadowRendertarget.Height);
+            effect.Parameters["ShadowMapPixelSize"].SetValue(shadowMapPixelSize);
+            effect.Parameters["ShadowMapSize"].SetValue(new Vector2(shadowRendertarget.Width, shadowRendertarget.Height));
             effect.Parameters["xEnableLighting"].SetValue(true);
             Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
             lightDirection.Normalize();
@@ -144,7 +158,13 @@ namespace IslandGame
 
         private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
         {
-            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * projectionMatrix));
+
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
+            sky.draw(device, effectToUse, viewMatrix, getPerspectiveMatrix(2000), player.getCameraLoc());
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
+
+
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
             player.display3D();
             foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
@@ -153,13 +173,13 @@ namespace IslandGame
             }
             CharactersForThisFrame.Clear();
             WorldMarkupHandler.draw(device, effectToUse);
-            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc(), ambientBrightness);
-            sky.draw(device, effectToUse, viewMatrix, projectionMatrix, player.getCameraLoc());
+            ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
+
         }
 
         private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
         {
-            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * projectionMatrix));
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
         }
 
@@ -184,7 +204,11 @@ namespace IslandGame
             shadowEffect.Parameters["xAmbient"].SetValue(ambientBrightness);
             shadowEffect.Parameters["xOpacity"].SetValue(1f);
             shadowEffect.Parameters["xCamPos"].SetValue(getLightLoc(player));
+
+            
+
             displayShadowCasters(world, player, null, shadowEffect);
+
             shadowMap = (Texture2D)shadowRendertarget;
             device.SetRenderTarget(null);
 
@@ -192,20 +216,55 @@ namespace IslandGame
 
         private static Matrix getShadowProjectionMatrix()
         {
-            return projectionMatrix;
+
+            BoundingSphere sphere = getViewFrustumBoundingSphereForShadows();
+
+            const float NearClip = 1f;
+
+
+            float farClip = 81;
+            Matrix shadowProjMatrix = Matrix.CreateOrthographic(sphere.Radius * 2, sphere.Radius*2, NearClip, farClip);
+
+            return shadowProjMatrix;
+
+        }
+        
+        private static float getShadowViewWidthInWorldSpace()
+        {
+            return getViewFrustumBoundingSphereForShadows().Radius * 2.0f;
         }
 
         private static Matrix getShadowViewMatrix(Player player)
         {
-            Vector3 lightLoc = getLightLoc(player);
-            Matrix View = Matrix.CreateLookAt(lightLoc, lightLoc + new Vector3(2, -4,8), new Vector3(0, 1, 0));
-            return View;
+            Vector3 shadowCamPos = getLightLoc(player);
+            Matrix shadowViewMatrix = Matrix.CreateLookAt(shadowCamPos, shadowCamPos+Vector3.Down, Vector3.Left);
+
+            return shadowViewMatrix;
         }
 
         private static Vector3 getLightLoc(Player player)
         {
-            Vector3 lightLoc = new Vector3(1978,50,1355);
-            return lightLoc;
+            BoundingSphere sphere = getViewFrustumBoundingSphereForShadows();
+
+            Vector3 shadowCamPos = sphere.Center;
+            shadowCamPos.Y = 80;
+
+            shadowCamPos.X /= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
+            shadowCamPos.Z /= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();
+            shadowCamPos.X = (int)shadowCamPos.X;
+            shadowCamPos.Z = (int)shadowCamPos.Z;
+            shadowCamPos.X *= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
+            shadowCamPos.Z *= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();
+
+            return shadowCamPos;
+        }
+        
+
+
+        private static BoundingSphere getViewFrustumBoundingSphereForShadows()
+        {
+            BoundingSphere sphere = BoundingSphere.CreateFromFrustum(new BoundingFrustum(viewMatrix * getPerspectiveMatrix(10)));
+            return sphere;
         }
 
         private static Matrix getShadowWorldMatrix()
@@ -213,17 +272,16 @@ namespace IslandGame
             return Matrix.Identity;
         }
 
-        private static void SetUpCamera()
+        public static Matrix getPerspectiveMatrix(int viewDistance)
         {
-            float viewDistance = (float)2000;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 2.3f, device.Viewport.AspectRatio, 0.16f, viewDistance); //used to be 1 and 300 for the last two arguments
+
+
+            return Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 2.3f, device.Viewport.AspectRatio, 0.16f, viewDistance); //used to be 1 and 300 for the last two arguments
         }
 
         public static void UpdateViewMatrix(Vector3 loc, Quaternion cameraRotationQuaternion)
         {
 
-
-            SetUpCamera();
 
 
 
@@ -303,7 +361,7 @@ namespace IslandGame
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
 
             effect.Parameters["xView"].SetValue(viewMatrix);
-            effect.Parameters["xProjection"].SetValue(projectionMatrix);
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
 
             effect.Parameters["xEnableLighting"].SetValue(true);
 

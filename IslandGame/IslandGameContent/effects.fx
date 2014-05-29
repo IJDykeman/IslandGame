@@ -27,6 +27,8 @@ float4x4 xShadowView;
 float4x4 xShadowProjection;
 float4x4 xShadowWorld;
 float3 xLightPos;
+float2 ShadowMapPixelSize;
+float2 ShadowMapSize;
 
 float3 xLightDirection;
 float xAmbient;
@@ -66,6 +68,9 @@ VertexToPixel ColoredVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float
 	return Output;    
 }
 
+
+
+
 PixelToFrame ColoredPS(VertexToPixel PSIn) 
 {
 	PixelToFrame Output = (PixelToFrame)0;		
@@ -96,7 +101,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
         //float4 lightingPosition = mul(input.WorldPos, LightViewProj);
     
     // Find the position in the shadow map for this pixel
-    float2 ShadowTexCoord = 0.5 * lightingPosition.xy / 
+   float2 ShadowTexCoord = 0.5 * lightingPosition.xy / 
                             lightingPosition.w + float2( 0.5, 0.5 );
     ShadowTexCoord.y = 1.0f - ShadowTexCoord.y;
 
@@ -106,16 +111,15 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
     // Calculate the current pixel depth
     // The bias is used to prevent folating point errors that occur when
     // the pixel of the occluder is being drawn
-    float ourdepth = distance(xLightPos,PSIn.Position3D)/200 - .003;
+    float ourdepth = (lightingPosition.z / lightingPosition.w) - 0.01f;
     
     // Check to see if this pixel is in front or behind the value in the shadow map
-    if (shadowdepth < ourdepth && ShadowTexCoord.y>=0 && ShadowTexCoord.y<=1 && ShadowTexCoord.x>=0 && ShadowTexCoord.x<=1 )
+    if (shadowdepth < ourdepth && ShadowTexCoord.y>=0 && ShadowTexCoord.y<=1 && ShadowTexCoord.x>=0 && ShadowTexCoord.x<=1)
     {
         // Shadow the pixel by lowering the intensity
-        Output.Color *= float4(0.5,0.5,0.5,0);
-    };
-    //Output.Color = float4( abs(ourdepth-shadowdepth),abs(ourdepth-shadowdepth),abs(ourdepth-shadowdepth),1);
+        Output.Color *= float4(0.4,0.4,0.5,0);
 
+    };
 	Output.Color.a=xOpacity;
 	return Output;
 }

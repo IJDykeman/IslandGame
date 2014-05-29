@@ -156,7 +156,7 @@ namespace IslandGame
 
             Vector3 far = new Vector3(mouseState.X, mouseState.Y, distance);
 
-            far = Compositer.device.Viewport.Unproject(far, Compositer.projectionMatrix, Compositer.viewMatrix, Matrix.Identity);
+            far = Compositer.device.Viewport.Unproject(far, Compositer.getPerspectiveMatrix(2000), Compositer.viewMatrix, Matrix.Identity);
             return far;
         }
 
