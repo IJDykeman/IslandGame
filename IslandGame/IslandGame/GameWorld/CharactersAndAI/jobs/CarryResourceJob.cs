@@ -35,11 +35,24 @@ namespace IslandGame.GameWorld
             BlockLoc blockToPlaceResourceIn;
             PathHandler pathHandler = new PathHandlerPreferringLowerBlocks();
 
-            currentWalkJob = new TravelAlongPath(pathHandler.
-                getPathToMakeTheseBlocksAvaiable(pathingProfile, new BlockLoc(character.getFootLocation()),
-                pathingProfile, goalsForBlockPlacement, 2, out blockToPlaceResourceIn));
+            if (goalsForBlockPlacement.Count > 0)
+            {
+                currentWalkJob = new TravelAlongPath(pathHandler.
+                    getPathToMakeTheseBlocksAvaiable(pathingProfile, new BlockLoc(character.getFootLocation()),
+                    pathingProfile, goalsForBlockPlacement, 2, out blockToPlaceResourceIn));
 
-            currentGoalBlock = blockToPlaceResourceIn;
+                currentGoalBlock = blockToPlaceResourceIn;
+            }
+            else
+            {
+                List<BlockLoc> noPath = new List<BlockLoc>();
+                noPath.Add(new BlockLoc(character.getFootLocation()));
+                //TODO: make it find the nearest good space to place a resource block
+
+               currentWalkJob = new TravelAlongPath(noPath);
+
+                currentGoalBlock = new BlockLoc(character.getFootLocation());
+            }
         }
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
@@ -51,7 +64,7 @@ namespace IslandGame.GameWorld
                 
                 return currentWalkJob.getCurrentTask(taskTracker);
             }
-            else if (!hasDroppedLoad && currentWalkJob.isUseable() && currentWalkJob.willResultInTravel())
+            else if (!hasDroppedLoad && currentWalkJob.isUseable())
             {
                 hasDroppedLoad = true;
                 return new CharacterTask.PlaceResource(currentGoalBlock, carriedType);
