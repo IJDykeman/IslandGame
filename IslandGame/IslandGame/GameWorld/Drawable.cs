@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace IslandGame.GameWorld
 {
-    [Serializable]
-    abstract class MultiblockJobSite : JobSite
+    public interface Drawable
     {
-
-
+        void draw(GraphicsDevice device, Effect effect);
     }
 }

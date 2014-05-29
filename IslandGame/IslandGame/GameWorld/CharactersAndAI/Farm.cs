@@ -26,13 +26,14 @@ namespace IslandGame.GameWorld
             profile = nProfile;
         }
 
-        public override Job getJob(Character newWorker) { 
+        public override Job getJob(Character newWorker, Ray ray)
+        { 
             return new FarmJob(this, newWorker); 
         }
 
         public override float? intersects(Microsoft.Xna.Framework.Ray ray)
         {
-            return intersects(ray, plantBlocks.Keys.ToList());
+            return Intersection.intersects(ray, plantBlocks.Keys.ToList());
         }
 
         public override void blockWasDestroyed(BlockLoc toDestroy)

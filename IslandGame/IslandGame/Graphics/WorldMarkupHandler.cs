@@ -19,12 +19,22 @@ namespace IslandGame
         public static void addFlagPathWithPosition(string path, Vector3 position)
         {
             path = getProperPath(path);
-            float scale = 1;
             if (path.Contains(("Outline.chr").ToUpper()) || path.Contains(("Marker.chr").ToUpper()) || path.Contains(("wheatGrowthStage").ToUpper()))
             {
-                scale = 1.0f / 12f;
+                float scale = 1.0f / 12f;
+                addFlagPathWithPosition(path, position, scale);
             }
-            addFlagPathWithPosition(path, position, scale);
+            else if (path.Contains((@"\log.chr").ToUpper()))
+            {
+                addFlagPathWithPosition(path, position, 1f / 7f);
+            }
+            else
+            {
+
+                addFlagPathWithPosition(path, position, 1);
+            }
+
+            
             
 
         }

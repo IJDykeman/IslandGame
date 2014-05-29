@@ -225,6 +225,11 @@ namespace IslandGame.GameWorld
                     actions.Add(new ActorStrikeBlockAction(this,((CharacterTask.MakeFarmBlockGrow)toDo).getBlockToFarm(),JobType.agriculture));
                     StartHammerAnimationIfPossible();
                     break;
+                case CharacterTask.Type.PlaceResource:
+                    CharacterTask.PlaceResource placeResource = (CharacterTask.PlaceResource)toDo;
+                    actions.Add(new ActorPlaceResourceAction(placeResource.getLocToPlaceResource(),placeResource.getTypeToPlace()));
+                    StartHammerAnimationIfPossible();
+                    break;
 
 
             }

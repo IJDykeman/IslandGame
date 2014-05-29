@@ -10,24 +10,30 @@ namespace IslandGame.GameWorld
     class ResourceBlockjobSite : JobSite
     {
         Dictionary<BlockLoc, ResourceBlock> resourceBlocks;
+        List<Stockpile> stockpiles;
 
-        public ResourceBlockjobSite()
+        public ResourceBlockjobSite(IslandPathingProfile nprofile)
         {
             resourceBlocks = new Dictionary<BlockLoc, ResourceBlock>();
+            stockpiles = new List<Stockpile>();
+            profile = nprofile;
         }
 
         public override float? intersects(Ray ray)
         {
-            return 99000900900;
+            return Intersection.getDistanceToNearestIntersectableOnRay(ray, stockpiles);
         }
 
-        public override Job getJob(Character newWorker)
+        public override Job getJob(Character newWorker, Ray ray)
         {
             //return new BuildJob(this, newWorker);
-            return new UnemployedJob();
+            return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(), newWorker, profile);
         }
 
-
+        Stockpile getStockpileAlongRay(Ray ray)
+        {
+            return (Stockpile)Intersection.getNearestIntersectableAlongRay(ray, stockpiles);
+        }
 
 
 
@@ -53,6 +59,10 @@ namespace IslandGame.GameWorld
                                            key.getMiddleInWorldSpace());
             }
 
+            foreach (Stockpile stockpile in stockpiles)
+            {
+                stockpile.draw(device, effect);
+            }
         }
 
         public void placeRescourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
@@ -68,6 +78,44 @@ namespace IslandGame.GameWorld
                 result.Add(test);
             }
             return result;
+        }
+
+        public void addStockpile(Stockpile stockpileJobSite)
+        {
+            stockpiles.Add(stockpileJobSite);
+        }
+
+        internal IEnumerable<BlockLoc> getBlocksToStoreThisTypeIn(ResourceBlock.ResourceType carriedType)
+        {
+            List<BlockLoc> result = new List<BlockLoc>();
+            foreach (Stockpile stockpile in stockpiles)
+            {
+                if (stockpile.getStoredType() == carriedType)
+                {
+                    foreach (BlockLoc loc in stockpile.getAllBlocksInStockPile())
+                    {
+                        if (thereAreNoResourcesAt(loc))
+                        {
+                            result.Add(loc);
+                        }
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        private bool thereAreNoResourcesAt(BlockLoc loc)
+        {
+            foreach (Stockpile test in stockpiles)
+            {
+                if (resourceBlocks.Keys.Contains(loc))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

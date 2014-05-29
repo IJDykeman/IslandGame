@@ -48,10 +48,10 @@ namespace IslandGame.GameWorld
 
         public override float? intersects(Microsoft.Xna.Framework.Ray ray)
         {
-            return intersects(ray, blocksToBeRemoved);
+            return Intersection.intersects(ray, blocksToBeRemoved);
         }
 
-        public override Job getJob(Character newWorker)
+        public override Job getJob(Character newWorker, Ray ray)
         {
             return new ExcavateJob(this, newWorker);
         }

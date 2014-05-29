@@ -6,12 +6,12 @@ using System.Text;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class WalkToAndDestroyBlock : Job
+    class WalkToAndDestroyBlockJob : Job
     {
         TravelAlongPath walkJob;
         CharacterTask.DestroyBlock destroyTask;
 
-        public WalkToAndDestroyBlock(TravelAlongPath nWalkJob, CharacterTask.DestroyBlock nDestoryTask)
+        public WalkToAndDestroyBlockJob(TravelAlongPath nWalkJob, CharacterTask.DestroyBlock nDestoryTask)
         {
             walkJob = nWalkJob;
             destroyTask = nDestoryTask;

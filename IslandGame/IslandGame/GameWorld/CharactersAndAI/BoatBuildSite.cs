@@ -21,7 +21,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void blockWasDestroyed(BlockLoc loc) { }
 
-        public override Job getJob(Character newWorker)
+        public override Job getJob(Character newWorker, Ray ray)
         {
             return new ObjectBuildingJob(newWorker, this);
         }

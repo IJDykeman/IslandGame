@@ -21,7 +21,7 @@ namespace IslandGame.GameWorld
         {
             jobSites = new List<JobSite>();
             jobSites.Add(new TreesJobSite(profile));
-            resourceBlockJobsite = new ResourceBlockjobSite();
+            resourceBlockJobsite = new ResourceBlockjobSite(profile);
             jobSites.Add(resourceBlockJobsite);
         }
 
@@ -87,26 +87,7 @@ namespace IslandGame.GameWorld
 
         internal JobSite getJobSiteAlongRay(Microsoft.Xna.Framework.Ray ray)
         {
-            return getJobSiteAlongRay(ray, jobSites);
-        }
-
-        public static JobSite getJobSiteAlongRay(Ray ray, IEnumerable<JobSite> jobSites)
-        {
-            float? minDist = float.MaxValue;
-            JobSite result = null;
-            foreach (JobSite site in jobSites)
-            {
-                float? thisDist = site.intersects(ray);
-                if (thisDist.HasValue)
-                {
-                    if (minDist > thisDist)
-                    {
-                        minDist = thisDist;
-                        result = site;
-                    }
-                }
-            }
-            return result;
+            return (JobSite)Intersection.getNearestIntersectableAlongRay(ray, jobSites);
         }
 
         internal void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile, PlayerAction.Dragging.DragType dragType)
@@ -117,12 +98,12 @@ namespace IslandGame.GameWorld
                     placeFarmWithBlocks(blocksToAdd, profile);
                     break;
                 case PlayerAction.Dragging.DragType.storage:
-                    placeStorageAreaWithBlocks(blocksToAdd, profile);
+                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile);
                     break;
             }
         }
 
-        private void placeStorageAreaWithBlocks(IEnumerable<BlockLoc> blocksToPlaceSiteOn, IslandPathingProfile profile)
+        private void placeStorageAreaWithBlocksToPlaceOn(IEnumerable<BlockLoc> blocksToPlaceSiteOn, IslandPathingProfile profile)
         {
 
             List<BlockLoc> blocksForSite = new List<BlockLoc>();
@@ -145,7 +126,7 @@ namespace IslandGame.GameWorld
                     }
                     
                 }
-                jobSites.Add(new StockpileJobSite(locsNotSolid));
+                resourceBlockJobsite.addStockpile(new Stockpile(locsNotSolid,ResourceBlock.ResourceType.Wood));
                 
             }
 
@@ -312,7 +293,7 @@ namespace IslandGame.GameWorld
             }
 
             //WoodBuildSite nSite = new WoodBuildSite(pathingProfile);
-            //jobSites.Add(nSite);
+            //intersectables.Add(nSite);
 
         }
 

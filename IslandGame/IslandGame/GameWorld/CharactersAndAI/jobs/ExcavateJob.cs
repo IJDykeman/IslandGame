@@ -9,7 +9,7 @@ namespace IslandGame.GameWorld
     class ExcavateJob : MultiBlockOngoingJob
     {
         ExcavationSite site;
-        WalkToAndDestroyBlock currentWalkToAndDestroy;
+        WalkToAndDestroyBlockJob currentWalkToAndDestroy;
         Character character;
         
 
@@ -64,7 +64,7 @@ namespace IslandGame.GameWorld
                         new BlockLoc(character.getFootLocation()), site.getProfile(),
                         blocksToRemove, 2, out toDestroy);
                     TravelAlongPath walkTask = new TravelAlongPath(path);
-                    currentWalkToAndDestroy = new WalkToAndDestroyBlock(new TravelAlongPath(path), new CharacterTask.DestroyBlock(toDestroy));
+                    currentWalkToAndDestroy = new WalkToAndDestroyBlockJob(new TravelAlongPath(path), new CharacterTask.DestroyBlock(toDestroy));
                 }
             }
             else

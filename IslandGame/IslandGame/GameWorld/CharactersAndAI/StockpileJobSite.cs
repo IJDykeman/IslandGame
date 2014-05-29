@@ -5,22 +5,22 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace IslandGame.GameWorld.CharactersAndAI
+namespace IslandGame.GameWorld
 {
     [Serializable]
-    class StockpileJobSite : JobSite
+    class Stockpile : Intersectable
     {
         HashSet<BlockLoc> storageSpace;
         ResourceBlock.ResourceType typeToStore;
 
-        public StockpileJobSite(IEnumerable<BlockLoc> blockLocsForStorage)
+        public Stockpile(IEnumerable<BlockLoc> blockLocsForStorage, ResourceBlock.ResourceType ntypeToStore)
         {
             storageSpace = new HashSet<BlockLoc>();
             foreach (BlockLoc toAdd in blockLocsForStorage)
             {
                 storageSpace.Add(toAdd);
             }
-            typeToStore = ResourceBlock.ResourceType.Wood;
+            typeToStore = ntypeToStore;
         }
 
         public ResourceBlock.ResourceType typeStored()
@@ -28,35 +28,30 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return typeToStore;
         }
 
-        public override float? intersects(Ray ray)
+        public float? intersects(Ray ray)
         {
-            return 99000900900;
-        }
-
-        public override Job getJob(Character newWorker)
-        {
-            //return new BuildJob(this, newWorker);
-            return new UnemployedJob();
+            return Intersection.intersects(ray, storageSpace);
         }
 
 
 
 
 
-        public override void blockWasBuilt(BlockLoc toDestroy)
-        {
 
+        public void blockWasBuilt(BlockLoc toDestroy)
+        {
+            throw new NotImplementedException();
         }
 
 
-        public override void blockWasDestroyed(BlockLoc toDestroy)
+        public void blockWasDestroyed(BlockLoc toDestroy)
         {
-
+            throw new NotImplementedException();
         }
 
 
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public void draw(GraphicsDevice device, Effect effect)
         {
             foreach (BlockLoc test in storageSpace)
             {
@@ -68,7 +63,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
 
 
-        public override HashSet<BlockLoc> getAllBlocksInSite()
+        public HashSet<BlockLoc> getAllBlocksInStockPile()
         {
             HashSet<BlockLoc> result = new HashSet<BlockLoc>();
             foreach (BlockLoc test in storageSpace)
@@ -77,5 +72,11 @@ namespace IslandGame.GameWorld.CharactersAndAI
             }
             return result;
         }
+
+        public ResourceBlock.ResourceType getStoredType()
+        {
+            return typeToStore;
+        }
+
     }
 }

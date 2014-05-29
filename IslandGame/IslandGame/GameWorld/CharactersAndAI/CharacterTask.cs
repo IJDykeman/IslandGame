@@ -24,7 +24,8 @@ namespace IslandGame.GameWorld
             LookTowardPoint,
             MakeFarmBlockGrow,
             DoStrikeOfWorkAlongRay,
-            DoStrikeOfWorkOnBlock
+            DoStrikeOfWorkOnBlock,
+            PlaceResource
         }
 
         [Serializable]
@@ -416,6 +417,36 @@ namespace IslandGame.GameWorld
             public JobType getJobType()
             {
                 return jobType;
+            }
+
+        }
+
+        public class PlaceResource : Task
+        {
+            BlockLoc blockToPlaceIn;
+            ResourceBlock.ResourceType typeToPlace;
+
+            public PlaceResource(BlockLoc nBlockToPlaceIn, ResourceBlock.ResourceType ntypeToPlace)
+            {
+                taskType = Type.PlaceResource;
+                typeToPlace = ntypeToPlace;
+                blockToPlaceIn = nBlockToPlaceIn;
+            }
+
+
+
+            public BlockLoc getLocToPlaceResource()
+            {
+                return blockToPlaceIn;
+            }
+            public override bool isComplete()
+            {
+                return true;
+            }
+
+            public ResourceBlock.ResourceType getTypeToPlace()
+            {
+                return typeToPlace;
             }
 
         }

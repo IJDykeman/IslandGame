@@ -13,7 +13,8 @@ namespace IslandGame.GameWorld
         combat,
         mining,
         building,
-        logging
+        logging,
+        CarryingWood
     }
 
     public abstract class Job

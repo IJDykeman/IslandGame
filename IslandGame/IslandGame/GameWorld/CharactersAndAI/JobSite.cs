@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    public abstract class JobSite
+    public abstract class JobSite : Intersectable, Drawable
     {
         protected IslandPathingProfile profile;
 
         public abstract float? intersects(Microsoft.Xna.Framework.Ray ray);
-        public abstract Job getJob(Character newWorker);
+        public abstract Job getJob(Character newWorker, Ray ray);
         public abstract void draw(GraphicsDevice device, Effect effect);
         public abstract void blockWasDestroyed(BlockLoc toDestroy);
         public abstract void blockWasBuilt(BlockLoc toDestroy);

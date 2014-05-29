@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld.CharactersAndAI
 {
@@ -59,7 +60,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             float? intersection = null;
             Tree closest = null; //currently found but not used for anything
             foreach(Tree test in trees){
-                float? thisIntersecton = intersects(ray, test.getTrunkBlocks());
+                float? thisIntersecton = Intersection.intersects(ray, test.getTrunkBlocks());
                 if (thisIntersecton.HasValue)
                 {
                     if (intersection.HasValue == false || (float)thisIntersecton < (float)intersection)
@@ -72,7 +73,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return intersection;
         }
 
-        public override Job getJob(Character newWorker)
+        public override Job getJob(Character newWorker, Ray ray)
         {
             return new LoggingJob(newWorker, this);
         }

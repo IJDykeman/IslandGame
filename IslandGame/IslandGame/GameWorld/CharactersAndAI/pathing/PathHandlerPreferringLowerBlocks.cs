@@ -11,15 +11,14 @@ namespace IslandGame.GameWorld
             HashSet<BlockLoc> blocksToMakeAvailable, int heightOfEntity)
         {
             lowestAvailableBlockFound = new BlockLoc();
-            /*foreach (BlockLoc goal in blocksToMakeAvailable)
-            {
-                if (startLoc.Equals(goal))
+
+                if (blocksToMakeAvailable.Count == 0)
                 {
                     List<BlockLoc> noPathResult = new List<BlockLoc>();
                     noPathResult.Add(startLoc);
                     return noPathResult;
                 }
-            }*/
+            
 
 
 

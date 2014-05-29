@@ -22,10 +22,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override float? intersects(Ray ray)
         {
-            return intersects(ray, blocksToBuild);
+            return Intersection.intersects(ray, blocksToBuild);
         }
 
-        public override Job getJob(Character newWorker)
+        public override Job getJob(Character newWorker, Ray ray)
         {
             return new BuildJob(this, newWorker);
         }

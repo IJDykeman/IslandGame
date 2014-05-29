@@ -73,6 +73,11 @@ namespace IslandGame.GameWorld
                     case ActorActions.setShipVelocity:
                         ((ActorSetShipVelocity)action).getBoat().setVelocity(((ActorSetShipVelocity)action).getNewVelocity());
                         break;
+                    case ActorActions.PlaceResource:
+
+                        islandManager.addResourceBlock(((ActorPlaceResourceAction)action).getLocToPlace()
+                            , ((ActorPlaceResourceAction)action).getRescourceTypeToPlace());
+                        break;
                     case ActorActions.strike:
                         ActorStrikeAction strikeAction = (ActorStrikeAction)action;
                         if (strikeAction.getStrikeType() == ActorStrikeAction.StrikeType.OnBlock)
@@ -246,7 +251,7 @@ namespace IslandGame.GameWorld
                     }
                 }
 
-                Job job = clickedJobSite.getJob(character);
+                Job job = clickedJobSite.getJob(character, rightClickRay);
                 character.setJobAndCheckUseability(job);
                 return true;
             }

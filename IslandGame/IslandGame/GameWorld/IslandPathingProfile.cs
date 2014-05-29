@@ -26,9 +26,12 @@ namespace IslandGame.GameWorld
 
 
         protected static IntVector3[] standingLocsRelativeToAvailableBlock = 
-        {   new IntVector3(1,-1,0),new IntVector3(-1,-1,0),new IntVector3(0,-1,1),new IntVector3(0,-1,-1),
+        {   
+            new IntVector3(1,1,0), new IntVector3(-1,1,0), new IntVector3(0,1,1), new IntVector3(0,1,-1),
             new IntVector3(1,0,0), new IntVector3(-1,0,0), new IntVector3(0,0,1), new IntVector3(0,0,-1),
-            new IntVector3(1,1,0), new IntVector3(-1,1,0), new IntVector3(0,1,1), new IntVector3(0,1,-1)
+            new IntVector3(1,-1,0),new IntVector3(-1,-1,0),new IntVector3(0,-1,1),new IntVector3(0,-1,-1)
+            
+            
         };
 
 

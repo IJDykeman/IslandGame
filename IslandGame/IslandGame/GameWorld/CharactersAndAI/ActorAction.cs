@@ -14,6 +14,7 @@ namespace IslandGame.GameWorld
         setShipVelocity,
         die,
         strike,
+        PlaceResource
 
     }
 
@@ -115,6 +116,32 @@ namespace IslandGame.GameWorld
 
     }
 
+    [Serializable]
+    public class ActorPlaceResourceAction : ActorAction
+    {
+        ResourceBlock.ResourceType typeToPlace;
+        BlockLoc locToPlace;
+
+        public ActorPlaceResourceAction(BlockLoc nlocToPlace, ResourceBlock.ResourceType nTypeToPlace)
+        {
+            type = ActorActions.PlaceResource;
+            typeToPlace = nTypeToPlace;
+            locToPlace = nlocToPlace;
+        }
+
+        public ResourceBlock.ResourceType getRescourceTypeToPlace()
+        {
+            return typeToPlace;
+        }
+
+        public BlockLoc getLocToPlace()
+        {
+            return locToPlace;
+        }
+
+    }
+
+    [Serializable]
     public abstract class ActorStrikeAction : ActorAction
     {
         protected Actor striker;
