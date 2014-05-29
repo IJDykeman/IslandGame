@@ -21,3 +21,4 @@ Content\sphere.xnb
 Content\Ocean.xnb
 Content\plane.xnb
 Content\UI\lockedChest.xnb
+Content\shadowEffect.xnb

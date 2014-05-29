@@ -159,7 +159,7 @@ namespace IslandGame.GameWorld
                     indexBuffer.IndexCount / 3);
 
             }
-            //effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+            //effectToUse.Parameters["xWorld"].SetValue(Matrix.Identity);
         }
 
         public void drawForBodyPart(GraphicsDevice device, Effect effect, Matrix worldMatrix, bool highLighted)

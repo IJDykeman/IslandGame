@@ -155,7 +155,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-05-26T21:02:22.2253394-04:00</Time>
+      <Time>2014-05-29T03:38:18.6901736-04:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -232,6 +232,15 @@
       <Options>None</Options>
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\lockedChest.xnb</Output>
       <Time>2014-05-27T21:25:56.3110394-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shadowEffect.fx</Source>
+      <Name>shadowEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb</Output>
+      <Time>2014-05-29T03:34:38.6775896-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

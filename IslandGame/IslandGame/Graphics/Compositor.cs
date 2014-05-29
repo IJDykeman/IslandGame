@@ -18,19 +18,22 @@ namespace IslandGame
         static SpriteBatch spriteBatch;
         public static Matrix viewMatrix;
         public static Matrix projectionMatrix;
-        public static Effect effect;
+        static Effect effect;
+        static Effect shadowEffect;
         static Sky sky;
         static Ocean ocean;
         static float ambientBrightness = .9f;
 
+        static RenderTarget2D renderTarget;
+        //static Texture2D r;
+        static Texture2D mainRenderImage;
+
+        static RenderTarget2D shadowRendertarget;
+        static Texture2D shadowMap;
+
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
 
-        public static void construct(GraphicsDevice ndevice)
-        {
 
-            device = ndevice;
-
-        }
 
         public static void LoadContent(ContentManager content)
         {
@@ -38,12 +41,23 @@ namespace IslandGame
             device = Main.graphics.GraphicsDevice;
             spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
             effect = content.Load<Effect>("effects");
-            effect.Parameters["xTexture"].SetValue(ContentDistributor.random);
+            shadowEffect = content.Load<Effect>("shadowEffect");
+            
             sky = new Sky();
             sky.loadContent(content);
 
             ocean = new Ocean();
             ocean.loadContent(content);
+
+            renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
+                false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
+            
+            shadowRendertarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
+                 false,
+                                                    SurfaceFormat.Single,
+                                                    DepthFormat.Depth24);
+
+
 
         }
 
@@ -58,24 +72,26 @@ namespace IslandGame
 
         public static void display(GameWorld.World world, Player player, Character doNotDisplay)
         {
-            device.DepthStencilState = new DepthStencilState()
-            {
-                DepthBufferEnable = true
-            };
-            RasterizerState rs = new RasterizerState();
 
+            RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
             device.RasterizerState = rs;
+            device.BlendState = BlendState.Opaque;
+
+            drawShadows(player, world);
 
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-
             effect.Parameters["xView"].SetValue(viewMatrix);
             effect.Parameters["xProjection"].SetValue(projectionMatrix);
 
+            effect.Parameters["xShadowWorld"].SetValue(getShadowWorldMatrix());
+            effect.Parameters["xShadowView"].SetValue(getShadowViewMatrix(player));
+            effect.Parameters["xShadowProjection"].SetValue(getShadowProjectionMatrix());
+            effect.Parameters["xTexture"].SetValue(shadowMap);
+            effect.Parameters["xLightPos"].SetValue(getLightLoc(player));
+
             effect.Parameters["xEnableLighting"].SetValue(true);
-
             Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
-
             lightDirection.Normalize();
             lightDirection *= (float).3f;
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
@@ -92,41 +108,113 @@ namespace IslandGame
             rasterizerState.CullMode = CullMode.None;
             device.RasterizerState = rasterizerState;
 
-            world.displayIslands(device, effect, new BoundingFrustum(viewMatrix * projectionMatrix));
-            world.displayActors(device, effect, doNotDisplay);
-
-            player.display3D();
-
-
-            //effect.Parameters["xOpacity"].SetValue(.4f);
-            foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
+            device.SetRenderTarget(renderTarget);
+            device.DepthStencilState = new DepthStencilState()
             {
-                group.draw(device, effect);
-            }
-           // effect.Parameters["xOpacity"].SetValue(1f);
-
-            CharactersForThisFrame.Clear();
-            WorldMarkupHandler.draw(device,effect);
-
-            
-
-            
-            Random rand = new Random();
+                DepthBufferEnable = true
+            };
 
 
-            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc(),ambientBrightness);
-
-            sky.draw(device, effect, viewMatrix, projectionMatrix, player.getCameraLoc());
+            display3DObjects(world, player, doNotDisplay, effect);
 
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
 
+            //device.Clear(Color.Black);
 
+            mainRenderImage = (Texture2D)renderTarget;
+
+            device.SetRenderTarget(null);
+
+
+           // renderTarget.Dispose();
+           // renderTarget = null;
+            
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
+            
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque,
+            SamplerState.PointClamp, DepthStencilState.Default,
+            RasterizerState.CullNone);
+            spriteBatch.Draw(mainRenderImage, new Vector2(0, 0), Color.White);
+            //device.SamplerStates[1] = SamplerState.PointClamp;
+            //spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
+            spriteBatch.End();
+
+        }
+
+        private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
+        {
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * projectionMatrix));
+            world.displayActors(device, effectToUse, doNotDisplay);
+            player.display3D();
+            foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
+            {
+                group.draw(device, effectToUse);
+            }
+            CharactersForThisFrame.Clear();
+            WorldMarkupHandler.draw(device, effectToUse);
+            ocean.draw(device, viewMatrix, projectionMatrix, player.getCameraLoc(), ambientBrightness);
+            sky.draw(device, effectToUse, viewMatrix, projectionMatrix, player.getCameraLoc());
+        }
+
+        private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
+        {
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * projectionMatrix));
+            world.displayActors(device, effectToUse, doNotDisplay);
+        }
+
+        public static void drawShadows(Player player, World world)
+        {
+
+
+            device.SetRenderTarget(shadowRendertarget);
+            device.DepthStencilState = new DepthStencilState()
+            {
+                DepthBufferEnable = true
+            };
+
+            shadowEffect.Parameters["xWorld"].SetValue(getShadowWorldMatrix());
+            shadowEffect.Parameters["xView"].SetValue(getShadowViewMatrix(player));
+            shadowEffect.Parameters["xProjection"].SetValue(getShadowProjectionMatrix());
+            shadowEffect.Parameters["xEnableLighting"].SetValue(true);
+            Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
+            lightDirection.Normalize();
+            lightDirection *= (float).3f;
+            shadowEffect.Parameters["xLightDirection"].SetValue(lightDirection);
+            shadowEffect.Parameters["xAmbient"].SetValue(ambientBrightness);
+            shadowEffect.Parameters["xOpacity"].SetValue(1f);
+            shadowEffect.Parameters["xCamPos"].SetValue(getLightLoc(player));
+            displayShadowCasters(world, player, null, shadowEffect);
+            shadowMap = (Texture2D)shadowRendertarget;
+            device.SetRenderTarget(null);
+
+        }
+
+        private static Matrix getShadowProjectionMatrix()
+        {
+            return projectionMatrix;
+        }
+
+        private static Matrix getShadowViewMatrix(Player player)
+        {
+            Vector3 lightLoc = getLightLoc(player);
+            Matrix View = Matrix.CreateLookAt(lightLoc, lightLoc + new Vector3(0, -4,8), new Vector3(0, 1, 0));
+            return View;
+        }
+
+        private static Vector3 getLightLoc(Player player)
+        {
+            Vector3 lightLoc = new Vector3(1978,50,1355);
+            return lightLoc;
+        }
+
+        private static Matrix getShadowWorldMatrix()
+        {
+            return Matrix.Identity;
         }
 
         private static void SetUpCamera()
         {
-            //temp += 0.11f;
-            //viewMatrix = Matrix.CreateLookAt(player.locInPath, new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             float viewDistance = (float)2000;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 2.3f, device.Viewport.AspectRatio, 0.16f, viewDistance); //used to be 1 and 300 for the last two arguments
         }
@@ -136,14 +224,7 @@ namespace IslandGame
 
 
             SetUpCamera();
-            /*if (updownRot > MathHelper.ToRadians(89))
-            {
-                updownRot = MathHelper.ToRadians(89);
-            }
-            else if (updownRot < MathHelper.ToRadians(-87))
-            {
-                updownRot = MathHelper.ToRadians(-87);
-            }*/
+
 
 
             Matrix cameraRotation = Matrix.CreateFromQuaternion(cameraRotationQuaternion);
@@ -248,6 +329,8 @@ namespace IslandGame
 
 
         }
+
+        
 
         internal static int getScreenWidth()
         {

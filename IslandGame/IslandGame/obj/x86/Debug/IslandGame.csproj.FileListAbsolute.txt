@@ -342,3 +342,4 @@ C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\obj\x86\Debug\I
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\Ocean.xnb
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\plane.xnb
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\lockedChest.xnb
+C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb
