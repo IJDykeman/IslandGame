@@ -86,7 +86,7 @@ namespace IslandGame.GameWorld
         private static string getCode()
             {
             System.IO.StreamReader myFile =
-               new System.IO.StreamReader(@"C:\Users\Public\CubeStudio\GENERATIONCODE\IslandGeneration.cs");
+               new System.IO.StreamReader(ContentDistributor.getRootPath()+@"GENERATIONCODE\IslandGeneration.cs");
             string source = myFile.ReadToEnd();
 
             myFile.Close();

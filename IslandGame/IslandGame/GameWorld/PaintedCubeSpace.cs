@@ -27,21 +27,12 @@ namespace IslandGame.GameWorld
 
         string pathThatThisSpaceWasLoadedFromCANBENULL = null;
 
-
-
         PaintedCubeSpaceDisplayComponant unMippedDisplayer, mippedDisplayer;
-
         public byte[, ,] array;
-
         public static readonly byte AIR = 0;
         public static readonly byte WATER = (byte)165;
-
         public float scale = 1f;
-
-        
-
         public bool serializedAfterLastChange = false; //must be set to false when the chunk is generated or changed
-
         public Vector3 loc;
 
 
@@ -136,8 +127,21 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
 
         public void drawForBodyPart(GraphicsDevice device, Effect effect, Matrix superMatrix, Quaternion rotation, bool highLighted)
         {
-            getCurrentDisplayer().drawForBodyPart(device, effect, Matrix.CreateScale((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))*getMatrix(superMatrix, rotation), highLighted);
+            getCurrentDisplayer().drawForBodyPart(device, effect, 
+                Matrix.CreateScale((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))*getMatrix(superMatrix, rotation), highLighted);
         }
+
+
+        public void addToWorldMarkup(Matrix superMatrix, Quaternion rotation)
+        {
+            if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
+            {
+                WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL, 
+                     Matrix.CreateScale
+                     ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * getMatrix(superMatrix, rotation), unMippedDisplayer);
+            }
+        }
+
 
         public void drawForChunk(GraphicsDevice device, Effect effect, Matrix superMatrix)
         {

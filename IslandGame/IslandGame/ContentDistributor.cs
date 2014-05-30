@@ -20,7 +20,7 @@ namespace IslandGame
         public static Texture2D crossReticle;
         public static Texture2D random;
         public static SpriteFont techFont;
-        static string cubeStudioRootPath = @"C:\Users\Public\CubeStudio\";
+        static string cubeStudioRootPath = @"C:\Users\Public\CubeStudioCreations\";
 
         public static void loadContent(ContentManager content)
         {
@@ -53,7 +53,24 @@ namespace IslandGame
 
         public static string getRootPath()
         {
+            return "";
+        }
+
+        public static string getRealRootPath()
+        {
             return cubeStudioRootPath;
+        }
+
+        internal static string addNecesaryPathing(string path)
+        {
+            if (path.Contains(getRealRootPath()))
+            {
+                return path;
+            }
+            else
+            {
+                return getRealRootPath() + path;
+            }
         }
     }
 }

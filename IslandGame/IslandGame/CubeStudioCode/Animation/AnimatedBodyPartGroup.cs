@@ -26,6 +26,7 @@ namespace CubeAnimator{
         protected List<PositionForTime> positionQueue;
         private Vector3 modelLocation;
         private Quaternion modelRotation = Quaternion.Identity;
+        
 
 
         protected AnimatedBodyPartGroup() { }
@@ -137,16 +138,15 @@ namespace CubeAnimator{
 
         public void loadFromFile(string path)
         {
-            string[] file = System.IO.File.ReadAllLines(path);
+            string[] file = System.IO.File.ReadAllLines(ContentDistributor.getRealRootPath() + path);
             main = new BodyPart();
-            main.loadFromFile(file, 0, new FileInfo(path));
+            main.loadFromFile(file, 0, new FileInfo(ContentDistributor.getRealRootPath()+ path));
         }
 
         public void setScale(float scale)
         {
             main.setScale(scale);
         }
-
 
         public void setRootPartLocation(Vector3 newLoc)
         {
@@ -158,6 +158,8 @@ namespace CubeAnimator{
             modelRotation = toSet;
         }
 
+
+
         public Quaternion getRootPartRotationOffset()
         {
             return modelRotation;
@@ -165,10 +167,15 @@ namespace CubeAnimator{
 
         public void draw(GraphicsDevice device, Effect effect)
         {
+           // setGraphicsStateForDraw(device);
+           /// main.draw(device, effect, Matrix.CreateTranslation(modelLocation), modelRotation);
+            WorldMarkupHandler.addCharacter(this,modelLocation);
+           // resetGraphicsStateAfterDraw(effect);
+        }
 
-            setGraphicsStateForDraw(device);
-            main.draw(device, effect, Matrix.CreateTranslation(modelLocation), modelRotation);
-            resetGraphicsStateAfterDraw(effect);
+        public void addToWorldMarkup(Matrix baseMatrix, Quaternion baseQuaternion)
+        {
+            main.addToWorldMarkup(baseMatrix, baseQuaternion);
         }
 
         public void drawWithPartTypeExcluded(GraphicsDevice device, Effect effect, BodyPartType toNotDraw)

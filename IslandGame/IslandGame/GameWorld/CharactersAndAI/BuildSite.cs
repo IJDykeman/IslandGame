@@ -62,7 +62,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
         {
             foreach (BlockLoc test in blocksToBuild)
             {
-                WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\worldMarkup\"+markerName+".chr",
+                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"worldMarkup\"+markerName+".chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.0f/12.0f,.6f);
             }
         }

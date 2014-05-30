@@ -42,13 +42,13 @@ namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS 
             
 
             byte[, ,] byteArray;
-
-            Stream stream = File.Open(path, FileMode.Open);
+            string fullPath =  ContentDistributor.addNecesaryPathing( path);
+            Stream stream = File.Open( fullPath, FileMode.Open);
 
             BinaryFormatter formatter = new BinaryFormatter();
             byteArray = (byte[, ,])formatter.Deserialize(stream);
 
-            FileInfo fileInfo = new FileInfo(path);
+            FileInfo fileInfo = new FileInfo(fullPath);
             long fileLength = fileInfo.Length;
             int spaceWidth = (int)Math.Pow(fileLength, 1.0 / 3.0);
             int spaceHeight = (int)Math.Pow(fileLength, 1.0 / 3.0);

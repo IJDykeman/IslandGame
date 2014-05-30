@@ -26,7 +26,7 @@ namespace IslandGame.GameWorld
                 foreach (SetPiece test in setPieces)
                 {
                     test.update();
-                    test.draw(device, effect);
+                    //test.draw(device, effect);
 
 
                 }

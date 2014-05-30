@@ -19,7 +19,7 @@ namespace IslandGame.GameWorld
 
         public Boat(Vector3 nLoc)
         {
-            setupAnimatedBodyPartGroup ( @"C:\Users\Public\CubeStudio\boats\onePersonBoat.chr", SCALE);
+            setupAnimatedBodyPartGroup ( ContentDistributor.getRootPath()+@"boats\onePersonBoat.chr", SCALE);
             nLoc.Y = permanentYLocation;
             physics = new PhysicsHandler(new AxisAlignedBoundingBox(new Vector3(-1, 0,-1)+nLoc, new Vector3(1f, .1f, 1f)+nLoc));
             faction = Faction.neutral;

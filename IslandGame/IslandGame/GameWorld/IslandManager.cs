@@ -37,14 +37,14 @@ namespace IslandGame.GameWorld
 
                 Vector3[] islandLocations = new Vector3[] {
                     
-                    new Vector3(370, 0, 90),
+                    /*new Vector3(370, 0, 90),
                     new Vector3(520, 0, 140),
                     //new Vector3(600, 0, 270),
                     //new Vector3(520, 0, 450),
                     new Vector3(380, 0, 490),
                     //new Vector3(230, 0, 440),
                     new Vector3(150, 0, 300),
-                    //new Vector3(192, 0, 170)
+                    //new Vector3(192, 0, 170)*/
                                            };
 
 

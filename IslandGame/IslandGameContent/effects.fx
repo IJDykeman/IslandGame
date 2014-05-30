@@ -111,13 +111,24 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
     // Calculate the current pixel depth
     // The bias is used to prevent folating point errors that occur when
     // the pixel of the occluder is being drawn
-    float ourdepth = (lightingPosition.z / lightingPosition.w) - 0.01f;
+    float ourdepth = (lightingPosition.z / lightingPosition.w) - 0.005f;
     
     // Check to see if this pixel is in front or behind the value in the shadow map
-    if (shadowdepth < ourdepth && ShadowTexCoord.y>=0 && ShadowTexCoord.y<=1 && ShadowTexCoord.x>=0 && ShadowTexCoord.x<=1)
+	/*ourdepth *= 1000000;
+	ourdepth = ceil(ourdepth);
+	ourdepth /= 1000000;
+
+	shadowdepth *= 1000000;
+	shadowdepth = ceil(shadowdepth);
+	shadowdepth /= 1000000;*/
+
+
+
+    if (shadowdepth < ourdepth && ShadowTexCoord.y>=0 && ShadowTexCoord.y<=1 
+	&& ShadowTexCoord.x>=0 && ShadowTexCoord.x<=1 && shadowdepth<1)
     {
         // Shadow the pixel by lowering the intensity
-        Output.Color *= float4(0.4,0.4,0.5,0);
+        Output.Color *= float4(0.6,0.6,0.7,0);
 
     };
 	Output.Color.a=xOpacity;

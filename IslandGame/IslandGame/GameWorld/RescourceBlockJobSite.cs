@@ -55,7 +55,7 @@ namespace IslandGame.GameWorld
             foreach (BlockLoc key in resourceBlocks.Keys)
             {
 
-                WorldMarkupHandler.addFlagPathWithPosition(@"C:\Users\Public\CubeStudio\resources\log.chr",
+                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"resources\log.chr",
                                            key.getMiddleInWorldSpace());
             }
 

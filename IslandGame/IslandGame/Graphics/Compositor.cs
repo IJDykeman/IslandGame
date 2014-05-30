@@ -56,7 +56,7 @@ namespace IslandGame
 
             shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
                  false,
-                                                    SurfaceFormat.Single,
+                                                    SurfaceFormat.Vector4,
                                                     DepthFormat.Depth24);
 
 
@@ -151,8 +151,10 @@ namespace IslandGame
             RasterizerState.CullNone);
             spriteBatch.Draw(mainRenderImage, new Vector2(0, 0), Color.White);
             //device.SamplerStates[1] = SamplerState.PointClamp;
-            //spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
+            spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
             spriteBatch.End();
+
+            WorldMarkupHandler.resetWorldMarkup();
 
         }
 
@@ -172,7 +174,7 @@ namespace IslandGame
                 group.draw(device, effectToUse);
             }
             CharactersForThisFrame.Clear();
-            WorldMarkupHandler.draw(device, effectToUse);
+            WorldMarkupHandler.drawCharacters(device, effectToUse);
             ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
 
         }
@@ -181,6 +183,7 @@ namespace IslandGame
         {
             world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
+            WorldMarkupHandler.drawCharacters(device, effectToUse);
         }
 
         public static void drawShadows(Player player, World world)
@@ -192,6 +195,7 @@ namespace IslandGame
             {
                 DepthBufferEnable = true
             };
+            device.Clear(Color.White);
 
             shadowEffect.Parameters["xWorld"].SetValue(getShadowWorldMatrix());
             shadowEffect.Parameters["xView"].SetValue(getShadowViewMatrix(player));
@@ -222,8 +226,24 @@ namespace IslandGame
             const float NearClip = 1f;
 
 
-            float farClip = 81;
+            float farClip = 100;
+
+
             Matrix shadowProjMatrix = Matrix.CreateOrthographic(sphere.Radius * 2, sphere.Radius*2, NearClip, farClip);
+
+            
+            float ShadowMapSize = shadowRendertarget.Width;
+            Vector3 shadowOrigin = Vector3.Transform(Vector3.Zero, shadowProjMatrix);
+            shadowOrigin *= (shadowRendertarget.Width / 2.0f);
+            //shadowOrigin.X *= (shadowRendertarget.Width / 2.0f);
+            Vector2 roundedOrigin = new Vector2((float)Math.Round(shadowOrigin.X), (float)Math.Round(shadowOrigin.X));
+            Vector2 rounding = roundedOrigin - new Vector2(shadowOrigin.X,shadowOrigin.Y);
+            rounding /= (ShadowMapSize / 2.0f);
+
+            Matrix roundMatrix = Matrix.CreateTranslation(rounding.X, rounding.Y, 0.0f);
+            shadowProjMatrix *= roundMatrix;
+
+
 
             return shadowProjMatrix;
 
@@ -237,9 +257,24 @@ namespace IslandGame
         private static Matrix getShadowViewMatrix(Player player)
         {
             Vector3 shadowCamPos = getLightLoc(player);
-            Matrix shadowViewMatrix = Matrix.CreateLookAt(shadowCamPos, shadowCamPos+Vector3.Down, Vector3.Left);
+
+
+            Vector3 direction = new Vector3(1,1,0);
+            direction.Normalize();
+            float backupDist = 20f + 1 + getViewFrustumBoundingSphereForShadows().Radius;
+            shadowCamPos = getViewFrustumBoundingSphereForShadows().Center + direction * backupDist;
+            Matrix shadowViewMatrix = Matrix.CreateLookAt(shadowCamPos, getViewFrustumBoundingSphereForShadows().Center, Vector3.Up);
+
+
+            //Matrix shadowViewMatrix = Matrix.CreateLookAt(getViewFrustumBoundingSphereForShadows().Center + new Vector3(1,.2f,0)*30, getViewFrustumBoundingSphereForShadows().Center,
+             //   Vector3.Up);
 
             return shadowViewMatrix;
+        }
+
+        static Matrix getLightRotation()
+        {
+            return Matrix.CreateFromYawPitchRoll(0, 0, .8f);
         }
 
         private static Vector3 getLightLoc(Player player)
@@ -263,7 +298,10 @@ namespace IslandGame
 
         private static BoundingSphere getViewFrustumBoundingSphereForShadows()
         {
-            BoundingSphere sphere = BoundingSphere.CreateFromFrustum(new BoundingFrustum(viewMatrix * getPerspectiveMatrix(10)));
+            BoundingSphere sphere = BoundingSphere.CreateFromFrustum(new BoundingFrustum(viewMatrix * getPerspectiveMatrix(30)));
+            //sphere.Center /= 10;
+            //sphere.Center = new Vector3((int)sphere.Center.X, (int)sphere.Center.Y, (int)sphere.Center.Z);
+            //sphere.Center *= 10;
             return sphere;
         }
 
@@ -311,37 +349,10 @@ namespace IslandGame
 
         }
 
-        public static void drawLine(Vector3 loc1, Vector3 loc2)
-        {
-
-            effect.CurrentTechnique = effect.Techniques["ColoredNoShading"];
-            List<Vector3> locations = new List<Vector3>(2);
-            locations.Add(loc1);
-            locations.Add(loc2);
-            Color color = Color.Blue;
-
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-            {
-
-                pass.Apply();
-                var data = new List<VertexPositionColor>(locations.Count * 2);
-                for (int i = 1; i < locations.Count; i++)
-                {
-
-
-
-
-
-                    data.Add(new VertexPositionColor(locations[i], color));
-                    data.Add(new VertexPositionColor(locations[i - 1], color));
-                }
-                device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, data.ToArray(), 0, data.Count / 2);
-            }
-        }
 
         public static void addFlagForThisFrame(Vector3 loc, string Color)
         {
-            AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\worldMarkup\short" + Color + "Flag.chr", 1f / 12f);
+            AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup(ContentDistributor.getRootPath()+@"worldMarkup\short" + Color + "Flag.chr", 1f / 12f);
             flag.setRootPartLocation((Vector3)loc);
             addAnimatedBodyPartGroupForThisFrame(flag);
         }
@@ -351,44 +362,6 @@ namespace IslandGame
             CharactersForThisFrame.Add(toAdd);
         }
 
-        public static void drawPart(BodyPart bodypart)
-        {
-
-            device.DepthStencilState = new DepthStencilState()
-            {
-                DepthBufferEnable = true
-            };
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-
-            effect.Parameters["xView"].SetValue(viewMatrix);
-            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
-
-            effect.Parameters["xEnableLighting"].SetValue(true);
-
-            Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
-
-            lightDirection.Normalize();
-            lightDirection *= (float).3f;
-            effect.Parameters["xLightDirection"].SetValue(lightDirection);
-
-
-            // Matrix sunRotation = Matrix.CreateRotationX(MathHelper.ToRadians(updateCount)) * Matrix.CreateRotationZ(MathHelper.ToRadians(updateCount));
-
-
-            effect.Parameters["xAmbient"].SetValue(.6f);
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.FillMode = FillMode.Solid;
-            device.RasterizerState = rasterizerState;
-            bodypart.draw(device, effect, Matrix.Identity, Quaternion.Identity);
-
-
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-
-
-
-        }
-
-        
 
         internal static int getScreenWidth()
         {

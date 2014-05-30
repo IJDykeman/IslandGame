@@ -28,6 +28,7 @@ namespace CubeAnimator
         protected bool highlighted = false;
         public Quaternion rotationOffset;
 
+
         public BodyPart()
         {
             rotationOffset = Quaternion.Identity;
@@ -106,6 +107,15 @@ namespace CubeAnimator
             else
             {
                 model.createModel(device);
+            }
+        }
+
+        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation)
+        {
+            model.addToWorldMarkup( superMatrix, animationSystem.rotation * rotationOffset * superRotation);
+            foreach (BodyPart child in children)
+            {
+                child.addToWorldMarkup(model.getMatrix(superMatrix, animationSystem.rotation * rotationOffset * superRotation), Quaternion.Identity);
             }
         }
 
@@ -228,51 +238,71 @@ namespace CubeAnimator
 
         public void loadFromFile(string[] file, int place, FileInfo characterFile)
         {
-            int bracketCount = 0;
-            string[] firstLine = file[place].Split(' ');
-            fileName = firstLine[0];
-
-            string voxelFilePath = fileName;
-            if (fileName[0] == '.')
+            if (characterFile.Extension.ToUpper().Equals(".CHR"))
             {
-                voxelFilePath = (characterFile.DirectoryName + fileName.Substring(1));
+                int bracketCount = 0;
+                string[] firstLine = file[place].Split(' ');
+                fileName = firstLine[0];
+
+                string voxelFilePath = fileName;
+                if (fileName[0] == '.')
+                {
+                    voxelFilePath = (characterFile.DirectoryName + fileName.Substring(1));
+                }
+
+                model = ModelLoader.loadSpaceFromName(voxelFilePath);
+
+                model.setLoadedFrompath(voxelFilePath);
+
+                //model.createModel(Main.graphics.GraphicsDevice);
+                model.loc = new Vector3((float)Convert.ToDouble(firstLine[1]),
+                    (float)Convert.ToDouble(firstLine[2]),
+                    (float)Convert.ToDouble(firstLine[3]));
+
+                rotationOffset = new Quaternion((float)Convert.ToDouble(firstLine[5]),
+                    (float)Convert.ToDouble(firstLine[6]),
+                    (float)Convert.ToDouble(firstLine[7]),
+                    (float)Convert.ToDouble(firstLine[8]));
+
+                model.scale = (float)Convert.ToDouble(firstLine[9]);
+
+
+                type = getBodyPartTypeFromString(firstLine[4]);
+
+                place++;
+                for (; place < file.Length; place++)
+                {
+                    if (file[place].Equals("["))
+                    {
+                        bracketCount++;
+                    }
+                    else if (file[place].Equals("]"))
+                    {
+                        bracketCount--;
+                    }
+                    if (bracketCount == 0)
+                    {
+                        break;
+                    }
+                    if (bracketCount == 1 && !file[place].Contains("]") && !file[place].Contains("["))
+                    {
+                        BodyPart newChild = new BodyPart();
+                        newChild.loadFromFile(file, place, characterFile);
+                        children.Add(newChild);
+                    }
+
+                }
             }
-
-            model = ModelLoader.loadSpaceFromName(voxelFilePath);
-            //model.createModel(Main.graphics.GraphicsDevice);
-            model.loc = new Vector3((float)Convert.ToDouble(firstLine[1]), (float)Convert.ToDouble(firstLine[2]), (float)Convert.ToDouble(firstLine[3]));
-
-            rotationOffset = new Quaternion((float)Convert.ToDouble(firstLine[5]), (float)Convert.ToDouble(firstLine[6]), (float)Convert.ToDouble(firstLine[7]), (float)Convert.ToDouble(firstLine[8]));
-            model.scale = (float)Convert.ToDouble(firstLine[9]);
-
-
-            type = getBodyPartTypeFromString(firstLine[4]);
-
-            place++;
-            for (; place < file.Length; place++)
+            else if (characterFile.Extension.ToUpper().Equals(".VOX"))
             {
-                if (file[place].Equals("["))
-                {
-                    bracketCount++;
-                }
-                else if (file[place].Equals("]"))
-                {
-                    bracketCount--;
-                }
-                if (bracketCount == 0)
-                {
-                    break;
-                }
-                if (bracketCount == 1 && !file[place].Contains("]") && !file[place].Contains("["))
-                {
-                    BodyPart newChild = new BodyPart();
-                    newChild.loadFromFile(file, place,characterFile);
-                    children.Add(newChild);
-                }
+                model = ModelLoader.loadSpaceFromName(characterFile.FullName);
 
+                model.setLoadedFrompath(characterFile.FullName);
             }
 
         }
+
+
 
         public void removePart(BodyPart toRemove)
         {

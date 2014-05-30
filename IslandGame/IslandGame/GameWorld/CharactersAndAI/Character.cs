@@ -56,29 +56,29 @@ namespace IslandGame.GameWorld
             switch (bodyType)
             {
                 case BodyType.Ghoul:
-                    setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\ghoul\ghoul.chr");
+                    setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+@"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
                     switch (currentJobType)
                     {
 
                         case JobType.combat:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\armedMinotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"armedMinotuar.chr");
                             break;
                         case JobType.agriculture:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\farmMinotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"farmMinotuar.chr");
                             break;
                         case JobType.mining:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\mineMinotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"mineMinotuar.chr");
                             break;
                         case JobType.building:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\buildMinotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"buildMinotuar.chr");
                             break;
                         case JobType.logging:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\axeMinotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"axeMinotuar.chr");
                             break;
                         default:
-                            setupAnimatedBodyPartGroup(@"C:\Users\Public\CubeStudio\minotuar.chr");
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"minotuar.chr");
                             break;
                     }
                     

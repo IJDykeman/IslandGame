@@ -164,7 +164,7 @@ namespace IslandGame.GameWorld
 
         public void drawForBodyPart(GraphicsDevice device, Effect effect, Matrix worldMatrix, bool highLighted)
         {
-            setBuffersForDraw(device);
+            sendModelDataToGPU(device);
             drawWithoutSettingBuffers(effect, worldMatrix);
         }
 
@@ -188,7 +188,7 @@ namespace IslandGame.GameWorld
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
         }
 
-        private void setBuffersForDraw(GraphicsDevice device)
+        public void sendModelDataToGPU(GraphicsDevice device)
         {
             device.Indices = indexBuffer;
             device.SetVertexBuffer(vertexBuffer);

@@ -5,15 +5,16 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using IslandGame.GameWorld;
 using CubeAnimator;
+using System.IO;
 
 
 namespace IslandGame
 {
     static class WorldMarkupHandler
     {
-        
 
-        private static Dictionary<string, List<PositionScaleOpacity>> FilePathsAndPositions = new Dictionary<string, List<PositionScaleOpacity>>();
+
+        private static Dictionary<string, MemoizedModelAndPoses> FilePathsAndPositions = new Dictionary<string, MemoizedModelAndPoses>();
         //private static Dictionary
 
         public static void addFlagPathWithPosition(string path, Vector3 position)
@@ -33,10 +34,6 @@ namespace IslandGame
 
                 addFlagPathWithPosition(path, position, 1);
             }
-
-            
-            
-
         }
 
         private static string getProperPath(string path)
@@ -49,76 +46,105 @@ namespace IslandGame
             return path;
         }
 
-        public static void addFlagPathWithPosition(string path, Vector3 position,float scale, float opacity)
+        public static void addCharacter(string path, Vector3 position,float scale, float opacity)
+        {
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.Extension.ToUpper().Equals(".VOX"))
+            {
+                
+
+            }
+            else if (fileInfo.Extension.ToUpper().Equals(".CHR"))
+            {
+                AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(path, scale);
+                character.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity);
+            }
+        }
+
+        public static void addCharacter(AnimatedBodyPartGroup group, Vector3 position)
+        {
+
+            group.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity);
+            
+        }
+
+        /*
+        public static void addFlagWithMatrix(string path,Matrix matrix)
+        {
+            //path = path.ToUpper();
+            if (FilePathsAndPositions.ContainsKey(path.ToUpper()))
+            {
+                FilePathsAndPositions[path.ToUpper()].addPose(new MatrixAndOpacity(matrix));
+            }
+            else
+            {
+                List<MatrixAndOpacity> PosScaleListForNewPath = new List<MatrixAndOpacity>();
+                PosScaleListForNewPath.Add(new MatrixAndOpacity(matrix));
+                FilePathsAndPositions.Add(path.ToUpper(), PosScaleListForNewPath);
+
+            }
+        }*/
+
+        public static void addFlagWithMatrix(string path, Matrix matrix, PaintedCubeSpaceDisplayComponant model)
         {
             path = path.ToUpper();
             if (FilePathsAndPositions.ContainsKey(path))
             {
-                FilePathsAndPositions[path].Add(new PositionScaleOpacity(position, scale,opacity));
+
+                //MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
+                //memoized.addPose( new MatrixAndOpacity(position, scale,opacity));
+                FilePathsAndPositions[path].addPose(new MatrixAndOpacity(matrix));
             }
             else
             {
-                List<PositionScaleOpacity> PosScaleListForNewPath = new List<PositionScaleOpacity>();
-                PosScaleListForNewPath.Add(new PositionScaleOpacity(position, scale,opacity));
-                FilePathsAndPositions.Add(path, PosScaleListForNewPath);
+
+                MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
+                memoized.addPose(new MatrixAndOpacity(matrix));
+                FilePathsAndPositions.Add(path, memoized);
 
             }
         }
 
         public static void addFlagPathWithPosition(string path, Vector3 position, float scale)
         {
-            addFlagPathWithPosition(path, position, scale, 1);
+            addCharacter(path, position, scale, 1);
         }
 
 
-        public static void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
+        public static void drawCharacters(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
         {
-            foreach (KeyValuePair<string, List<PositionScaleOpacity>> entry in FilePathsAndPositions)
+            foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
             {
                 if (entry.Key.Contains(("Outline.chr").ToUpper()) || entry.Key.Contains(("farmMarker.chr").ToUpper()))
                 {
                     effect.Parameters["xOpacity"].SetValue(.4f);
 
                 }
+
+                entry.Value.draw(device, effect);
                 
-
-                AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup( entry.Key, 1f);
-
-                if (entry.Value.Count > 0)
-                {
-                    PositionScaleOpacity posScaleOpacity = entry.Value[0];
-                    flag.setScale(posScaleOpacity.scale);
-                    flag.setRootPartLocation(posScaleOpacity.loc);
-                    effect.Parameters["xOpacity"].SetValue(posScaleOpacity.opacity);
-                    flag.draw(device, effect);
-                    
-
-
-                    for (int i = 1; i < entry.Value.Count; i++)
-                    {
-                        posScaleOpacity = entry.Value[i];
-                        flag.setScale(posScaleOpacity.scale);
-                        flag.setRootPartLocation(posScaleOpacity.loc);
-                        effect.Parameters["xOpacity"].SetValue(posScaleOpacity.opacity);
-                        if (flag.isSinglePart())
-                        {
-                            flag.drawWithPresetBuffers(effect);
-                        }
-                        else
-                        {
-                            flag.draw(device, effect);
-                        }
-                    }
-                }
+                
             }
 
             
 
-            resetWorldMarkup();
             effect.Parameters["xOpacity"].SetValue(1f);
         }
 
-        private static void resetWorldMarkup()
+        private static MatrixAndOpacity setBodyPartGroupToParams(AnimatedBodyPartGroup flag, MatrixAndOpacity posScaleOpacity)
+        {
+            Vector3 scale;
+            Vector3 translation;
+            Quaternion rotation;
+            posScaleOpacity.matrix.Decompose(out scale, out rotation, out translation);
+            flag.setScale(scale.X);
+            flag.setRootPartLocation(translation);
+
+            flag.setRootPartRotationOffset(rotation);
+            return posScaleOpacity;
+        }
+
+        public static void resetWorldMarkup()
         {
             FilePathsAndPositions.Clear();
         }

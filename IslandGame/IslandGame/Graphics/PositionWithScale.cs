@@ -6,23 +6,26 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame
 {
-    struct PositionScaleOpacity
+    struct MatrixAndOpacity
     {
-        public Vector3 loc;
-        public float scale;
+        public Matrix matrix;
         public float opacity;
 
-        public PositionScaleOpacity(Vector3 nLoc, float nScale)
+        public MatrixAndOpacity(Matrix nMatrix)
         {
-            loc = nLoc;
-            scale = nScale;
+            matrix = nMatrix;
             opacity = 1;
         }
 
-        public PositionScaleOpacity(Vector3 nLoc, float nScale, float nOpacity)
+        public MatrixAndOpacity(Vector3 nLoc, float nScale)
         {
-            loc = nLoc;
-            scale = nScale;
+            matrix = Matrix.CreateTranslation(nLoc) * Matrix.CreateScale(nScale);
+            opacity = 1;
+        }
+
+        public MatrixAndOpacity(Vector3 nLoc, float nScale, float nOpacity)
+        {
+            matrix = Matrix.CreateTranslation(nLoc) * Matrix.CreateScale(nScale);
             opacity = nOpacity;
         }
     }
