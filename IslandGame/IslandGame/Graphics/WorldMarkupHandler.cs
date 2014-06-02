@@ -155,5 +155,16 @@ namespace IslandGame
 
 
 
+
+        public static void setupBuffers(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
+        {
+            foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
+            {
+
+                entry.Value.setUpBuffers(device, effect);
+
+
+            }
+        }
     }
 }

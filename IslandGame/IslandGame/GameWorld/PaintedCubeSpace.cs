@@ -132,14 +132,24 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
         }
 
 
-        public void addToWorldMarkup(Matrix superMatrix, Quaternion rotation)
+        public void addToWorldMarkup(Matrix matrix)
         {
             if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
+    
             {
 
-                WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL, 
-                     Matrix.CreateScale
-                     ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * getMatrix(superMatrix, rotation), unMippedDisplayer);
+
+                WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL,
+     Matrix.CreateScale
+     ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * matrix, unMippedDisplayer);
+
+                //WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL, 
+               //      Matrix.CreateScale
+               //      ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel()))
+              //  * getMatrix(superMatrix, rotation), unMippedDisplayer);
+
+                //WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL, 
+                //     Matrix.Identity, getCurrentDisplayer());
             }
         }
 
@@ -509,8 +519,7 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
             Vector3 superTranslation;
             worldMatrix.Decompose(out superScale,out superRotation, out superTranslation);*/
 
-            return (Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateScale(scale ) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(-cubeSpaceOffset)
-                * Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateTranslation(loc)) * superMatrix;
+            return (Matrix.CreateTranslation(cubeSpaceOffset) * Matrix.CreateScale(scale ) * Matrix.CreateFromQuaternion(rotation)* Matrix.CreateTranslation(loc)) * superMatrix;
         }
 
         Vector3 getOffset()

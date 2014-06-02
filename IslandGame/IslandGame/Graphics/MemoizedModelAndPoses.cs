@@ -13,10 +13,20 @@ namespace IslandGame
         List<MatrixAndOpacity> poses;
         PaintedCubeSpaceDisplayComponant model;
 
+        VertexBuffer geometry;
+        IndexBuffer indexBuffer;
+        VertexBuffer instanceBuffer;
+        InstanceInfo[] instances;
+        VertexBufferBinding[] bindings;
+        bool hasSetupBuffers = false;
+
         public MemoizedModelAndPoses(PaintedCubeSpaceDisplayComponant newModel)
         {
             model = newModel;
             poses = new List<MatrixAndOpacity>();
+            geometry = model.getVertexBuffer();
+            indexBuffer = model.getIndexBuffer();
+            instances = new InstanceInfo[0];
         }
 
         public void addPose(MatrixAndOpacity nPose)
@@ -49,9 +59,21 @@ namespace IslandGame
         {
             //effect.CurrentTechnique = effect.Techniques["Instanced"];
             //model.sendModelDataToGPU(device);
-            VertexBuffer geometry = model.getVertexBuffer();
-            IndexBuffer indexBuffer = model.getIndexBuffer();
-            VertexBuffer instanceBuffer;
+            
+
+           device.SetVertexBuffers(bindings);
+            device.Indices = indexBuffer;
+
+            device.DrawInstancedPrimitives(PrimitiveType.TriangleList, 0, 0,
+                    geometry.VertexCount, 0,
+                    indexBuffer.IndexCount / 3, poses.Count);
+
+            
+        }
+
+        public void setUpBuffers(GraphicsDevice device, Effect effect)
+        {
+
 
             InstanceInfo[] instances = new InstanceInfo[poses.Count];
 
@@ -60,32 +82,22 @@ namespace IslandGame
             for (int i = 0; i < poses.Count; i++)
             {
                 instances[i].World = poses[i].matrix;
-                Vector3 pos;
-                Vector3 scale;
-                Quaternion rot;
-                poses[i].matrix.Decompose(out scale, out rot, out pos);
+                // Vector3 pos;
+                // Vector3 scale;
+                //  Quaternion rot;
+                //  poses[i].matrix.Decompose(out scale, out rot, out pos);
             }
             instanceBuffer = new VertexBuffer(device, GenerateInstanceVertexDeclaration(), poses.Count, BufferUsage.WriteOnly);
             instanceBuffer.SetData(instances);
 
+
             effect.CurrentTechnique.Passes[0].Apply();
 
-            VertexBufferBinding[] bindings;
+
 
             bindings = new VertexBufferBinding[2];
             bindings[0] = new VertexBufferBinding(geometry);
             bindings[1] = new VertexBufferBinding(instanceBuffer, 0, 1);
-
-
-            device.SetVertexBuffers(bindings);
-            device.Indices = indexBuffer;
-
-            device.DrawInstancedPrimitives(PrimitiveType.TriangleList, 0, 0,
-                    geometry.VertexCount, 0,
-                    indexBuffer.IndexCount / 3, poses.Count);
-
-            effect.CurrentTechnique = effect.Techniques["Colored"];
-
         }
 
     }

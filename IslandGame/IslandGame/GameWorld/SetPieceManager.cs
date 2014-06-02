@@ -27,6 +27,7 @@ namespace IslandGame.GameWorld
                 {
                     test.update();
                     //test.draw(device, effect);
+                    test.addToWorldMarkup();
 
 
                 }

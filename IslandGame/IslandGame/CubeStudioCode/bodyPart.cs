@@ -97,11 +97,11 @@ namespace CubeAnimator
         {
             if (model.canBeDrawn())
             {
-
-                model.drawForBodyPart(device, effect, superMatrix, animationSystem.rotation * rotationOffset * superRotation, highlighted);
+                Quaternion rot = animationSystem.rotation * rotationOffset * superRotation;
+                model.drawForBodyPart(device, effect, superMatrix, rot, highlighted);
                 foreach (BodyPart child in children)
                 {
-                    child.draw(device, effect, model.getMatrix(superMatrix, animationSystem.rotation * rotationOffset * superRotation), Quaternion.Identity);
+                    child.draw(device, effect, model.getMatrix(superMatrix, rot), Quaternion.Identity);
                 }
             }
             else
@@ -112,10 +112,11 @@ namespace CubeAnimator
 
         public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation)
         {
-            model.addToWorldMarkup( superMatrix, animationSystem.rotation * rotationOffset * superRotation);
+            Matrix matrix = model.getMatrix(superMatrix, animationSystem.rotation * rotationOffset * superRotation);
+            model.addToWorldMarkup(matrix);
             foreach (BodyPart child in children)
             {
-                child.addToWorldMarkup(model.getMatrix(superMatrix, animationSystem.rotation * rotationOffset * superRotation), Quaternion.Identity);
+                child.addToWorldMarkup(matrix, Quaternion.Identity);
             }
         }
 

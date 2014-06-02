@@ -176,6 +176,7 @@ namespace IslandGame
             }
             CharactersForThisFrame.Clear();
             effect.CurrentTechnique = effect.Techniques["Instanced"];
+            WorldMarkupHandler.setupBuffers(device,effect);
             WorldMarkupHandler.drawCharacters(device, effect);
             effect.CurrentTechnique = effect.Techniques["Colored"];
             ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
@@ -186,8 +187,7 @@ namespace IslandGame
         {
             world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
-
-            WorldMarkupHandler.drawCharacters(device, effectToUse);
+            //WorldMarkupHandler.drawCharacters(device, effect);
 
         }
 
