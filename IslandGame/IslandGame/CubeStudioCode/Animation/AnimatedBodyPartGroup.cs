@@ -167,15 +167,20 @@ namespace CubeAnimator{
 
         public void draw(GraphicsDevice device, Effect effect)
         {
-           // setGraphicsStateForDraw(device);
-           /// main.draw(device, effect, Matrix.CreateTranslation(modelLocation), modelRotation);
-            WorldMarkupHandler.addCharacter(this,modelLocation);
-           // resetGraphicsStateAfterDraw(effect);
+            setGraphicsStateForDraw(device);
+            main.draw(device, effect, Matrix.CreateTranslation(modelLocation), modelRotation);
+            //WorldMarkupHandler.addCharacter(this,modelLocation);
+            resetGraphicsStateAfterDraw(effect);
         }
 
-        public void addToWorldMarkup(Matrix baseMatrix, Quaternion baseQuaternion)
+        public void addToWorldMarkup()
         {
-            main.addToWorldMarkup(baseMatrix, baseQuaternion);
+            main.addToWorldMarkup(Matrix.CreateTranslation(modelLocation), modelRotation);
+        }
+
+        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation)
+        {
+            main.addToWorldMarkup(superMatrix, superRotation);
         }
 
         public void drawWithPartTypeExcluded(GraphicsDevice device, Effect effect, BodyPartType toNotDraw)

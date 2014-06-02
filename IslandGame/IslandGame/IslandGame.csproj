@@ -141,7 +141,7 @@
     <Compile Include="GameWorld\CharactersAndAI\StockpileJobSite.cs" />
     <Compile Include="GameWorld\Drawable.cs" />
     <Compile Include="GameWorld\Intersectable.cs" />
-    <Compile Include="GameWorld\MemoizedModelAndPoses.cs" />
+    <Compile Include="Graphics\MemoizedModelAndPoses.cs" />
     <Compile Include="GameWorld\RescourceBlockJobSite.cs" />
     <Compile Include="GameWorld\ResourceBlock.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\WanderAroundJob.cs" />

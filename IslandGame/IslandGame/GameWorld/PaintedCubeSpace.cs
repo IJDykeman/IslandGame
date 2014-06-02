@@ -136,6 +136,7 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
         {
             if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
             {
+
                 WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL, 
                      Matrix.CreateScale
                      ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * getMatrix(superMatrix, rotation), unMippedDisplayer);

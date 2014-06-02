@@ -388,7 +388,7 @@ namespace IslandGame.GameWorld
 
                 Vector3 pointingTowardBlock = blockLoc.toVector3() - spaceLoc.toVector3();
 
-                CubeAnimator.AnimatedBodyPartGroup flag = new CubeAnimator.AnimatedBodyPartGroup(@"C:\Users\Public\CubeStudioCreations\worldMarkup\shovel.chr", 1f / 26f);
+                CubeAnimator.AnimatedBodyPartGroup flag = new CubeAnimator.AnimatedBodyPartGroup(@"worldMarkup\shovel.chr", 1f / 26f);
                 flag.setRootPartLocation(spaceLoc.toVector3() + new Vector3(.5f, .5f, .5f));
                 flag.setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(GeometryFunctions.getRotationMatrixFromNormal(pointingTowardBlock)));
                 Compositer.addAnimatedBodyPartGroupForThisFrame(flag);
@@ -400,7 +400,7 @@ namespace IslandGame.GameWorld
             Vector3? OceanBlockIntesectionAtY1 = islandManager.getOceanIntersectionAtY1(ray);
             if (OceanBlockIntesectionAtY1.HasValue && islandManager.vehiclePlacedHereCouldBeBoarded(new BlockLoc((Vector3)OceanBlockIntesectionAtY1)))
             {
-                WorldMarkupHandler.addCharacter(@"C:\Users\Public\CubeStudioCreations\boats\greenOnePersonBoat.chr",
+                WorldMarkupHandler.addCharacter(@"boats\greenOnePersonBoat.chr",
                     (new BlockLoc((Vector3)OceanBlockIntesectionAtY1)).toWorldSpaceVector3() + new Vector3(.5f, 0, .5f),
                     IslandGame.GameWorld.Boat.SCALE,.5f);
             }

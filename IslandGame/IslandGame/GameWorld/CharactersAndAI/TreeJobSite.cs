@@ -25,7 +25,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
                 foreach (Tree toDraw in trees)
                 {
                     toDraw.update();
-                    toDraw.draw(device, effect);
+                    toDraw.addToWorldMarkup();
                 }
             }
 

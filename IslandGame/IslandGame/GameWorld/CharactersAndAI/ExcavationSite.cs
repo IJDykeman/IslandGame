@@ -60,7 +60,7 @@ namespace IslandGame.GameWorld
         {
             foreach (BlockLoc test in blocksToBeRemoved)
             {
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+"worldMarkup\redCubeOutline.chr",
+                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"worldMarkup\redCubeOutline.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
             }
         }

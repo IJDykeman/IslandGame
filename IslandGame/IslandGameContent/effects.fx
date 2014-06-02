@@ -71,6 +71,31 @@ VertexToPixel ColoredVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float
 
 
 
+VertexToPixel InstancedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float4 inColor: COLOR, float4 inPaint: COLOR1, float4x4 instanceTransform : TEXCOORD1, float2 atlasCoord : TEXCOORD5)
+{	
+	VertexToPixel Output = (VertexToPixel)0;
+	float4x4 preViewProjection = mul (xView, xProjection);
+	float4x4 preWorldViewProjection = mul (transpose(instanceTransform), preViewProjection);
+    
+	Output.Position = mul(inPos, preWorldViewProjection) ;
+	Output.Position3D = mul(inPos, transpose(instanceTransform) );
+	Output.TextureCoords =inPos;
+	Output.Color = inColor;
+	
+	Output.Paint = inPaint;
+	float3 Normal = normalize(mul(normalize(inNormal), transpose(instanceTransform)));	
+	Output.LightingFactor = 1;
+	if (xEnableLighting)
+		Output.LightingFactor = saturate(dot(Normal, -xLightDirection));
+    
+	
+	return Output;    
+}
+
+
+
+
+
 PixelToFrame ColoredPS(VertexToPixel PSIn) 
 {
 	PixelToFrame Output = (PixelToFrame)0;		
@@ -140,6 +165,15 @@ technique Colored
 	pass Pass0
 	{   
 		VertexShader = compile vs_2_0 ColoredVS();
+		PixelShader  = compile ps_2_0 ColoredPS();
+	}
+}
+
+technique Instanced
+{
+	pass Pass0
+	{   
+		VertexShader = compile vs_2_0 InstancedVS();
 		PixelShader  = compile ps_2_0 ColoredPS();
 	}
 }

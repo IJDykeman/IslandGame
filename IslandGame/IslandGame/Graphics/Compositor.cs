@@ -76,6 +76,7 @@ namespace IslandGame
         public static void drawFinalImageFirst(Player player, bool isAnimating)
         {
             effect.CurrentTechnique = effect.Techniques["Colored"];
+
             UpdateViewMatrix(player.getCameraLoc(), player.getCameraRotation());
             //  blurer = new GaussianBlurHandler(main.Content.LoadGame<Effect>("GaussianBlur"), device,
             //graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -174,7 +175,9 @@ namespace IslandGame
                 group.draw(device, effectToUse);
             }
             CharactersForThisFrame.Clear();
-            WorldMarkupHandler.drawCharacters(device, effectToUse);
+            effect.CurrentTechnique = effect.Techniques["Instanced"];
+            WorldMarkupHandler.drawCharacters(device, effect);
+            effect.CurrentTechnique = effect.Techniques["Colored"];
             ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
 
         }
@@ -183,7 +186,9 @@ namespace IslandGame
         {
             world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
+
             WorldMarkupHandler.drawCharacters(device, effectToUse);
+
         }
 
         public static void drawShadows(Player player, World world)
@@ -284,12 +289,12 @@ namespace IslandGame
             Vector3 shadowCamPos = sphere.Center;
             shadowCamPos.Y = 80;
 
-            shadowCamPos.X /= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
+            /*shadowCamPos.X /= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
             shadowCamPos.Z /= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();
             shadowCamPos.X = (int)shadowCamPos.X;
             shadowCamPos.Z = (int)shadowCamPos.Z;
             shadowCamPos.X *= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
-            shadowCamPos.Z *= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();
+            shadowCamPos.Z *= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();*/
 
             return shadowCamPos;
         }

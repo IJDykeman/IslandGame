@@ -113,6 +113,7 @@ namespace IslandGame
 
         public static void drawCharacters(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
         {
+            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
             foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
             {
                 if (entry.Key.Contains(("Outline.chr").ToUpper()) || entry.Key.Contains(("farmMarker.chr").ToUpper()))
@@ -120,6 +121,9 @@ namespace IslandGame
                     effect.Parameters["xOpacity"].SetValue(.4f);
 
                 }
+
+
+
 
                 entry.Value.draw(device, effect);
                 
