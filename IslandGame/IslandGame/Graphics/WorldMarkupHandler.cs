@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using IslandGame.GameWorld;
 using CubeAnimator;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace IslandGame
@@ -113,6 +114,7 @@ namespace IslandGame
 
         public static void drawCharacters(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
         {
+            setupBuffers(device);
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
             foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
             {
@@ -150,18 +152,24 @@ namespace IslandGame
 
         public static void resetWorldMarkup()
         {
-            FilePathsAndPositions.Clear();
+            foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
+            {
+
+                entry.Value.reset();
+
+
+            }
         }
 
 
 
 
-        public static void setupBuffers(Microsoft.Xna.Framework.Graphics.GraphicsDevice device, Microsoft.Xna.Framework.Graphics.Effect effect)
+        public static void setupBuffers(GraphicsDevice device )
         {
             foreach (KeyValuePair<string, MemoizedModelAndPoses> entry in FilePathsAndPositions)
             {
 
-                entry.Value.setUpBuffers(device, effect);
+                entry.Value.setUpBuffers(device);
 
 
             }

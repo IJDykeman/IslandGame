@@ -55,5 +55,10 @@ namespace IslandGame.GameWorld
         {
             
         }
+
+        public virtual void runPreDrawCalculations()
+        {
+            
+        }
     }
 }

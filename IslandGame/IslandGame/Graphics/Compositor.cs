@@ -91,8 +91,56 @@ namespace IslandGame
             device.RasterizerState = rs;
             device.BlendState = BlendState.Opaque;
 
+
+            
+
+            setStatesForMainDraw(player);
+
+            world.runPreDrawCalculations();
+           
             drawShadows(player, world);
 
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.FillMode = FillMode.Solid;
+            rasterizerState.CullMode = CullMode.None;
+            device.RasterizerState = rasterizerState;
+
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
+            device.SetRenderTarget(renderTarget);
+            device.DepthStencilState = new DepthStencilState()
+            {
+                DepthBufferEnable = true
+            };
+
+            display3DObjects(world, player, doNotDisplay, effect);
+            
+            
+
+            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+
+
+
+            mainRenderImage = (Texture2D)renderTarget;
+
+            device.SetRenderTarget(null);
+
+            
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
+            
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque,
+            SamplerState.PointClamp, DepthStencilState.Default,
+            RasterizerState.CullNone);
+            spriteBatch.Draw(mainRenderImage, new Vector2(0, 0), Color.White);
+            //device.SamplerStates[1] = SamplerState.PointClamp;
+            //spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
+            spriteBatch.End();
+
+            WorldMarkupHandler.resetWorldMarkup();
+
+        }
+
+        private static void setStatesForMainDraw(Player player)
+        {
             effect.Parameters["xWorld"].SetValue(Matrix.Identity);
             effect.Parameters["xView"].SetValue(viewMatrix);
             effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
@@ -117,54 +165,14 @@ namespace IslandGame
             // Matrix sunRotation = Matrix.CreateRotationX(MathHelper.ToRadians(updateCount)) * Matrix.CreateRotationZ(MathHelper.ToRadians(updateCount));
 
 
-            
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.FillMode = FillMode.Solid;
-            rasterizerState.CullMode = CullMode.None;
-            device.RasterizerState = rasterizerState;
 
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
-            device.SetRenderTarget(renderTarget);
-            device.DepthStencilState = new DepthStencilState()
-            {
-                DepthBufferEnable = true
-            };
-
-
-            display3DObjects(world, player, doNotDisplay, effect);
-
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-
-            //device.Clear(Color.Black);
-
-            mainRenderImage = (Texture2D)renderTarget;
-
-            device.SetRenderTarget(null);
-
-
-           // renderTarget.Dispose();
-           // renderTarget = null;
-            
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
-            
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque,
-            SamplerState.PointClamp, DepthStencilState.Default,
-            RasterizerState.CullNone);
-            spriteBatch.Draw(mainRenderImage, new Vector2(0, 0), Color.White);
-            //device.SamplerStates[1] = SamplerState.PointClamp;
-            spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
-            spriteBatch.End();
-
-            WorldMarkupHandler.resetWorldMarkup();
 
         }
 
         private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
         {
 
-            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
-            sky.draw(device, effectToUse, viewMatrix, getPerspectiveMatrix(2000), player.getCameraLoc());
-            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
+
 
 
             world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
@@ -176,18 +184,25 @@ namespace IslandGame
             }
             CharactersForThisFrame.Clear();
             effect.CurrentTechnique = effect.Techniques["Instanced"];
-            WorldMarkupHandler.setupBuffers(device,effect);
             WorldMarkupHandler.drawCharacters(device, effect);
             effect.CurrentTechnique = effect.Techniques["Colored"];
+
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
+            sky.draw(device, effectToUse, viewMatrix, getPerspectiveMatrix(2000), player.getCameraLoc());
+            effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
             ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
 
         }
 
         private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
         {
-            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
-            world.displayActors(device, effectToUse, doNotDisplay);
-            //WorldMarkupHandler.drawCharacters(device, effect);
+
+            world.displayIslands(device, effectToUse, new BoundingFrustum(getShadowViewMatrix(player)*getShadowProjectionMatrix()));
+
+            //world.displayActors(device, effectToUse, doNotDisplay);
+            effectToUse.CurrentTechnique = effectToUse.Techniques["Instanced"];
+            WorldMarkupHandler.drawCharacters(device, effectToUse);
+            effectToUse.CurrentTechnique = effectToUse.Techniques["Colored"];
 
         }
 
@@ -216,7 +231,7 @@ namespace IslandGame
 
             
 
-            displayShadowCasters(world, player, null, shadowEffect);
+            //displayShadowCasters(world, player, null, shadowEffect);
 
             shadowMap = (Texture2D)shadowRendertarget;
             device.SetRenderTarget(null);
@@ -237,7 +252,7 @@ namespace IslandGame
             Matrix shadowProjMatrix = Matrix.CreateOrthographic(sphere.Radius * 2, sphere.Radius*2, NearClip, farClip);
 
             
-            float ShadowMapSize = shadowRendertarget.Width;
+            /*float ShadowMapSize = shadowRendertarget.Width;
             Vector3 shadowOrigin = Vector3.Transform(Vector3.Zero, shadowProjMatrix);
             shadowOrigin *= (shadowRendertarget.Width / 2.0f);
             //shadowOrigin.X *= (shadowRendertarget.Width / 2.0f);
@@ -246,7 +261,7 @@ namespace IslandGame
             rounding /= (ShadowMapSize / 2.0f);
 
             Matrix roundMatrix = Matrix.CreateTranslation(rounding.X, rounding.Y, 0.0f);
-            shadowProjMatrix *= roundMatrix;
+            shadowProjMatrix *= roundMatrix;*/
 
 
 

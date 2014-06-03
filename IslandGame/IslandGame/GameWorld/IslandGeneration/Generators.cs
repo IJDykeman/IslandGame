@@ -688,7 +688,7 @@ namespace IslandGame.GameWorld
                                 jobSiteManager.placeTree(
                                  new BlockLoc(locationProfile.profileSpaceToWorldSpace(
                                         new IntVector3(x, y, z).toVector3())),
-                                         Tree.treeTypes.pine);//
+                                         Tree.treeTypes.poplar);//
                             }
                         }
 

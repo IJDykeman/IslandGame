@@ -113,12 +113,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
 	distanceFactor = clamp(distanceFactor,0,1);
     Output.Color = fogColor*distanceFactor + Output.Color*(1.0-distanceFactor);
 
-	/*
-	float3 clampedPosition = float3((float)((int)(PSIn.Position3D.x*10.0+.04)),(float)((int)(PSIn.Position3D.y*10.0+.04)),
-		(float)((int)(PSIn.Position3D.z*10.0+.04)));
-	float hash = clampedPosition.x*23.5+clampedPosition.y*222.4+clampedPosition.z*43.6;
-	hash = hash%1.0;
-	Output.Color *= hash;*/
+
 
 
 
@@ -138,14 +133,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
     // the pixel of the occluder is being drawn
     float ourdepth = (lightingPosition.z / lightingPosition.w) - 0.005f;
     
-    // Check to see if this pixel is in front or behind the value in the shadow map
-	/*ourdepth *= 1000000;
-	ourdepth = ceil(ourdepth);
-	ourdepth /= 1000000;
 
-	shadowdepth *= 1000000;
-	shadowdepth = ceil(shadowdepth);
-	shadowdepth /= 1000000;*/
 
 
 

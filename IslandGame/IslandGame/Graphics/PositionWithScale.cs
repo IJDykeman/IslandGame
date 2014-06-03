@@ -28,5 +28,10 @@ namespace IslandGame
             matrix = Matrix.CreateTranslation(nLoc) * Matrix.CreateScale(nScale);
             opacity = nOpacity;
         }
+
+        public override int GetHashCode()
+        {
+            return matrix.GetHashCode() + opacity.GetHashCode();
+        }
     }
 }

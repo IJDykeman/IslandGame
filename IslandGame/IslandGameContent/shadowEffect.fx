@@ -53,6 +53,16 @@ CreateShadowMap_VSOut ColoredVS(float4 Position: POSITION)
     return Out;
 }
 
+
+
+CreateShadowMap_VSOut InstancedColoredVS(float4 Position: POSITION, float4x4 instanceTransform : TEXCOORD1, float2 atlasCoord : TEXCOORD5)
+{	
+    CreateShadowMap_VSOut Out;
+    Out.Position = mul(Position, transpose(instanceTransform)); 
+    Out.Depth = Out.Position.z / Out.Position.w;    
+    return Out;
+}
+
 float4 ColoredPS(CreateShadowMap_VSOut input) : COLOR
 {
     return float4(input.Depth, 0, 0, 0);
@@ -63,6 +73,15 @@ technique Colored
 	pass Pass0
 	{   
 		VertexShader = compile vs_2_0 ColoredVS();
+		PixelShader  = compile ps_2_0 ColoredPS();
+	}
+}
+
+technique Instanced
+{
+	pass Pass0
+	{   
+		VertexShader = compile vs_2_0 InstancedColoredVS();
 		PixelShader  = compile ps_2_0 ColoredPS();
 	}
 }

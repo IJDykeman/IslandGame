@@ -290,6 +290,11 @@ namespace IslandGame.GameWorld
             islandManager.display(device, effect, frustrum);
         }
 
+        public void runPreDrawCalculations()
+        {
+            islandManager.runPreDrawCalculations();
+        }
+
         public void displayActors(GraphicsDevice device, Effect effect, Character doNotDisplay)
         {
             actorManager.display(device, effect, doNotDisplay);
@@ -542,6 +547,8 @@ namespace IslandGame.GameWorld
         {
             actorManager.addBoatAt(nLoc);
         }
+
+
 
 
 

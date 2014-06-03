@@ -10,7 +10,7 @@ namespace IslandGame
 {
     class MemoizedModelAndPoses
     {
-        List<MatrixAndOpacity> poses;
+        HashSet<MatrixAndOpacity> poses;
         PaintedCubeSpaceDisplayComponant model;
 
         VertexBuffer geometry;
@@ -18,12 +18,12 @@ namespace IslandGame
         VertexBuffer instanceBuffer;
         InstanceInfo[] instances;
         VertexBufferBinding[] bindings;
-        bool hasSetupBuffers = false;
+        bool needsBufferReset = true;
 
         public MemoizedModelAndPoses(PaintedCubeSpaceDisplayComponant newModel)
         {
             model = newModel;
-            poses = new List<MatrixAndOpacity>();
+            poses = new HashSet<MatrixAndOpacity>();
             geometry = model.getVertexBuffer();
             indexBuffer = model.getIndexBuffer();
             instances = new InstanceInfo[0];
@@ -31,7 +31,11 @@ namespace IslandGame
 
         public void addPose(MatrixAndOpacity nPose)
         {
-            poses.Add(nPose);
+            if (!poses.Contains(nPose))
+            {
+                poses.Add(nPose);
+                needsBufferReset = true;
+            }
         }
 
         public void drawOLD(GraphicsDevice device, Effect effect)
@@ -57,9 +61,15 @@ namespace IslandGame
 
         public void draw(GraphicsDevice device, Effect effect)
         {
-            //effect.CurrentTechnique = effect.Techniques["Instanced"];
-            //model.sendModelDataToGPU(device);
-            
+
+            if (poses.Count == 0)
+            {
+                return;
+            }
+
+
+            effect.CurrentTechnique.Passes[0].Apply();
+
 
            device.SetVertexBuffers(bindings);
             device.Indices = indexBuffer;
@@ -71,36 +81,50 @@ namespace IslandGame
             
         }
 
-        public void setUpBuffers(GraphicsDevice device, Effect effect)
+        public void setUpBuffers(GraphicsDevice device)
         {
 
-
-            InstanceInfo[] instances = new InstanceInfo[poses.Count];
-
-
-
-            for (int i = 0; i < poses.Count; i++)
+            if (!needsBufferReset)
             {
-                instances[i].World = poses[i].matrix;
-                // Vector3 pos;
-                // Vector3 scale;
-                //  Quaternion rot;
-                //  poses[i].matrix.Decompose(out scale, out rot, out pos);
+                return;
             }
-            instanceBuffer = new VertexBuffer(device, GenerateInstanceVertexDeclaration(), poses.Count, BufferUsage.WriteOnly);
-            instanceBuffer.SetData(instances);
+                needsBufferReset = false;
 
 
-            effect.CurrentTechnique.Passes[0].Apply();
 
 
 
             bindings = new VertexBufferBinding[2];
             bindings[0] = new VertexBufferBinding(geometry);
-            bindings[1] = new VertexBufferBinding(instanceBuffer, 0, 1);
+            resetBuffers(device);
         }
 
+
+        public void resetBuffers(GraphicsDevice device)
+        {
+            InstanceInfo[] instances = new InstanceInfo[poses.Count];
+
+            int i = 0;
+            foreach (MatrixAndOpacity test in poses)
+            {
+                instances[i].World = test.matrix;
+                i++;
+            }
+
+            instanceBuffer = new VertexBuffer(device, GenerateInstanceVertexDeclaration(), poses.Count, BufferUsage.WriteOnly);
+            instanceBuffer.SetData(instances);
+            bindings[1] = new VertexBufferBinding(instanceBuffer, 0, 1);
+
+        }
+
+
+        internal void reset()
+        {
+            poses.Clear();
+        }
     }
+
+
 
     struct InstanceInfo
     {

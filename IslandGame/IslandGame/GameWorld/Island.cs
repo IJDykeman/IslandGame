@@ -124,6 +124,11 @@ namespace IslandGame.GameWorld
             jobSiteManager.display(device, effect, getLocationProfile());
         }
 
+        public void runPreDrawCalculations()
+        {
+            jobSiteManager.runPreDrawCalculations();
+        }
+
         public void update()
         {
             jobSiteManager.update();
@@ -491,6 +496,8 @@ namespace IslandGame.GameWorld
         {
             jobSiteManager.addResourceBlock(loc, type);
         }
+
+
 
 
     }

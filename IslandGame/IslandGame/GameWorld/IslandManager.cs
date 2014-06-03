@@ -247,6 +247,20 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public void runPreDrawCalculations()
+        {
+            lock (islands)
+            {
+
+                foreach (Island island in islands)
+                {
+
+                        island.runPreDrawCalculations();
+
+                }
+            }
+        }
+
         public void update()
         {
             lock (islands)
@@ -411,5 +425,7 @@ namespace IslandGame.GameWorld
         {
             getClosestIslandToLocation(loc.toWorldSpaceVector3()).addResourceBlock(loc, type);
         }
+
+
     }
 }

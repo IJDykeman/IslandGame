@@ -20,15 +20,21 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect)
         {
+            
+
+        }
+
+        public override void runPreDrawCalculations()
+        {
             lock (trees)
             {
                 foreach (Tree toDraw in trees)
                 {
                     toDraw.update();
                     toDraw.addToWorldMarkup();
+                    //toDraw.draw(device, effect);
                 }
             }
-
         }
 
         public override void update()

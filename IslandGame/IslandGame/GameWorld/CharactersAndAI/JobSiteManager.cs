@@ -34,6 +34,14 @@ namespace IslandGame.GameWorld
 
         }
 
+        public void runPreDrawCalculations()
+        {
+            foreach (JobSite site in jobSites)
+            {
+                site.runPreDrawCalculations();
+            }
+        }
+
         public void update()
         {
             for (int i = jobSites.Count-1; i >=0; i--)
@@ -319,7 +327,7 @@ namespace IslandGame.GameWorld
         {
             foreach (JobSite test in jobSites)
             {
-                chopBlock(blockLoc);
+                test.chopBlock(blockLoc);
             }
         }
 
@@ -431,6 +439,8 @@ namespace IslandGame.GameWorld
         {
             resourceBlockJobsite.placeRescourceBlock(loc, type);
         }
+
+
     }
 }
 
