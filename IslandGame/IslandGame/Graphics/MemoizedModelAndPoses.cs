@@ -31,10 +31,15 @@ namespace IslandGame
 
         public void addPose(MatrixAndOpacity nPose)
         {
+            int why = nPose.GetHashCode();
             if (!poses.Contains(nPose))
             {
                 poses.Add(nPose);
                 needsBufferReset = true;
+            }
+            else
+            {
+
             }
         }
 
@@ -120,7 +125,7 @@ namespace IslandGame
 
         internal void reset()
         {
-            poses.Clear();
+            //poses.Clear();
         }
     }
 

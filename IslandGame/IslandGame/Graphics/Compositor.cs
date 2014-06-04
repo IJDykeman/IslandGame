@@ -59,7 +59,9 @@ namespace IslandGame
                                                     SurfaceFormat.Vector4,
                                                     DepthFormat.Depth24);
 
-
+            device.SetRenderTarget(shadowRendertarget);
+            device.Clear(Color.White);
+            device.SetRenderTarget(null);
 
         }
 
@@ -98,7 +100,7 @@ namespace IslandGame
 
             world.runPreDrawCalculations();
            
-            drawShadows(player, world);
+            //drawShadows(player, world);
 
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.FillMode = FillMode.Solid;
@@ -210,7 +212,10 @@ namespace IslandGame
         {
 
 
+
             device.SetRenderTarget(shadowRendertarget);
+
+
             device.DepthStencilState = new DepthStencilState()
             {
                 DepthBufferEnable = true
