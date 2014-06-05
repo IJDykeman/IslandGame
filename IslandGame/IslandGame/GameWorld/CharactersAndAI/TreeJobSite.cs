@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace IslandGame.GameWorld.CharactersAndAI
+namespace IslandGame.GameWorld
 {
     [Serializable]
     class TreesJobSite : MultiblockJobSite
@@ -20,13 +20,21 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect)
         {
-            
 
+            lock (trees)
+            {
+                foreach (Tree toDraw in trees)
+                {
+                    
+                    //toDraw.addToWorldMarkup();
+                    toDraw.draw(device, effect);
+                }
+            }
         }
 
         public override void runPreDrawCalculations()
         {
-            lock (trees)
+          /*  lock (trees)
             {
                 foreach (Tree toDraw in trees)
                 {
@@ -34,7 +42,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
                     toDraw.addToWorldMarkup();
                     //toDraw.draw(device, effect);
                 }
-            }
+            }*/
         }
 
         public override void update()
@@ -43,6 +51,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             {
                 for (int i = trees.Count - 1; i >= 0; i--)
                 {
+                    trees[i].update();
                     if (trees[i].needsToBeDeleted())
                     {
                         trees.RemoveAt(i);

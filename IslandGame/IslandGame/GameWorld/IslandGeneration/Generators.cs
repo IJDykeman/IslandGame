@@ -683,7 +683,7 @@ namespace IslandGame.GameWorld
 
                         if (heightHere == y && y > 3)
                         {
-                            if (rand.NextDouble() > .993)
+                            if (rand.NextDouble() > .997)
                             {
                                 jobSiteManager.placeTree(
                                  new BlockLoc(locationProfile.profileSpaceToWorldSpace(

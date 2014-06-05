@@ -26,8 +26,8 @@ namespace IslandGame.GameWorld
 
         public override Job getJob(Character newWorker, Ray ray)
         {
-            //return new BuildJob(this, newWorker);
-            return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(), newWorker, profile);
+            //return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(), newWorker, profile, Job);
+            return new UnemployedJob();
         }
 
         Stockpile getStockpileAlongRay(Ray ray)

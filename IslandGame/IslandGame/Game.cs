@@ -35,6 +35,7 @@ namespace IslandGame
 
         public Game(GraphicsDevice device)
         {
+            
             GameWorld.ColorPallete.loadContent();
             Compositer.device = device;
             player = new Player();
@@ -372,6 +373,7 @@ namespace IslandGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            
             Compositer.UpdateViewMatrix(player.getCameraLoc(), player.getCameraRotation());
             Compositer.drawFinalImageFirst(player, false);
             Compositer.display(world, player, player.getControlledCharacter());

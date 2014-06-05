@@ -185,7 +185,7 @@ namespace IslandGame.GameWorld
                     vertexBuffer.VertexCount, 0,
                     indexBuffer.IndexCount / 3);
             }
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+            //effect.Parameters["xWorld"].SetValue(Matrix.Identity);
         }
 
         public void sendModelDataToGPU(GraphicsDevice device)

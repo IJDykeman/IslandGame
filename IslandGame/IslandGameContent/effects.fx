@@ -126,7 +126,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
     ShadowTexCoord.y = 1.0f - ShadowTexCoord.y;
 
     // Get the current depth stored in the shadow map
-    float shadowdepth = tex2D(TextureSampler, ShadowTexCoord).r;    
+    /*float shadowdepth = tex2D(TextureSampler, ShadowTexCoord).r;    
     
     // Calculate the current pixel depth
     // The bias is used to prevent folating point errors that occur when
@@ -143,7 +143,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
         // Shadow the pixel by lowering the intensity
         Output.Color *= float4(0.6,0.6,0.7,0);
 
-    };
+    };*/
 	Output.Color.a=xOpacity;
 	return Output;
 }

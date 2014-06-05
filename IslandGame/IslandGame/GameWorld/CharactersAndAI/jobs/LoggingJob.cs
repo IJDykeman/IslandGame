@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IslandGame.GameWorld.CharactersAndAI
+namespace IslandGame.GameWorld
 {
     class LoggingJob : MultiBlockOngoingJob
     {
@@ -49,6 +49,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
                     {
                         return new CharacterTask.ChopBlockForFrame(currentGoalBlock);
                     }
+                    else
+                    {
+                        return new CharacterTask.SwitchJobType(JobType.CarryingWood);
+                    }
                 }
                 if (currentWalkJob.isUseable() && (currentWait == null || currentWait.isComplete()))
                 {
@@ -65,7 +69,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             }
             else
             {
-                return new CharacterTask.NoTask();
+                return new CharacterTask.SwitchJob(new UnemployedJob());
             }
         }
 

@@ -77,6 +77,9 @@ namespace IslandGame.GameWorld
                         case JobType.logging:
                             setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"axeMinotuar.chr");
                             break;
+                        case JobType.CarryingWood:
+                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
+                            break;
                         default:
                             setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"minotuar.chr");
                             break;
@@ -295,7 +298,7 @@ namespace IslandGame.GameWorld
 
         private void setJobType(JobType newJobType)
         {
-            if (newJobType != JobType.none && newJobType != currentJobType)
+            if ( newJobType != currentJobType)
             {
                 currentJobType = newJobType;
                 setupBodyPartGroupGivenCurrentJob();

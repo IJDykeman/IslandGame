@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace IslandGame.GameWorld
 {
     [Serializable]
@@ -16,10 +17,13 @@ namespace IslandGame.GameWorld
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasDroppedLoad = false;
+        Job jobToReturnToWhenDone;
 
 
-        public CarryResourceToStockpileJob(ResourceBlockjobSite nresourceJobsite, ResourceBlock.ResourceType nCarriedType, Character nCharacter, IslandPathingProfile nPathingProfile)
+        public CarryResourceToStockpileJob(ResourceBlockjobSite nresourceJobsite, ResourceBlock.ResourceType nCarriedType, 
+            Character nCharacter, IslandPathingProfile nPathingProfile, Job nJobToReturnTo)
         {
+            jobToReturnToWhenDone = nJobToReturnTo;
             pathingProfile = nPathingProfile;
             resourceJobsite = nresourceJobsite;
             carriedType = nCarriedType;
@@ -71,7 +75,9 @@ namespace IslandGame.GameWorld
             }
             else
             {
-                return new CharacterTask.SwitchJob(new UnemployedJob());
+
+                return new CharacterTask.SwitchJob(jobToReturnToWhenDone);
+
             }
         }
 

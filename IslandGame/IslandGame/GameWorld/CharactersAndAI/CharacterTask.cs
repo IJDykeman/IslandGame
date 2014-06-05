@@ -25,7 +25,8 @@ namespace IslandGame.GameWorld
             MakeFarmBlockGrow,
             DoStrikeOfWorkAlongRay,
             DoStrikeOfWorkOnBlock,
-            PlaceResource
+            PlaceResource,
+            SwitchJobType
         }
 
         [Serializable]
@@ -339,8 +340,31 @@ namespace IslandGame.GameWorld
             }
         }
 
+        [Serializable]
+        public class SwitchJobType : Task
+        {
+            JobType typeToSwitchType;
 
 
+            public SwitchJobType(JobType ntypeToSwitchType)
+            {
+                typeToSwitchType = ntypeToSwitchType;
+                taskType = Type.SwitchJobType;
+            }
+
+            public override bool isComplete()
+            {
+                return true;
+            }
+
+            public JobType getNewJobType()
+            {
+                return typeToSwitchType;
+            }
+        }
+
+
+        [Serializable]
         public class DoStrikeOfWorkAlongRay : Task
         {
             Actor striker;
