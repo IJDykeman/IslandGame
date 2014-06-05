@@ -72,6 +72,9 @@ namespace IslandGame
             device.SetRenderTarget(shadowRendertarget);
             device.Clear(Color.White);
             device.SetRenderTarget(null);
+<<<<<<< HEAD
+>>>>>>> a6f3389cee54a3718f68e27946a8afa2964f001f
+=======
 >>>>>>> a6f3389cee54a3718f68e27946a8afa2964f001f
 
         }
