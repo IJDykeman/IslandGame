@@ -29,7 +29,7 @@ namespace IslandGame
         static Texture2D mainRenderImage;
 
         static RenderTarget2D shadowRendertarget;
-        static Texture2D shadowMap;
+        //static Texture2D shadowMap;
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
 
@@ -43,7 +43,7 @@ namespace IslandGame
             device = Main.graphics.GraphicsDevice;
             spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
             effect = content.Load<Effect>("effects");
-            shadowEffect = content.Load<Effect>("shadowEffect");
+            //shadowEffect = content.Load<Effect>("shadowEffect");
             
             sky = new Sky();
             sky.loadContent(content);
@@ -54,12 +54,25 @@ namespace IslandGame
             renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
 
+<<<<<<< HEAD
+           // shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
+           //      false,
+           //                                         SurfaceFormat.Vector4,
+            //                                        DepthFormat.Depth24);
+
+            //device.SetRenderTarget(shadowRendertarget);
+            //device.Clear(Color.White);
+           // device.SetRenderTarget(null);
+=======
             shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
                  false,
                                                     SurfaceFormat.Vector4,
                                                     DepthFormat.Depth24);
 
-
+            device.SetRenderTarget(shadowRendertarget);
+            device.Clear(Color.White);
+            device.SetRenderTarget(null);
+>>>>>>> a6f3389cee54a3718f68e27946a8afa2964f001f
 
         }
 
@@ -98,7 +111,7 @@ namespace IslandGame
 
             world.runPreDrawCalculations();
            
-            drawShadows(player, world);
+            //drawShadows(player, world);
 
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.FillMode = FillMode.Solid;
@@ -148,11 +161,11 @@ namespace IslandGame
             effect.Parameters["xShadowWorld"].SetValue(getShadowWorldMatrix());
             effect.Parameters["xShadowView"].SetValue(getShadowViewMatrix(player));
             effect.Parameters["xShadowProjection"].SetValue(getShadowProjectionMatrix());
-            effect.Parameters["xTexture"].SetValue(shadowMap);
+            //effect.Parameters["xTexture"].SetValue(shadowMap);
             effect.Parameters["xLightPos"].SetValue(getLightLoc(player));
-            Vector2 shadowMapPixelSize = new Vector2(0.5f / shadowRendertarget.Width, 0.5f / shadowRendertarget.Height);
-            effect.Parameters["ShadowMapPixelSize"].SetValue(shadowMapPixelSize);
-            effect.Parameters["ShadowMapSize"].SetValue(new Vector2(shadowRendertarget.Width, shadowRendertarget.Height));
+            //Vector2 shadowMapPixelSize = new Vector2(0.5f / shadowRendertarget.Width, 0.5f / shadowRendertarget.Height);
+            //effect.Parameters["ShadowMapPixelSize"].SetValue(shadowMapPixelSize);
+            //effect.Parameters["ShadowMapSize"].SetValue(new Vector2(shadowRendertarget.Width, shadowRendertarget.Height));
             effect.Parameters["xEnableLighting"].SetValue(true);
             Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
             lightDirection.Normalize();
@@ -210,7 +223,10 @@ namespace IslandGame
         {
 
 
+
             device.SetRenderTarget(shadowRendertarget);
+
+
             device.DepthStencilState = new DepthStencilState()
             {
                 DepthBufferEnable = true
@@ -233,7 +249,7 @@ namespace IslandGame
 
             //displayShadowCasters(world, player, null, shadowEffect);
 
-            shadowMap = (Texture2D)shadowRendertarget;
+            //shadowMap = (Texture2D)shadowRendertarget;
             device.SetRenderTarget(null);
 
         }
