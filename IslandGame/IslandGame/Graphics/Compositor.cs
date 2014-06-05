@@ -54,7 +54,7 @@ namespace IslandGame
             renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
 
-<<<<<<< HEAD
+
            // shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
            //      false,
            //                                         SurfaceFormat.Vector4,
@@ -63,7 +63,7 @@ namespace IslandGame
             //device.SetRenderTarget(shadowRendertarget);
             //device.Clear(Color.White);
            // device.SetRenderTarget(null);
-=======
+            /*
             shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
                  false,
                                                     SurfaceFormat.Vector4,
@@ -71,11 +71,7 @@ namespace IslandGame
 
             device.SetRenderTarget(shadowRendertarget);
             device.Clear(Color.White);
-            device.SetRenderTarget(null);
-<<<<<<< HEAD
->>>>>>> a6f3389cee54a3718f68e27946a8afa2964f001f
-=======
->>>>>>> a6f3389cee54a3718f68e27946a8afa2964f001f
+            device.SetRenderTarget(null);*/
 
         }
 
