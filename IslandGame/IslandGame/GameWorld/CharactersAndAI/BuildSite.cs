@@ -25,7 +25,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return Intersection.intersects(ray, blocksToBuild);
         }
 
-        public override Job getJob(Character newWorker, Ray ray)
+        public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
             return new BuildJob(this, newWorker);
         }

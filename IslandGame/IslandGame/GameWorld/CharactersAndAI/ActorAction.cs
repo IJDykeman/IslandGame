@@ -14,7 +14,8 @@ namespace IslandGame.GameWorld
         setShipVelocity,
         die,
         strike,
-        PlaceResource
+        PlaceResource,
+
 
     }
 
@@ -116,6 +117,9 @@ namespace IslandGame.GameWorld
 
     }
 
+
+
+
     [Serializable]
     public class ActorPlaceResourceAction : ActorAction
     {
@@ -138,7 +142,6 @@ namespace IslandGame.GameWorld
         {
             return locToPlace;
         }
-
     }
 
     [Serializable]

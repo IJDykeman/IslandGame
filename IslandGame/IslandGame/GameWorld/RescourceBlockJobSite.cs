@@ -7,16 +7,18 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
-    class ResourceBlockjobSite : JobSite
+    public class ResourceBlockjobSite : JobSite
     {
         Dictionary<BlockLoc, ResourceBlock> resourceBlocks;
         List<Stockpile> stockpiles;
+
 
         public ResourceBlockjobSite(IslandPathingProfile nprofile)
         {
             resourceBlocks = new Dictionary<BlockLoc, ResourceBlock>();
             stockpiles = new List<Stockpile>();
             profile = nprofile;
+
         }
 
         public override float? intersects(Ray ray)
@@ -24,10 +26,11 @@ namespace IslandGame.GameWorld
             return Intersection.getDistanceToNearestIntersectableOnRay(ray, stockpiles);
         }
 
-        public override Job getJob(Character newWorker, Ray ray)
+        public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            //return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(), newWorker, profile, Job);
-            return new UnemployedJob();
+            return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(),
+                newWorker, profile, new UnemployedJob());
+            //return new UnemployedJob();
         }
 
         Stockpile getStockpileAlongRay(Ray ray)

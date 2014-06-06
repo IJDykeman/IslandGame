@@ -306,7 +306,7 @@ namespace IslandGame.GameWorld
         }
 
 
-        private TreesJobSite getLoggingSiteInJobList()
+        public TreesJobSite getTreeJobSite()
         {
             foreach (JobSite test in jobSites)
             {
@@ -320,7 +320,7 @@ namespace IslandGame.GameWorld
 
         public void placeTree(BlockLoc loc, Tree.treeTypes type)
         {
-            getLoggingSiteInJobList().placeTree(loc, type);
+            getTreeJobSite().placeTree(loc, type);
         }
 
         public void chopBlock(BlockLoc blockLoc)
@@ -441,6 +441,10 @@ namespace IslandGame.GameWorld
         }
 
 
+        public ResourceBlockjobSite getResourceJobSite()
+        {
+            return resourceBlockJobsite;
+        }
     }
 }
 

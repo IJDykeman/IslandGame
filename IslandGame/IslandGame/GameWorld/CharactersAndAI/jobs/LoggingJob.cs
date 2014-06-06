@@ -14,12 +14,16 @@ namespace IslandGame.GameWorld
         TreesJobSite treeJobSite;
         bool failedToFindATreeToChop = false;
         BlockLoc currentGoalBlock;
+        IslandWorkingProfile workingProfile;
 
-        public LoggingJob(Character nCharacter, TreesJobSite nSite)
+
+
+        public LoggingJob(Character nCharacter, TreesJobSite nSite, IslandWorkingProfile nWorkingProfile)
         {
             treeJobSite = nSite;
             character = nCharacter;
             setJobType(JobType.logging);
+            workingProfile =nWorkingProfile;
         }
 
         public override BlockLoc? getCurrentGoalBlock()
@@ -51,10 +55,16 @@ namespace IslandGame.GameWorld
                     }
                     else
                     {
-                        return new CharacterTask.SwitchJobType(JobType.CarryingWood);
+
+                        return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(
+                            workingProfile.getResourceBlockJobSite(),ResourceBlock.ResourceType.Wood,
+                            character,workingProfile.getPathingProfile(),
+                            new LoggingJob(character,treeJobSite,workingProfile)));
+
                     }
+
                 }
-                if (currentWalkJob.isUseable() && (currentWait == null || currentWait.isComplete()))
+                else if (currentWalkJob.isUseable() && (currentWait == null || currentWait.isComplete()))
                 {
 
                     return currentWalkJob.getCurrentTask(taskTracker);
@@ -75,6 +85,7 @@ namespace IslandGame.GameWorld
 
         private void updateCurrentWalkAndChop(CharacterTaskTracker taskTracker)
         {
+
             List<BlockLoc> blocksToRemove = treeJobSite.getTreeTrunkBlocks();
             if (blocksToRemove.Count > 0)
             {
@@ -90,7 +101,7 @@ namespace IslandGame.GameWorld
                         if (currentWait.isComplete())
                         {
 
-                            setWalkTaskToNextBlockInBuildSite(taskTracker);
+                            setWalkTaskToNextTree(taskTracker);
 
                         }
                     }
@@ -104,11 +115,15 @@ namespace IslandGame.GameWorld
 
                         }
 
-                        setWalkTaskToNextBlockInBuildSite(taskTracker);
+                        setWalkTaskToNextTree(taskTracker);
                         if (!currentWalkJob.isUseable())
                         {
                             failedToFindATreeToChop = true;
+
                         }
+                        
+
+
 
                     }
 
@@ -123,7 +138,7 @@ namespace IslandGame.GameWorld
             }
         }
 
-        private void setWalkTaskToNextBlockInBuildSite(CharacterTaskTracker taskTracker)
+        private void setWalkTaskToNextTree(CharacterTaskTracker taskTracker)
         {
             List<BlockLoc> nextBlocksToBuild = treeJobSite.getTreeTrunkBlocks();
 

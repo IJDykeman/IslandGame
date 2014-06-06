@@ -17,13 +17,14 @@ namespace IslandGame.GameWorld
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasDroppedLoad = false;
-        Job jobToReturnToWhenDone;
+        Job jobToReturnTo;
 
 
-        public CarryResourceToStockpileJob(ResourceBlockjobSite nresourceJobsite, ResourceBlock.ResourceType nCarriedType, 
-            Character nCharacter, IslandPathingProfile nPathingProfile, Job nJobToReturnTo)
+
+        public CarryResourceToStockpileJob(ResourceBlockjobSite nresourceJobsite, ResourceBlock.ResourceType nCarriedType,
+            Character nCharacter, IslandPathingProfile nPathingProfile, Job njobToReturnTo)
         {
-            jobToReturnToWhenDone = nJobToReturnTo;
+            jobToReturnTo = njobToReturnTo;
             pathingProfile = nPathingProfile;
             resourceJobsite = nresourceJobsite;
             carriedType = nCarriedType;
@@ -63,20 +64,27 @@ namespace IslandGame.GameWorld
         {
             //TODO make path object so that there is no edge case where a 
             //stockpile that is full and adjacent to the character does not cause a crash
-            if (currentWalkJob.isUseable() && !currentWalkJob.isComplete())
+
+            if (hasDroppedLoad)
             {
-                
-                return currentWalkJob.getCurrentTask(taskTracker);
-            }
-            else if (!hasDroppedLoad && currentWalkJob.isUseable())
-            {
-                hasDroppedLoad = true;
-                return new CharacterTask.PlaceResource(currentGoalBlock, carriedType);
+                return new CharacterTask.SwitchJob(jobToReturnTo);
             }
             else
             {
+                if (currentWalkJob.isUseable() && !currentWalkJob.isComplete())
+                {
 
-                return new CharacterTask.SwitchJob(jobToReturnToWhenDone);
+                    return currentWalkJob.getCurrentTask(taskTracker);
+                }
+                else if (!hasDroppedLoad && currentWalkJob.isUseable())
+                {
+                    hasDroppedLoad = true;
+                    return new CharacterTask.PlaceResource(currentGoalBlock, carriedType);
+                }
+
+
+
+                return new CharacterTask.NoTask();
 
             }
         }

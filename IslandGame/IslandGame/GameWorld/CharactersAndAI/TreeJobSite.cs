@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class TreesJobSite : MultiblockJobSite
+    public class TreesJobSite : MultiblockJobSite
     {
         List<Tree> trees;
 
@@ -88,9 +88,9 @@ namespace IslandGame.GameWorld
             return intersection;
         }
 
-        public override Job getJob(Character newWorker, Ray ray)
+        public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new LoggingJob(newWorker, this);
+            return new LoggingJob(newWorker, this, workingProfile);
         }
 
         public override void updateMesh(int mipLevel)

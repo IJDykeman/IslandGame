@@ -132,6 +132,7 @@
     <Compile Include="FirstPersonInputHandler.cs" />
     <Compile Include="GameWorld\AxisAlignedBoundingBox.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ActorStateProfile.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\IslandWorkingProfile.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\AggressiveStanceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\AttackActorJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\BoatBuildSite.cs" />

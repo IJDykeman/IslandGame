@@ -497,7 +497,10 @@ namespace IslandGame.GameWorld
             jobSiteManager.addResourceBlock(loc, type);
         }
 
-
+        public JobSiteManager getJobSiteManager()
+        {
+            return jobSiteManager;
+        }
 
 
     }

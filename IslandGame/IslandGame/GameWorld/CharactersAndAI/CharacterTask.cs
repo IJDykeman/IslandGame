@@ -26,7 +26,7 @@ namespace IslandGame.GameWorld
             DoStrikeOfWorkAlongRay,
             DoStrikeOfWorkOnBlock,
             PlaceResource,
-            SwitchJobType
+
         }
 
         [Serializable]
@@ -337,29 +337,6 @@ namespace IslandGame.GameWorld
             public Job getNewJob()
             {
                 return newJob;
-            }
-        }
-
-        [Serializable]
-        public class SwitchJobType : Task
-        {
-            JobType typeToSwitchType;
-
-
-            public SwitchJobType(JobType ntypeToSwitchType)
-            {
-                typeToSwitchType = ntypeToSwitchType;
-                taskType = Type.SwitchJobType;
-            }
-
-            public override bool isComplete()
-            {
-                return true;
-            }
-
-            public JobType getNewJobType()
-            {
-                return typeToSwitchType;
             }
         }
 

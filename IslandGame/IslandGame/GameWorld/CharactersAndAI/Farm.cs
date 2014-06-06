@@ -26,7 +26,7 @@ namespace IslandGame.GameWorld
             profile = nProfile;
         }
 
-        public override Job getJob(Character newWorker, Ray ray)
+        public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         { 
             return new FarmJob(this, newWorker); 
         }

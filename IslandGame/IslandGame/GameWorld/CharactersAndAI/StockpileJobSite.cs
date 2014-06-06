@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class Stockpile : Intersectable
+    public class Stockpile : Intersectable
     {
         HashSet<BlockLoc> storageSpace;
         ResourceBlock.ResourceType typeToStore;

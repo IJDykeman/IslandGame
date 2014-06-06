@@ -13,7 +13,7 @@ namespace IslandGame.GameWorld
         protected IslandPathingProfile profile;
 
         public abstract float? intersects(Microsoft.Xna.Framework.Ray ray);
-        public abstract Job getJob(Character newWorker, Ray ray);
+        public abstract Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile);
         public abstract void draw(GraphicsDevice device, Effect effect);
         public abstract void blockWasDestroyed(BlockLoc toDestroy);
         public abstract void blockWasBuilt(BlockLoc toDestroy);

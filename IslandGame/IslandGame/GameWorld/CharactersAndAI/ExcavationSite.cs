@@ -51,7 +51,7 @@ namespace IslandGame.GameWorld
             return Intersection.intersects(ray, blocksToBeRemoved);
         }
 
-        public override Job getJob(Character newWorker, Ray ray)
+        public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
             return new ExcavateJob(this, newWorker);
         }

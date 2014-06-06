@@ -79,70 +79,75 @@ namespace IslandGame.GameWorld
                             , ((ActorPlaceResourceAction)action).getRescourceTypeToPlace());
                         break;
                     case ActorActions.strike:
-                        ActorStrikeAction strikeAction = (ActorStrikeAction)action;
-                        if (strikeAction.getStrikeType() == ActorStrikeAction.StrikeType.OnBlock)
-                        {
-                            switch (strikeAction.getJobType())
-                            {
-
-                                case JobType.combat:
-                                    break;
-
-                                case JobType.agriculture:
-                                    islandManager.acceptWorkStrike((ActorStrikeAction)action);
-                                    break;
-                                case JobType.building:
-                                    buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
-                                        5);
-                                    break;
-                                case JobType.mining:
-                                    strikeAction.getStriker().setRotationWithGivenDeltaVec(strikeAction.getLookDeltaVec());
-                                    islandManager.acceptWorkStrike((ActorStrikeAction)action);
-                                    break;
-                                case JobType.logging:
-                                    strikeAction.getStriker().setRotationWithGivenDeltaVec(strikeAction.getLookDeltaVec());
-                                    islandManager.acceptWorkStrike((ActorStrikeAction)action);
-                                    //chopBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget());
-                                    break;
-                            }
-
-                        }
-                        else // is strike along ray
-                        {
-                            ActorStrikeAlongRayAction rayStrike = (ActorStrikeAlongRayAction)strikeAction;
-                            switch (strikeAction.getJobType())
-                            {
-
-                                case JobType.combat:
-                                    
-                                    actorManager.handleStrike(rayStrike.getStriker(), rayStrike.getStrikeOrigen(),
-                                        rayStrike.getStrikeDirectionNormal(), rayStrike.getStrikeDistance(), 1);
-                                    rayStrike.getStriker().StartStrikeAnimation();
-                                    break;
-
-                                case JobType.agriculture:
-                                    islandManager.acceptWorkStrike(rayStrike);
-                                    break;
-                                case JobType.building:
-                                    //buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
-                                    //    5);
-                                    islandManager.acceptWorkStrike(rayStrike);
-                                    break;
-                                case JobType.mining:
-                                    islandManager.acceptWorkStrike(rayStrike);
-                                    break;
-                                case JobType.logging:
-                                    islandManager.acceptWorkStrike(rayStrike);
-                                    break;
-                            }
-
-                        }
-
+                        handleStrikeAction(action);
                         break;
                     case ActorActions.die:
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
+
                 }
+            }
+        }
+
+        private void handleStrikeAction(ActorAction action)
+        {
+            ActorStrikeAction strikeAction = (ActorStrikeAction)action;
+            if (strikeAction.getStrikeType() == ActorStrikeAction.StrikeType.OnBlock)
+            {
+                switch (strikeAction.getJobType())
+                {
+
+                    case JobType.combat:
+                        break;
+
+                    case JobType.agriculture:
+                        islandManager.acceptWorkStrike((ActorStrikeAction)action);
+                        break;
+                    case JobType.building:
+                        buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
+                            5);
+                        break;
+                    case JobType.mining:
+                        strikeAction.getStriker().setRotationWithGivenDeltaVec(strikeAction.getLookDeltaVec());
+                        islandManager.acceptWorkStrike((ActorStrikeAction)action);
+                        break;
+                    case JobType.logging:
+                        strikeAction.getStriker().setRotationWithGivenDeltaVec(strikeAction.getLookDeltaVec());
+                        islandManager.acceptWorkStrike((ActorStrikeAction)action);
+                        //chopBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget());
+                        break;
+                }
+
+            }
+            else // is strike along ray
+            {
+                ActorStrikeAlongRayAction rayStrike = (ActorStrikeAlongRayAction)strikeAction;
+                switch (strikeAction.getJobType())
+                {
+
+                    case JobType.combat:
+
+                        actorManager.handleStrike(rayStrike.getStriker(), rayStrike.getStrikeOrigen(),
+                            rayStrike.getStrikeDirectionNormal(), rayStrike.getStrikeDistance(), 1);
+                        rayStrike.getStriker().StartStrikeAnimation();
+                        break;
+
+                    case JobType.agriculture:
+                        islandManager.acceptWorkStrike(rayStrike);
+                        break;
+                    case JobType.building:
+                        //buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
+                        //    5);
+                        islandManager.acceptWorkStrike(rayStrike);
+                        break;
+                    case JobType.mining:
+                        islandManager.acceptWorkStrike(rayStrike);
+                        break;
+                    case JobType.logging:
+                        islandManager.acceptWorkStrike(rayStrike);
+                        break;
+                }
+
             }
         }
 
@@ -251,7 +256,9 @@ namespace IslandGame.GameWorld
                     }
                 }
 
-                Job job = clickedJobSite.getJob(character, rightClickRay);
+                Job job = clickedJobSite.getJob(character, rightClickRay, new IslandWorkingProfile(
+                    islandManager.getClosestIslandToLocation(character.getFootLocation()).getJobSiteManager(), 
+                    islandManager.getClosestIslandToLocation(character.getFootLocation()).getPathingProfile()));
                 character.setJobAndCheckUseability(job);
                 return true;
             }

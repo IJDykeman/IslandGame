@@ -125,7 +125,7 @@ namespace IslandGame
 
         internal void reset()
         {
-            //poses.Clear();
+            poses.Clear();
         }
     }
 

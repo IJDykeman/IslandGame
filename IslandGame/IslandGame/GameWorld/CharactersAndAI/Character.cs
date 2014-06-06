@@ -190,10 +190,10 @@ namespace IslandGame.GameWorld
                     getInBoat(((CharacterTask.GetInBoat)toDo).getBoat());
                     break;
                 case CharacterTask.Type.SwitchJob:
-                    runPhysics(actions);
-                    animations.Add(AnimationType.walking);
+
                     setJobAndCheckUseability(((CharacterTask.SwitchJob)toDo).getNewJob());
                     break;
+
                 case CharacterTask.Type.WalkTowardPoint:
                     
                     animations.Add(AnimationType.walking);

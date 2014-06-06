@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    abstract class MultiblockJobSite : JobSite
+    public abstract class MultiblockJobSite : JobSite
     {
 
 
