@@ -152,7 +152,7 @@ namespace IslandGame.GameWorld
                 treeJobSite.getProfile(),
                 nextBlocksToBuild,
                 2, out blockFoundToChop);
-            currentGoalBlock = blockFoundToChop;
+            placementloc = blockFoundToChop;
             walkJob = new TravelAlongPath(path);
 
             if (!walkJob.isUseable())
