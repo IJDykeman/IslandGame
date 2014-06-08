@@ -132,12 +132,16 @@
     <Compile Include="FirstPersonInputHandler.cs" />
     <Compile Include="GameWorld\AxisAlignedBoundingBox.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ActorStateProfile.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\CharacterLoad.cs" />
     <Compile Include="GameWorld\CharactersAndAI\IslandWorkingProfile.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\AggressiveStanceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\AttackActorJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\BoatBuildSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\CaptainingBoatJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\LoggingJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\PlaceResourceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\CarryResourceJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\FetchResourceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ResourceAmount.cs" />
     <Compile Include="GameWorld\CharactersAndAI\StockpileJobSite.cs" />
     <Compile Include="GameWorld\Drawable.cs" />
@@ -163,7 +167,7 @@
     <Compile Include="GameWorld\CharactersAndAI\FarmPlantBlock.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\Job.cs" />
     <Compile Include="GameWorld\CharactersAndAI\JobSite.cs" />
-    <Compile Include="GameWorld\CharactersAndAI\jobs\LoggingJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\ChopTreeJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\MultiblockJobSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\MultiBlockOngoingJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\StoneBuildSite.cs" />

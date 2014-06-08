@@ -9,88 +9,59 @@ namespace IslandGame.GameWorld
     [Serializable]
     class CarryResourceToStockpileJob : MultiBlockOngoingJob
     {
-        ResourceBlockjobSite resourceJobsite;
-        IslandPathingProfile pathingProfile;
-        TravelAlongPath currentWalkJob;
+
         Character character;
-        BlockLoc currentGoalBlock;
+
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasDroppedLoad = false;
         Job jobToReturnTo;
+        IslandWorkingProfile workingProfile;
+        BlockLoc blockToPlaceResourceIn;
 
 
 
-        public CarryResourceToStockpileJob(ResourceBlockjobSite nresourceJobsite, ResourceBlock.ResourceType nCarriedType,
-            Character nCharacter, IslandPathingProfile nPathingProfile, Job njobToReturnTo)
+        public CarryResourceToStockpileJob(ResourceBlock.ResourceType nCarriedType,
+            Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile)
         {
             jobToReturnTo = njobToReturnTo;
-            pathingProfile = nPathingProfile;
-            resourceJobsite = nresourceJobsite;
             carriedType = nCarriedType;
             character = nCharacter;
             setJobType(JobType.CarryingWood);
-            setWalkTaskToPlaceResourceInStockpile();
+            workingProfile = nworkingProfile;
 
-        }
-
-        private void setWalkTaskToPlaceResourceInStockpile()
-        {
-            List<BlockLoc> goalsForBlockPlacement = resourceJobsite.getBlocksToStoreThisTypeIn(carriedType).ToList();
-            BlockLoc blockToPlaceResourceIn;
-            PathHandler pathHandler = new PathHandlerPreferringLowerBlocks();
-
-            if (goalsForBlockPlacement.Count > 0)
-            {
-                currentWalkJob = new TravelAlongPath(pathHandler.
-                    getPathToMakeTheseBlocksAvaiable(pathingProfile, new BlockLoc(character.getFootLocation()),
-                    pathingProfile, goalsForBlockPlacement, 2, out blockToPlaceResourceIn));
-
-                currentGoalBlock = blockToPlaceResourceIn;
-            }
-            else
-            {
-                List<BlockLoc> noPath = new List<BlockLoc>();
-                noPath.Add(new BlockLoc(character.getFootLocation()));
-                //TODO: make it find the nearest good space to place a resource block
-
-               currentWalkJob = new TravelAlongPath(noPath);
-
-                currentGoalBlock = new BlockLoc(character.getFootLocation());
-            }
         }
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            //TODO make path object so that there is no edge case where a 
-            //stockpile that is full and adjacent to the character does not cause a crash
+            //return new CharacterTask.PlaceResource(whereToPlaceRescource, carriedType);
+            List<BlockLoc> goalsForBlockPlacement = workingProfile.getResourcesJobSite().getBlocksToStoreThisTypeIn(carriedType).ToList();
+           
+            PathHandler pathHandler = new PathHandlerPreferringLowerBlocks();
 
-            if (hasDroppedLoad)
+            if (goalsForBlockPlacement.Count > 0)
             {
-                return new CharacterTask.SwitchJob(jobToReturnTo);
+                TravelAlongPath walkJob;
+                 
+                List<BlockLoc> path = pathHandler.
+                    getPathToMakeTheseBlocksAvaiable( workingProfile.getPathingProfile(), new BlockLoc(character.getFootLocation()),
+                    workingProfile.getPathingProfile(), goalsForBlockPlacement, 2, out blockToPlaceResourceIn);
+
+                Job toSwichToAfterWalk = new PlaceResourceJob(carriedType, character, 
+                    jobToReturnTo, workingProfile, blockToPlaceResourceIn);
+
+                walkJob = new TravelAlongPath(path,toSwichToAfterWalk);
+
+                
+                return new CharacterTask.SwitchJob(walkJob);
             }
             else
             {
-                if (currentWalkJob.isUseable() && !currentWalkJob.isComplete())
-                {
+                //TODO: make it find the nearest good space to place a resource block
 
-                    return currentWalkJob.getCurrentTask(taskTracker);
-                }
-                else if (!hasDroppedLoad && currentWalkJob.isUseable())
-                {
-                    hasDroppedLoad = true;
-                    return new CharacterTask.PlaceResource(currentGoalBlock, carriedType);
-                }
-
-
-
-                return new CharacterTask.NoTask();
-
+                return new CharacterTask.SwitchJob(new UnemployedJob());
             }
         }
-
-
-
 
         public override bool isComplete()
         {
@@ -104,11 +75,7 @@ namespace IslandGame.GameWorld
 
         public override BlockLoc? getCurrentGoalBlock()
         {
-            if (currentWalkJob != null && currentWalkJob.isUseable() && currentWalkJob.willResultInTravel())
-            {
-                return currentWalkJob.getGoalBlock();
-            }
-            return null;
+            return blockToPlaceResourceIn;
         }
 
 

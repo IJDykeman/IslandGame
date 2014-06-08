@@ -451,5 +451,35 @@ namespace IslandGame.GameWorld
             }
 
         }
+
+        public class PickUpResourceBlock : Task
+        {
+            BlockLoc blockToPickUp;
+            ResourceBlock.ResourceType typeToPickUp;
+
+            public PickUpResourceBlock(BlockLoc nBlockToPickUpFrom, ResourceBlock.ResourceType ntypeToPickUp)
+            {
+                taskType = Type.PlaceResource;
+                typeToPickUp = ntypeToPickUp;
+                blockToPickUp = nBlockToPickUpFrom;
+            }
+
+
+
+            public BlockLoc getLocToPickUpFrom()
+            {
+                return blockToPickUp;
+            }
+            public override bool isComplete()
+            {
+                return true;
+            }
+
+            public ResourceBlock.ResourceType getTypeToPickUp()
+            {
+                return typeToPickUp;
+            }
+
+        }
     }
 }

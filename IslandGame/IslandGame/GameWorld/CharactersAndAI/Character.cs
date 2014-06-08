@@ -20,6 +20,8 @@ namespace IslandGame.GameWorld
         JobType currentJobType = JobType.none;
         private bool isWalkingOverride = false;
 
+        CharacterLoad load;
+
         float timeSinceLastSwing = float.MaxValue/3f;
         float timeBetweenSwings = 35;
 
@@ -33,8 +35,8 @@ namespace IslandGame.GameWorld
 
         public Character(AxisAlignedBoundingBox nAABB, Faction nFaction)
         {
-            
-            //modelLocation = new Vector3(0, -.2f, 0);
+
+            load = new CharacterLoad();
             job = new UnemployedJob();
             physics = new PhysicsHandler(nAABB);
             faction = nFaction;
@@ -261,8 +263,6 @@ namespace IslandGame.GameWorld
             return delta;
         }
 
-
-
         private void updateStepTask(CharacterTask.StepToBlock stepTask, List<AnimationType> result)
         {
             Vector3 newFootLoc = LinearLocationInterpolator.interpolate(getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), walkspeed);
@@ -416,5 +416,26 @@ namespace IslandGame.GameWorld
                 ((CaptainingBoatJob)job).cancelPathing();
             }
         }
+
+        public void dropLoad()
+        {
+            load.dropItem();
+        }
+
+        public void pickUpItem(ResourceType nItem)
+        {
+            load.pickUpItem(nItem);
+        }
+
+        public bool isCarryingItem()
+        {
+            return load.isCaryingItem();
+        }
+
+        public ResourceType getLoad()
+        {
+            return load.getLoad();
+        }
+        
     }
 }

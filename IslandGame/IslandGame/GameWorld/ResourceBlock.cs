@@ -25,7 +25,7 @@ namespace IslandGame.GameWorld
             type = nType;
         }
 
-        ResourceType getType()
+        public ResourceType getResourceType()
         {
             return type;
         }

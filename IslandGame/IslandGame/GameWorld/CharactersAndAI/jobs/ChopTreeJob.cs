@@ -5,19 +5,21 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
-    class LoggingJob : MultiBlockOngoingJob
+    class ChopTreeJob : MultiBlockOngoingJob
     {
         BlockLoc currentBlockToChop;
         WaitJob currentWait = null;
         Character character;
+
         bool failedToFindATreeToChop = false;
         BlockLoc currentGoalBlock;
         IslandWorkingProfile workingProfile;
 
 
 
-        public LoggingJob(Character nCharacter, IslandWorkingProfile nWorkingProfile)
+        public ChopTreeJob(Character nCharacter, IslandWorkingProfile nWorkingProfile, BlockLoc blockToChop)
         {
+            currentGoalBlock = blockToChop;
 
             character = nCharacter;
             setJobType(JobType.logging);
@@ -41,35 +43,28 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            List<BlockLoc> nextBlocksToBuild = workingProfile.getTreeJobSite().getTreeTrunkBlocks();
-
-            foreach (BlockLoc claimed in taskTracker.blocksCurrentlyClaimed())
+            if (workingProfile.getTreeJobSite().getTreeTrunkBlocks().Count > 0)
             {
-                nextBlocksToBuild.Remove(claimed);
+
+                if (workingProfile.getTreeJobSite().getTreeTrunkBlocks().Contains(currentGoalBlock))
+                {
+                    return new CharacterTask.ChopBlockForFrame(currentGoalBlock);
+                }
+                else
+                {
+
+                    return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(
+                        ResourceBlock.ResourceType.Wood,
+                        character,
+                        new LoggingJob(character, workingProfile), workingProfile));
+
+                }
 
             }
-            BlockLoc blockFoundToChop;
-
-            PathHandler pathHadler = new PathHandler();
-
-            List<BlockLoc> path = pathHadler.getPathToMakeTheseBlocksAvaiable(
-                workingProfile.getTreeJobSite().getProfile(),
-                new BlockLoc(character.getFootLocation()),
-                workingProfile.getTreeJobSite().getProfile(),
-                nextBlocksToBuild,
-                2, out blockFoundToChop);
-            currentGoalBlock = blockFoundToChop;
-
-            TravelAlongPath walkJob = new TravelAlongPath(path,new ChopTreeJob(character,workingProfile,blockFoundToChop));
-
-            if (!walkJob.isUseable())
+            else
             {
-                failedToFindATreeToChop = true;
                 return new CharacterTask.SwitchJob(new UnemployedJob());
             }
-
-            return new CharacterTask.SwitchJob(walkJob);
-
 
 
 

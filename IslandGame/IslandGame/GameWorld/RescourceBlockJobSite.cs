@@ -28,8 +28,8 @@ namespace IslandGame.GameWorld
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new CarryResourceToStockpileJob(this, getStockpileAlongRay(ray).getStoredType(),
-                newWorker, profile, new UnemployedJob());
+            return new CarryResourceToStockpileJob(getStockpileAlongRay(ray).getStoredType(),
+                newWorker, new UnemployedJob(), workingProfile);
             //return new UnemployedJob();
         }
 
@@ -48,7 +48,7 @@ namespace IslandGame.GameWorld
 
         public override void blockWasDestroyed(BlockLoc toDestroy)
         {
-            
+
         }
 
 
@@ -58,7 +58,7 @@ namespace IslandGame.GameWorld
             foreach (BlockLoc key in resourceBlocks.Keys)
             {
 
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"resources\log.chr",
+                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"resources\log.chr",
                                            key.getMiddleInWorldSpace());
             }
 
@@ -119,6 +119,23 @@ namespace IslandGame.GameWorld
                 }
             }
             return true;
+        }
+
+        public IEnumerable<BlockLoc> getBlocksToGetThisTypeFrom(ResourceBlock.ResourceType typeToFetch)
+        {
+
+            List<BlockLoc> result = new List<BlockLoc>();
+
+            foreach (BlockLoc storageLocation in resourceBlocks.Keys)
+            {
+                if (resourceBlocks[storageLocation].getResourceType() == typeToFetch)
+                {
+                    result.Add(storageLocation);
+                }
+            }
+
+            return result;
+
         }
     }
 }

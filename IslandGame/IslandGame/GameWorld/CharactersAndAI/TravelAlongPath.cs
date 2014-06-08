@@ -10,36 +10,57 @@ namespace IslandGame.GameWorld
     {
         List<BlockLoc> path;
         IslandGame.GameWorld.CharacterTask.StepToBlock currentStep;
+        Job toReturnTo;
 
 
-        public TravelAlongPath(List<BlockLoc> nPath)
+        public TravelAlongPath(List<BlockLoc> nPath, Job nToReturnTo)
         {
-
+            toReturnTo = nToReturnTo;
             path = nPath;
             if (willResultInTravel())
             {
                 currentStep = new CharacterTask.StepToBlock(path[0]);
             }
+        }
 
-
+        public TravelAlongPath(List<BlockLoc> nPath)
+        {
+            toReturnTo = null;
+            path = nPath;
+            if (willResultInTravel())
+            {
+                currentStep = new CharacterTask.StepToBlock(path[0]);
+            }
         }
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (!currentStep.isComplete())
+            if (( path == null || path.Count == 0))
+            {
+                if (toReturnTo != null)
+                {
+                    return new CharacterTask.SwitchJob(toReturnTo);
+                }
+                else
+                {
+                    return new CharacterTask.SwitchJob(new UnemployedJob());
+                }
+            }
+            else if (!currentStep.isComplete())
             {
                 return currentStep;
             }
             else
             {
-                if (path.Count > 0)
+
+                path.RemoveAt(0);
+                if (path != null && path.Count > 0)
                 {
-                    path.RemoveAt(0);
-                    if (!isComplete())
-                    {
-                        currentStep = new CharacterTask.StepToBlock(path[0]);
-                    }
+
+                    currentStep = new CharacterTask.StepToBlock(path[0]);
                 }
+
+
                 return currentStep;
             }
             
@@ -58,6 +79,7 @@ namespace IslandGame.GameWorld
 
         public override bool isComplete()
         {
+            return false;/*
             if (path == null || path.Count == 0)
             {
                 return true;
@@ -65,7 +87,7 @@ namespace IslandGame.GameWorld
             else
             {
                 return false;
-            }
+            }*/
         }
 
 

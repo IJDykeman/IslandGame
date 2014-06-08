@@ -21,12 +21,15 @@ namespace IslandGame.GameWorld
             return jobSiteManager.getTreeJobSite();
         }
 
-        public ResourceBlockjobSite getResourceBlockJobSite()
+        public IEnumerable<BlockLoc> getBlocksToGetThisTypeFrom(ResourceBlock.ResourceType typeToFetch)
+        {
+            return getBlocksToGetThisTypeFrom(typeToFetch).ToList();
+        }
+
+        public ResourceBlockjobSite getResourcesJobSite()
         {
             return jobSiteManager.getResourceJobSite();
         }
-
-
 
         internal IslandPathingProfile getPathingProfile()
         {
