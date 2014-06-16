@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class Farm : MultiblockJobSite
+    public class Farm : MultiblockJobSite
     {
         //HashSet<BlockLoc> BlocksToBeFarmedIn;
         Dictionary<BlockLoc, FarmPlantBlock> plantBlocks;
@@ -28,7 +28,7 @@ namespace IslandGame.GameWorld
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         { 
-            return new FarmJob(this, newWorker); 
+            return new FarmingKickoffJob(this, newWorker,workingProfile); 
         }
 
         public override float? intersects(Microsoft.Xna.Framework.Ray ray)
@@ -162,6 +162,15 @@ namespace IslandGame.GameWorld
                 result.Add(test);
             }
             return result;
+        }
+
+        public bool blockIsFullGrown(BlockLoc blockToTend)
+        {
+            if (plantBlocks.ContainsKey(blockToTend))
+            {
+                return plantBlocks[blockToTend].isFullyGrown();
+            }
+            return false;
         }
     }
 }

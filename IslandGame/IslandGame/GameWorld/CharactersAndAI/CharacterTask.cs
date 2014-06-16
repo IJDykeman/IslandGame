@@ -26,6 +26,7 @@ namespace IslandGame.GameWorld
             DoStrikeOfWorkAlongRay,
             DoStrikeOfWorkOnBlock,
             PlaceResource,
+            HarvestFarmBlock,
 
         }
 
@@ -238,6 +239,42 @@ namespace IslandGame.GameWorld
             public BlockLoc getBlockToFarm()
             {
                 return toFarm;
+            }
+
+            public override bool isComplete()
+            {
+                return true;
+            }
+        }
+
+        [Serializable]
+        public class HarvestFarmBlock : Task
+        {
+            BlockLoc toFarm;
+            Farm farm;
+            IslandWorkingProfile workingProfile;
+
+            public HarvestFarmBlock(BlockLoc nToDestory, Farm nFarm, IslandWorkingProfile nWorkingProfile)
+            {
+                toFarm = nToDestory;
+                farm = nFarm;
+                workingProfile = nWorkingProfile;
+                taskType = Type.HarvestFarmBlock;
+            }
+
+            public BlockLoc getBlockToFarm()
+            {
+                return toFarm;
+            }
+
+            public Farm getFarm()
+            {
+                return farm;
+            }
+
+            public IslandWorkingProfile getWorkingProfile()
+            {
+                return workingProfile;
             }
 
             public override bool isComplete()
@@ -463,8 +500,6 @@ namespace IslandGame.GameWorld
                 typeToPickUp = ntypeToPickUp;
                 blockToPickUp = nBlockToPickUpFrom;
             }
-
-
 
             public BlockLoc getLocToPickUpFrom()
             {

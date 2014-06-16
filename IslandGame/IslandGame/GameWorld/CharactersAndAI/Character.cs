@@ -192,7 +192,6 @@ namespace IslandGame.GameWorld
                     getInBoat(((CharacterTask.GetInBoat)toDo).getBoat());
                     break;
                 case CharacterTask.Type.SwitchJob:
-
                     setJobAndCheckUseability(((CharacterTask.SwitchJob)toDo).getNewJob());
                     break;
 
@@ -228,6 +227,14 @@ namespace IslandGame.GameWorld
                     break;
                 case CharacterTask.Type.MakeFarmBlockGrow:
                     actions.Add(new ActorStrikeBlockAction(this,((CharacterTask.MakeFarmBlockGrow)toDo).getBlockToFarm(),JobType.agriculture));
+                    StartHammerAnimationIfPossible();
+                    break;
+                case CharacterTask.Type.HarvestFarmBlock:
+                    CharacterTask.HarvestFarmBlock harvestTask = (CharacterTask.HarvestFarmBlock)toDo;
+                    actions.Add(new ActorStrikeBlockAction(this, ((CharacterTask.HarvestFarmBlock)toDo).getBlockToFarm(),
+                        JobType.agriculture));
+                    setJobAndCheckUseability(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Wood,this,
+                        new FarmingKickoffJob(harvestTask.getFarm(),this,harvestTask.getWorkingProfile()),harvestTask.getWorkingProfile()));
                     StartHammerAnimationIfPossible();
                     break;
                 case CharacterTask.Type.PlaceResource:
