@@ -175,12 +175,12 @@ namespace CubeAnimator{
 
         public void addToWorldMarkup()
         {
-            main.addToWorldMarkup(Matrix.CreateTranslation(modelLocation), modelRotation);
+            main.addToWorldMarkup(Matrix.CreateTranslation(modelLocation), modelRotation,1);
         }
 
-        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation)
+        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation, float opacity)
         {
-            main.addToWorldMarkup(superMatrix, superRotation);
+            main.addToWorldMarkup(superMatrix, superRotation, opacity);
         }
 
         public void drawWithPartTypeExcluded(GraphicsDevice device, Effect effect, BodyPartType toNotDraw)

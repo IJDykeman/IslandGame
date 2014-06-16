@@ -119,6 +119,7 @@ namespace IslandGame
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
             device.SetRenderTarget(renderTarget);
+            device.BlendState = BlendState.AlphaBlend;
             device.DepthStencilState = new DepthStencilState()
             {
                 DepthBufferEnable = true
@@ -186,7 +187,7 @@ namespace IslandGame
 
 
 
-
+            effect.Parameters["xOpacity"].SetValue(1f);
             world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
             world.displayActors(device, effectToUse, doNotDisplay);
             player.display3D();

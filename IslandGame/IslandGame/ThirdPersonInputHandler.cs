@@ -167,14 +167,16 @@ namespace IslandGame
                 {
                     case InterfaceStates.placingFarm:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
+                        currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storage));
+                        currentInterfaceState = InterfaceStates.playing; 
                         break;
                         
 
                 }
-                currentInterfaceState = InterfaceStates.playing; 
+                
                 
             }
 

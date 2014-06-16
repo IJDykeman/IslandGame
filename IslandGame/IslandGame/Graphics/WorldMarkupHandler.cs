@@ -58,14 +58,14 @@ namespace IslandGame
             else if (fileInfo.Extension.ToUpper().Equals(".CHR"))
             {
                 AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(path, scale);
-                character.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity);
+                character.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity, opacity);
             }
         }
 
         public static void addCharacter(AnimatedBodyPartGroup group, Vector3 position)
         {
 
-            group.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity);
+            group.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity,1);
             
         }
 
@@ -86,7 +86,7 @@ namespace IslandGame
             }
         }*/
 
-        public static void addFlagWithMatrix(string path, Matrix matrix, PaintedCubeSpaceDisplayComponant model)
+        public static void addFlagWithMatrix(string path, Matrix matrix, PaintedCubeSpaceDisplayComponant model, float opacity)
         {
             path = path.ToUpper();
             if (FilePathsAndPositions.ContainsKey(path))
@@ -94,13 +94,13 @@ namespace IslandGame
 
                 //MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
                 //memoized.addPose( new MatrixAndOpacity(position, scale,opacity));
-                FilePathsAndPositions[path].addPose(new MatrixAndOpacity(matrix));
+                FilePathsAndPositions[path].addPose(new MatrixAndOpacity(matrix, opacity));
             }
             else
             {
 
                 MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
-                memoized.addPose(new MatrixAndOpacity(matrix));
+                memoized.addPose(new MatrixAndOpacity(matrix, opacity));
                 FilePathsAndPositions.Add(path, memoized);
 
             }
@@ -123,7 +123,7 @@ namespace IslandGame
                     effect.Parameters["xOpacity"].SetValue(.4f);
 
                 }
-
+                
 
 
 

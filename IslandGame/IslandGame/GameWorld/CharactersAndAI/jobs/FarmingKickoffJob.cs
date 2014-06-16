@@ -41,13 +41,15 @@ namespace IslandGame.GameWorld
                 List<BlockLoc> path = pathHandler.getPathToBlockEnumerable(farm.getProfile(),
                     new BlockLoc(character.getFootLocation()), farm.getProfile(),
                     nextBlocksToTend, 2);
-
-                TravelAlongPath travelJob = new TravelAlongPath(path, new TendFarmBlockJob(path[path.Count-1],workingProfile,farm, character));
+                
+                TravelAlongPath travelJob = new TravelAlongPath(path);
 
                 if (travelJob.isUseable())
                 {
+                    BlockLoc toTend = path[path.Count - 1];
 
-                    return new CharacterTask.SwitchJob(travelJob);
+                    TravelAlongPath travelToSwitchTo = new TravelAlongPath(path, new TendFarmBlockJob(toTend, workingProfile, farm, character));
+                    return new CharacterTask.SwitchJob(travelToSwitchTo);
                 }
                 else
                 {

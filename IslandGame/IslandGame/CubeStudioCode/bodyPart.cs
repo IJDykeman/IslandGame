@@ -110,13 +110,13 @@ namespace CubeAnimator
             }
         }
 
-        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation)
+        public void addToWorldMarkup(Matrix superMatrix, Quaternion superRotation, float opacity)
         {
             Matrix matrix = model.getMatrix(superMatrix, animationSystem.rotation * rotationOffset * superRotation);
-            model.addToWorldMarkup(matrix);
+            model.addToWorldMarkup(matrix, opacity);
             foreach (BodyPart child in children)
             {
-                child.addToWorldMarkup(matrix, Quaternion.Identity);
+                child.addToWorldMarkup(matrix, Quaternion.Identity, opacity);
             }
         }
 

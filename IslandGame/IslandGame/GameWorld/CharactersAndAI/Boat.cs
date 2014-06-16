@@ -44,7 +44,15 @@ namespace IslandGame.GameWorld
 
         public override Job getJobWhenClicked(Character nWorker, IslandPathingProfile profile, ActorStateProfile actorState)
         {
-            return new IslandGame.GameWorld.CharactersAndAI.WalkToAndCompleteTaskJob(nWorker,new CharacterTask.GetInBoat(this),new BlockLoc(getLocation()),profile);
+            IslandGame.GameWorld.CharactersAndAI.CompleteTaskJob getInBoat = new 
+                IslandGame.GameWorld.CharactersAndAI.CompleteTaskJob(nWorker, new CharacterTask.GetInBoat(this));
+
+            List<BlockLoc>path = new PathHandler().
+                getPathToSingleBlock(profile,new BlockLoc(nWorker.getFootLocation()),profile,new BlockLoc(getFootLocation()),2);
+
+            TravelAlongPath travel = new TravelAlongPath(path,getInBoat);
+
+            return travel;
         }
 
 

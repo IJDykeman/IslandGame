@@ -11,10 +11,10 @@ namespace IslandGame
         public Matrix matrix;
         public float opacity;
 
-        public MatrixAndOpacity(Matrix nMatrix)
+        public MatrixAndOpacity(Matrix nMatrix, float nOpacity)
         {
             matrix = nMatrix;
-            opacity = 1;
+            opacity = nOpacity;
         }
 
         public MatrixAndOpacity(Vector3 nLoc, float nScale)

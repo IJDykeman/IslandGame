@@ -23,18 +23,22 @@ namespace IslandGame.GameWorld.CharactersAndAI
             {
                 if (travelAlongPath.isUseable() && !travelAlongPath.isComplete())
                 {
-                    CharacterTask.StepToBlock stepTask = (CharacterTask.StepToBlock)travelAlongPath.getCurrentTask(taskTracker);
-                    Vector3 newFootLoc = LinearLocationInterpolator.interpolate(boat.getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), boat.getSpeed());
-                   
-                    boat.setFootLocation(newFootLoc);
-                    boat.setRotationWithGivenDeltaVec(stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(1,1,1)/2f - boat.getFootLocation());
-                    boat.setVelocity(new Vector3());
-                    //setRootPartRotationOffset(getYRotationFromDeltaVector(stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f) - getFootLocation()));
-
-                    if (LinearLocationInterpolator.isLinearInterpolationComplete(boat.getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), boat.getSpeed()))
+                    CharacterTask.Task task = travelAlongPath.getCurrentTask(taskTracker);
+                    if (task.taskType == CharacterTask.Type.StepToBlock)
                     {
-                        stepTask.taskWasCompleted();
+                        CharacterTask.StepToBlock stepTask = (CharacterTask.StepToBlock)task;
+                        Vector3 newFootLoc = LinearLocationInterpolator.interpolate(boat.getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), boat.getSpeed());
+
+                        boat.setFootLocation(newFootLoc);
+                        boat.setRotationWithGivenDeltaVec(stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(1, 1, 1) / 2f - boat.getFootLocation());
+                        boat.setVelocity(new Vector3());
+                        //setRootPartRotationOffset(getYRotationFromDeltaVector(stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f) - getFootLocation()));
+                        if (LinearLocationInterpolator.isLinearInterpolationComplete(boat.getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), boat.getSpeed()))
+                        {
+                            stepTask.taskWasCompleted();
+                        }
                     }
+
                 }
                 else if (travelAlongPath.isComplete())
                 {

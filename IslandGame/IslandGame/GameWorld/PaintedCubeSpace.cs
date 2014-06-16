@@ -132,14 +132,14 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
         }
 
 
-        public void addToWorldMarkup(Matrix matrix)
+        public void addToWorldMarkup(Matrix matrix, float opacity)
         {
             if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
     
             {
                 WorldMarkupHandler.addFlagWithMatrix(pathThatThisSpaceWasLoadedFromCANBENULL + getCurrentDisplayer().getMipLevel(),
                 Matrix.CreateScale
-                ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * matrix, getCurrentDisplayer());
+                ((float)Math.Pow(2, getCurrentDisplayer().getMipLevel())) * matrix, getCurrentDisplayer(),opacity);
             }
         }
 

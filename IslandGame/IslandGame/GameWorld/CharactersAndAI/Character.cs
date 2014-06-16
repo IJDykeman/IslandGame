@@ -233,7 +233,7 @@ namespace IslandGame.GameWorld
                     CharacterTask.HarvestFarmBlock harvestTask = (CharacterTask.HarvestFarmBlock)toDo;
                     actions.Add(new ActorStrikeBlockAction(this, ((CharacterTask.HarvestFarmBlock)toDo).getBlockToFarm(),
                         JobType.agriculture));
-                    setJobAndCheckUseability(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Wood,this,
+                    setJobAndCheckUseability(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Wheat,this,
                         new FarmingKickoffJob(harvestTask.getFarm(),this,harvestTask.getWorkingProfile()),harvestTask.getWorkingProfile()));
                     StartHammerAnimationIfPossible();
                     break;
@@ -305,7 +305,7 @@ namespace IslandGame.GameWorld
 
         private void setJobType(JobType newJobType)
         {
-            if ( newJobType != currentJobType)
+            if ( newJobType != currentJobType && newJobType != JobType.none)
             {
                 currentJobType = newJobType;
                 setupBodyPartGroupGivenCurrentJob();
@@ -351,7 +351,7 @@ namespace IslandGame.GameWorld
 
         private void getInBoat(Boat boat)
         {
-            job = new CaptainingBoatJob(boat);
+            setJobAndCheckUseability(new CaptainingBoatJob(boat));
         }
 
         public void pathAlongOceanWithOceanPath(List<BlockLoc> path)

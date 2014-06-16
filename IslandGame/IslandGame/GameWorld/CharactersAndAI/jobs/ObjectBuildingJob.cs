@@ -21,6 +21,8 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
+            return new CharacterTask.ObjectBuildForFrame(objectBuildSite);
+
              if (currentWalkJob == null)
             {
                 setWalkTaskToPathToObject(taskTracker);

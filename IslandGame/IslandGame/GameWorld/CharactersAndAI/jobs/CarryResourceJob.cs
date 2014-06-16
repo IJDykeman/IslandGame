@@ -14,7 +14,6 @@ namespace IslandGame.GameWorld
 
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
-        bool hasDroppedLoad = false;
         Job jobToReturnTo;
         IslandWorkingProfile workingProfile;
         BlockLoc blockToPlaceResourceIn;

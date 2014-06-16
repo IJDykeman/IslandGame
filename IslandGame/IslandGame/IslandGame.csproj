@@ -174,7 +174,7 @@
     <Compile Include="GameWorld\CharactersAndAI\jobs\MultiBlockOngoingJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\StoneBuildSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\TreeJobSite.cs" />
-    <Compile Include="GameWorld\CharactersAndAI\jobs\WalkToAndCompleteTaskJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\CompleteTaskJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\WalkToAndDestroyBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\TravelAlongPath.cs" />
     <Compile Include="GameWorld\Chunk.cs" />
