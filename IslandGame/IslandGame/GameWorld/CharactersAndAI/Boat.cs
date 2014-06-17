@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
 
         public static readonly float SCALE = .2f;
         float speed = .16f;
-        float permanentYLocation= .8f;
+        float permanentYLocation= .4f;
 
 
         public Boat(Vector3 nLoc)

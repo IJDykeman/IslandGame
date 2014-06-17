@@ -343,7 +343,7 @@ namespace IslandGame.GameWorld
             {
                 jobSites.Add(new WoodBuildSite(profile));
             }
-
+            woodBuildSites = getWoodBuildSiteEnumerable().ToList();
 
             Vector3? bestBlockToPlaceOnBuildSite = getLastSpaceAlongRayConsideringBuildSite(placeWoodBlockClickRay, exactSpaceHitLocOnIsland);
 
@@ -357,6 +357,11 @@ namespace IslandGame.GameWorld
         public Vector3? getLastSpaceAlongRayConsideringBuildSite(Ray ray, Vector3? exactSpaceHitLocOnIsland)
         {
             List<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable().ToList();
+
+            if (woodBuildSites.Count==0)
+            {
+                return exactSpaceHitLocOnIsland;
+            }
 
             foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
             {
@@ -381,7 +386,7 @@ namespace IslandGame.GameWorld
                     }
                     else
                     {
-                        return null;
+                        return locationOfSelectedSpaceOnJobSite;
                     }
                 }
                 else
