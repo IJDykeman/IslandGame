@@ -56,7 +56,7 @@ namespace IslandGame.GameWorld
             }
             else
             {
-                //TODO: make it find the nearest good space to place a resource block
+                //TODO: make it find the nearest good maybeSpace to place a resource block
 
                 return new CharacterTask.SwitchJob(new UnemployedJob());
             }

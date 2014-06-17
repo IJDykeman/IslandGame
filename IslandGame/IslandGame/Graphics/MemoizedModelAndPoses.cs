@@ -72,13 +72,13 @@ namespace IslandGame
                 return;
             }
 
-
+            effect.Parameters["xOpacity"].SetValue(poses.ElementAt(0).opacity);
             effect.CurrentTechnique.Passes[0].Apply();
 
 
-           device.SetVertexBuffers(bindings);
+            device.SetVertexBuffers(bindings);
             device.Indices = indexBuffer;
-            effect.Parameters["xOpacity"].SetValue(poses.ElementAt(0).opacity);
+            
             device.DrawInstancedPrimitives(PrimitiveType.TriangleList, 0, 0,
                     geometry.VertexCount, 0,
                     indexBuffer.IndexCount / 3, poses.Count);

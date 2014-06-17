@@ -335,66 +335,63 @@ namespace IslandGame.GameWorld
         {
 
 
-            IEnumerable<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable();
+            
             placeWoodBlockClickRay.Direction.Normalize();
 
+            List<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable().ToList();
             if (woodBuildSites.Count() == 0)
             {
                 jobSites.Add(new WoodBuildSite(profile));
             }
-            woodBuildSites = getWoodBuildSiteEnumerable();
 
-            WoodBuildSite buildSite = null;
 
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
+            Vector3? bestBlockToPlaceOnBuildSite = getLastSpaceAlongRayConsideringBuildSite(placeWoodBlockClickRay, exactSpaceHitLocOnIsland);
+
+            if (bestBlockToPlaceOnBuildSite.HasValue)
             {
-                buildSite = toAddToPotentially;
+                addBlockToBuildSite(woodBuildSites[0],new BlockLoc((Vector3)bestBlockToPlaceOnBuildSite));
+                return;
             }
+        }
+
+        public Vector3? getLastSpaceAlongRayConsideringBuildSite(Ray ray, Vector3? exactSpaceHitLocOnIsland)
+        {
+            List<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable().ToList();
 
             foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
             {
-                float? intersectsJobSite = toAddToPotentially.intersects(placeWoodBlockClickRay);
+                float? intersectsJobSite = toAddToPotentially.intersects(ray);
                 if (intersectsJobSite.HasValue)
                 {
 
-                    Vector3 locationOfSelectedSpaceOnJobSite = placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite - .01f);
+                    Vector3 locationOfSelectedSpaceOnJobSite = ray.Position + ray.Direction 
+                        * ((float)intersectsJobSite - .001f);
 
                     if (exactSpaceHitLocOnIsland.HasValue)
                     {
-                        if (Vector3.Distance((Vector3)exactSpaceHitLocOnIsland, placeWoodBlockClickRay.Position) >
-                            Vector3.Distance(locationOfSelectedSpaceOnJobSite, placeWoodBlockClickRay.Position))
+                        if (Vector3.Distance((Vector3)exactSpaceHitLocOnIsland, ray.Position) >
+                            Vector3.Distance(locationOfSelectedSpaceOnJobSite, ray.Position))
                         {
-                            BlockLoc newBlockToPlace = new BlockLoc(locationOfSelectedSpaceOnJobSite);
-                            addBlockToBuildSite(toAddToPotentially, newBlockToPlace);
-                            return;
+                            return locationOfSelectedSpaceOnJobSite;
+                        }
+                        else
+                        {
+                            return exactSpaceHitLocOnIsland;
                         }
                     }
                     else
                     {
-
-                        BlockLoc newBlockToPlace = new BlockLoc(placeWoodBlockClickRay.Position + placeWoodBlockClickRay.Direction * ((float)intersectsJobSite - .01f));
-
-                        // toAddToPotentially.addBlock(newBlockToPlace);
-                        return;
+                        return null;
                     }
                 }
-            }
-            if (exactSpaceHitLocOnIsland.HasValue)
-            {
-
-                BlockLoc newBlockToPlace = new BlockLoc((Vector3)exactSpaceHitLocOnIsland - placeWoodBlockClickRay.Direction * .01f);
-                if (!profile.isProfileSolidAt(newBlockToPlace))
+                else
                 {
-                    addBlockToBuildSite(buildSite, newBlockToPlace);
+
+                    return exactSpaceHitLocOnIsland;
                 }
-                return;
             }
-
+            return null;
         }
-
-
-
-
 
         public void addJobSite(JobSite newJobSite)
         {

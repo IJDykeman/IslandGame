@@ -418,6 +418,22 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public void HandleBlockPlanPlacementMouseover(Ray ray)
+        {
+            Island island = islandManager.getClosestIslandToLocation(ray.Position);
+            Vector3? maybeSpace = island.getLastSpaceAlongRayConsideringBuildSite(ray);
+            if (maybeSpace.HasValue)
+            {
+                Vector3 space = (Vector3)maybeSpace;
+                space.X = (int)space.X;
+                space.Y = (int)space.Y;
+                space.Z = (int)space.Z;
+                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"worldMarkup\" + "stoneMarkerOutline" + ".chr",
+                                           ((Vector3)space) + new Vector3(.5f, .5f, .5f), 1.0f / 12.0f, .6f);
+            }
+
+        }
+
         internal void HandleBoatJobsitePlacement(Ray ray)
         {
             Vector3? oceanBlockIntesectionAtY1 = islandManager.getOceanIntersectionAtY1(ray);

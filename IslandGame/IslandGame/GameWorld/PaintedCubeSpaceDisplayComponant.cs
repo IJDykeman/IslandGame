@@ -64,7 +64,7 @@ namespace IslandGame.GameWorld
                         int mippedZ = (int)MathHelper.Clamp(z / scaleDivisor, 0, spaceWidth / scaleDivisor - 1);
 
                             mippedArray[mippedX, mippedY, mippedZ] = getMostAbundantBlockType(unmippedArray,
-                                        new IntVector3(x, y, z), scaleDivisor, spaceWidth, spaceHeight);//space.unmippedArray[i, y, z];
+                                        new IntVector3(x, y, z), scaleDivisor, spaceWidth, spaceHeight);//maybeSpace.unmippedArray[i, y, z];
 
 
 

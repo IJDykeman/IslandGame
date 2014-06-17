@@ -28,8 +28,6 @@ namespace IslandGame
             StartDragging,
             FinishDragging,
             Dragging,
-
-
             PlaceWoodBlockPlan,
             RemoveWoodBlockPlan,
             PlayerBuildBlock,
@@ -39,7 +37,8 @@ namespace IslandGame
             DisembodyCharacter,
             DeselectCharacter,
             MoveBy,
-            setCameraLocation
+            setCameraLocation,
+            BlockPlanPlacementHover
         }
 
         public abstract class Action
@@ -177,10 +176,19 @@ namespace IslandGame
             }
         }
 
+        public class BlockPlanPlacementHover : MouseAction
+        {
+            public BlockPlanPlacementHover(Vector3 nNearPoint, Vector3 nFarPoint)
+            {
+                nearPoint = nNearPoint;
+                farPoint = nFarPoint;
+
+                type = Type.BlockPlanPlacementHover;
+            }
+        }
+
         public class BoatPlacementHover : MouseAction
         {
-
-
             public BoatPlacementHover(Vector3 nNearPoint, Vector3 nFarPoint)
             {
                 nearPoint = nNearPoint;

@@ -304,6 +304,11 @@ namespace IslandGame.GameWorld
             return result;
         }
 
+        public Vector3? getLastSpaceAlongRayConsideringBuildSite(Ray ray){
+            return jobSiteManager.getLastSpaceAlongRayConsideringBuildSite(ray, getLastSpaceAlongRayInAndFromWorldSpace(ray));
+        }
+
+
         public byte? getBlockAt(ref BlockLoc loc)
         {
             return chunkSpace.getBlockAt(ref loc);
@@ -344,14 +349,14 @@ namespace IslandGame.GameWorld
             return chunkSpace.chunkSpaceToWorldSpace(loc);
         }
 
-        internal void destroyBlock(BlockLoc toDestroy)
+        public void destroyBlock(BlockLoc toDestroy)
         {
             chunkSpace.setBlockAtWithMeshUpdate(PaintedCubeSpace.AIR, toDestroy.toISIntVec3(getPathingProfile()));
             jobSiteManager.blockWasDestroyed(toDestroy);
             setPieceManager.blockWasDestroyed(toDestroy);
         }
 
-        internal JobSite getJobSiteAlongRay(Ray ray)
+        public JobSite getJobSiteAlongRay(Ray ray)
         {
             return jobSiteManager.getJobSiteAlongRay(ray);
         }
@@ -361,7 +366,7 @@ namespace IslandGame.GameWorld
             jobSiteManager.addPlayerDraggedJobsiteWithBlocks(blocksToAdd, getPathingProfile(), dragType);
         }
 
-        internal void placeWoodBlockPlan(Ray placeWoodBlockClickRay)
+        public void placeWoodBlockPlan(Ray placeWoodBlockClickRay)
         {
             jobSiteManager.placeWoodBlockPlanAlongRay(placeWoodBlockClickRay, getLastSpaceAlongRayInAndFromWorldSpace(placeWoodBlockClickRay), getPathingProfile());
         }

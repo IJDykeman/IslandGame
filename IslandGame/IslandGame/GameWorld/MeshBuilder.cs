@@ -41,17 +41,17 @@ namespace IslandGame.GameWorld
         /*
 
 
-                    drawFront(space, indexList, vertexList, loc, AOarray[2]);
+                    drawFront(maybeSpace, indexList, vertexList, loc, AOarray[2]);
 
-                    drawBack(space, indexList, vertexList, loc, AOarray[2]);
+                    drawBack(maybeSpace, indexList, vertexList, loc, AOarray[2]);
 
-                    drawRight(space, indexList, vertexList, loc, AOarray[0]);
+                    drawRight(maybeSpace, indexList, vertexList, loc, AOarray[0]);
 
-                    drawLeft(space, indexList, vertexList, loc, AOarray[0]);
+                    drawLeft(maybeSpace, indexList, vertexList, loc, AOarray[0]);
 
-                    drawBottom(space, indexList, vertexList, loc, AOarray[1]);
+                    drawBottom(maybeSpace, indexList, vertexList, loc, AOarray[1]);
 
-                    drawTop(space, indexList, vertexList, loc, AOarray[1]);
+                    drawTop(maybeSpace, indexList, vertexList, loc, AOarray[1]);
         */
 
 
@@ -346,7 +346,7 @@ namespace IslandGame.GameWorld
                     numFaces++;
                 }
             }
-            else //xyz is air or outside space
+            else //xyz is air or outside maybeSpace
             {
                 if (withinSpace(x, y + 1, z, spaceWidth, spaceHeight))
                     if (array[x, y + 1, z] != (byte)PaintedCubeSpace.AIR)
@@ -397,7 +397,7 @@ namespace IslandGame.GameWorld
                         backIndices, backNormal, backCorners, ref USETOStoreVertexCountSoFar);
                 }
             }
-            else //xyz is air or outside space
+            else //xyz is air or outside maybeSpace
             {
                 if (withinSpace(x, y + 1, z, spaceWidth, spaceHeight))
                     if (array[x, y + 1, z] != (byte)PaintedCubeSpace.AIR)
@@ -677,7 +677,7 @@ namespace IslandGame.GameWorld
         }
 
 
-        static bool withinSpace(int x, int y, int z, int spaceWidth, int spaceHeight)  // does not account for space locInPath
+        static bool withinSpace(int x, int y, int z, int spaceWidth, int spaceHeight)  // does not account for maybeSpace locInPath
         {
             if (
              x < spaceWidth && x >= 0

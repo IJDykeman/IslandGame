@@ -105,6 +105,9 @@ namespace IslandGame
                 case InterfaceStates.placingBoat:
                     result.Add(new PlayerAction.BoatPlacementHover(Player.getPlayerAimingAtPointAtDistance(0, currentMouseState), Player.getPlayerAimingAtPointAtDistance(1, currentMouseState)));
                     break;
+                case InterfaceStates.placingWoodPlanBlocks:
+                    result.Add(new PlayerAction.BlockPlanPlacementHover(Player.getPlayerAimingAtPointAtDistance(0, currentMouseState), Player.getPlayerAimingAtPointAtDistance(1, currentMouseState)));
+                    break;
             }
             return currentMouseState;
         }

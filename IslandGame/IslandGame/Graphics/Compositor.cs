@@ -119,7 +119,7 @@ namespace IslandGame
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
             device.SetRenderTarget(renderTarget);
-            device.BlendState = BlendState.AlphaBlend;
+            device.BlendState = BlendState.NonPremultiplied;
             device.DepthStencilState = new DepthStencilState()
             {
                 DepthBufferEnable = true

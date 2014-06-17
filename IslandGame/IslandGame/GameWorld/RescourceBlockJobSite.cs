@@ -57,8 +57,22 @@ namespace IslandGame.GameWorld
         {
             foreach (BlockLoc key in resourceBlocks.Keys)
             {
+                string resourceBlockPath = @"resources\log.chr";
+                switch (resourceBlocks[key].getResourceType())
+                {
+                    case ResourceBlock.ResourceType.Wood:
+                        resourceBlockPath = @"resources\log.chr";
+                        break;
+                    case ResourceBlock.ResourceType.Wheat:
+                        resourceBlockPath = @"resources\wheatBale.chr";
+                        break;
 
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"resources\log.chr",
+                    case ResourceBlock.ResourceType.Stone: 
+                        resourceBlockPath = @"resources\log.chr";
+                        break;
+                }
+
+                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + resourceBlockPath,
                                            key.getMiddleInWorldSpace());
             }
 

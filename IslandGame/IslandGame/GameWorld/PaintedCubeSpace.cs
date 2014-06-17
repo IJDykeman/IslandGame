@@ -528,7 +528,7 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
             return Matrix.Invert(getMatrix());
         }
 
-        public bool withinSpace(Vector3 test)  // does not account for space locInPath
+        public bool withinSpace(Vector3 test)  // does not account for maybeSpace locInPath
         {
             if (
              test.X < spaceWidth && test.X >= 0
@@ -540,7 +540,7 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
             return false;
         }
 
-        public bool withinSpace(int x, int y, int z)  // does not account for space locInPath
+        public bool withinSpace(int x, int y, int z)  // does not account for maybeSpace locInPath
         {
             if (
              x < spaceWidth && x >= 0

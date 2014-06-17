@@ -81,7 +81,7 @@ namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS 
 
             PaintedCubeSpace space = new PaintedCubeSpace(data.spaceWidth, data.spaceHeight, new Vector3());
             space.array = /*new byte[data.spaceWidth, data.spaceHeight, data.spaceWidth];*/data.array;
-            //data.unmippedArray.CopyTo(space.unmippedArray, 0);
+            //data.unmippedArray.CopyTo(maybeSpace.unmippedArray, 0);
             space.setUnmippedBuffers(data.vertexBuffer, data.indexBuffer);
             space.setLoadedFrompath(path);
             return space;

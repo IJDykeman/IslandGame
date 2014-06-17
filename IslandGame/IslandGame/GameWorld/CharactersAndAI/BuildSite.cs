@@ -11,7 +11,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
     class WoodBuildSite : MultiblockJobSite
     {
         protected HashSet<BlockLoc> blocksToBuild;
-        protected string markerName = "stoneCubeOutline";
+        protected string markerName = "stoneMarkerBlock";
 
 
         public WoodBuildSite(IslandPathingProfile nProfile)

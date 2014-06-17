@@ -51,7 +51,7 @@ namespace IslandGame.GameWorld
             {
                 List<BlockLoc> noPath = new List<BlockLoc>();
                 noPath.Add(new BlockLoc(character.getFootLocation()));
-                //TODO: make it find the nearest good space to place a resource block
+                //TODO: make it find the nearest good maybeSpace to place a resource block
 
                currentWalkJob = new TravelAlongPath(noPath);
 

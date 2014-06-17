@@ -200,6 +200,9 @@ namespace IslandGame
                     case PlayerAction.Type.BoatPlacementMouseover:
                         world.HandleBoatPlacementMouseover(((PlayerAction.BoatPlacementHover)action).getRay());
                         break;
+                    case PlayerAction.Type.BlockPlanPlacementHover:
+                        world.HandleBlockPlanPlacementMouseover(((PlayerAction.BlockPlanPlacementHover)action).getRay());
+                        break;
                     case PlayerAction.Type.BoatPlacement:
                         world.HandleBoatJobsitePlacement(((PlayerAction.BoatPlacement)action).getRay());
                         break;
