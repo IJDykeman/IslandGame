@@ -34,7 +34,7 @@ namespace IslandGame
 
         bool embodying=false;
         Character selectedCharacter;
-        LocationInterpolator smoothCam;
+        PlayerCam smoothCam;
 
         
 
@@ -42,6 +42,7 @@ namespace IslandGame
 
         public static float leftRightRot = -5.6f;
         public static float upDownRot = 0;
+        float minCameraHeight = 1;
 
         int age = 0;
         
@@ -53,7 +54,7 @@ namespace IslandGame
 
         public Player()
         {
-            smoothCam = new LocationInterpolator(new Vector3(2079, 50, 1590));
+            smoothCam = new PlayerCam(new Vector3(2079, 50, 1590));
 
         }
 
@@ -68,6 +69,7 @@ namespace IslandGame
 
         public void updateFirstStep()
         {
+
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
         }
@@ -108,7 +110,7 @@ namespace IslandGame
             if (galleryMode)
             {
                 int islandWidth = ChunkSpace.chunkWidth * ChunkSpace.widthInChunksStaticForGallery;
-                smoothCam = new LocationInterpolator(
+                smoothCam = new PlayerCam(
                     new Vector3((float)Math.Cos(age / 40.0), ((float)Math.Cos(age / 100.0 + 10.0) + 1.0f) / 4f
                         + .1f, (float)Math.Sin(age / 40.0)) * islandWidth 
                         + new Vector3(islandWidth / 2, 0, islandWidth / 2));

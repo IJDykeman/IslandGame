@@ -133,13 +133,28 @@ namespace IslandGame.GameWorld
             actions.Add(getMoveToActionWithMoveByVector(physics.velocity));
         }
 
+        public List<BlockLoc> getBlocksIntersectedByAABB()
+        {
+            List<BlockLoc> result  = new List<BlockLoc>();
+            for (int x = (int)(physics.AABB.loc.X); x <= (int)(physics.AABB.loc.X + physics.AABB.Xwidth); x++)
+            {
+                for (int z = (int)(physics.AABB.loc.Z); z <= (int)(physics.AABB.loc.Z + physics.AABB.Zwidth); z++)
+                {
+                    for (int y = (int)(physics.AABB.loc.Y); y <= (int)(physics.AABB.loc.Y + physics.AABB.height); y++)
+                    {
+                        result.Add(new BlockLoc(x, y, z));
+                    }
+                }
+            }
+            return result;
+        }
+
         public abstract BlockLoc? blockClaimedToWorkOn();
 
         public virtual Job getJobWhenClicked(Character nWorker, IslandPathingProfile profile, ActorStateProfile nActorProfile)
         {
             return new UnemployedJob();
         }
-
 
         public Faction getFaction()
         {

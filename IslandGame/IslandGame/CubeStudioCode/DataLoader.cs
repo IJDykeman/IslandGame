@@ -17,12 +17,13 @@ using IslandGame.GameWorld;
 using IslandGame;
 
 
-namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS THE SAME ARRAY POINTERS!!!!!!!!!!!!!!!!!!
+namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE! EVERYBODY HAS THE SAME ARRAY POINTERS!
 {
-    static class ModelLoader
+    static class DataLoader
     {
         static Dictionary<string, LoadedCubeSpaceData> loadedByteArrays = new Dictionary<string, LoadedCubeSpaceData>();
         static Dictionary<string, VertexAndIndexBuffers> memoizedMips = new Dictionary<string, VertexAndIndexBuffers>();
+        static Dictionary<string, string[]> loadedCharFiles = new Dictionary<string, string[]>();
 
 
         public static PaintedCubeSpace loadSpaceFromName(string folderPath)
@@ -108,6 +109,22 @@ namespace CubeAnimator  ///ARRAYS ARE PASSED BY REFERENCE!!!!!!!! EVERYBODY HAS 
         private static string getPathWidthMipString(string path, int mipLevel)
         {
             return path + mipLevel;
+        }
+
+        public static string[] getCharFile(string path)
+        {
+            //path = path.ToUpper();
+            if (!loadedCharFiles.ContainsKey(path))
+            {
+                string[] loaded = System.IO.File.ReadAllLines(ContentDistributor.addNecesaryPathing(path));
+                loadedCharFiles.Add(path, loaded);
+                return loaded;
+            }
+            else
+            {
+                return loadedCharFiles[path];
+            }
+
         }
 
     }

@@ -138,7 +138,7 @@ namespace CubeAnimator{
 
         public void loadFromFile(string path)
         {
-            string[] file = System.IO.File.ReadAllLines(ContentDistributor.getRealRootPath() + path);
+            string[] file = DataLoader.getCharFile(ContentDistributor.getRealRootPath() + path);
             main = new BodyPart();
             main.loadFromFile(file, 0, new FileInfo(ContentDistributor.getRealRootPath()+ path));
         }

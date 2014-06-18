@@ -8,9 +8,10 @@ namespace IslandGame
 {
     class LocationInterpolator
     {
-        Vector3 currentLocation;
-        Vector3 idealCameraLocation;
+        protected Vector3 currentLocation;
+        protected Vector3 idealCameraLocation;
 
+        public LocationInterpolator() { }
 
         public LocationInterpolator(Vector3 nLocation)
         {
@@ -18,12 +19,12 @@ namespace IslandGame
             idealCameraLocation = nLocation;
         }
 
-        public void setIdealCameraLocation(Vector3 nIdealLocation)
+        public virtual void setIdealCameraLocation(Vector3 nIdealLocation)
         {
             idealCameraLocation = nIdealLocation;
         }
 
-        public void setCurrentLocation(Vector3 nCurrentLocation)
+        public virtual void setCurrentLocation(Vector3 nCurrentLocation)
         {
             currentLocation = nCurrentLocation;
         }

@@ -120,7 +120,7 @@ namespace IslandGame.GameWorld
                     }
                     
                 }
-                resourceBlockJobsite.addStockpile(new Stockpile(locsNotSolid,ResourceBlock.ResourceType.Wheat));
+                resourceBlockJobsite.addStockpile(new Stockpile(locsNotSolid,ResourceBlock.ResourceType.Wood));
                 
             }
 

@@ -73,7 +73,7 @@ namespace IslandGame.GameWorld
                 }
 
                 WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + resourceBlockPath,
-                                           key.getMiddleInWorldSpace());
+                                           key.getMiddleInWorldSpace(), 1.0f/7.0f);
             }
 
             foreach (Stockpile stockpile in stockpiles)

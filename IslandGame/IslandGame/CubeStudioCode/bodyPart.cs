@@ -251,7 +251,7 @@ namespace CubeAnimator
                     voxelFilePath = (characterFile.DirectoryName + fileName.Substring(1));
                 }
 
-                model = ModelLoader.loadSpaceFromName(voxelFilePath);
+                model = DataLoader.loadSpaceFromName(voxelFilePath);
 
                 model.setLoadedFrompath(voxelFilePath);
 
@@ -296,7 +296,7 @@ namespace CubeAnimator
             }
             else if (characterFile.Extension.ToUpper().Equals(".VOX"))
             {
-                model = ModelLoader.loadSpaceFromName(characterFile.FullName);
+                model = DataLoader.loadSpaceFromName(characterFile.FullName);
 
                 model.setLoadedFrompath(characterFile.FullName);
             }

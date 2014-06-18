@@ -50,15 +50,7 @@ namespace IslandGame.GameWorld
                         break;
 
                     case ActorActions.moveTo:
-                        ActorMoveToAction moveAction = (ActorMoveToAction)action;
-
-                        Island closestIsland = islandManager.getClosestIslandToLocation(moveAction.character.getLocation());
-                        if (closestIsland == null)// if no islands are loaded
-                        {
-                            moveAction.character.setVelocity(new Vector3());
-                            break;
-                        }
-                        runPhysicsWithMoveActionAndIsland(moveAction, closestIsland);
+                        handleMoveToAction(action);
 
                         break;
                     case ActorActions.rightClickAction:
@@ -86,6 +78,32 @@ namespace IslandGame.GameWorld
                         break;
 
                 }
+            }
+        }
+
+        private void handleMoveToAction(ActorAction action)
+        {
+            ActorMoveToAction moveAction = (ActorMoveToAction)action;
+
+            Island closestIsland = islandManager.getClosestIslandToLocation(moveAction.character.getLocation());
+            if (closestIsland == null)// if no islands are loaded
+            {
+                moveAction.character.setVelocity(new Vector3());
+            }
+            else
+            {
+
+                List<BlockLoc> intersectedByActor = moveAction.character.getBlocksIntersectedByAABB();
+                IslandPathingProfile profile = closestIsland.getPathingProfile();
+                foreach (BlockLoc test in intersectedByActor)
+                {
+                    if (profile.isProfileSolidAt(test))
+                    {
+                        moveAction.character.setFootLocation(moveAction.character.getFootLocation() + new Vector3(0, .3f, 0));
+                        return;
+                    }
+                }
+                runPhysicsWithMoveActionAndIsland(moveAction, closestIsland);
             }
         }
 

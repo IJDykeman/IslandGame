@@ -95,16 +95,16 @@ namespace IslandGame.GameWorld
                 mippedDisplayer = new PaintedCubeSpaceDisplayComponant(level);
                 if (pathThatThisSpaceWasLoadedFromCANBENULL != null)
                 {
-                    if (CubeAnimator.ModelLoader.hasMipAtPathAndLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level))
+                    if (CubeAnimator.DataLoader.hasMipAtPathAndLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level))
                     {
-                        mippedDisplayer.setBuffers(CubeAnimator.ModelLoader.getBuffersAtPathAtMipLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level));
+                        mippedDisplayer.setBuffers(CubeAnimator.DataLoader.getBuffersAtPathAtMipLevel(pathThatThisSpaceWasLoadedFromCANBENULL, level));
 
                     }
                     else
                     {
                         mippedDisplayer.createModel(Compositer.device, array, spaceWidth, spaceHeight);
 
-                        CubeAnimator.ModelLoader.addPathAndMipForMemoization(pathThatThisSpaceWasLoadedFromCANBENULL, level,
+                        CubeAnimator.DataLoader.addPathAndMipForMemoization(pathThatThisSpaceWasLoadedFromCANBENULL, level,
 new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.getIndexBuffer()));
                     }
                 }

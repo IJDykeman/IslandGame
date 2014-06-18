@@ -66,8 +66,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
         public BlockLoc? getCurrentGoalBlock()
         {
             return placementloc;
-            
-            return null;
         }
 
     }
