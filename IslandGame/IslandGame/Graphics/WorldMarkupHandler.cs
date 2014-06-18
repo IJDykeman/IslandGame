@@ -26,7 +26,7 @@ namespace IslandGame
                 float scale = 1.0f / 12f;
                 addFlagPathWithPosition(path, position, scale);
             }
-            else if (path.Contains((@"\log.chr").ToUpper()) || path.Contains((@"\wheatBale .chr").ToUpper()))
+            else if (path.ToUpper().Contains((@"\log.chr").ToUpper()) || path.ToUpper().Contains((@"wheatBale .chr").ToUpper()))
             {
                 addFlagPathWithPosition(path, position, 1f / 7f);
             }
