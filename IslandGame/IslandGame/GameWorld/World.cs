@@ -213,7 +213,7 @@ namespace IslandGame.GameWorld
 
                 PathHandler pathHandler = new PathHandler();
 
-                List<BlockLoc> path = pathHandler.getPathToSingleBlock(profile,
+                Path path = pathHandler.getPathToSingleBlock(profile,
                     new BlockLoc(character.getFootLocation()), profile, new BlockLoc(clickedBlock.toVector3()), 2);
 
                 TravelAlongPath walkTask = new TravelAlongPath(path);
@@ -234,7 +234,7 @@ namespace IslandGame.GameWorld
                 goal.setValuesInWorldSpace(goal.WSX(),0,goal.WSZ());
                 BlockLoc start = new BlockLoc(character.getLocation());
                 start.setValuesInWorldSpace(start.WSX(), 0, start.WSZ());
-                List<BlockLoc> path = pathHandler.getPathToSingleBlock(new WorldPathingProfile(islandManager),
+                Path path = pathHandler.getPathToSingleBlock(new WorldPathingProfile(islandManager),
                     start, new WorldPathingProfile(islandManager), goal, 2);
                 
                 character.pathAlongOceanWithOceanPath(path);

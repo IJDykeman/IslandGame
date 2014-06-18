@@ -71,7 +71,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return boat;
         }
 
-        public void setTravelPath(List<BlockLoc> nPath)
+        public void setTravelPath(Path nPath)
         {
             travelAlongPath = new TravelAlongPath(nPath);
         }

@@ -34,7 +34,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
                     BlockLoc blockFoundToBuild;
 
                     PathHandlerPreferringLowerBlocks pathhandler = new PathHandlerPreferringLowerBlocks();
-                    List<BlockLoc> path = pathhandler.getPathToMakeTheseBlocksAvaiable(
+                    Path path = pathhandler.getPathToMakeTheseBlocksAvaiable(
                 buildSite.getProfile(),
                 new BlockLoc(character.getFootLocation()),
                 buildSite.getProfile(),

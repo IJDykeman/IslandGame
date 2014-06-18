@@ -8,34 +8,34 @@ namespace IslandGame.GameWorld
     [Serializable]
     class TravelAlongPath : Job
     {
-        List<BlockLoc> path;
+        Path path;
         IslandGame.GameWorld.CharacterTask.StepToBlock currentStep;
         Job toReturnTo;
 
 
-        public TravelAlongPath(List<BlockLoc> nPath, Job nToReturnTo)
+        public TravelAlongPath(Path nPath, Job nToReturnTo)
         {
             toReturnTo = nToReturnTo;
             path = nPath;
             if (willResultInTravel())
             {
-                currentStep = new CharacterTask.StepToBlock(path[0]);
+                currentStep = new CharacterTask.StepToBlock(path.getAt(0));
             }
         }
 
-        public TravelAlongPath(List<BlockLoc> nPath)
+        public TravelAlongPath(Path nPath)
         {
             toReturnTo = null;
             path = nPath;
             if (willResultInTravel())
             {
-                currentStep = new CharacterTask.StepToBlock(path[0]);
+                currentStep = new CharacterTask.StepToBlock(path.getAt(0));
             }
         }
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (( path == null || path.Count == 0))
+            if (( path == null || path.length() == 0))
             {
                 if (toReturnTo != null)
                 {
@@ -53,11 +53,11 @@ namespace IslandGame.GameWorld
             else
             {
 
-                path.RemoveAt(0);
-                if (path != null && path.Count > 0)
+                path.removeAt(0);
+                if (path != null && path.length() > 0)
                 {
 
-                    currentStep = new CharacterTask.StepToBlock(path[0]);
+                    currentStep = new CharacterTask.StepToBlock(path.getFirst());
                 }
 
 
@@ -73,7 +73,7 @@ namespace IslandGame.GameWorld
 
         public bool willResultInTravel()
         {
-            return path != null && path.Count > 0;
+            return path != null && path.length() > 0;
         }
 
 
@@ -99,7 +99,7 @@ namespace IslandGame.GameWorld
         public BlockLoc getGoalBlock()
         {
 
-            return path[path.Count - 1];
+            return path.getLast();
 
         }
     }

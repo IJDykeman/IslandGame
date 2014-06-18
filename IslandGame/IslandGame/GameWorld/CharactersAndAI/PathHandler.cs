@@ -35,7 +35,8 @@ namespace IslandGame.GameWorld
 
 
 
-        protected virtual List<BlockLoc> Path(IslandPathingProfile startProfile, ref BlockLoc startLoc, HashSet<BlockLoc> goals, int heightOfEntity)
+        protected virtual List<BlockLoc> Path(IslandPathingProfile startProfile, ref BlockLoc startLoc, 
+            HashSet<BlockLoc> goals, int heightOfEntity)
         {
             foreach (BlockLoc goal in goals)
             {
@@ -93,14 +94,16 @@ namespace IslandGame.GameWorld
             return null;//no path found
         }
 
-        public List<BlockLoc> getPathToSingleBlock(IslandPathingProfile startProfile, BlockLoc startLoc, IslandPathingProfile endProfile, BlockLoc endLoc, int heightOfEntity)
+        public Path getPathToSingleBlock(IslandPathingProfile startProfile, BlockLoc startLoc, 
+            IslandPathingProfile endProfile, BlockLoc endLoc, int heightOfEntity)
         {
             HashSet<BlockLoc> goals = new HashSet<BlockLoc>();
             goals.Add(endLoc);
-            return getPathWithStartAndEndGroupValidation(startProfile, startLoc, endProfile, goals, heightOfEntity);
+            return new Path(getPathWithStartAndEndGroupValidation(startProfile, startLoc, endProfile, goals, heightOfEntity));
         }
 
-        public List<BlockLoc> getPathToBlockEnumerable(IslandPathingProfile startProfile, BlockLoc startLoc, IslandPathingProfile endProfile, IEnumerable<BlockLoc> goalsEnum, int heightOfEntity)
+        public Path getPathToBlockEnumerable(IslandPathingProfile startProfile, BlockLoc startLoc, 
+            IslandPathingProfile endProfile, IEnumerable<BlockLoc> goalsEnum, int heightOfEntity)
         {
             HashSet<BlockLoc> goals = new HashSet<BlockLoc>();
             foreach (BlockLoc toAdd in goalsEnum)
@@ -111,13 +114,13 @@ namespace IslandGame.GameWorld
             {
                 return null;
             }
-            return getPathWithStartAndEndGroupValidation(startProfile, startLoc, endProfile, goals, heightOfEntity);
+            return new Path(getPathWithStartAndEndGroupValidation(startProfile, startLoc, endProfile, goals, heightOfEntity));
         }
 
 
 
 
-        public virtual List<BlockLoc> getPathToMakeTheseBlocksAvaiable(
+        public virtual Path getPathToMakeTheseBlocksAvaiable(
             IslandPathingProfile startProfile,
             BlockLoc startLoc, 
             IslandPathingProfile endProfile,
@@ -150,7 +153,7 @@ namespace IslandGame.GameWorld
 
             }
 
-            return path;
+            return new Path(path);
         }
 
 

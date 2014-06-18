@@ -60,7 +60,7 @@ namespace IslandGame.GameWorld
         private void setWalkJobToRandomStep()
         {
             PathHandler pathHandler = new PathHandler();
-            List<BlockLoc> path = pathHandler.getPathToSingleBlock(pathingProfile,
+            Path path = pathHandler.getPathToSingleBlock(pathingProfile,
                 new BlockLoc(character.getFootLocation()), pathingProfile,
                 BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove()), 2);
             currentWalkJob = new TravelAlongPath(path);

@@ -52,7 +52,7 @@ namespace IslandGame.GameWorld
 
             PathHandler pathHadler = new PathHandler();
 
-            List<BlockLoc> path = pathHadler.getPathToMakeTheseBlocksAvaiable(
+            Path path = pathHadler.getPathToMakeTheseBlocksAvaiable(
                 workingProfile.getTreeJobSite().getProfile(),
                 new BlockLoc(character.getFootLocation()),
                 workingProfile.getTreeJobSite().getProfile(),

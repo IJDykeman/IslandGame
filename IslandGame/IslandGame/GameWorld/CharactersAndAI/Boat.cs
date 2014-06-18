@@ -48,7 +48,7 @@ namespace IslandGame.GameWorld
             IslandGame.GameWorld.CharactersAndAI.CompleteTaskJob getInBoat = new 
                 IslandGame.GameWorld.CharactersAndAI.CompleteTaskJob(nWorker, new CharacterTask.GetInBoat(this));
 
-            List<BlockLoc>path = new PathHandler().
+            Path path = new PathHandler().
                 getPathToSingleBlock(profile,new BlockLoc(nWorker.getFootLocation()),profile,new BlockLoc(getFootLocation()),2);
 
             TravelAlongPath travel = new TravelAlongPath(path,getInBoat);

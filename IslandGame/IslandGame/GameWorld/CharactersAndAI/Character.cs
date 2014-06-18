@@ -350,7 +350,7 @@ namespace IslandGame.GameWorld
             setJobAndCheckUseability(new CaptainingBoatJob(boat));
         }
 
-        public void pathAlongOceanWithOceanPath(List<BlockLoc> path)
+        public void pathAlongOceanWithOceanPath(Path path)
         {
             if (job is CaptainingBoatJob)
             {

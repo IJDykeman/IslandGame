@@ -55,7 +55,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             containsBlockLocTarget.Add(objectBuildSite.getObjectLoc());
 
             PathHandler pathHandler = new PathHandler();
-            List<BlockLoc> path = pathHandler.getPathToMakeTheseBlocksAvaiable(objectBuildSite.getProfile(),
+            Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(objectBuildSite.getProfile(),
                 new BlockLoc(workerCharacter.getFootLocation()), objectBuildSite.getProfile(),
                 containsBlockLocTarget, 2,
                 out found);

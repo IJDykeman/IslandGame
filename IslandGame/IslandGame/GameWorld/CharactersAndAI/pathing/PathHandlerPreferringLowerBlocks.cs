@@ -116,7 +116,7 @@ namespace IslandGame.GameWorld
         }
 
 
-        public override List<BlockLoc> getPathToMakeTheseBlocksAvaiable(
+        public override Path getPathToMakeTheseBlocksAvaiable(
             IslandPathingProfile startProfile,
             BlockLoc startLoc,
             IslandPathingProfile endProfile,
@@ -134,7 +134,7 @@ namespace IslandGame.GameWorld
             List<BlockLoc> path = PathToMakeGoalsAvailable(startProfile, ref startLoc, out blockMadeAvailable, blocksToMakeAvailable, heightOfEntity);
 
 
-            return path;
+            return new Path(path);
         }
    
     }

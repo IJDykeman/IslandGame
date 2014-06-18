@@ -42,7 +42,7 @@ namespace IslandGame.GameWorld
             {
                 TravelAlongPath walkJob;
                  
-                List<BlockLoc> path = pathHandler.
+                Path path = pathHandler.
                     getPathToMakeTheseBlocksAvaiable( workingProfile.getPathingProfile(), new BlockLoc(character.getFootLocation()),
                     workingProfile.getPathingProfile(), goalsForBlockPlacement, 2, out blockToPlaceResourceIn);
 

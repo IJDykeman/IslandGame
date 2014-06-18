@@ -145,6 +145,7 @@
     <Compile Include="GameWorld\CharactersAndAI\jobs\CarryResourceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\FetchResourceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\tendFarmBlockJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\Path.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ResourceAmount.cs" />
     <Compile Include="GameWorld\CharactersAndAI\StockpileJobSite.cs" />
     <Compile Include="GameWorld\Drawable.cs" />

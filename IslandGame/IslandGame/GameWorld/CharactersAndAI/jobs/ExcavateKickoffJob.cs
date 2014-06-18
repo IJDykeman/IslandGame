@@ -35,7 +35,7 @@ namespace IslandGame.GameWorld
 
                     }
                     PathHandler pathHandler = new PathHandler();
-                    List<BlockLoc> path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
+                    Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
                         new BlockLoc(character.getFootLocation()), workingProfile.getPathingProfile(),
                         blocksToRemove, 2, out toDestroy);
                     TravelAlongPath toSwitchTo = new TravelAlongPath(path, new DestroyBlockJob(character, workingProfile, toDestroy));
