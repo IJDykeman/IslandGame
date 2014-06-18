@@ -29,7 +29,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
         public override void draw(GraphicsDevice device, Effect effect)
         {
             WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"boats\greenOnePersonBoat.chr",
-            objectLoc.toWorldSpaceVector3(),
+            objectLoc.toWorldSpaceVector3() + new Vector3(.5f, 0, .5f),
             IslandGame.GameWorld.Boat.SCALE, .5f);
         }
     }

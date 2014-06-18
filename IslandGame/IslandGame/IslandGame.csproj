@@ -138,6 +138,7 @@
     <Compile Include="GameWorld\CharactersAndAI\jobs\AttackActorJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\BoatBuildSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\CaptainingBoatJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\DestroyBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\PlaceBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\LoggingKickoffJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\PlaceResourceJob.cs" />
@@ -163,7 +164,7 @@
     <Compile Include="GameWorld\CharactersAndAI\CharacterTaskTracker.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ActorManager.cs" />
     <Compile Include="GameWorld\CharactersAndAI\CharacterTask.cs" />
-    <Compile Include="GameWorld\CharactersAndAI\jobs\ExcavateJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\ExcavateKickoffJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\ExcavationSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\Farm.cs" />
     <Compile Include="GameWorld\CharactersAndAI\FarmPlantBlock.cs" />

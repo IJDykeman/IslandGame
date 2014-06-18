@@ -15,12 +15,16 @@ namespace IslandGame.GameWorld
 
         List<JobSite> jobSites;
         ResourceBlockjobSite resourceBlockJobsite;
+        ExcavationSite excavationSite;
 
 
         public JobSiteManager(IslandPathingProfile profile)
         {
             jobSites = new List<JobSite>();
             jobSites.Add(new TreesJobSite(profile));
+
+            excavationSite = new ExcavationSite(profile);
+            jobSites.Add(excavationSite);
             resourceBlockJobsite = new ResourceBlockjobSite(profile);
             jobSites.Add(resourceBlockJobsite);
         }
@@ -62,27 +66,9 @@ namespace IslandGame.GameWorld
                 return;
             }
 
-            bool hasAnExcavationSite = false;
-            foreach (JobSite site in jobSites)
-            {
-                if (site is ExcavationSite)
-                {
-                    hasAnExcavationSite = true;
-                    break;
-                }
-            }
-            if (!hasAnExcavationSite)
-            {
-                jobSites.Add(new ExcavationSite(profile));
-            }
 
-            foreach (JobSite site in jobSites)
-            {
-                if (site is ExcavationSite)
-                {
-                    ((ExcavationSite)site).addBlockToDestroy(blockLoc);
-                }
-            }
+            excavationSite.addBlockToDestroy(blockLoc);
+
         }
 
         internal void blockWasDestroyed(BlockLoc toDestroy)
@@ -442,10 +428,14 @@ namespace IslandGame.GameWorld
             resourceBlockJobsite.placeRescourceBlock(loc, type);
         }
 
-
         public ResourceBlockjobSite getResourceJobSite()
         {
             return resourceBlockJobsite;
+        }
+
+        public ExcavationSite getExcavationSite()
+        {
+            return excavationSite;
         }
     }
 }

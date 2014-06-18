@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class ExcavationSite : MultiblockJobSite
+    public class ExcavationSite : MultiblockJobSite
     {          
         HashSet<BlockLoc> blocksToBeRemoved;
 
@@ -53,7 +53,7 @@ namespace IslandGame.GameWorld
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new ExcavateJob(this, newWorker);
+            return new ExcavateKickoffJob(workingProfile, newWorker);
         }
 
         public override void draw(GraphicsDevice device, Effect effect)

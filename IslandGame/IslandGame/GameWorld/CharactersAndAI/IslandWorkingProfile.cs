@@ -31,6 +31,11 @@ namespace IslandGame.GameWorld
             return jobSiteManager.getResourceJobSite();
         }
 
+        public ExcavationSite getExcavationSite()
+        {
+            return jobSiteManager.getExcavationSite();
+        }
+
         internal IslandPathingProfile getPathingProfile()
         {
             return profile;

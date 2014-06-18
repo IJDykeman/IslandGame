@@ -128,10 +128,6 @@ namespace IslandGame.GameWorld
         public class DestroyBlock : Task
         {
             BlockLoc toDestroy;
-            bool completed = false;
-            int timer = 0;
-            int timeBeforeDestroy = 30;
-            int pauseAfterCompletion = 10;
 
             public DestroyBlock(BlockLoc nToDestory)
             {
@@ -144,26 +140,11 @@ namespace IslandGame.GameWorld
                 return toDestroy;
             }
 
-            public void destructionWasOrdered()
-            {
-                completed = true;
-            }
-
             public override bool isComplete()
             {
-                return completed && timer >= timeBeforeDestroy + pauseAfterCompletion;
+                return true;
             }
 
-
-            internal bool readyToDestroy()
-            {
-                return timer == timeBeforeDestroy;
-            }
-
-            internal void updateTime()
-            {
-                timer++;
-            }
         }
 
         [Serializable]

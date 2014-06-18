@@ -155,12 +155,8 @@ namespace IslandGame.GameWorld
                 case CharacterTask.Type.DestoryBlock:
                     animations.Add(AnimationType.standing);
                     CharacterTask.DestroyBlock destroyBlock = (CharacterTask.DestroyBlock)toDo;
-                    destroyBlock.updateTime();
-                    if (destroyBlock.readyToDestroy())
-                    {
-                        destroyBlock.destructionWasOrdered();
-                        actions.Add(new ActorStrikeBlockAction(this, destroyBlock.getBlockToDestroy(),JobType.mining));
-                    }
+                    actions.Add(new ActorStrikeBlockAction(this, destroyBlock.getBlockToDestroy(),JobType.mining));
+                    
                     StartHammerAnimationIfPossible();
                     break;
                 case CharacterTask.Type.BuildBlock:
