@@ -23,7 +23,17 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new ObjectBuildingJob(newWorker, this);
+            BlockLoc found = new BlockLoc();
+            List<BlockLoc> containsBlockLocTarget = new List<BlockLoc>();
+            containsBlockLocTarget.Add(getObjectLoc());
+
+            PathHandler pathHandler = new PathHandler();
+            Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(getProfile(),
+                new BlockLoc(newWorker.getFootLocation()), getProfile(),
+                containsBlockLocTarget, 2,
+                out found);
+            return new TravelAlongPath(path, new ObjectBuildingJob(newWorker, this));
+
         }
 
         public override void draw(GraphicsDevice device, Effect effect)

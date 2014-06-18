@@ -46,7 +46,14 @@ namespace IslandGame.GameWorld
 
         public int length()
         {
-            return list.Count;
+            if (list == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return list.Count;
+            }
         }
 
     }

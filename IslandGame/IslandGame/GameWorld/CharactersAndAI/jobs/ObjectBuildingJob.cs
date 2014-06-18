@@ -10,8 +10,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
     {
         protected ObjectBuildJobSite objectBuildSite;
         protected Character workerCharacter;
-        protected bool hasFailedToPathToSite;
-        TravelAlongPath currentWalkJob;
+
 
         public ObjectBuildingJob(Character nWorker, ObjectBuildJobSite nObjectBuildSite)
         {
@@ -21,21 +20,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            return new CharacterTask.ObjectBuildForFrame(objectBuildSite);
-
-             if (currentWalkJob == null)
-            {
-                setWalkTaskToPathToObject(taskTracker);
-            }
-
-            if (currentWalkJob != null && currentWalkJob.isUseable() && currentWalkJob.isComplete() == false)
-            {
-                return currentWalkJob.getCurrentTask(taskTracker);
-            }
-
-            return new CharacterTask.ObjectBuildForFrame(objectBuildSite);
-
-            
+            return new CharacterTask.ObjectBuildForFrame(objectBuildSite);       
         }
 
         public override bool isUseable()
@@ -45,27 +30,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override bool isComplete()
         {
-            return hasFailedToPathToSite || objectBuildSite.isComplete();
+            return objectBuildSite.isComplete();
         }
 
-        void setWalkTaskToPathToObject(CharacterTaskTracker taskTracker)
-        {
-            BlockLoc found = new BlockLoc();
-            List<BlockLoc> containsBlockLocTarget = new List<BlockLoc>();
-            containsBlockLocTarget.Add(objectBuildSite.getObjectLoc());
 
-            PathHandler pathHandler = new PathHandler();
-            Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(objectBuildSite.getProfile(),
-                new BlockLoc(workerCharacter.getFootLocation()), objectBuildSite.getProfile(),
-                containsBlockLocTarget, 2,
-                out found);
-            currentWalkJob = new TravelAlongPath(path);
-
-            if (!currentWalkJob.isUseable())
-            {
-                hasFailedToPathToSite = true;
-            }
-        }
 
 
     }

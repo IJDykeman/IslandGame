@@ -12,6 +12,9 @@ namespace IslandGame
     {
 
         Character embodiedCharacter;
+        int timeOfLeftClickHold = 0;
+        int timeOfRightClickHold = 0;
+        int timeOfSwing = 25;
 
         public FirstPersonInputHandler(Character nSelectedCharacter)
         {
@@ -94,13 +97,27 @@ namespace IslandGame
 
             if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton != ButtonState.Pressed)
             {
-                if (embodiedCharacter.canSwing())
-                {
-                    embodiedCharacter.StartHammerAnimationIfPossible();
-                    result.Add(embodiedCharacter.getLeftClickAction(Player.getPlayerAimingAtPointAtDistance(0, currentMouseState),
-                    Player.getPlayerAimingAtPointAtDistance(1, currentMouseState)));
-                }
+
+                    embodiedCharacter.startHammerAnimation();
+                    leftClicked();
                 
+            }
+            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                leftClickHeld();
+                if (timeToStrikeLeft())
+                {
+                    result.Add(embodiedCharacter.getLeftClickAction(Player.getPlayerAimingAtPointAtDistance(0, currentMouseState),
+                                Player.getPlayerAimingAtPointAtDistance(1, currentMouseState)));
+                }
+                if (timeToSwingLeft())
+                {
+                    embodiedCharacter.startHammerAnimation();
+                }
+            }
+            if (currentMouseState.LeftButton != ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                leftReleased();
             }
         }
 
@@ -121,6 +138,28 @@ namespace IslandGame
             result.X = -xDifference * mouseSensitivity;
             result.Y  =  -yDifference * mouseSensitivity;
             return result;
+        }
+
+        void leftClicked()
+        {
+            timeOfLeftClickHold = 1;
+        }
+        void leftReleased()
+        {
+            timeOfLeftClickHold = 0;
+        }
+        void leftClickHeld()
+        {
+            timeOfLeftClickHold++;
+            timeOfLeftClickHold %= timeOfSwing+1;
+        }
+        bool timeToStrikeLeft()
+        {
+            return timeOfLeftClickHold == timeOfSwing ;
+        }
+        bool timeToSwingLeft()
+        {
+            return timeOfLeftClickHold == 0;
         }
 
 

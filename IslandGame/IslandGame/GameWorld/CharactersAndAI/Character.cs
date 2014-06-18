@@ -256,6 +256,12 @@ namespace IslandGame.GameWorld
                 StartHammerAnimation();
             }
         }
+         public void startHammerAnimation()
+        {
+            StartHammerAnimation();
+        }
+
+        
 
         private Vector3 getWalkTowardDeltaVec(Vector3 target)
         {

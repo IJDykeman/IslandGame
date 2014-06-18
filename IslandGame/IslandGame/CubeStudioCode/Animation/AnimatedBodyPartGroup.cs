@@ -87,12 +87,12 @@ namespace CubeAnimator{
         {
             List<PositionForTime> result = new List<PositionForTime>();
 
-            result.Add(new PositionForTime(10, AnimationType.hammerHitRaisedLeftArm));
+            result.Add(new PositionForTime(6, AnimationType.hammerHitRaisedLeftArm));
 
             List<AnimationType> downSwing = new List<AnimationType>();
             downSwing.Add(AnimationType.hammerHitLoweredLeftArm);
             //downSwing.Add(AnimationType.torsoLeftShoulderForward);
-            result.Add(new PositionForTime(20, downSwing));
+            result.Add(new PositionForTime(12, downSwing));
             return result;
         }
 
