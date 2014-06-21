@@ -242,6 +242,15 @@
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb</Output>
       <Time>2014-06-04T22:29:05.714138-04:00</Time>
     </Item>
+    <Item>
+      <Source>toolTipFont.spritefont</Source>
+      <Name>toolTipFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\toolTipFont.xnb</Output>
+      <Time>2014-06-19T16:32:41.7239652-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

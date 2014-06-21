@@ -27,7 +27,7 @@ namespace IslandGame.menus
                 willDisablePlayerInteraction = nWillDisablePlayerInteraction;
                 buttons = nList;
             }
-
+            
 
             public List<MenuAction> click(Vector2 click)
             {
@@ -43,7 +43,7 @@ namespace IslandGame.menus
             {
                 foreach (UIElement button in buttons)
                 {
-                    if (button.clickIsWithinElement(click))
+                    if (button.locIsWithinElement(click))
                     {
                         return true;
                     }
@@ -73,12 +73,20 @@ namespace IslandGame.menus
                 int verticlePadding = 50;
                 float scale = 1f;
                 Color hudTint = Color.Wheat;
-                buttonList.Add(new UIElement(new ExcavationHudButtonClick(), ContentDistributor.excavationIcon, new Vector2(width - horizontalPadding, height - verticlePadding), scale, hudTint));
-                buttonList.Add(new UIElement(new FarmHudButtonClick(), ContentDistributor.farmIcon, new Vector2(width - horizontalPadding * 2, height - verticlePadding), scale, hudTint));
-                buttonList.Add(new UIElement(new WoodBuildHudClick(), ContentDistributor.woodBlockIcon, new Vector2(width - horizontalPadding * 3, height - verticlePadding), scale, hudTint));
-                buttonList.Add(new UIElement(new PlayerBuildHudClick(), ContentDistributor.playerBuildIcon, new Vector2(width - horizontalPadding * 4, height - verticlePadding), scale, hudTint));
-                buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding), scale, hudTint));
-                buttonList.Add(new UIElement(new PlayerPlaceStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 6, height - verticlePadding), scale, hudTint));
+                buttonList.Add(new UIElement(new ExcavationHudButtonClick(), ContentDistributor.excavationIcon, new Vector2(width - horizontalPadding, height - verticlePadding),
+                    scale, hudTint, "designate blocks for excavation"));
+                buttonList.Add(new UIElement(new FarmHudButtonClick(), ContentDistributor.farmIcon, new Vector2(width - horizontalPadding * 2, height - verticlePadding),
+                    scale, hudTint, "place a farm"));
+                buttonList.Add(new UIElement(new WoodBuildHudClick(), ContentDistributor.woodBlockIcon, new Vector2(width - horizontalPadding * 3, height - verticlePadding),
+                    scale, hudTint, "design structures to be built"));
+                buttonList.Add(new UIElement(new PlayerBuildHudClick(), ContentDistributor.playerBuildIcon, new Vector2(width - horizontalPadding * 4, height - verticlePadding),
+                    scale, hudTint, "build structures by hand"));
+                buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding),
+                    scale, hudTint, "designate a boat build site"));
+                buttonList.Add(new UIElement(new PlayerPlaceWoodStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 6, height - verticlePadding),
+                    scale, hudTint, "place wood stockpile"));
+                buttonList.Add(new UIElement(new PlayerPlaceWheatStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 7, height - verticlePadding),
+                    scale, hudTint, "place wheat stockpile"));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;
             }
@@ -92,12 +100,32 @@ namespace IslandGame.menus
             }
 
 
-            public void display(SpriteBatch spriteBatch)
+            public void display(SpriteBatch spriteBatch, Vector2 mouseLocation, int screenWidth, int screenHeight)
             {
                 foreach (UIElement button in buttons)
                 {
                     spriteBatch.Draw(button.getTexture(), button.getRectangle(), button.getColor());
+
                 }
+
+                foreach (UIElement button in buttons)
+                {
+                    if (button.hasToolTip() && button.locIsWithinElement(mouseLocation))
+                    {
+                        string toDraw = button.getToolTip();
+                        int toolTipWidthInPixels = (int)(toDraw.Length * 8.1429) + 3;
+                        Vector2 toolTipLoc = mouseLocation + new Vector2(20, 0);
+                        if (toolTipLoc.X + toolTipWidthInPixels > screenWidth)
+                        {
+                            toolTipLoc.X = screenWidth - toolTipWidthInPixels;
+                        }
+
+                        spriteBatch.Draw(ContentDistributor.consoleBackground, new Rectangle((int)toolTipLoc.X - 3, (int)(toolTipLoc.Y - 3), toolTipWidthInPixels, 20), Color.White);
+                        spriteBatch.DrawString(ContentDistributor.toolTipFont, toDraw, toolTipLoc, Color.White);
+                    }
+                }
+
+                
             }
 
             public bool disablesPlayerInteraction()

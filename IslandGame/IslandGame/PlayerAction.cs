@@ -38,7 +38,9 @@ namespace IslandGame
             DeselectCharacter,
             MoveBy,
             setCameraLocation,
-            BlockPlanPlacementHover
+            BlockPlanPlacementHover,
+            FinishDraggingStorage,
+            DraggingStorage
         }
 
         public abstract class Action
@@ -115,15 +117,16 @@ namespace IslandGame
 
                 type = Type.FinishDragging;
             }
-
-
         }
+
         public class Dragging : MouseAction
         {
             public enum DragType
             {
                 farm,
-                storage
+                storeWheat,
+                storeWood,
+                storeStone
             }
 
             protected DragType dragType;
@@ -136,11 +139,12 @@ namespace IslandGame
                 
                 type = Type.Dragging;
             }
-            public Dragging.DragType getType()
+            public Dragging.DragType getDragType()
             {
                 return dragType;
             }
         }
+
 
         public class PlaceWoodBlockPlan : MouseAction
         {

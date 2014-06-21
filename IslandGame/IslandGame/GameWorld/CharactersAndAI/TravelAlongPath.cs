@@ -15,6 +15,7 @@ namespace IslandGame.GameWorld
 
         public TravelAlongPath(Path nPath, Job nToReturnTo)
         {
+
             toReturnTo = nToReturnTo;
             path = nPath;
             if (willResultInTravel())
@@ -68,7 +69,7 @@ namespace IslandGame.GameWorld
 
         public override bool isUseable()
         {
-            return path != null;
+            return path.isUseable();
         }
 
         public bool willResultInTravel()

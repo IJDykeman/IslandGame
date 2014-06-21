@@ -129,10 +129,9 @@ namespace IslandGame
 
         public void display2D(SpriteBatch spriteBatch)
         {
-
             if (inputHandler.currentMenu != null)
             {
-                inputHandler.currentMenu.display(spriteBatch);
+                inputHandler.currentMenu.display(spriteBatch, new Vector2(currentMouseState.X,currentMouseState.Y), Compositer.getScreenWidth(),Compositer.getScreenHeight());
             }
             if (isEmbodyingCharacter())
             {

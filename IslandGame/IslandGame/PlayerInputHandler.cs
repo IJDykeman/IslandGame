@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using IslandGame.menus;
+using IslandGame.GameWorld;
 
 namespace IslandGame
 {
@@ -28,7 +29,8 @@ namespace IslandGame
             placingBlocks,
             placingExcavation,
             placingFarm,
-            placingStorage,
+            placingWoodStorage,
+            placingWheatStorage,
             placingWoodPlanBlocks,
             buildingDirectly,
             placingBoat
@@ -134,9 +136,15 @@ namespace IslandGame
                         result.Add(new PlayerAction.DeselectCharacter());
                         setInterfaceState(PlayerInputHandler.InterfaceStates.placingFarm);
                         break;
-                    case MenuActionType.StorageHudClick:
+                    case MenuActionType.WoodStorageHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
-                        setInterfaceState(PlayerInputHandler.InterfaceStates.placingStorage);
+
+                        setInterfaceState(PlayerInputHandler.InterfaceStates.placingWoodStorage);
+                        break;
+                    case MenuActionType.WheatStorageHudClick:
+                        result.Add(new PlayerAction.DeselectCharacter());
+
+                        setInterfaceState(PlayerInputHandler.InterfaceStates.placingWheatStorage);
                         break;
                     case MenuActionType.WoodBuildHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
@@ -188,6 +196,7 @@ namespace IslandGame
         {
             currentMenu = MenuScreen.getColorPalleteInterface(Compositer.getScreenWidth(), Compositer.getScreenHeight());
         }
+
 
     }
 }

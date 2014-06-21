@@ -18,6 +18,7 @@ namespace IslandGame.menus
         protected Vector2 location;
         protected float scale = 1;
         protected Color color = Color.White;
+        protected string toolTip = "";
 
         public UIElement() { }
 
@@ -36,8 +37,9 @@ namespace IslandGame.menus
             scale = nScale;
         }
 
-        public UIElement(MenuAction naction, Texture2D ntexture, Vector2 nLoc, float nScale, Color nColor)
+        public UIElement(MenuAction naction, Texture2D ntexture, Vector2 nLoc, float nScale, Color nColor, string ntoolTip)
         {
+            toolTip = ntoolTip;
             action = naction;
             texture = ntexture;
             location = nLoc;
@@ -48,14 +50,14 @@ namespace IslandGame.menus
         public virtual List<MenuAction> click(Vector2 clickLoc)
         {
             List<MenuAction> result = new List<MenuAction>();
-            if (clickIsWithinElement( clickLoc)){
+            if (locIsWithinElement( clickLoc)){
             
                 result.Add(action);
             }
             return result;
         }
 
-        public bool clickIsWithinElement(Vector2 clickLoc){
+        public bool locIsWithinElement(Vector2 clickLoc){
         
             return getRectangle().Contains(new Point((int)clickLoc.X, (int)clickLoc.Y));
         }
@@ -74,6 +76,17 @@ namespace IslandGame.menus
         {
             return color;
         }
+
+        public bool hasToolTip()
+        {
+            return !toolTip.Equals("");
+        }
+
+        public string getToolTip()
+        {
+            return toolTip;
+        }
+
     }
 
 }

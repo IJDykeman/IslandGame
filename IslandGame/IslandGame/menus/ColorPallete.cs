@@ -298,7 +298,7 @@ namespace IslandGame.menus
         public override List<MenuAction> click(Vector2 clickLoc)
         {
             List<MenuAction> result = new List<MenuAction>();
-            if (clickIsWithinElement(clickLoc))
+            if (locIsWithinElement(clickLoc))
             {
                 int xInPickerSpace = (int)clickLoc.X - (int)location.X;
                 int yInPickerSpace = (int)clickLoc.Y - (int)location.Y;

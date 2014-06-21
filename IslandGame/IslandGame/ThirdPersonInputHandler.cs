@@ -11,6 +11,7 @@ namespace IslandGame
 {
     class ThirdPersonInputHandler : PlayerInputHandler
     {
+
         public ThirdPersonInputHandler()
         {
             currentMenu = MenuScreen.getGameplayHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
@@ -172,11 +173,15 @@ namespace IslandGame
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
                         currentInterfaceState = InterfaceStates.playing; 
                         break;
-                    case InterfaceStates.placingStorage:
-                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storage));
+                    case InterfaceStates.placingWoodStorage:
+                       
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWood));
                         currentInterfaceState = InterfaceStates.playing; 
                         break;
-                        
+                    case InterfaceStates.placingWheatStorage:
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWheat));
+                        currentInterfaceState = InterfaceStates.playing;
+                        break;
 
                 }
                 
@@ -194,9 +199,9 @@ namespace IslandGame
                             result.Add(new PlayerAction.Dragging(nearPoint,
                                 farPoint,PlayerAction.Dragging.DragType.farm));
                             break;
-                        case InterfaceStates.placingStorage:
+                        case InterfaceStates.placingWheatStorage:
                             result.Add(new PlayerAction.Dragging(nearPoint,
-                                farPoint, PlayerAction.Dragging.DragType.storage));
+                                farPoint, PlayerAction.Dragging.DragType.storeWheat));
                             break;
                         case InterfaceStates.placingExcavation:
                             result.Add(new PlayerAction.ExcavationMouseHover(nearPoint,
@@ -285,13 +290,20 @@ namespace IslandGame
                     case InterfaceStates.placingWoodPlanBlocks:
                         result.Add(new PlayerAction.RemoveWoodBlockPlan(nearPoint,farPoint));
                         break;
-                    case InterfaceStates.placingStorage:
-                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storage));
+                    case InterfaceStates.placingWoodStorage:
+                        PlayerAction.Dragging.DragType dragType = PlayerAction.Dragging.DragType.storeWood;
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, dragType));
+                        break;
+                    case InterfaceStates.placingWheatStorage:
+                        PlayerAction.Dragging.DragType dragWheat = PlayerAction.Dragging.DragType.storeWheat;
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, dragWheat));
                         break;
 
                 }
 
         }
+
+
 
 
     }

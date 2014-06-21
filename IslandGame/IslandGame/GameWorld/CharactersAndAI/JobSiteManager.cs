@@ -84,20 +84,26 @@ namespace IslandGame.GameWorld
             return (JobSite)Intersection.getNearestIntersectableAlongRay(ray, jobSites);
         }
 
-        internal void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile, PlayerAction.Dragging.DragType dragType)
+        internal void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile, 
+            PlayerAction.Dragging.DragType dragType)
         {
             switch (dragType)
             {
                 case PlayerAction.Dragging.DragType.farm:
                     placeFarmWithBlocks(blocksToAdd, profile);
                     break;
-                case PlayerAction.Dragging.DragType.storage:
-                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile);
+                case PlayerAction.Dragging.DragType.storeWheat:
+                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Wheat);
                     break;
+                case PlayerAction.Dragging.DragType.storeWood:
+                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Wood);
+                    break;
+
             }
         }
 
-        private void placeStorageAreaWithBlocksToPlaceOn(IEnumerable<BlockLoc> blocksToPlaceSiteOn, IslandPathingProfile profile)
+        private void placeStorageAreaWithBlocksToPlaceOn(IEnumerable<BlockLoc> blocksToPlaceSiteOn, IslandPathingProfile profile,
+            ResourceBlock.ResourceType toStore)
         {
 
             List<BlockLoc> blocksForSite = new List<BlockLoc>();
@@ -120,7 +126,7 @@ namespace IslandGame.GameWorld
                     }
                     
                 }
-                resourceBlockJobsite.addStockpile(new Stockpile(locsNotSolid,ResourceBlock.ResourceType.Wood));
+                resourceBlockJobsite.addStockpile(new Stockpile(locsNotSolid,toStore));
                 
             }
 

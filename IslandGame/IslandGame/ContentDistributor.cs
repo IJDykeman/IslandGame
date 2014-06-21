@@ -19,7 +19,7 @@ namespace IslandGame
         public static Texture2D excavationIcon, farmIcon, woodBlockIcon, boatIcon, playerBuildIcon, storageIcon;
         public static Texture2D crossReticle;
         public static Texture2D random;
-        public static SpriteFont techFont;
+        public static SpriteFont techFont, toolTipFont;
         static string cubeStudioRootPath = @"C:\Users\Public\CubeStudioCreations\";
 
         public static void loadContent(ContentManager content)
@@ -49,6 +49,7 @@ namespace IslandGame
             crossReticle = content.Load<Texture2D>("UI/crossReticle");
 
             techFont = content.Load<SpriteFont>("SpriteFont1");
+            toolTipFont = content.Load<SpriteFont>("toolTipFont");
         }
 
         public static string getRootPath()

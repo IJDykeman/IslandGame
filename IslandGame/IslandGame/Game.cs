@@ -231,13 +231,13 @@ namespace IslandGame
 
                            foreach (BlockLoc test in draggedBlocks)
                            {
-                               switch (dragClick.getType())
+                               switch (dragClick.getDragType())
                                {
                                    case PlayerAction.Dragging.DragType.farm:
                                        WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\farmMarker.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
                                        break;
-                                   case PlayerAction.Dragging.DragType.storage:
+                                   case PlayerAction.Dragging.DragType.storeWheat:
                                        WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\storageMarker.chr",
                                             test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
                                        break;
@@ -255,7 +255,7 @@ namespace IslandGame
                         {
                             BlockLoc currentFinishBlock = new BlockLoc((int)((Vector3)finishDragBlock).X, (int)((Vector3)finishDragBlock).Y, (int)((Vector3)finishDragBlock).Z);
                             IEnumerable<BlockLoc> draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
-                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks, finishDragClick.getType());
+                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks, finishDragClick.getDragType());
                         }
                         break;
 

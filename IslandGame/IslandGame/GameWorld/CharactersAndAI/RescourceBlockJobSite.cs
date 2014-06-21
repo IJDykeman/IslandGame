@@ -102,7 +102,7 @@ namespace IslandGame.GameWorld
             stockpiles.Add(stockpileJobSite);
         }
 
-        internal IEnumerable<BlockLoc> getBlocksToStoreThisTypeIn(ResourceBlock.ResourceType carriedType)
+        public IEnumerable<BlockLoc> getBlocksToStoreThisTypeIn(ResourceBlock.ResourceType carriedType)
         {
             List<BlockLoc> result = new List<BlockLoc>();
             foreach (Stockpile stockpile in stockpiles)

@@ -155,5 +155,10 @@ namespace IslandGame
             return ray.Intersects(boundingBox);
 
         }
+
+        public override int GetHashCode()
+        {
+            return ("" + worldSpaceX + worldSpaceY + worldSpaceZ).GetHashCode();
+        }
     }
 }

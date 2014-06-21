@@ -16,7 +16,14 @@ namespace IslandGame.GameWorld
 
         public Path(List<BlockLoc> nList)
         {
-            list = nList;
+            if (nList == null)
+            {
+                list = new List<BlockLoc>();
+            }
+            else
+            {
+                list = nList;
+            }
         }
 
         public void add(BlockLoc toAdd)
@@ -54,6 +61,11 @@ namespace IslandGame.GameWorld
             {
                 return list.Count;
             }
+        }
+
+        public bool isUseable()
+        {
+            return list.Count > 0;
         }
 
     }
