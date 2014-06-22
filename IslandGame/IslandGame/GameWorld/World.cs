@@ -450,6 +450,17 @@ namespace IslandGame.GameWorld
                                            ((Vector3)space) + new Vector3(.5f, .5f, .5f), 1.0f / 12.0f, .6f);
             }
 
+            Vector3? maybeBlock = island.getNearestBlockAlongRayInAndFromWorldSpace(ray);
+            if (maybeBlock.HasValue)
+            {
+                Vector3 space = (Vector3)maybeBlock;
+                space.X = (int)space.X;
+                space.Y = (int)space.Y;
+                space.Z = (int)space.Z;
+                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"worldMarkup\" + "stoneMarkerOutline" + ".chr",
+                                           ((Vector3)space) + new Vector3(.5f, .5f, .5f), 1.0f / 12.0f, .6f);
+            }
+
         }
 
         internal void HandleBoatJobsitePlacement(Ray ray)

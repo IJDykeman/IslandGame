@@ -128,7 +128,8 @@ namespace IslandGame
                 farm,
                 storeWheat,
                 storeWood,
-                storeStone
+                storeStone,
+                excavate
             }
 
             protected DragType dragType;

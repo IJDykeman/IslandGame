@@ -715,14 +715,14 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
 
                                                 if (intersectDist.HasValue)
                                                 {
-                                                    Vector3 hitLoc = ray.Position + ray.Direction * ((float)intersectDist + .0001f);
-                                                    if (withinSpace(hitLoc))
-                                                    {
-                                                        if (array[(int)hitLoc.X, (int)hitLoc.Y, (int)hitLoc.Z] != AIR)
-                                                        {
+                                                    Vector3 hitLoc = ray.Position + ray.Direction * ((float)intersectDist + .01f);
+                                                    //if (withinSpace(hitLoc))
+                                                    //{
+                                                       // if (array[(int)hitLoc.X, (int)hitLoc.Y, (int)hitLoc.Z] != AIR)
+                                                       // {
                                                             hits.Add(hitLoc);
-                                                        }
-                                                    }
+                                                       // }
+                                                    //}
                                                 }
                                             }
                                         }

@@ -299,7 +299,7 @@ namespace IslandGame.GameWorld
                 ray.Direction.Normalize();
                 if (intersection.HasValue)
                 {
-                    return ray.Direction * ((float)intersection - .0001f) + ray.Position;
+                    return ray.Direction * ((float)intersection - .001f) + ray.Position;
                 }
             }
 

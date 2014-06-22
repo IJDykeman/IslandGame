@@ -10,7 +10,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
         WoodBuildSite buildSite;
         WaitJob currentWait = null;
         Character character;
-        bool hasFailedToFindOneBlockToBuild = false;
 
 
         public BuildKickoffJob( WoodBuildSite nBuildSite, Character nCharacter)
@@ -62,7 +61,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override bool isComplete()
         {
-            return buildSite.siteIsComplete() || hasFailedToFindOneBlockToBuild;
+            return buildSite.siteIsComplete();
         }
 
         public override bool isUseable()
