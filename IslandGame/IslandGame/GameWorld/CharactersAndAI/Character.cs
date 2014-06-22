@@ -316,11 +316,8 @@ namespace IslandGame.GameWorld
 
         public override BlockLoc? blockClaimedToWorkOn()
         {
-            if (job is MultiBlockOngoingJob)
-            {
-                return ((MultiBlockOngoingJob)job).getCurrentGoalBlock();
-            }
-            return null;
+            BlockLoc? result = job.getGoalBlock();
+            return result;
         }
 
         public ActorAction getRightClickAction(Vector3 nearPoint, Vector3 farPoint)

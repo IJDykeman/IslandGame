@@ -160,5 +160,45 @@ namespace IslandGame.GameWorld
         {
             return resourceBlocks.ContainsKey(loc);
         }
+
+
+        internal void debitResource(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            HashSet<BlockLoc> toRemove = getThisManyResourceBlocksOfType(cost, resourceType);
+            foreach (BlockLoc test in toRemove)
+            {
+                resourceBlocks.Remove(test);
+            }
+        }
+
+        internal HashSet<BlockLoc> getThisManyResourceBlocksOfType(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            HashSet<BlockLoc> resourceBlocksToRemove = new HashSet<BlockLoc>();
+            int blocksRemovedSoFar = 0;
+            for (int i = 0; i < 3; i++)//repeats so it can remove stacked blocks
+            {
+                foreach (BlockLoc test in resourceBlocks.Keys)
+                {
+                    if (resourceBlocks[test].getResourceType() == resourceType)
+                    {
+                        BlockLoc blockAbove = (BlockLoc.AddIntVec3(test, new IntVector3(0, 1, 0)));
+                        if (!resourceBlocks.ContainsKey(blockAbove))
+                        {
+                            if (!resourceBlocksToRemove.Contains(test))
+                            {
+                                blocksRemovedSoFar++;
+                                resourceBlocksToRemove.Add(test);
+                                if (blocksRemovedSoFar == cost)
+                                {
+                                    return resourceBlocksToRemove;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            return resourceBlocksToRemove;
+        }
     }
 }

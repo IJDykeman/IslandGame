@@ -41,9 +41,16 @@ namespace IslandGame.GameWorld
              list.RemoveAt(pos);
         }
 
-        public BlockLoc getLast()
+        public BlockLoc? getLast()
         {
-            return list[list.Count - 1];
+            if (list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list[list.Count - 1];
+            }
         }
 
         public BlockLoc getFirst()

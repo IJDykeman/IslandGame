@@ -71,7 +71,7 @@ namespace IslandGame.GameWorld
             return !hasFailedToFindBlock;
         }
 
-        public override BlockLoc? getCurrentGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
             return blockToPlaceResourceIn;
         }

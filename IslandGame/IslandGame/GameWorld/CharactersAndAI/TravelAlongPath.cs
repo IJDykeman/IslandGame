@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace IslandGame.GameWorld
 {
@@ -15,7 +16,7 @@ namespace IslandGame.GameWorld
 
         public TravelAlongPath(Path nPath, Job nToReturnTo)
         {
-
+            Debug.Assert(nPath != null);
             toReturnTo = nToReturnTo;
             path = nPath;
             if (willResultInTravel())
@@ -26,6 +27,7 @@ namespace IslandGame.GameWorld
 
         public TravelAlongPath(Path nPath)
         {
+            Debug.Assert(nPath != null);
             toReturnTo = null;
             path = nPath;
             if (willResultInTravel())
@@ -36,6 +38,10 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
+            if (toReturnTo != null)
+            {
+                toReturnTo.checkForWorkConflictsNullIfNoResponse(taskTracker);
+            }
             if (( path == null || path.length() == 0))
             {
                 if (toReturnTo != null)
@@ -69,7 +75,7 @@ namespace IslandGame.GameWorld
 
         public override bool isUseable()
         {
-            return path.isUseable();
+            return true;
         }
 
         public bool willResultInTravel()
@@ -97,9 +103,12 @@ namespace IslandGame.GameWorld
             return path != null;
         }
 
-        public BlockLoc getGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
-
+            if (toReturnTo != null)
+            {
+                return toReturnTo.getGoalBlock();
+            }
             return path.getLast();
 
         }

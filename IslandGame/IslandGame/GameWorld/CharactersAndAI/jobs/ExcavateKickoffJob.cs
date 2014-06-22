@@ -64,7 +64,7 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override BlockLoc? getCurrentGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
 
             return null;

@@ -46,10 +46,13 @@ namespace IslandGame.GameWorld
 
                 if (travelJob.isUseable())
                 {
-                    BlockLoc toTend = path.getLast();
-
-                    TravelAlongPath travelToSwitchTo = new TravelAlongPath(path, new TendFarmBlockJob(toTend, workingProfile, farm, character));
-                    return new CharacterTask.SwitchJob(travelToSwitchTo);
+                    BlockLoc? toTend = path.getLast();
+                    if (toTend != null)
+                    {
+                        TravelAlongPath travelToSwitchTo = new TravelAlongPath(path, new TendFarmBlockJob((BlockLoc)toTend, workingProfile, farm, character));
+                        return new CharacterTask.SwitchJob(travelToSwitchTo);
+                    }
+                    return new CharacterTask.NoTask();
                 }
                 else
                 {
@@ -75,7 +78,7 @@ namespace IslandGame.GameWorld
             return !hasFailedToFindBlock;
         }
 
-        public override BlockLoc? getCurrentGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
             return null;
         }

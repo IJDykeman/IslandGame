@@ -7,6 +7,6 @@ namespace IslandGame.GameWorld
 {
     public abstract class MultiBlockOngoingJob : Job
     {
-        public abstract BlockLoc? getCurrentGoalBlock();
+       
     }
 }

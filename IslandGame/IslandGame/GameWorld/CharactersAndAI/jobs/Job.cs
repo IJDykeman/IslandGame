@@ -41,6 +41,16 @@ namespace IslandGame.GameWorld
         {
             
         }
+
+        public virtual BlockLoc? getGoalBlock()
+        {
+            return null;
+        }
+
+        public virtual CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
+        {
+            return null;
+        }
     }
 
     [Serializable]
@@ -60,5 +70,6 @@ namespace IslandGame.GameWorld
         {
             return true;
         }
+
     }
 }

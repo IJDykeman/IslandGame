@@ -57,9 +57,18 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
             return true;
         }
 
-        /*public override BlockLoc? getCurrentGoalBlock()
+        public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
+        {
+            if (taskTracker.blocksCurrentlyClaimed().Contains(blockToTend))
+            {
+                return new CharacterTask.SwitchJob(new FarmingKickoffJob(farm, character, workingProfile));
+            }
+            return null;
+        }
+
+        public override BlockLoc? getGoalBlock()
         {
             return blockToTend;
-        }*/
+        }
     }
 }

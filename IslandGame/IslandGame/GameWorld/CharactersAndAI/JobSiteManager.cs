@@ -464,6 +464,11 @@ namespace IslandGame.GameWorld
         {
             return resourceBlockJobsite.getBlocksToGetThisTypeFrom(resourceType).Count() >= cost;
         }
+
+        internal void debitResource(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            resourceBlockJobsite.debitResource(cost, resourceType);
+        }
     }
 }
 

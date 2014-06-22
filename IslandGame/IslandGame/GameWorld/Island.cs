@@ -540,9 +540,14 @@ namespace IslandGame.GameWorld
             return chunkSpace.withinChunkSpaceInChunkSpace(x, y, z);
         }
 
-        internal bool couldAffordResourceExpendeture(int cost, ResourceBlock.ResourceType resourceType)
+        public bool couldAffordResourceExpendeture(int cost, ResourceBlock.ResourceType resourceType)
         {
             return jobSiteManager.couldAffordResourceExpendeture(cost, resourceType);
+        }
+
+        public void debitResource(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            jobSiteManager.debitResource(cost, resourceType);
         }
     }
 }

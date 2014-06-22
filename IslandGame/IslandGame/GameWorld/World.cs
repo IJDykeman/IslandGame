@@ -471,7 +471,8 @@ namespace IslandGame.GameWorld
             {
                 if (relevant.couldAffordResourceExpendeture(12, ResourceBlock.ResourceType.Wheat))
                 {
-                    addCharacterAt(new BlockLoc((Vector3)toPlace).getMiddleInWorldSpace() + new Vector3(0, 1, 0), Actor.Faction.friendly);
+                    relevant.debitResource(12, ResourceBlock.ResourceType.Wheat);
+                    addCharacterAt(new BlockLoc((Vector3)toPlace).getMiddleInWorldSpace(), Actor.Faction.friendly);
                 }
             }
         }

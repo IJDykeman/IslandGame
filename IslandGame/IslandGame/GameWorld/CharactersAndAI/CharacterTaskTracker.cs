@@ -15,9 +15,9 @@ namespace IslandGame.GameWorld
             currentlyClaimedForWork = getBlocksClaimedForWork(characters);
         }
 
-        public IEnumerable<BlockLoc> blocksCurrentlyClaimed()
+        public HashSet<BlockLoc> blocksCurrentlyClaimed()
         {
-            return currentlyClaimedForWork.ToList();
+            return currentlyClaimedForWork;
         }
 
         HashSet<BlockLoc> getBlocksClaimedForWork(IEnumerable<Actor> characters)

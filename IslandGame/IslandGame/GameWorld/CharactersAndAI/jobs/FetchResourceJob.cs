@@ -101,7 +101,7 @@ namespace IslandGame.GameWorld
             return !hasFailedToFindBlock;
         }
 
-        public override BlockLoc? getCurrentGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
             if (currentWalkJob != null && currentWalkJob.isUseable() && currentWalkJob.willResultInTravel())
             {

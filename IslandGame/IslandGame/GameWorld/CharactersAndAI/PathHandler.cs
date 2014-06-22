@@ -112,7 +112,7 @@ namespace IslandGame.GameWorld
             }
             if (goals.Count == 0)
             {
-                return null;
+                return new Path();
             }
             return new Path(getPathWithStartAndEndGroupValidation(startProfile, startLoc, endProfile, goals, heightOfEntity));
         }

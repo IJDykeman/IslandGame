@@ -26,7 +26,7 @@ namespace IslandGame.GameWorld
             workingProfile =nWorkingProfile;
         }
 
-        public override BlockLoc? getCurrentGoalBlock()
+        public override BlockLoc? getGoalBlock()
         {
             return currentBlockToChop;
         }
