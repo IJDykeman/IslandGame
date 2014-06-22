@@ -5,18 +5,14 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
-    public enum ResourceType
-    {
-        Wheat,
-        Wood
-    }
+
 
     public struct ResourceAmount
     {
-        ResourceType type;
+        ResourceBlock.ResourceType type;
         int amount;
 
-        public ResourceAmount(int nAmount, ResourceType nType)
+        public ResourceAmount(int nAmount, ResourceBlock.ResourceType nType)
         {
             type = nType;
             amount = nAmount;
@@ -27,7 +23,7 @@ namespace IslandGame.GameWorld
             return amount;
         }
 
-        public ResourceType getType()
+        public ResourceBlock.ResourceType getType()
         {
             return type;
         }

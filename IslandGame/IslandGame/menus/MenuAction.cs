@@ -7,23 +7,25 @@ namespace IslandGame.menus
 {
     public enum MenuActionType
     {
-        NewGame, 
-        Quit, 
-        Save, 
-        Load, 
-        Continue, 
-        ExcavationHudButtonClick, 
-        FarmHudButtonClick, 
-        WoodBuildHudClick, 
+        NewGame,
+        Quit,
+        Save,
+        Load,
+        Continue,
+        ExcavationHudButtonClick,
+        FarmHudButtonClick,
+        WoodBuildHudClick,
         WoodStorageHudClick,
         WheatStorageHudClick,
         ColorPalleteColorSelection,
         PlayerBuildHudClick,
-        PlayerBuildBoatHudClick
+        PlayerBuildBoatHudClick,
+        JobTypeSwitch,
+        NewCharacterHudClick
     }
 
     public class MenuAction
-    {
+    { 
         public MenuActionType type;
 
     }
@@ -124,6 +126,14 @@ namespace IslandGame.menus
         }
     }
 
+    public class PlayerPlaceNewCharacterHudClick : MenuAction
+    {
+        public PlayerPlaceNewCharacterHudClick()
+        {
+            type = MenuActionType.NewCharacterHudClick;
+        }
+    }
+
     public class ColorPalleteColorSelection : MenuAction
     {
         public byte selectedColor;
@@ -131,6 +141,21 @@ namespace IslandGame.menus
         {
             selectedColor = nSelectedColor;
             type = MenuActionType.ColorPalleteColorSelection;
+        }
+    }
+
+    public class JobTypeSwitch : MenuAction
+    {
+        IslandGame.GameWorld.JobType newType = GameWorld.JobType.none;
+        public JobTypeSwitch(IslandGame.GameWorld.JobType nNewType)
+        {
+            newType = nNewType;
+            type = MenuActionType.JobTypeSwitch;
+        }
+
+        public IslandGame.GameWorld.JobType getJobType()
+        {
+            return newType;
         }
     }
 }

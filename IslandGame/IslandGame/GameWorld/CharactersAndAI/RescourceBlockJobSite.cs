@@ -7,13 +7,14 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
-    public class ResourceBlockjobSite : JobSite
+    [Serializable]
+    public class ResourceBlockJobSite : JobSite
     {
         Dictionary<BlockLoc, ResourceBlock> resourceBlocks;
         List<Stockpile> stockpiles;
 
 
-        public ResourceBlockjobSite(IslandPathingProfile nprofile)
+        public ResourceBlockJobSite(IslandPathingProfile nprofile)
         {
             resourceBlocks = new Dictionary<BlockLoc, ResourceBlock>();
             stockpiles = new List<Stockpile>();
@@ -84,7 +85,10 @@ namespace IslandGame.GameWorld
 
         public void placeRescourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
         {
-            resourceBlocks.Add(loc, new ResourceBlock(type));
+            if (!resourceBlocks.ContainsKey(loc))
+            {
+                resourceBlocks.Add(loc, new ResourceBlock(type));
+            }
         }
 
         public override HashSet<BlockLoc> getAllBlocksInSite()
@@ -150,6 +154,11 @@ namespace IslandGame.GameWorld
 
             return result;
 
+        }
+
+        public bool isSolidAt(BlockLoc loc)
+        {
+            return resourceBlocks.ContainsKey(loc);
         }
     }
 }

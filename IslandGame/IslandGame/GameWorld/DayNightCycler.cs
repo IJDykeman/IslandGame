@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     class DayNightCycler
     {
         TimeOfDay[] timesOfDay;

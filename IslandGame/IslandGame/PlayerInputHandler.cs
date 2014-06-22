@@ -15,7 +15,7 @@ namespace IslandGame
 
         protected float mouseSensitivity = .004f;
 
-        public MenuScreen currentMenu = null;
+        protected MenuScreen currentMenu = null;
 
         protected int timeSinceLastLeftClick = 200;
         protected static readonly int doubleLeftClickInterval = 15;
@@ -33,7 +33,8 @@ namespace IslandGame
             placingWheatStorage,
             placingWoodPlanBlocks,
             buildingDirectly,
-            placingBoat
+            placingBoat,
+            placingCharacter
         }
 
 
@@ -109,6 +110,12 @@ namespace IslandGame
         {
             MouseState mouseState = Player.currentMouseState;
             List<MenuAction> menuActions = currentMenu.click(new Vector2(mouseState.X, mouseState.Y));
+            handleMenuActionList(result, menuActions);
+
+        }
+
+        protected void handleMenuActionList(List<PlayerAction.Action> result, List<MenuAction> menuActions)
+        {
             foreach (MenuAction action in menuActions)
             {
                 switch (action.type)
@@ -161,18 +168,24 @@ namespace IslandGame
                     case MenuActionType.ColorPalleteColorSelection:
                         selectedBlockType = ((ColorPalleteColorSelection)action).selectedColor;
                         break;
+                    case MenuActionType.JobTypeSwitch:
+                        result.Add(new PlayerAction.JobTypeSwitch(((JobTypeSwitch)action).getJobType()));
+                        break;
+                    case MenuActionType.NewCharacterHudClick:
+                        result.Add(new PlayerAction.DeselectCharacter());
+                        setInterfaceState(InterfaceStates.placingCharacter);
+                        break;
                     default:
                         throw new Exception("unhandled menu action");
 
                 }
 
             }
-
         }
 
         void closeMainMenu()
         {
-            currentMenu = MenuScreen.getGameplayHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
+            currentMenu = MenuScreen.getThirdPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             setInterfaceState(PlayerInputHandler.InterfaceStates.playing);
         }
 
@@ -184,7 +197,7 @@ namespace IslandGame
 
         public void closeColorPallete()
         {
-            currentMenu = MenuScreen.getGameplayHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
+            currentMenu = MenuScreen.getThirdPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
         }
 
         public void switchToRegularPlayMode()
@@ -195,6 +208,11 @@ namespace IslandGame
         public void switchToColorPallete()
         {
             currentMenu = MenuScreen.getColorPalleteInterface(Compositer.getScreenWidth(), Compositer.getScreenHeight());
+        }
+
+        public MenuScreen getCurrentMenu()
+        {
+            return currentMenu;
         }
 
 

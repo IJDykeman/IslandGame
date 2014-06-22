@@ -23,3 +23,6 @@ Content\plane.xnb
 Content\UI\lockedChest.xnb
 Content\shadowEffect.xnb
 Content\toolTipFont.xnb
+Content\UI\swordIcon.xnb
+Content\UI\axeIcon.xnb
+Content\UI\characterIcon.xnb

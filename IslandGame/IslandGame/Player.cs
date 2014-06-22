@@ -82,14 +82,10 @@ namespace IslandGame
         public List<PlayerAction.Action> getPlayerActions()
         {
             List<PlayerAction.Action> result = new List<PlayerAction.Action>();
-
-            MouseState currentMouseState = Mouse.GetState();
-
-            
             result = inputHandler.updateAndGetPlayerActions();
 
             
-            smoothCam.getMoveByVecWithMinSpeed(floatingCameraSpeed);
+            
 
 
             return result;
@@ -116,7 +112,7 @@ namespace IslandGame
                         + new Vector3(islandWidth / 2, 0, islandWidth / 2));
             }
 
-
+            smoothCam.getMoveByVecWithMinSpeed(floatingCameraSpeed);
 
             age++;
         }
@@ -129,9 +125,9 @@ namespace IslandGame
 
         public void display2D(SpriteBatch spriteBatch)
         {
-            if (inputHandler.currentMenu != null)
+            if (inputHandler.getCurrentMenu() != null)
             {
-                inputHandler.currentMenu.display(spriteBatch, new Vector2(currentMouseState.X,currentMouseState.Y), Compositer.getScreenWidth(),Compositer.getScreenHeight());
+                inputHandler.getCurrentMenu().display(spriteBatch, new Vector2(currentMouseState.X,currentMouseState.Y), Compositer.getScreenWidth(),Compositer.getScreenHeight());
             }
             if (isEmbodyingCharacter())
             {
@@ -178,7 +174,6 @@ namespace IslandGame
             return smoothCam.getCameraLocation();
 
         }
-
 
         public void characterWasLeftClicked(Character nSelected)
         {
@@ -280,10 +275,6 @@ namespace IslandGame
         {
             return new GameWorld.AxisAlignedBoundingBox(getCameraLoc() - new Vector3(.3f, .3f, .3f), getCameraLoc() + new Vector3(.3f, .3f, .3f));
         }
-
-
-
-
 
         public byte getSelectedBlockType()
         {

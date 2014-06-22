@@ -32,7 +32,7 @@ namespace IslandGame.GameWorld
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
                     part.Effect = skyEffect;
-                    skyEffect.Parameters["xWorld"].SetValue(Matrix.CreateScale(100, 1, 100) * Matrix.CreateTranslation(new Vector3(centerLocation.X, .5f, centerLocation.Z)) * mesh.ParentBone.Transform);
+                    skyEffect.Parameters["xWorld"].SetValue(Matrix.CreateScale(3000, 1, 3000) * Matrix.CreateTranslation(new Vector3(centerLocation.X, .5f, centerLocation.Z)) * mesh.ParentBone.Transform);
                     skyEffect.Parameters["View"].SetValue(view);
                     skyEffect.Parameters["xAmbient"].SetValue(ambientBrightness);
                     skyEffect.Parameters["Projection"].SetValue(projection);

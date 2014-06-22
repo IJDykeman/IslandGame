@@ -9,28 +9,28 @@ namespace IslandGame.GameWorld
     [Serializable]
     public class IslandLocationProfile
     {
-        protected ChunkSpace chunkSpace;
+        protected Island island;
 
         public IslandLocationProfile() { }
 
-        public IslandLocationProfile(ChunkSpace nChunkSpace)
+        public IslandLocationProfile(Island nIsland)
         {
-            chunkSpace = nChunkSpace;
+            island = nIsland;
         }
 
         public Vector3 profileSpaceToWorldSpace(Vector3 loc)
         {
-            return chunkSpace.chunkSpaceToWorldSpace(loc);
+            return island.chunkSpaceToWorldSpace(loc);
         }
 
         public Vector3 worldSpaceToProfileSpace(Vector3 loc)
         {
-            return chunkSpace.worldSpaceToChunkSpaceSpace(loc);
+            return island.worldSpaceToChunkSpaceSpace(loc);
         }
 
         public IntVector3 profileSpaceToWorldSpace(IntVector3 blockToFlag)
         {
-            return new IntVector3(chunkSpace.chunkSpaceToWorldSpace(blockToFlag.toVector3()));
+            return new IntVector3(island.chunkSpaceToWorldSpace(blockToFlag.toVector3()));
         }
     }
 }

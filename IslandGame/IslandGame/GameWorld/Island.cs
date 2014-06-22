@@ -147,7 +147,7 @@ namespace IslandGame.GameWorld
                 {
                     for (int y = (int)(newAABB.loc.Y); y <= (int)(newAABB.loc.Y + newAABB.height); y++)
                     {
-                        if (chunkSpace.isChunkSpaceSolidAt(x, y, z))
+                        if (isIslandSolidInIslandSpace(x, y, z))
                         {
                             if (newAABB.loc.Y < currentAABB.loc.Y)
                             { // trying to move down
@@ -174,7 +174,7 @@ namespace IslandGame.GameWorld
 
 
 
-                        if (chunkSpace.isChunkSpaceSolidAt(x,y,z))
+                        if (isIslandSolidInIslandSpace(x, y, z))
                         {
 
 
@@ -214,7 +214,7 @@ namespace IslandGame.GameWorld
 
 
 
-                        if (chunkSpace.isChunkSpaceSolidAt(x, y, z))
+                        if (isIslandSolidInIslandSpace(x, y, z))
                         {
                             if (newAABB.loc.X < currentAABB.loc.X)
                             { // trying to move down in X
@@ -228,7 +228,7 @@ namespace IslandGame.GameWorld
 
 
 
-                        if (chunkSpace.isChunkSpaceSolidAt(x, y, z))
+                        if (isIslandSolidInIslandSpace(x, y, z))
                         {
                             if (newAABB.loc.X > currentAABB.loc.X)
                             { // trying to move up in X
@@ -297,7 +297,10 @@ namespace IslandGame.GameWorld
                 Vector3 intersectedBlockLoc = new Vector3((int)((Vector3)result).X, (int)((Vector3)result).Y, (int)((Vector3)result).Z);
                 float? intersection = ray.Intersects(new BoundingBox(intersectedBlockLoc,intersectedBlockLoc+ new Vector3(1,1,1)));
                 ray.Direction.Normalize();
-                return ray.Direction * ((float)intersection - .0001f) + ray.Position;
+                if (intersection.HasValue)
+                {
+                    return ray.Direction * ((float)intersection - .0001f) + ray.Position;
+                }
             }
 
 
@@ -311,7 +314,7 @@ namespace IslandGame.GameWorld
 
         public byte? getBlockAt(ref BlockLoc loc)
         {
-            return chunkSpace.getBlockAt(ref loc);
+            return chunkSpace.getBlockAt(ref loc, new IslandPathingProfile(this));
         }
 
         public void placeExcavationMark(Ray ray)
@@ -323,7 +326,7 @@ namespace IslandGame.GameWorld
             }
 
             BlockLoc blockLoc = new BlockLoc((Vector3)blockVec3);
-            if (chunkSpace.isChunkSpaceSolidAt(blockLoc))
+            if (chunkSpace.isChunkSpaceSolidAt(blockLoc, new IslandPathingProfile(this)))
             {
                 jobSiteManager.addExcavationMark(blockLoc, getPathingProfile());
             }
@@ -331,12 +334,12 @@ namespace IslandGame.GameWorld
 
         public IslandPathingProfile getPathingProfile()
         {
-            return new IslandPathingProfile(chunkSpace);
+            return new IslandPathingProfile(this);
         }
 
         public IslandLocationProfile getLocationProfile()
         {
-            return new IslandLocationProfile(chunkSpace);
+            return new IslandLocationProfile(this);
         }
 
         private Vector3 worldSpaceToIslandSpaceForPhysics(Vector3 loc)
@@ -507,6 +510,39 @@ namespace IslandGame.GameWorld
             return jobSiteManager;
         }
 
+        internal Vector3 chunkSpaceToWorldSpace(Vector3 loc)
+        {
+            return chunkSpace.chunkSpaceToWorldSpace(loc);
+        }
 
+        internal Vector3 worldSpaceToChunkSpaceSpace(Vector3 loc)
+        {
+            return chunkSpace.worldSpaceToChunkSpaceSpace(loc);
+        }
+
+        internal bool isChunkSpaceSolidAt(BlockLoc loc)
+        {
+            return chunkSpace.isChunkSpaceSolidAt(loc, new IslandPathingProfile(this)) || jobSiteManager.isSolidAt(loc);
+        }
+
+        internal bool isIslandSolidInIslandSpace(int x, int y, int z)
+        {
+            return chunkSpace.isChunkSpaceSolidAt(x,y,z) || jobSiteManager.isSolidAt(new BlockLoc(new Vector3(x,y,z)+getLocation()));
+        }
+
+        internal Vector3 getLocation()
+        {
+            return chunkSpace.getLocation();
+        }
+
+        internal bool withinChunkSpaceInChunkSpace(int x, int y, int z)
+        {
+            return chunkSpace.withinChunkSpaceInChunkSpace(x, y, z);
+        }
+
+        internal bool couldAffordResourceExpendeture(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            return jobSiteManager.couldAffordResourceExpendeture(cost, resourceType);
+        }
     }
 }

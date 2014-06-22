@@ -35,17 +35,14 @@ namespace IslandGame.GameWorld
         };
 
 
-        //boat locations
-
-        //island blockRootedIn
 
         public IslandPathingProfile()
         {
         }
 
-        public IslandPathingProfile(ChunkSpace nChunkSpace)
+        public IslandPathingProfile(Island nIsland)
         {
-            chunkSpace = nChunkSpace;
+            island = nIsland;
         }
 
 
@@ -54,7 +51,7 @@ namespace IslandGame.GameWorld
         {
             if (withinIsland(loc.toISIntVec3(this)))
             {
-                return chunkSpace.isChunkSpaceSolidAt(loc.toISIntVec3(this));
+                return island.isChunkSpaceSolidAt(loc);
             }
 
             return false;
@@ -62,7 +59,7 @@ namespace IslandGame.GameWorld
 
         public List<IntVector3> profileSpaceListToWorldSpaceList(List<IntVector3> path)
         {
-            IntVector3 islandLoc = new IntVector3(chunkSpace.getLocation());
+            IntVector3 islandLoc = new IntVector3(island.getLocation());
             for(int i=0;i<path.Count;i++)
             {
                 path[i] += islandLoc;
@@ -73,17 +70,17 @@ namespace IslandGame.GameWorld
         public int getIslandSpaceLocationX(int worldSpaceX)
         {
 
-            return worldSpaceX -(int)chunkSpace.getLocation().X;
+            return worldSpaceX -(int)island.getLocation().X;
         }
 
         public int getIslandSpaceLocationY(int worldSpaceY)
         {
-            return worldSpaceY - (int)chunkSpace.getLocation().Y;
+            return worldSpaceY - (int)island.getLocation().Y;
         }
 
         public int getIslandSpaceLocationZ(int worldSpaceZ)
         {
-            return worldSpaceZ - (int)chunkSpace.getLocation().Z;
+            return worldSpaceZ - (int)island.getLocation().Z;
         }
 
         public bool isStandableAtWithHeight(BlockLoc IslandSpace, int entityHeight)
@@ -150,12 +147,12 @@ namespace IslandGame.GameWorld
 
         private bool withinIsland(IntVector3 loc)
         {
-            return chunkSpace.withinChunkSpaceInChunkSpace((int)loc.X, (int)loc.Y, (int)loc.Z);
+            return island.withinChunkSpaceInChunkSpace((int)loc.X, (int)loc.Y, (int)loc.Z);
         }
 
         protected virtual bool isInProfileScope(BlockLoc loc)
         {
-            return chunkSpace.withinChunkSpaceInChunkSpace((int)loc.toISIntVec3(this).X, (int)loc.toISIntVec3(this).Y, (int)loc.toISIntVec3(this).Z);
+            return island.withinChunkSpaceInChunkSpace((int)loc.toISIntVec3(this).X, (int)loc.toISIntVec3(this).Y, (int)loc.toISIntVec3(this).Z);
         }
 
         public List<BlockLoc> getSpacesThatCanBeMovedToFrom(BlockLoc from, int entityHeight)

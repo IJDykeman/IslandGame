@@ -16,7 +16,7 @@ namespace IslandGame
     {
         public static Texture2D newGameButton, quitButton, consoleBackground, saveButton, loadButton, continueButton, menuBackground;
         public static Texture2D colorPallete, colorSwatchHighlightBox;
-        public static Texture2D excavationIcon, farmIcon, woodBlockIcon, boatIcon, playerBuildIcon, storageIcon;
+        public static Texture2D excavationIcon, farmIcon, woodBlockIcon, boatIcon, playerBuildIcon, storageIcon, swordIcon, axeIcon, characterIcon;
         public static Texture2D crossReticle;
         public static Texture2D random;
         public static SpriteFont techFont, toolTipFont;
@@ -38,6 +38,10 @@ namespace IslandGame
             playerBuildIcon = content.Load<Texture2D>("UI/playerBuildIcon");
             boatIcon = content.Load<Texture2D>("UI/boatIcon");
             storageIcon = content.Load<Texture2D>("UI/lockedChest");
+            swordIcon = content.Load<Texture2D>("UI/swordIcon");
+            axeIcon = content.Load<Texture2D>("UI/axeIcon");
+            characterIcon = content.Load<Texture2D>("UI/characterIcon");
+
 
             
 

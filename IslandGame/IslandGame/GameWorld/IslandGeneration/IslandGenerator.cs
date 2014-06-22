@@ -6,8 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     public abstract class IslandGenerator
     {
+        
         public abstract void generateIsland(ChunkSpace chunkSpace, SetPieceManager setPieceManager, JobSiteManager jobSiteManager, IslandLocationProfile locationProfile);
 
         protected float normalClamp(float num)

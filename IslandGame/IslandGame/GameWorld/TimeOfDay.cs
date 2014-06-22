@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     class TimeOfDay
     {
         Vector4 skyHorizonColor;

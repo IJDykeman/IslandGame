@@ -40,7 +40,9 @@ namespace IslandGame
             setCameraLocation,
             BlockPlanPlacementHover,
             FinishDraggingStorage,
-            DraggingStorage
+            DraggingStorage,
+            JobTypeSwitch,
+            CharacterPlacement
         }
 
         public abstract class Action
@@ -212,6 +214,16 @@ namespace IslandGame
             }
         }
 
+        public class CharacterPlacement : MouseAction
+        {
+            public CharacterPlacement(Vector3 nNearPoint, Vector3 nFarPoint)
+            {
+                nearPoint = nNearPoint;
+                farPoint = nFarPoint;
+                type = Type.CharacterPlacement;
+            }
+        }
+
         public class DoubleClick : MouseAction
         {
             public DoubleClick(Vector3 nNearPoint, Vector3 nFarPoint)
@@ -350,6 +362,22 @@ namespace IslandGame
             public DeselectCharacter()
             {
                 type = Type.DeselectCharacter;
+            }
+        }
+
+        public class JobTypeSwitch : Action
+        {
+            IslandGame.GameWorld.JobType newType = GameWorld.JobType.none;
+
+            public JobTypeSwitch(IslandGame.GameWorld.JobType nNewType)
+            {
+                newType = nNewType;
+                type = Type.JobTypeSwitch;
+            }
+
+            public IslandGame.GameWorld.JobType getJobType()
+            {
+                return newType;
             }
         }
         

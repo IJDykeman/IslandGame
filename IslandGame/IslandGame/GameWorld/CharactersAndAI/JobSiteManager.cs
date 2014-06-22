@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
     {
 
         List<JobSite> jobSites;
-        ResourceBlockjobSite resourceBlockJobsite;
+        ResourceBlockJobSite resourceBlockJobsite;
         ExcavationSite excavationSite;
 
 
@@ -25,7 +25,7 @@ namespace IslandGame.GameWorld
 
             excavationSite = new ExcavationSite(profile);
             jobSites.Add(excavationSite);
-            resourceBlockJobsite = new ResourceBlockjobSite(profile);
+            resourceBlockJobsite = new ResourceBlockJobSite(profile);
             jobSites.Add(resourceBlockJobsite);
         }
 
@@ -434,7 +434,7 @@ namespace IslandGame.GameWorld
             resourceBlockJobsite.placeRescourceBlock(loc, type);
         }
 
-        public ResourceBlockjobSite getResourceJobSite()
+        public ResourceBlockJobSite getResourceJobSite()
         {
             return resourceBlockJobsite;
         }
@@ -442,6 +442,27 @@ namespace IslandGame.GameWorld
         public ExcavationSite getExcavationSite()
         {
             return excavationSite;
+        }
+
+        internal bool isSolidAt(BlockLoc loc)
+        {
+            if (resourceBlockJobsite.isSolidAt(loc))
+            {
+                return true;
+            }
+            //else if (getTreeJobSite().getTreeTrunkBlocks().Contains(loc))
+            //{
+            //    return true;
+            //}
+            else
+            {
+                return false;
+            }
+        }
+
+        internal bool couldAffordResourceExpendeture(int cost, ResourceBlock.ResourceType resourceType)
+        {
+            return resourceBlockJobsite.getBlocksToGetThisTypeFrom(resourceType).Count() >= cost;
         }
     }
 }

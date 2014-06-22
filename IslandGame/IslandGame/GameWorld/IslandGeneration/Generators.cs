@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     public class SmoothWithBluffsGenerator : IslandGenerator
     {
 
@@ -140,6 +141,7 @@ namespace IslandGame.GameWorld
 
     }
 
+    [Serializable]
     public class Volcanic : IslandGenerator
     {
         public override void generateIsland(ChunkSpace chunkSpace, SetPieceManager setPieceManager, JobSiteManager jobSiteManager, IslandLocationProfile locationProfile)
@@ -250,6 +252,7 @@ namespace IslandGame.GameWorld
         }
     }
 
+    [Serializable]
     public class PlainsGenerator : IslandGenerator
     {
 
@@ -348,6 +351,8 @@ namespace IslandGame.GameWorld
 
     }
 
+
+    [Serializable]
     public class HillyGenerator : IslandGenerator
     {
 
@@ -432,7 +437,7 @@ namespace IslandGame.GameWorld
 
     }
 
-
+    [Serializable]
     public class SmoothWithShorterBluffsGenerator : IslandGenerator
     {
 
@@ -583,7 +588,7 @@ namespace IslandGame.GameWorld
 
 
 
-
+    [Serializable]
     public class PoplarForestGenerator : IslandGenerator
     {
 
@@ -751,7 +756,7 @@ namespace IslandGame.GameWorld
 
     }
 
-
+    [Serializable]
     public class PineForestGenerator : IslandGenerator
     {
 

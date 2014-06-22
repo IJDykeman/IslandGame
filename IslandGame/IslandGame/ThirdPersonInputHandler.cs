@@ -14,7 +14,7 @@ namespace IslandGame
 
         public ThirdPersonInputHandler()
         {
-            currentMenu = MenuScreen.getGameplayHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
+            currentMenu = MenuScreen.getThirdPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             currentInterfaceState = InterfaceStates.playing;
         }
 
@@ -113,8 +113,6 @@ namespace IslandGame
             return currentMouseState;
         }
 
-
-        //
         List<PlayerAction.Action> processThirdPersonMouse()
         {
             List<PlayerAction.Action> result = new List<PlayerAction.Action>();
@@ -174,7 +172,6 @@ namespace IslandGame
                         currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingWoodStorage:
-                       
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWood));
                         currentInterfaceState = InterfaceStates.playing; 
                         break;
@@ -220,7 +217,6 @@ namespace IslandGame
         {
             return currentMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton != ButtonState.Released;
         }
-
 
         public override List<ActorAction> updateAndGetActorActions()
         {
@@ -283,6 +279,9 @@ namespace IslandGame
                         break;
                     case InterfaceStates.placingBoat:
                         result.Add(new PlayerAction.BoatPlacement(nearPoint,farPoint));
+                        break;
+                    case InterfaceStates.placingCharacter:
+                        result.Add(new PlayerAction.CharacterPlacement(nearPoint, farPoint));
                         break;
                     case InterfaceStates.placingFarm:
                         result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));

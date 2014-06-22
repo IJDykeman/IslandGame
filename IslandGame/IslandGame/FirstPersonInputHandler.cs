@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using IslandGame.GameWorld;
+using IslandGame.menus;
 
 namespace IslandGame
 {
@@ -18,6 +19,7 @@ namespace IslandGame
 
         public FirstPersonInputHandler(Character nSelectedCharacter)
         {
+            currentMenu = MenuScreen.getFirstPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             embodiedCharacter = nSelectedCharacter;
         }
 
@@ -38,6 +40,21 @@ namespace IslandGame
 
                 result.Add(new PlayerAction.SetCameraLocation(getIdealPlayerCameraLocation(), .2f));
             }
+
+            //adds scroll wheel actions to list
+            MouseState currentMouseState = Player.currentMouseState;
+            MouseState oldMouseState = Player.oldMouseState;
+            List<MenuAction> menuActionsFromScrollWheel = new List<MenuAction>();
+            if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+            {
+                menuActionsFromScrollWheel.AddRange(currentMenu.incrementSelection());
+            }
+            else if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+            {
+                menuActionsFromScrollWheel.AddRange(currentMenu.decrementSelection());
+            }
+            handleMenuActionList(result, menuActionsFromScrollWheel);
+
 
             return result;
         }
@@ -119,6 +136,8 @@ namespace IslandGame
             {
                 leftReleased();
             }
+
+
         }
 
         public override Vector2 getDeltaTiltFromMouselook()
@@ -161,6 +180,15 @@ namespace IslandGame
         {
             return timeOfLeftClickHold == 0;
         }
+
+         /*           if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+            {
+                result.AddRange(currentMenu.incrementSelection());
+            }
+            else if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+            {
+                currentMenu.decrementSelection();
+            }*/
 
 
 

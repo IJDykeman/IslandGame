@@ -463,6 +463,19 @@ namespace IslandGame.GameWorld
             }
         }
 
+        internal void handleCharacterPlacement(Ray ray)
+        {
+            Island relevant = islandManager.getClosestIslandToLocation(ray.Position);
+            Vector3? toPlace = getLastSpaceAlongRay(ray);
+            if (toPlace.HasValue)
+            {
+                if (relevant.couldAffordResourceExpendeture(12, ResourceBlock.ResourceType.Wheat))
+                {
+                    addCharacterAt(new BlockLoc((Vector3)toPlace).getMiddleInWorldSpace() + new Vector3(0, 1, 0), Actor.Faction.friendly);
+                }
+            }
+        }
+
         public LinkedList<BlockLoc> GetBlocksBoundBy(BlockLoc loc1, BlockLoc loc2)
         {
             BlockLoc min = new BlockLoc((int)Math.Min(loc1.WSX(), loc2.WSX()), (int)Math.Min(loc1.WSY(), loc2.WSY()), (int)Math.Min(loc1.WSZ(), loc2.WSZ()));
@@ -588,11 +601,6 @@ namespace IslandGame.GameWorld
         {
             actorManager.addBoatAt(nLoc);
         }
-
-
-
-
-
 
     }
 }

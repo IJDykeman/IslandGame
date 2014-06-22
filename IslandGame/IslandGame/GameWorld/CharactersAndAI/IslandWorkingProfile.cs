@@ -26,7 +26,7 @@ namespace IslandGame.GameWorld
             return getBlocksToGetThisTypeFrom(typeToFetch).ToList();
         }
 
-        public ResourceBlockjobSite getResourcesJobSite()
+        public ResourceBlockJobSite getResourcesJobSite()
         {
             return jobSiteManager.getResourceJobSite();
         }

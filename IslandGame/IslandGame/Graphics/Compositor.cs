@@ -350,7 +350,7 @@ namespace IslandGame
         {
 
 
-            return Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 2.3f, device.Viewport.AspectRatio, 0.16f, viewDistance); //used to be 1 and 300 for the last two arguments
+            return Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 2.3f, device.Viewport.AspectRatio, 0.07f, viewDistance); //used to be 1 and 300 for the last two arguments
         }
 
         public static void UpdateViewMatrix(Vector3 loc, Quaternion cameraRotationQuaternion)

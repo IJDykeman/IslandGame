@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     class PaintedCubeSpaceDisplayComponant
     {
         [NonSerialized]

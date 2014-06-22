@@ -210,6 +210,7 @@
     <Compile Include="GameWorld\WorldPathingProfile.cs" />
     <Compile Include="Graphics\LocationInterpolator.cs" />
     <Compile Include="menus\Image.cs" />
+    <Compile Include="menus\UIRadioGroup.cs" />
     <Compile Include="menus\UIElementWithChildren.cs" />
     <Compile Include="ThirdPersonInputHandler.cs" />
     <Compile Include="GameWorld\Tree.cs" />

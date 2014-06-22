@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame
 {
+    [Serializable]
     class GameDirector
     {
         DayNightCycler dayNightCycler;

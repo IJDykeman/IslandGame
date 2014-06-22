@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.GameWorld
 {
+
     interface Intersectable
     {
         float? intersects(Ray ray);

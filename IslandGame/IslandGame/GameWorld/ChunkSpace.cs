@@ -113,14 +113,15 @@ namespace IslandGame.GameWorld
             return false;
         }
 
-        public bool isChunkSpaceSolidAt(IntVector3 intloc)
+        private bool isChunkSpaceSolidAt(IntVector3 intloc)
         {
             return isChunkSpaceSolidAt(intloc.X, intloc.Y, intloc.Z);
         }
 
-        public bool isChunkSpaceSolidAt(BlockLoc loc)
+        public bool isChunkSpaceSolidAt(BlockLoc loc, IslandPathingProfile profile)
         {
-            return isChunkSpaceSolidAt(loc.toISIntVec3(new IslandPathingProfile(this)));
+            
+            return isChunkSpaceSolidAt(loc.toISIntVec3(profile));
         }
 
         public int getWidth()
@@ -224,9 +225,8 @@ namespace IslandGame.GameWorld
             }
         }
 
-        internal byte? getBlockAt(ref BlockLoc loc)
+        internal byte? getBlockAt(ref BlockLoc loc, IslandPathingProfile profile)
         {
-            IslandPathingProfile profile = new IslandPathingProfile(this);
             if (withinChunkSpaceInChunkSpace(loc.ISX(profile), loc.ISY(profile), loc.ISZ(profile)))
             {
                 return getChunkSpaceBlockAtWithoutWithinCheck(loc.ISX(profile), loc.ISY(profile), loc.ISZ(profile));

@@ -18,7 +18,15 @@ namespace IslandGame.menus
         protected Vector2 location;
         protected float scale = 1;
         protected Color color = Color.White;
+        protected Color mousedOverColor = new Color(140, 88, 58);
         protected string toolTip = "";
+
+        public enum buttonInteractionState
+        {
+            none,
+            mousedOver,
+            pressed
+        }
 
         public UIElement() { }
 
@@ -57,6 +65,13 @@ namespace IslandGame.menus
             return result;
         }
 
+        public virtual List<MenuAction> getAction()
+        {
+            List<MenuAction> result = new List<MenuAction>();
+            result.Add(action);
+            return result;
+        }
+
         public bool locIsWithinElement(Vector2 clickLoc){
         
             return getRectangle().Contains(new Point((int)clickLoc.X, (int)clickLoc.Y));
@@ -72,9 +87,16 @@ namespace IslandGame.menus
             return texture;
         }
 
-        public Color getColor()
+        public Color getColor(Vector2 clickLoc)
         {
-            return color;
+            if (locIsWithinElement(clickLoc))
+            {
+                return mousedOverColor;
+            }
+            else
+            {
+                return color;
+            }
         }
 
         public bool hasToolTip()
@@ -87,6 +109,32 @@ namespace IslandGame.menus
             return toolTip;
         }
 
+
+        public virtual void draw(SpriteBatch spriteBatch, Vector2 mouseLocation)
+        {
+            spriteBatch.Draw(getTexture(), getRectangle(), getColor(mouseLocation));
+        }
+
+        public virtual void draw(SpriteBatch spriteBatch, buttonInteractionState interactionState)
+        {
+            Color colorToUse = color;
+            if (interactionState == buttonInteractionState.mousedOver)
+            {
+                colorToUse = mousedOverColor;
+            }
+
+            spriteBatch.Draw(getTexture(), getRectangle(), colorToUse);
+        }
+
+        public virtual List<MenuAction> incrementSelection()
+        {
+            return new List<MenuAction>();
+        }
+
+        public virtual List<MenuAction> decrementSelection()
+        {
+            return new List<MenuAction>();
+        }
     }
 
 }

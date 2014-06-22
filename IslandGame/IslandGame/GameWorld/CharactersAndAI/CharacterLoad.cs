@@ -7,7 +7,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 {
     class CharacterLoad
     {
-        private ResourceType? carriedResource;
+        private ResourceBlock.ResourceType? carriedResource;
 
         public CharacterLoad()
         {
@@ -19,11 +19,11 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return carriedResource.HasValue;
         }
 
-        public ResourceType getLoad()
+        public ResourceBlock.ResourceType getLoad()
         {
             if (isCaryingItem())
             {
-                return (ResourceType)carriedResource;
+                return (ResourceBlock.ResourceType)carriedResource;
             }
             else
             {
@@ -36,7 +36,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             carriedResource = null;
         }
 
-        public void pickUpItem(ResourceType nCarriedResource)
+        public void pickUpItem(ResourceBlock.ResourceType nCarriedResource)
         {
             if (!isCaryingItem())
             {

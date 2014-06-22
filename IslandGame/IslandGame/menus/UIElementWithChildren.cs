@@ -7,6 +7,6 @@ namespace IslandGame.menus
 {
     class UIElementWithChildren : UIElement
     {
-        List<UIElement> children;
+        protected List<UIElement> children;
     }
 }

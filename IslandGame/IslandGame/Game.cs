@@ -206,6 +206,9 @@ namespace IslandGame
                     case PlayerAction.Type.BoatPlacement:
                         world.HandleBoatJobsitePlacement(((PlayerAction.BoatPlacement)action).getRay());
                         break;
+                    case PlayerAction.Type.CharacterPlacement:
+                        world.handleCharacterPlacement(((PlayerAction.CharacterPlacement)action).getRay());
+                        break;
 
 
                     case PlayerAction.Type.StartDragging:
@@ -314,6 +317,9 @@ namespace IslandGame
                         break;
                     case PlayerAction.Type.DeselectCharacter:
                         player.deselectCharacter();
+                        break;
+                    case PlayerAction.Type.JobTypeSwitch:
+                        player.getSelectedCharacter().setJobType(((PlayerAction.JobTypeSwitch)action).getJobType());
                         break;
                     
                     default:

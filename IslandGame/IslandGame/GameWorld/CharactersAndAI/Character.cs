@@ -305,7 +305,7 @@ namespace IslandGame.GameWorld
             }
         }
 
-        private void setJobType(JobType newJobType)
+        public void setJobType(JobType newJobType)
         {
             if ( newJobType != currentJobType && newJobType != JobType.none)
             {
@@ -431,7 +431,7 @@ namespace IslandGame.GameWorld
             load.dropItem();
         }
 
-        public void pickUpItem(ResourceType nItem)
+        public void pickUpItem(ResourceBlock.ResourceType nItem)
         {
             load.pickUpItem(nItem);
         }
@@ -441,7 +441,7 @@ namespace IslandGame.GameWorld
             return load.isCaryingItem();
         }
 
-        public ResourceType getLoad()
+        public ResourceBlock.ResourceType getLoad()
         {
             return load.getLoad();
         }

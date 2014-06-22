@@ -14,25 +14,25 @@ namespace IslandGame.menus
     public class MenuScreen
     {
 
-            public List<UIElement> buttons;
+            protected List<UIElement> UIElements;
             bool willDisablePlayerInteraction = false;
 
             public MenuScreen(List<UIElement> nList)
             {
-                buttons = nList;
+                UIElements = nList;
             }
 
             public MenuScreen(List<UIElement> nList, bool nWillDisablePlayerInteraction)
             {
                 willDisablePlayerInteraction = nWillDisablePlayerInteraction;
-                buttons = nList;
+                UIElements = nList;
             }
             
 
             public List<MenuAction> click(Vector2 click)
             {
                 List<MenuAction> result = new List<MenuAction>();
-                foreach (UIElement button in buttons)
+                foreach (UIElement button in UIElements)
                 {
                     result.AddRange(button.click(click));
                 }
@@ -41,7 +41,7 @@ namespace IslandGame.menus
 
             public bool clickLocHitsMenu(Vector2 click)
             {
-                foreach (UIElement button in buttons)
+                foreach (UIElement button in UIElements)
                 {
                     if (button.locIsWithinElement(click))
                     {
@@ -66,7 +66,7 @@ namespace IslandGame.menus
                 return newInterface;
             }
 
-            public static MenuScreen getGameplayHud(int width, int height)
+            public static MenuScreen getThirdPersonHud(int width, int height)
             {
                 List<UIElement> buttonList = new List<UIElement>();
                 int horizontalPadding = 50;
@@ -87,7 +87,34 @@ namespace IslandGame.menus
                     scale, hudTint, "place wood stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceWheatStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 7, height - verticlePadding),
                     scale, hudTint, "place wheat stockpile"));
+                buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 8, height - verticlePadding),
+                    scale, hudTint, "create new character (-12 wheat)"));
                 MenuScreen newInterface = new MenuScreen(buttonList);
+                return newInterface;
+            }
+
+            public static MenuScreen getFirstPersonHud(int width, int height)
+            {
+                List<UIElement> buttonList = new List<UIElement>();
+                int horizontalPadding = 50;
+                int verticlePadding = 50;
+                float scale = 1f;
+                Color hudTint = Color.Wheat;
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.mining), ContentDistributor.excavationIcon, new Vector2(horizontalPadding, height - verticlePadding),
+                    scale, hudTint, "pickaxe"));
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.agriculture), ContentDistributor.farmIcon, new Vector2(horizontalPadding * 2, height - verticlePadding),
+                    scale, hudTint, "hoe"));
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.building), ContentDistributor.woodBlockIcon, new Vector2(horizontalPadding * 3, height - verticlePadding),
+                    scale, hudTint, "hammer"));
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.combat), ContentDistributor.swordIcon, new Vector2(horizontalPadding * 4, height - verticlePadding),
+                    scale, hudTint, "sword"));
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.logging), ContentDistributor.axeIcon, new Vector2(horizontalPadding * 5, height - verticlePadding),
+                    scale, hudTint, "axe"));
+                UIRadioGroup group = new UIRadioGroup(buttonList);
+                List<UIElement> interfaceList = new List<UIElement>();
+                interfaceList.Add(group);
+
+                MenuScreen newInterface = new MenuScreen(interfaceList);
                 return newInterface;
             }
 
@@ -99,22 +126,22 @@ namespace IslandGame.menus
                 return newInterface;
             }
 
-
             public void display(SpriteBatch spriteBatch, Vector2 mouseLocation, int screenWidth, int screenHeight)
             {
-                foreach (UIElement button in buttons)
+                foreach (UIElement button in UIElements)
                 {
-                    spriteBatch.Draw(button.getTexture(), button.getRectangle(), button.getColor());
+                    button.draw(spriteBatch, mouseLocation);
 
                 }
 
-                foreach (UIElement button in buttons)
+                foreach (UIElement button in UIElements)
                 {
                     if (button.hasToolTip() && button.locIsWithinElement(mouseLocation))
                     {
                         string toDraw = button.getToolTip();
                         int toolTipWidthInPixels = (int)(toDraw.Length * 8.1429) + 3;
-                        Vector2 toolTipLoc = mouseLocation + new Vector2(20, 0);
+                        Vector2 toolTipLoc = new Vector2(button.getRectangle().Center.X - toolTipWidthInPixels/2,
+                            button.getRectangle().Center.Y-button.getRectangle().Height / 2-23);//mouseLocation + new Vector2(20, 0);
                         if (toolTipLoc.X + toolTipWidthInPixels > screenWidth)
                         {
                             toolTipLoc.X = screenWidth - toolTipWidthInPixels;
@@ -131,6 +158,26 @@ namespace IslandGame.menus
             public bool disablesPlayerInteraction()
             {
                 return willDisablePlayerInteraction;
+            }
+
+            public virtual List<MenuAction> incrementSelection()
+            {
+                List<MenuAction> result = new List<MenuAction>();
+                foreach (UIElement test in UIElements)
+                {
+                    result.AddRange(test.incrementSelection());
+                }
+                return result;
+            }
+
+            public virtual List<MenuAction> decrementSelection()
+            {
+                List<MenuAction> result = new List<MenuAction>();
+                foreach (UIElement test in UIElements)
+                {
+                    result.AddRange(test.decrementSelection());
+                }
+                return result;
             }
         
     }
