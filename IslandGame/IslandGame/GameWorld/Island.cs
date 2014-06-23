@@ -66,7 +66,7 @@ namespace IslandGame.GameWorld
             Random rand = new Random();
             chunkSpace = new ChunkSpace(loc);
             setPieceManager = new SetPieceManager();
-            jobSiteManager = new JobSiteManager(getPathingProfile());
+            jobSiteManager = new JobSiteManager(new IslandWorkingProfile(jobSiteManager,getPathingProfile()));
         }
 
         public void generateIsland()
@@ -115,13 +115,13 @@ namespace IslandGame.GameWorld
             mipLevel = level;
         }
 
-        public void display(GraphicsDevice device, Effect effect)
+        public void display(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             
 
             chunkSpace.display(device, effect);
             setPieceManager.display(device, effect);
-            jobSiteManager.display(device, effect, getLocationProfile());
+            jobSiteManager.display(device, effect, getLocationProfile(), parameters);
         }
 
         public void runPreDrawCalculations()
@@ -309,6 +309,11 @@ namespace IslandGame.GameWorld
 
         public Vector3? getLastSpaceAlongRayConsideringBuildSite(Ray ray){
             return jobSiteManager.getLastSpaceAlongRayConsideringBuildSite(ray, getLastSpaceAlongRayInAndFromWorldSpace(ray));
+        }
+
+        public Vector3? getLastSpaceAlongRayConsideringResourceBlocks(Ray ray)
+        {
+            return jobSiteManager.getLastSpaceAlongRayConsideringResourceBlocks(ray, getLastSpaceAlongRayInAndFromWorldSpace(ray));
         }
 
 
@@ -505,6 +510,11 @@ namespace IslandGame.GameWorld
             jobSiteManager.addResourceBlock(loc, type);
         }
 
+        public void removeResourceBlock(BlockLoc blockLoc, ResourceBlock.ResourceType resourceType)
+        {
+            jobSiteManager.removeResourceBlock(blockLoc, resourceType);
+        }
+
         public JobSiteManager getJobSiteManager()
         {
             return jobSiteManager;
@@ -549,5 +559,7 @@ namespace IslandGame.GameWorld
         {
             jobSiteManager.debitResource(cost, resourceType);
         }
+
+
     }
 }

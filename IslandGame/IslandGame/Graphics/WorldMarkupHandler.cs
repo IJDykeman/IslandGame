@@ -89,21 +89,26 @@ namespace IslandGame
         public static void addFlagWithMatrix(string path, Matrix matrix, PaintedCubeSpaceDisplayComponant model, float opacity)
         {
             path = path.ToUpper();
-            if (FilePathsAndPositions.ContainsKey(path))
+            if (FilePathsAndPositions.ContainsKey(getIndexString(path, opacity)))
             {
 
                 //MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
                 //memoized.addPose( new MatrixAndOpacity(position, scale,opacity));
-                FilePathsAndPositions[path].addPose(new MatrixAndOpacity(matrix, opacity));
+                FilePathsAndPositions[getIndexString(path, opacity)].addPose(new MatrixAndOpacity(matrix, opacity));
             }
             else
             {
 
                 MemoizedModelAndPoses memoized = new MemoizedModelAndPoses(model);
                 memoized.addPose(new MatrixAndOpacity(matrix, opacity));
-                FilePathsAndPositions.Add(path, memoized);
+                FilePathsAndPositions.Add(getIndexString(path, opacity), memoized);
 
             }
+        }
+
+        private static string getIndexString(string path, float opacity)
+        {
+            return path + opacity*2342.56547f;
         }
 
         public static void addFlagPathWithPosition(string path, Vector3 position, float scale)

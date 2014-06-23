@@ -70,6 +70,11 @@ namespace IslandGame.GameWorld
                         islandManager.addResourceBlock(((ActorPlaceResourceAction)action).getLocToPlace()
                             , ((ActorPlaceResourceAction)action).getRescourceTypeToPlace());
                         break;
+                    case ActorActions.PickUpResource:
+
+                        islandManager.removeResourceBlock(((ActorPickUpResourceAction)action).getLocToPlace()
+                            , ((ActorPickUpResourceAction)action).getRescourceTypeToPlace());
+                        break;
                     case ActorActions.strike:
                         handleStrikeAction(action);
                         break;
@@ -192,7 +197,6 @@ namespace IslandGame.GameWorld
             moveAction.character.setAABB(newAABBforCharacter);
         }
 
-
         private void buildBlockAt(BlockLoc blockLoc, byte typeToBuild)
         {
             islandManager.buildBlockAt(blockLoc, typeToBuild);
@@ -203,8 +207,10 @@ namespace IslandGame.GameWorld
 
             Ray rightClickRay = rightClick.getRay();
 
-            if (giveCharacterJobSiteJobReturnWhetherJobFound(character, ref rightClickRay))
+            Job job = giveCharacterJobSiteJobReturnWhetherJobFound(character, ref rightClickRay);
+            if (!(job is UnemployedJob))
             {
+                character.setJobAndCheckUseability(job);
                 return;
             }
 
@@ -223,12 +229,12 @@ namespace IslandGame.GameWorld
 
         private void giveCharacterTravelJob(Character character, Ray rightClickRay)
         {
-            Vector3? clicked = getLastSpaceAlongRay(rightClickRay);
+            Vector3? clicked = getIslandManager().getClosestIslandToLocation(character.getLocation()).getLastSpaceAlongRayConsideringResourceBlocks(rightClickRay);
             if (clicked.HasValue)
             {
                 IntVector3 clickedBlock = new IntVector3((Vector3)clicked);
                 IslandPathingProfile profile = getIslandManager().getClosestIslandToLocation(character.getLocation()).getPathingProfile();
-
+                
                 PathHandler pathHandler = new PathHandler();
 
                 Path path = pathHandler.getPathToSingleBlock(profile,
@@ -260,7 +266,7 @@ namespace IslandGame.GameWorld
             
         }
 
-        private bool giveCharacterJobSiteJobReturnWhetherJobFound(Character character, ref Ray rightClickRay)
+        private Job giveCharacterJobSiteJobReturnWhetherJobFound(Character character, ref Ray rightClickRay)
         {
             Vector3? righClickedBlock = getLastSpaceAlongRay(rightClickRay);
             JobSite clickedJobSite = getIslandManager().getJobSiteAlongRay(rightClickRay);
@@ -270,7 +276,7 @@ namespace IslandGame.GameWorld
                 {
                     if (Vector3.Distance((Vector3)righClickedBlock, rightClickRay.Position) < (float)clickedJobSite.intersects(rightClickRay)-.01f)
                     {
-                        return false;
+                        return new UnemployedJob();
                     }
                 }
 
@@ -278,9 +284,9 @@ namespace IslandGame.GameWorld
                     islandManager.getClosestIslandToLocation(character.getFootLocation()).getJobSiteManager(), 
                     islandManager.getClosestIslandToLocation(character.getFootLocation()).getPathingProfile()));
                 character.setJobAndCheckUseability(job);
-                return true;
+                return job;
             }
-            return false;
+            return new UnemployedJob();
         }
 
 
@@ -310,9 +316,9 @@ namespace IslandGame.GameWorld
             islandManager.makeNewIsland(new Vector2(location.X, location.Z));
         }
 
-        public void displayIslands(GraphicsDevice device, Effect effect, BoundingFrustum frustrum)
+        public void displayIslands(GraphicsDevice device, Effect effect, BoundingFrustum frustrum, DisplayParameters displayParameters)
         {
-            islandManager.display(device, effect, frustrum);
+            islandManager.display(device, effect, frustrum, displayParameters);
         }
 
         public void runPreDrawCalculations()

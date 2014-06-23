@@ -56,12 +56,12 @@ namespace IslandGame.GameWorld
             return new ExcavateKickoffJob(workingProfile, newWorker);
         }
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             foreach (BlockLoc test in blocksToBeRemoved)
             {
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"worldMarkup\redCubeOutline.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"worldMarkup\redCubeOutline.chr",
+                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.1f/7f,.6f);
             }
         }
 

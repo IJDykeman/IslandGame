@@ -26,6 +26,7 @@ namespace IslandGame.GameWorld
             DoStrikeOfWorkAlongRay,
             DoStrikeOfWorkOnBlock,
             PlaceResource,
+            PickUpResource,
             HarvestFarmBlock,
 
         }
@@ -440,6 +441,7 @@ namespace IslandGame.GameWorld
 
         }
 
+        [Serializable]
         public class PlaceResource : Task
         {
             BlockLoc blockToPlaceIn;
@@ -470,30 +472,33 @@ namespace IslandGame.GameWorld
 
         }
 
-        public class PickUpResourceBlock : Task
+        [Serializable]
+        public class PickUpResource : Task
         {
-            BlockLoc blockToPickUp;
-            ResourceBlock.ResourceType typeToPickUp;
+            BlockLoc blockToPlaceIn;
+            ResourceBlock.ResourceType typeToPlace;
 
-            public PickUpResourceBlock(BlockLoc nBlockToPickUpFrom, ResourceBlock.ResourceType ntypeToPickUp)
+            public PickUpResource(BlockLoc nBlockToPlaceIn, ResourceBlock.ResourceType ntypeToPlace)
             {
-                taskType = Type.PlaceResource;
-                typeToPickUp = ntypeToPickUp;
-                blockToPickUp = nBlockToPickUpFrom;
+                taskType = Type.PickUpResource;
+                typeToPlace = ntypeToPlace;
+                blockToPlaceIn = nBlockToPlaceIn;
             }
 
-            public BlockLoc getLocToPickUpFrom()
+
+
+            public BlockLoc getLocToPlaceResource()
             {
-                return blockToPickUp;
+                return blockToPlaceIn;
             }
             public override bool isComplete()
             {
                 return true;
             }
 
-            public ResourceBlock.ResourceType getTypeToPickUp()
+            public ResourceBlock.ResourceType getTypeToPlace()
             {
-                return typeToPickUp;
+                return typeToPlace;
             }
 
         }

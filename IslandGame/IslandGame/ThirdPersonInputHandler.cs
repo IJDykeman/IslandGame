@@ -169,15 +169,23 @@ namespace IslandGame
                 {
                     case InterfaceStates.placingFarm:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
-                        currentInterfaceState = InterfaceStates.playing; 
+                        //currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingWoodStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWood));
-                        currentInterfaceState = InterfaceStates.playing; 
+                        //currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingWheatStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWheat));
-                        currentInterfaceState = InterfaceStates.playing;
+                        //currentInterfaceState = InterfaceStates.playing;
+                        break;
+                    case InterfaceStates.placingStoneStorage:
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeStone));
+                        //currentInterfaceState = InterfaceStates.playing;
+                        break;
+                    case InterfaceStates.placingExcavation:
+                        result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.excavate));
+                        //currentInterfaceState = InterfaceStates.playing;
                         break;
 
                 }
@@ -200,9 +208,17 @@ namespace IslandGame
                             result.Add(new PlayerAction.Dragging(nearPoint,
                                 farPoint, PlayerAction.Dragging.DragType.storeWheat));
                             break;
+                        case InterfaceStates.placingWoodStorage:
+                            result.Add(new PlayerAction.Dragging(nearPoint,
+                                farPoint, PlayerAction.Dragging.DragType.storeWood));
+                            break;
+                        case InterfaceStates.placingStoneStorage:
+                            result.Add(new PlayerAction.Dragging(nearPoint,
+                                farPoint, PlayerAction.Dragging.DragType.storeStone));
+                            break;
                         case InterfaceStates.placingExcavation:
-                            result.Add(new PlayerAction.ExcavationMouseHover(nearPoint,
-                                farPoint));
+                            result.Add(new PlayerAction.Dragging(nearPoint,
+                                farPoint, PlayerAction.Dragging.DragType.excavate));
                             break;
                     }
                 
@@ -274,9 +290,6 @@ namespace IslandGame
                         break;
                     case InterfaceStates.inMainMenu:
                         break;
-                    case InterfaceStates.placingExcavation:
-                        result.Add(new PlayerAction.PlaceExcavationMarker(nearPoint,farPoint));
-                        break;
                     case InterfaceStates.placingBoat:
                         result.Add(new PlayerAction.BoatPlacement(nearPoint,farPoint));
                         break;
@@ -285,6 +298,9 @@ namespace IslandGame
                         break;
                     case InterfaceStates.placingFarm:
                         result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
+                        break;
+                    case InterfaceStates.placingExcavation:
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.excavate));
                         break;
                     case InterfaceStates.placingWoodPlanBlocks:
                         result.Add(new PlayerAction.RemoveWoodBlockPlan(nearPoint,farPoint));
@@ -296,6 +312,10 @@ namespace IslandGame
                     case InterfaceStates.placingWheatStorage:
                         PlayerAction.Dragging.DragType dragWheat = PlayerAction.Dragging.DragType.storeWheat;
                         result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, dragWheat));
+                        break;
+                    case InterfaceStates.placingStoneStorage:
+                        PlayerAction.Dragging.DragType dragStone = PlayerAction.Dragging.DragType.storeStone;
+                        result.Add(new PlayerAction.StartDragging(nearPoint, farPoint, dragStone));
                         break;
 
                 }

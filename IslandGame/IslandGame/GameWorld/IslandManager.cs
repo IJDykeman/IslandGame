@@ -232,7 +232,7 @@ namespace IslandGame.GameWorld
 
         }
 
-        public void display(GraphicsDevice device, Effect effect, BoundingFrustum frustrum)
+        public void display(GraphicsDevice device, Effect effect, BoundingFrustum frustrum, DisplayParameters parameters)
         {
             lock (islands)
             {
@@ -241,7 +241,7 @@ namespace IslandGame.GameWorld
                 {
                     if (frustrum.Intersects(island.getBoundingBox()))
                     {
-                        island.display(device, effect);
+                        island.display(device, effect, parameters);
                     }
                 }
             }
@@ -427,5 +427,10 @@ namespace IslandGame.GameWorld
         }
 
 
+
+        public void removeResourceBlock(BlockLoc blockLoc, ResourceBlock.ResourceType resourceType)
+        {
+            getClosestIslandToLocation(blockLoc.toWorldSpaceVector3()).removeResourceBlock(blockLoc, resourceType);
+        }
     }
 }

@@ -13,10 +13,12 @@ namespace IslandGame.GameWorld.CharactersAndAI
         BlockLoc placementloc;
         bool hasFailedToFindOneBlockToBuild = false;
         bool hasPlacedBlock = false;
+        private IslandWorkingProfile workingProfile;
 
 
-        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock)
+        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, IslandWorkingProfile nworkingProfile)
         {
+            workingProfile = nworkingProfile;
             buildSite = nBuildSite;
             character = nCharacter;
             setJobType(JobType.building);
@@ -25,12 +27,8 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (hasPlacedBlock)
-            {
-                return new CharacterTask.SwitchJob(new BuildKickoffJob(buildSite, character));
-            }
 
-            if (buildSite.numBlocksLeftToBuild() > 0 && buildSite.containsBlockToBuild(placementloc))
+            if ( !hasPlacedBlock && buildSite.numBlocksLeftToBuild() > 0 && buildSite.containsBlockToBuild(placementloc))
             {
                 hasPlacedBlock = true;
                 return new CharacterTask.BuildBlock(placementloc, (byte)5);
@@ -39,13 +37,8 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
             else
             {
-                if (placementloc != null)
-                {
-                    return new CharacterTask.LookTowardPoint(placementloc.toWorldSpaceVector3()
-                        + new Microsoft.Xna.Framework.Vector3(1, 1, 1) / 2f);
+                                return new CharacterTask.SwitchJob(new BuildKickoffJob(buildSite, character,workingProfile));
 
-                }
-                return new CharacterTask.NoTask();
             }
 
 

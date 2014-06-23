@@ -97,7 +97,11 @@ namespace IslandGame
 
         public static void display(GameWorld.World world, Player player, Character doNotDisplay)
         {
-
+            DisplayParameters displayParameters = new DisplayParameters();
+            if (player.wantsStockpilesDisplayed())
+            {
+                displayParameters.addParameter(DisplayParameter.drawStockpiles);
+            }
             RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
             device.RasterizerState = rs;
@@ -125,7 +129,7 @@ namespace IslandGame
                 DepthBufferEnable = true
             };
 
-            display3DObjects(world, player, doNotDisplay, effect);
+            display3DObjects(world, player, doNotDisplay, effect, displayParameters);
             
             
 
@@ -182,13 +186,13 @@ namespace IslandGame
 
         }
 
-        private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
+        private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse, DisplayParameters displayParameters)
         {
 
 
 
             effect.Parameters["xOpacity"].SetValue(1f);
-            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)));
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)),displayParameters);
             world.displayActors(device, effectToUse, doNotDisplay);
             player.display3D();
             foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
@@ -207,10 +211,10 @@ namespace IslandGame
 
         }
 
-        private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse)
+        private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse, DisplayParameters parameters)
         {
 
-            world.displayIslands(device, effectToUse, new BoundingFrustum(getShadowViewMatrix(player)*getShadowProjectionMatrix()));
+            world.displayIslands(device, effectToUse, new BoundingFrustum(getShadowViewMatrix(player)*getShadowProjectionMatrix()), parameters);
 
             //world.displayActors(device, effectToUse, doNotDisplay);
             effectToUse.CurrentTechnique = effectToUse.Techniques["Instanced"];
@@ -329,8 +333,6 @@ namespace IslandGame
 
             return shadowCamPos;
         }
-        
-
 
         private static BoundingSphere getViewFrustumBoundingSphereForShadows()
         {

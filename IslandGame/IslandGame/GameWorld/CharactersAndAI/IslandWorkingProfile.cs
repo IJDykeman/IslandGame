@@ -23,7 +23,7 @@ namespace IslandGame.GameWorld
 
         public IEnumerable<BlockLoc> getBlocksToGetThisTypeFrom(ResourceBlock.ResourceType typeToFetch)
         {
-            return getBlocksToGetThisTypeFrom(typeToFetch).ToList();
+            return jobSiteManager.getResourceJobSite().getBlocksToGetThisTypeFrom(typeToFetch).ToList();
         }
 
         public ResourceBlockJobSite getResourcesJobSite()

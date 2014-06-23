@@ -16,24 +16,25 @@ namespace IslandGame.GameWorld
         List<JobSite> jobSites;
         ResourceBlockJobSite resourceBlockJobsite;
         ExcavationSite excavationSite;
+        IslandWorkingProfile workingProfile;
 
-
-        public JobSiteManager(IslandPathingProfile profile)
+        public JobSiteManager(IslandWorkingProfile nworkingProfile)
         {
+            workingProfile = nworkingProfile;
             jobSites = new List<JobSite>();
-            jobSites.Add(new TreesJobSite(profile));
+            jobSites.Add(new TreesJobSite(nworkingProfile.getPathingProfile()));
 
-            excavationSite = new ExcavationSite(profile);
+            excavationSite = new ExcavationSite(nworkingProfile.getPathingProfile());
             jobSites.Add(excavationSite);
-            resourceBlockJobsite = new ResourceBlockJobSite(profile);
+            resourceBlockJobsite = new ResourceBlockJobSite(nworkingProfile.getPathingProfile());
             jobSites.Add(resourceBlockJobsite);
         }
 
-        public void display(GraphicsDevice device, Effect effect, IslandLocationProfile locationProfile)
+        public void display(GraphicsDevice device, Effect effect, IslandLocationProfile locationProfile, DisplayParameters parameters)
         {
             foreach (JobSite site in jobSites)
             {
-                site.draw(device, effect);
+                site.draw(device, effect, parameters);
             }
 
         }
@@ -97,6 +98,15 @@ namespace IslandGame.GameWorld
                     break;
                 case PlayerAction.Dragging.DragType.storeWood:
                     placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Wood);
+                    break;
+                case PlayerAction.Dragging.DragType.storeStone:
+                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Stone);
+                    break;
+                case PlayerAction.Dragging.DragType.excavate:
+                    foreach (BlockLoc test in blocksToAdd)
+                    {
+                        addExcavationMark(test, workingProfile.getPathingProfile());
+                    }
                     break;
 
             }
@@ -390,6 +400,42 @@ namespace IslandGame.GameWorld
             return null;
         }
 
+        internal Vector3? getLastSpaceAlongRayConsideringResourceBlocks(Ray ray, Vector3? exactSpaceHitLocOnIsland)
+        {
+
+
+
+            float? intersectsJobSite = resourceBlockJobsite.intersects(ray);
+            if (intersectsJobSite.HasValue)
+            {
+
+                Vector3 locationOfSelectedSpaceOnJobSite = ray.Position + ray.Direction
+                    * ((float)intersectsJobSite - .001f);
+
+                if (exactSpaceHitLocOnIsland.HasValue)
+                {
+                    if (Vector3.Distance((Vector3)exactSpaceHitLocOnIsland, ray.Position) >
+                        Vector3.Distance(locationOfSelectedSpaceOnJobSite, ray.Position))
+                    {
+                        return locationOfSelectedSpaceOnJobSite;
+                    }
+                    else
+                    {
+                        return exactSpaceHitLocOnIsland;
+                    }
+                }
+                else
+                {
+                    return locationOfSelectedSpaceOnJobSite;
+                }
+            }
+            else
+            {
+
+                return exactSpaceHitLocOnIsland;
+            }
+        }
+
         public void addJobSite(JobSite newJobSite)
         {
             jobSites.Add(newJobSite);
@@ -434,6 +480,11 @@ namespace IslandGame.GameWorld
             resourceBlockJobsite.placeRescourceBlock(loc, type);
         }
 
+        internal void removeResourceBlock(BlockLoc blockLoc, ResourceBlock.ResourceType resourceType)
+        {
+            resourceBlockJobsite.removeRescourceBlock(blockLoc, resourceType);
+        }
+
         public ResourceBlockJobSite getResourceJobSite()
         {
             return resourceBlockJobsite;
@@ -469,6 +520,10 @@ namespace IslandGame.GameWorld
         {
             resourceBlockJobsite.debitResource(cost, resourceType);
         }
+
+
+
+
     }
 }
 

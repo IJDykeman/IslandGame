@@ -47,7 +47,7 @@ namespace IslandGame.GameWorld
             plantBlocks.Remove(toDestroy);
         }
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             foreach (BlockLoc test in plantBlocks.Keys)
             {

@@ -281,5 +281,11 @@ namespace IslandGame
             return inputHandler.selectedBlockType;
         }
 
+        public bool wantsStockpilesDisplayed()
+        {
+            return inputHandler.wantsStockpilesDisplayed();
+        }
+
+
     }
 }

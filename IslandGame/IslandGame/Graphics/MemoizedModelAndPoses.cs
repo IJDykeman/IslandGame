@@ -43,17 +43,6 @@ namespace IslandGame
             }
         }
 
-        public void drawOLD(GraphicsDevice device, Effect effect)
-        {
-            model.sendModelDataToGPU(device);
-            
-
-            foreach (MatrixAndOpacity pose in poses)
-            {
-                model.drawForBodyPartWithPresetBuffers(effect, pose.matrix, false);
-            }
-        }
-
         private VertexDeclaration GenerateInstanceVertexDeclaration()
         {
             VertexElement[] instanceStreamElements = new VertexElement[4];

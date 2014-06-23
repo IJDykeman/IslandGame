@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
 
         public abstract float? intersects(Microsoft.Xna.Framework.Ray ray);
         public abstract Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile);
-        public abstract void draw(GraphicsDevice device, Effect effect);
+        public abstract void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters);
         public abstract void blockWasDestroyed(BlockLoc toDestroy);
         public abstract void blockWasBuilt(BlockLoc toDestroy);
 

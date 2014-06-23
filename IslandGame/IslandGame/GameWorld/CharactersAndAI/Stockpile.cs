@@ -51,12 +51,33 @@ namespace IslandGame.GameWorld
 
 
 
-        public void draw(GraphicsDevice device, Effect effect)
+        public void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
+            string path = @"worldMarkup\farmMarker.chr";
+            switch (typeToStore)
+            {
+                case ResourceBlock.ResourceType.Wheat:
+                    path = @"resources\wheatBale.chr";
+                    break;
+                case ResourceBlock.ResourceType.Wood:
+                    path = @"resources\log.chr";
+                    break;
+                case ResourceBlock.ResourceType.Stone:
+                    path = @"resources\standardBlock.chr";
+                    break;
+
+            }
+
             foreach (BlockLoc test in storageSpace)
             {
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\farmMarker.chr",
-                    test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                float opacity = .2f;
+                if (!parameters.hasParameter(DisplayParameter.drawStockpiles))
+                {
+                    opacity = .02f;
+                }
+
+                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + path,
+                    test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1f / 7f, opacity);
             }
 
         }

@@ -8,11 +8,9 @@ namespace IslandGame.GameWorld
     [Serializable]
     class PathNodeForFindingLowGoals : PathNode
     {
-        int stepsUntilGiveUpOnFindingBetterBlock = int.MaxValue;
-        int numStepsStillToSearchAfterFindingABlock = 10;
-        
-
-        readonly int yMovementWeight = 10;
+        protected int stepsUntilGiveUpOnFindingBetterBlock = int.MaxValue;
+        protected int numStepsStillToSearchAfterFindingABlock = 10;
+        protected int yMovementWeight = 10;
 
         public PathNodeForFindingLowGoals() { }
 
@@ -53,7 +51,25 @@ namespace IslandGame.GameWorld
                 //if it's not then it was set small in setStepCounterWhenNodeIsOnGoal()
             return stepsUntilGiveUpOnFindingBetterBlock < int.MaxValue / 2;
         }
-
-
     }
+
+    [Serializable]
+    class PathNodeForFindingHighGoals : PathNodeForFindingLowGoals
+    {
+        public PathNodeForFindingHighGoals() 
+        {
+            yMovementWeight = -10;
+        }
+
+        public PathNodeForFindingHighGoals(PathNode nPrevious, BlockLoc nLoc, int nCostToGetHere, BlockLoc endLoc, int nStepsUntilGiveUpOnFindingBetterBlock)
+        {
+            yMovementWeight = -10;
+            stepsUntilGiveUpOnFindingBetterBlock = nStepsUntilGiveUpOnFindingBetterBlock;
+            previous = nPrevious;
+            loc = nLoc;
+            costToGetHere = nCostToGetHere;
+            approximateDistanceToTarget = approximateDistanceTo(endLoc);
+        }
+    }
+
 }

@@ -36,7 +36,7 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        public static float? getDistanceToNearestIntersectableOnRay(Ray ray, IEnumerable<Intersectable> intersectables)
+        public static float? intersects(Ray ray, IEnumerable<Intersectable> intersectables)
         {
             float? minDist = float.MaxValue;
             Intersectable result = null;

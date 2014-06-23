@@ -27,7 +27,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new BuildKickoffJob(this, newWorker);
+            return new BuildKickoffJob(this, newWorker, workingProfile);
         }
 
         public int numBlocksLeftToBuild()
@@ -58,7 +58,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             blocksToBuild.Remove(toDestroy);
         }
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             foreach (BlockLoc test in blocksToBuild)
             {

@@ -8,6 +8,6 @@ namespace IslandGame.GameWorld
 {
     public interface Drawable
     {
-        void draw(GraphicsDevice device, Effect effect);
+        void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters);
     }
 }

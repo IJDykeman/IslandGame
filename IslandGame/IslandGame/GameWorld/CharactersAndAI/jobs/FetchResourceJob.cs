@@ -11,7 +11,6 @@ namespace IslandGame.GameWorld
     {
         
         IslandWorkingProfile workingProfile;
-        TravelAlongPath currentWalkJob;
         Character character;
         BlockLoc currentGoalBlock;
         bool hasFailedToFindBlock = false;
@@ -29,63 +28,38 @@ namespace IslandGame.GameWorld
             typeToFetch = nTypeToFetch;
             character = nCharacter;
             setJobType(JobType.none);
-            setWalkTaskToPickUpResourceInStockpile();
 
         }
 
-        private void setWalkTaskToPickUpResourceInStockpile()
+
+
+        public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
+
             List<BlockLoc> goalsForBlockPickup = workingProfile.getBlocksToGetThisTypeFrom(typeToFetch).ToList();
             BlockLoc blockToPlaceResourceIn;
             PathHandler pathHandler = new PathHandler();
 
+            foreach (BlockLoc test in taskTracker.blocksCurrentlyClaimed())
+            {
+                goalsForBlockPickup.Remove(test);
+            }
+
             if (goalsForBlockPickup.Count > 0)
             {
-                currentWalkJob = new TravelAlongPath(pathHandler.
+                Path path = pathHandler.
                     getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(), new BlockLoc(character.getFootLocation()),
-                    workingProfile.getPathingProfile(), goalsForBlockPickup, 2, out blockToPlaceResourceIn));
+                    workingProfile.getPathingProfile(), goalsForBlockPickup, 2, out blockToPlaceResourceIn);
 
                 currentGoalBlock = blockToPlaceResourceIn;
+                TravelAlongPath travel = new TravelAlongPath(path,new PickUpResourceJob(typeToFetch,character,jobToReturnTo,workingProfile,blockToPlaceResourceIn));
+                return new CharacterTask.SwitchJob(travel);
             }
             else
             {
-                Path noPath = new Path(new List<BlockLoc>());
-                noPath.add(new BlockLoc(character.getFootLocation()));
-                //TODO: make it find the nearest good maybeSpace to place a resource block
-
-               currentWalkJob = new TravelAlongPath(noPath);
-
-                currentGoalBlock = new BlockLoc(character.getFootLocation());
+                return new CharacterTask.SwitchJob(new UnemployedJob());
             }
-        }
-
-        public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
-        {
-            //TODO make path object so that there is no edge case where a 
-            //stockpile that is full and adjacent to the character does not cause a crash
-
-            if (hasTriedToPickUpResource)
-            {
-                return new CharacterTask.SwitchJob(jobToReturnTo);
-            }
-            else
-            {
-                if (currentWalkJob.isUseable() && !currentWalkJob.isComplete())
-                {
-
-                    return currentWalkJob.getCurrentTask(taskTracker);
-                }
-                else if (!hasTriedToPickUpResource && currentWalkJob.isUseable())
-                {
-                    hasTriedToPickUpResource = true;
-                    return new CharacterTask.PickUpResourceBlock(currentGoalBlock, typeToFetch);
-                }
-
-
-
-                return new CharacterTask.NoTask();
-
-            }
+            
         }
 
 
@@ -93,21 +67,17 @@ namespace IslandGame.GameWorld
 
         public override bool isComplete()
         {
-            return hasFailedToFindBlock;
+            return false;
         }
 
         public override bool isUseable()
         {
-            return !hasFailedToFindBlock;
+            return true;
         }
 
         public override BlockLoc? getGoalBlock()
         {
-            if (currentWalkJob != null && currentWalkJob.isUseable() && currentWalkJob.willResultInTravel())
-            {
-                return currentWalkJob.getGoalBlock();
-            }
-            return null;
+            return currentGoalBlock;
         }
 
 

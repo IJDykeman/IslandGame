@@ -18,7 +18,7 @@ namespace IslandGame.GameWorld
             profile = nProfile;
         }
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
 
             lock (trees)

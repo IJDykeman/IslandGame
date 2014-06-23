@@ -7,37 +7,42 @@ using System.Text;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class PlaceResourceJob : MultiBlockOngoingJob
+    class PickUpResourceJob : MultiBlockOngoingJob
     {
 
         Character character;
-        BlockLoc whereToPlaceRescource;
+        BlockLoc whereToPickUpRescource;
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
-        bool hasDroppedLoad = false;
+        bool hasPickedUpLoad = false;
         Job jobToReturnTo;
         IslandWorkingProfile workingProfile;
 
 
 
-        public PlaceResourceJob(ResourceBlock.ResourceType nCarriedType,
+        public PickUpResourceJob(ResourceBlock.ResourceType nCarriedType,
             Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile, BlockLoc nLocToPlace)
         {
-            whereToPlaceRescource = nLocToPlace;
+
+            whereToPickUpRescource = nLocToPlace;
             jobToReturnTo = njobToReturnTo;
             carriedType = nCarriedType;
             character = nCharacter;
             setJobType(JobType.CarryingWood);
             workingProfile = nworkingProfile;
+            if (jobToReturnTo == null)
+            {
+                jobToReturnTo = new UnemployedJob();
+            }
 
         }
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (!hasDroppedLoad)
+            if (!hasPickedUpLoad)
             {
-                hasDroppedLoad = true;
-                return new CharacterTask.PlaceResource(whereToPlaceRescource, carriedType);
+                hasPickedUpLoad = true;
+                return new CharacterTask.PickUpResource(whereToPickUpRescource, carriedType);
             }
             else 
             {
@@ -59,14 +64,14 @@ namespace IslandGame.GameWorld
 
         public override BlockLoc? getGoalBlock()
         {
-            return whereToPlaceRescource;
+            return whereToPickUpRescource;
         }
 
         public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
         {
-            if (taskTracker.blocksCurrentlyClaimed().Contains(whereToPlaceRescource))
+            if (taskTracker.blocksCurrentlyClaimed().Contains(whereToPickUpRescource))
             {
-                return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(carriedType, character, jobToReturnTo, workingProfile));
+                return new CharacterTask.SwitchJob(new FetchResourceJob(workingProfile, carriedType, character, jobToReturnTo));
             }
             return null;
         }

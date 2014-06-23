@@ -10,10 +10,12 @@ namespace IslandGame.GameWorld.CharactersAndAI
         WoodBuildSite buildSite;
         WaitJob currentWait = null;
         Character character;
+        IslandWorkingProfile workingProfile;
 
 
-        public BuildKickoffJob( WoodBuildSite nBuildSite, Character nCharacter)
+        public BuildKickoffJob( WoodBuildSite nBuildSite, Character nCharacter, IslandWorkingProfile nworkingProfile)
         {
+            workingProfile = nworkingProfile;
             buildSite = nBuildSite;
             character = nCharacter;
             setJobType(JobType.building);
@@ -42,10 +44,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
 
 
-                    PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild);
+                    PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild, workingProfile);
                     TravelAlongPath walkJob = new TravelAlongPath(path, placeBlockJob);
-
-                    return new CharacterTask.SwitchJob(walkJob);
+                    FetchResourceJob fetch = new FetchResourceJob(workingProfile, ResourceBlock.ResourceType.Stone, character, walkJob);
+                    return new CharacterTask.SwitchJob(fetch);
                 
             }
 

@@ -87,7 +87,9 @@ namespace IslandGame.menus
                     scale, hudTint, "place wood stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceWheatStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 7, height - verticlePadding),
                     scale, hudTint, "place wheat stockpile"));
-                buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 8, height - verticlePadding),
+                buttonList.Add(new UIElement(new PlayerPlaceStoneStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 8, height - verticlePadding),
+                    scale, hudTint, "place stone stockpile"));
+                buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 9, height - verticlePadding),
                     scale, hudTint, "create new character (-12 wheat)"));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;
@@ -104,7 +106,7 @@ namespace IslandGame.menus
                     scale, hudTint, "pickaxe"));
                 buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.agriculture), ContentDistributor.farmIcon, new Vector2(horizontalPadding * 2, height - verticlePadding),
                     scale, hudTint, "hoe"));
-                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.building), ContentDistributor.woodBlockIcon, new Vector2(horizontalPadding * 3, height - verticlePadding),
+                buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.building), ContentDistributor.hammerIcon, new Vector2(horizontalPadding * 3, height - verticlePadding),
                     scale, hudTint, "hammer"));
                 buttonList.Add(new UIElement(new JobTypeSwitch(IslandGame.GameWorld.JobType.combat), ContentDistributor.swordIcon, new Vector2(horizontalPadding * 4, height - verticlePadding),
                     scale, hudTint, "sword"));

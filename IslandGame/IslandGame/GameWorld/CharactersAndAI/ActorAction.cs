@@ -15,6 +15,7 @@ namespace IslandGame.GameWorld
         die,
         strike,
         PlaceResource,
+        PickUpResource,
 
 
     }
@@ -129,6 +130,30 @@ namespace IslandGame.GameWorld
         public ActorPlaceResourceAction(BlockLoc nlocToPlace, ResourceBlock.ResourceType nTypeToPlace)
         {
             type = ActorActions.PlaceResource;
+            typeToPlace = nTypeToPlace;
+            locToPlace = nlocToPlace;
+        }
+
+        public ResourceBlock.ResourceType getRescourceTypeToPlace()
+        {
+            return typeToPlace;
+        }
+
+        public BlockLoc getLocToPlace()
+        {
+            return locToPlace;
+        }
+    }
+
+    [Serializable]
+    public class ActorPickUpResourceAction : ActorAction
+    {
+        ResourceBlock.ResourceType typeToPlace;
+        BlockLoc locToPlace;
+
+        public ActorPickUpResourceAction(BlockLoc nlocToPlace, ResourceBlock.ResourceType nTypeToPlace)
+        {
+            type = ActorActions.PickUpResource;
             typeToPlace = nTypeToPlace;
             locToPlace = nlocToPlace;
         }

@@ -33,9 +33,14 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            //return new CharacterTask.PlaceResource(whereToPlaceRescource, carriedType);
+            //return new CharacterTask.PlaceResource(whereToPickUpRescource, carriedType);
             List<BlockLoc> goalsForBlockPlacement = workingProfile.getResourcesJobSite().getBlocksToStoreThisTypeIn(carriedType).ToList();
            
+            foreach(BlockLoc test in taskTracker.blocksCurrentlyClaimed())
+            {
+                goalsForBlockPlacement.Remove(test);
+            }
+
             PathHandler pathHandler = new PathHandlerPreferringLowerBlocks();
 
             if (goalsForBlockPlacement.Count > 0)
@@ -76,6 +81,14 @@ namespace IslandGame.GameWorld
             return blockToPlaceResourceIn;
         }
 
+        public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
+        {
+            if (taskTracker.blocksCurrentlyClaimed().Contains(blockToPlaceResourceIn))
+            {
+                return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(carriedType,character,jobToReturnTo,workingProfile));
+            }
+            return null;
+        }
 
     }
 }

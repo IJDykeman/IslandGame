@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace IslandGame.GameWorld
 {
@@ -24,14 +25,14 @@ namespace IslandGame.GameWorld
 
         public override float? intersects(Ray ray)
         {
-            return Intersection.getDistanceToNearestIntersectableOnRay(ray, stockpiles);
+            return Intersection.intersects(ray, resourceBlocks.Keys);
         }
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new CarryResourceToStockpileJob(getStockpileAlongRay(ray).getStoredType(),
-                newWorker, new UnemployedJob(), workingProfile);
-            //return new UnemployedJob();
+            //return new CarryResourceToStockpileJob(getStockpileAlongRay(ray).getStoredType(),
+            //    newWorker, new UnemployedJob(), workingProfile);
+            return new UnemployedJob();
         }
 
         Stockpile getStockpileAlongRay(Ray ray)
@@ -54,7 +55,7 @@ namespace IslandGame.GameWorld
 
 
 
-        public override void draw(GraphicsDevice device, Effect effect)
+        public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             foreach (BlockLoc key in resourceBlocks.Keys)
             {
@@ -69,7 +70,7 @@ namespace IslandGame.GameWorld
                         break;
 
                     case ResourceBlock.ResourceType.Stone: 
-                        resourceBlockPath = @"resources\log.chr";
+                        resourceBlockPath = @"resources\standardBlock.chr";
                         break;
                 }
 
@@ -77,10 +78,12 @@ namespace IslandGame.GameWorld
                                            key.getMiddleInWorldSpace(), 1.0f/7.0f);
             }
 
-            foreach (Stockpile stockpile in stockpiles)
-            {
-                stockpile.draw(device, effect);
-            }
+
+                foreach (Stockpile stockpile in stockpiles)
+                {
+                    stockpile.draw(device, effect, parameters);
+                }
+            
         }
 
         public void placeRescourceBlock(BlockLoc loc, ResourceBlock.ResourceType type)
@@ -89,6 +92,12 @@ namespace IslandGame.GameWorld
             {
                 resourceBlocks.Add(loc, new ResourceBlock(type));
             }
+        }
+
+        internal void removeRescourceBlock(BlockLoc blockLoc, ResourceBlock.ResourceType resourceType)
+        {
+            Debug.Assert(resourceBlocks[blockLoc].getResourceType() == resourceType);
+            resourceBlocks.Remove(blockLoc);
         }
 
         public override HashSet<BlockLoc> getAllBlocksInSite()
@@ -200,5 +209,7 @@ namespace IslandGame.GameWorld
             }
             return resourceBlocksToRemove;
         }
+
+
     }
 }

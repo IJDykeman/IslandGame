@@ -38,10 +38,14 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (toReturnTo != null)
+            /*if (toReturnTo != null)
             {
-                toReturnTo.checkForWorkConflictsNullIfNoResponse(taskTracker);
-            }
+                 CharacterTask.Task maybeTask = toReturnTo.checkForWorkConflictsNullIfNoResponse(taskTracker);
+                 if (maybeTask != null)
+                 {
+                     return maybeTask;
+                 }
+            }*/
             if (( path == null || path.length() == 0))
             {
                 if (toReturnTo != null)

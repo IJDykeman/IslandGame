@@ -21,7 +21,8 @@ namespace IslandGame.menus
         PlayerBuildHudClick,
         PlayerBuildBoatHudClick,
         JobTypeSwitch,
-        NewCharacterHudClick
+        NewCharacterHudClick,
+        StoneStorageHudClick
     }
 
     public class MenuAction
@@ -123,6 +124,14 @@ namespace IslandGame.menus
         public PlayerPlaceWheatStorageHudClick()
         {
             type = MenuActionType.WheatStorageHudClick;
+        }
+    }
+
+    public class PlayerPlaceStoneStorageHudClick : MenuAction
+    {
+        public PlayerPlaceStoneStorageHudClick()
+        {
+            type = MenuActionType.StoneStorageHudClick;
         }
     }
 

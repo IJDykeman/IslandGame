@@ -22,7 +22,7 @@ namespace IslandGame
 
         public byte selectedBlockType { get; set; }
 
-        public  enum InterfaceStates
+        public enum InterfaceStates
         {
             inMainMenu,
             playing,
@@ -34,7 +34,8 @@ namespace IslandGame
             placingWoodPlanBlocks,
             buildingDirectly,
             placingBoat,
-            placingCharacter
+            placingCharacter,
+            placingStoneStorage
         }
 
 
@@ -145,13 +146,15 @@ namespace IslandGame
                         break;
                     case MenuActionType.WoodStorageHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
-
                         setInterfaceState(PlayerInputHandler.InterfaceStates.placingWoodStorage);
                         break;
                     case MenuActionType.WheatStorageHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
-
                         setInterfaceState(PlayerInputHandler.InterfaceStates.placingWheatStorage);
+                        break;
+                    case MenuActionType.StoneStorageHudClick:
+                        result.Add(new PlayerAction.DeselectCharacter());
+                        setInterfaceState(PlayerInputHandler.InterfaceStates.placingStoneStorage);
                         break;
                     case MenuActionType.WoodBuildHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
@@ -216,5 +219,12 @@ namespace IslandGame
         }
 
 
+
+        public bool wantsStockpilesDisplayed()
+        {
+            return currentInterfaceState == InterfaceStates.placingStoneStorage ||
+                currentInterfaceState == InterfaceStates.placingWheatStorage ||
+                currentInterfaceState == InterfaceStates.placingWoodStorage;
+        }
     }
 }

@@ -238,6 +238,13 @@ namespace IslandGame.GameWorld
                     actions.Add(new ActorPlaceResourceAction(placeResource.getLocToPlaceResource(),placeResource.getTypeToPlace()));
                     StartHammerAnimationIfPossible();
                     break;
+                case CharacterTask.Type.PickUpResource:
+                    CharacterTask.PickUpResource pickUpResource = (CharacterTask.PickUpResource)toDo;
+                    actions.Add(new ActorPickUpResourceAction(pickUpResource.getLocToPlaceResource(), pickUpResource.getTypeToPlace()));
+                    StartHammerAnimationIfPossible();
+                    break;
+                default:
+                    throw new Exception("unhandled task");
 
 
             }

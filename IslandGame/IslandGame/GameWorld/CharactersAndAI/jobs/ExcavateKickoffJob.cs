@@ -34,7 +34,7 @@ namespace IslandGame.GameWorld
                         blocksToRemove.Remove(claimed);
 
                     }
-                    PathHandler pathHandler = new PathHandler();
+                    PathHandler pathHandler = new PathHandlerPreferringHigherBlocks();
                     Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
                         new BlockLoc(character.getFootLocation()), workingProfile.getPathingProfile(),
                         blocksToRemove, 2, out toDestroy);
