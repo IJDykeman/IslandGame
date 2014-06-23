@@ -42,5 +42,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
             objectLoc.toWorldSpaceVector3() + new Vector3(.5f, 0, .5f),
             IslandGame.GameWorld.Boat.SCALE, .5f);
         }
+
+        public override HashSet<BlockLoc> getAllBlocksInSite()
+        {
+            return new HashSet<BlockLoc>();
+        }
     }
 }

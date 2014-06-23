@@ -120,9 +120,10 @@ namespace IslandGame
             else if (obj is BlockLoc)
             {
                 BlockLoc value2 = (BlockLoc)obj;
-                return (worldSpaceX == value2.worldSpaceX &&
+                bool result = (worldSpaceX == value2.worldSpaceX &&
                     worldSpaceY == value2.worldSpaceY &&
                     worldSpaceZ == value2.worldSpaceZ);
+                return result;
             }
             else
             {

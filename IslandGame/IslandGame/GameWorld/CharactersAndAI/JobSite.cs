@@ -17,6 +17,8 @@ namespace IslandGame.GameWorld
         public abstract void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters);
         public abstract void blockWasDestroyed(BlockLoc toDestroy);
         public abstract void blockWasBuilt(BlockLoc toDestroy);
+        public abstract HashSet<BlockLoc> getAllBlocksInSite();
+
 
         public virtual void update()
         {
@@ -46,10 +48,6 @@ namespace IslandGame.GameWorld
         {
         }
 
-        public virtual HashSet<BlockLoc> getAllBlocksInSite()
-        {
-            return new HashSet<BlockLoc>();
-        }
 
         public virtual void updateMesh(int mipLevel)
         {

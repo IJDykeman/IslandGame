@@ -586,7 +586,7 @@ namespace IslandGame.GameWorld
 
         }
         
-        public void handlePlayerFinishDrag(Vector3 addedFrom, IEnumerable<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
+        public void handlePlayerFinishDrag(Vector3 addedFrom, List<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
         {
             islandManager.getClosestIslandToLocation(addedFrom).addPlayerDraggedJobsiteWithBlocks(blocksToAdd, dragType);
         }

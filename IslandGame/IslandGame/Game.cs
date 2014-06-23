@@ -295,7 +295,7 @@ namespace IslandGame
                             {
                                 draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
                             }
-                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks, finishDragClick.getDragType());
+                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks.ToList(), finishDragClick.getDragType());
                         }
                         break;
 

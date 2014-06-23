@@ -73,7 +73,7 @@ namespace IslandGame.GameWorld
                 float opacity = .2f;
                 if (!parameters.hasParameter(DisplayParameter.drawStockpiles))
                 {
-                    opacity = .02f;
+                    opacity = .1f;
                 }
 
                 WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + path,

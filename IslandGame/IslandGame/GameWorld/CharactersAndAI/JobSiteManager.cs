@@ -85,9 +85,13 @@ namespace IslandGame.GameWorld
             return (JobSite)Intersection.getNearestIntersectableAlongRay(ray, jobSites);
         }
 
-        internal void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, IslandPathingProfile profile, 
+        internal void addPlayerDraggedJobsiteWithBlocks(List<BlockLoc> blocksToAdd, IslandPathingProfile profile, 
             PlayerAction.Dragging.DragType dragType)
         {
+
+
+           /// blocksToAdd = alreadyOccupied;
+
             switch (dragType)
             {
                 case PlayerAction.Dragging.DragType.farm:
@@ -117,10 +121,19 @@ namespace IslandGame.GameWorld
         {
 
             List<BlockLoc> blocksForSite = new List<BlockLoc>();
+            HashSet<BlockLoc> alreadyOccupied = allBlocksWithJobSites();
+
             foreach (BlockLoc inGround in blocksToPlaceSiteOn)
             {
-                blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0)));
-                blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0)));
+                if (alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0))))
+                {
+                    blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0)));
+                }
+
+                if (alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0))))
+                {
+                    blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0)));
+                }
             }
 
             HashSet<BlockLoc> locsNotOfWork = new HashSet<BlockLoc>();

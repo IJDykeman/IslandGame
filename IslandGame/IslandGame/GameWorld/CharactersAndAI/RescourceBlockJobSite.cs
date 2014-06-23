@@ -107,6 +107,17 @@ namespace IslandGame.GameWorld
             {
                 result.Add(test);
             }
+            foreach (Stockpile test in stockpiles)
+            {
+                foreach (BlockLoc loc in test.getAllBlocksInStockPile())
+                {
+                    //if (!result.Contains(loc))
+                    //{
+
+                        result.Add(loc);
+                    //}
+                }
+            }
             return result;
         }
 

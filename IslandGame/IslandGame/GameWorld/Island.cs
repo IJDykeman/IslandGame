@@ -369,7 +369,7 @@ namespace IslandGame.GameWorld
             return jobSiteManager.getJobSiteAlongRay(ray);
         }
 
-        public void addPlayerDraggedJobsiteWithBlocks(IEnumerable<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
+        public void addPlayerDraggedJobsiteWithBlocks(List<BlockLoc> blocksToAdd, PlayerAction.Dragging.DragType dragType)
         {
             jobSiteManager.addPlayerDraggedJobsiteWithBlocks(blocksToAdd, getPathingProfile(), dragType);
         }
