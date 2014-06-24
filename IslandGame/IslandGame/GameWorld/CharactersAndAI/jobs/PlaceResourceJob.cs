@@ -57,19 +57,19 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override BlockLoc? getGoalBlock()
+        public override List<BlockLoc> getGoalBlock()
         {
-            return whereToPlaceRescource;
+            List<BlockLoc> result = new List<BlockLoc>();
+            result.Add(whereToPlaceRescource);
+            if (jobToReturnTo != null)
+            {
+                result.AddRange(jobToReturnTo.getGoalBlock());
+            }
+            return result;
+
         }
 
-        public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
-        {
-            if (taskTracker.blocksCurrentlyClaimed().Contains(whereToPlaceRescource))
-            {
-                return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(carriedType, character, jobToReturnTo, workingProfile));
-            }
-            return null;
-        }
+
 
 
     }

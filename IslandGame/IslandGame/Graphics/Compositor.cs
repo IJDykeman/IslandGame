@@ -192,22 +192,25 @@ namespace IslandGame
 
 
             effect.Parameters["xOpacity"].SetValue(1f);
-            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)),displayParameters);
+            
             world.displayActors(device, effectToUse, doNotDisplay);
+            world.displayIslands(device, effectToUse, new BoundingFrustum(viewMatrix * getPerspectiveMatrix(1000)), displayParameters);
             player.display3D();
             foreach (AnimatedBodyPartGroup group in CharactersForThisFrame)
             {
                 group.draw(device, effectToUse);
             }
             CharactersForThisFrame.Clear();
-            effect.CurrentTechnique = effect.Techniques["Instanced"];
-            WorldMarkupHandler.drawCharacters(device, effect);
-            effect.CurrentTechnique = effect.Techniques["Colored"];
+
 
             effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(2000));
             sky.draw(device, effectToUse, viewMatrix, getPerspectiveMatrix(2000), player.getCameraLoc());
             effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
             ocean.draw(device, viewMatrix, getPerspectiveMatrix(1000), player.getCameraLoc(), ambientBrightness);
+
+            effect.CurrentTechnique = effect.Techniques["Instanced"];
+            WorldMarkupHandler.drawCharacters(device, effect);
+            effect.CurrentTechnique = effect.Techniques["Colored"];
 
         }
 

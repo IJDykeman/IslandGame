@@ -38,9 +38,9 @@ namespace IslandGame.GameWorld
            return actions;
         }
 
-        public override BlockLoc? blockClaimedToWorkOn()
+        public override List<BlockLoc> blockClaimedToWorkOn()
         {
-            return null;
+            return new List<BlockLoc>();
         }
 
         public override Job getJobWhenClicked(Character nWorker, IslandPathingProfile profile, ActorStateProfile actorState)

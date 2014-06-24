@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using CubeAnimator;
 
 namespace IslandGame.GameWorld
 {
@@ -58,6 +59,7 @@ namespace IslandGame.GameWorld
             {
                 case ResourceBlock.ResourceType.Wheat:
                     path = @"resources\wheatBale.chr";
+                    //path = @"worldMarkup\singleWhiteCube.chr";
                     break;
                 case ResourceBlock.ResourceType.Wood:
                     path = @"resources\log.chr";
@@ -67,18 +69,23 @@ namespace IslandGame.GameWorld
                     break;
 
             }
+            AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + path, 1.0f / 7.0f);
+            float opacity = .2f;
+            if (!parameters.hasParameter(DisplayParameter.drawStockpiles))
+            {
+                opacity = .1f;
+            }
 
+            //forward rendering is faster here
+            effect.Parameters["xOpacity"].SetValue(opacity);
+            character.setScale(1f / 7f);
             foreach (BlockLoc test in storageSpace)
             {
-                float opacity = .2f;
-                if (!parameters.hasParameter(DisplayParameter.drawStockpiles))
-                {
-                    opacity = .1f;
-                }
-
-                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + path,
-                    test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1f / 7f, opacity);
+                
+                character.setRootPartLocation(test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                character.draw(device, effect);
             }
+            effect.Parameters["xOpacity"].SetValue(1);
 
         }
 

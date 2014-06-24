@@ -55,7 +55,9 @@ namespace IslandGame.GameWorld
                     jobToReturnTo, workingProfile, blockToPlaceResourceIn);
 
                 walkJob = new TravelAlongPath(path,toSwichToAfterWalk);
-
+                if(path.length()==0){
+                    return new CharacterTask.SwitchJob(new UnemployedJob());
+                }
                 
                 return new CharacterTask.SwitchJob(walkJob);
             }
@@ -76,19 +78,18 @@ namespace IslandGame.GameWorld
             return !hasFailedToFindBlock;
         }
 
-        public override BlockLoc? getGoalBlock()
+        public override List<BlockLoc> getGoalBlock()
         {
-            return blockToPlaceResourceIn;
+            List<BlockLoc> result = new List<BlockLoc>();
+            result.Add(blockToPlaceResourceIn);
+            if (jobToReturnTo != null)
+            {
+                result.AddRange(jobToReturnTo.getGoalBlock());
+            }
+            return result;
         }
 
-        public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
-        {
-            if (taskTracker.blocksCurrentlyClaimed().Contains(blockToPlaceResourceIn))
-            {
-                return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(carriedType,character,jobToReturnTo,workingProfile));
-            }
-            return null;
-        }
+
 
     }
 }

@@ -57,18 +57,14 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
             return true;
         }
 
-        public override CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
-        {
-            if (taskTracker.blocksCurrentlyClaimed().Contains(blockToTend))
-            {
-                return new CharacterTask.SwitchJob(new FarmingKickoffJob(farm, character, workingProfile));
-            }
-            return null;
-        }
 
-        public override BlockLoc? getGoalBlock()
+
+        public override List<BlockLoc> getGoalBlock()
         {
-            return blockToTend;
+            List<BlockLoc> result = new List<BlockLoc>();
+            result.Add(blockToTend);
+
+            return result;
         }
     }
 }

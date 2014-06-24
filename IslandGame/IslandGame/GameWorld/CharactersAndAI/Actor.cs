@@ -149,7 +149,7 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        public abstract BlockLoc? blockClaimedToWorkOn();
+        public abstract List<BlockLoc> blockClaimedToWorkOn();
 
         public virtual Job getJobWhenClicked(Character nWorker, IslandPathingProfile profile, ActorStateProfile nActorProfile)
         {

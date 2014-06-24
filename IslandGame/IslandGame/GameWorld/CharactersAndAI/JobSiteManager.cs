@@ -125,12 +125,12 @@ namespace IslandGame.GameWorld
 
             foreach (BlockLoc inGround in blocksToPlaceSiteOn)
             {
-                if (alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0))))
+                if (!alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0))))
                 {
                     blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 1, 0)));
                 }
 
-                if (alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0))))
+                if (!alreadyOccupied.Contains(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0))))
                 {
                     blocksForSite.Add(BlockLoc.AddIntVec3(inGround, new IntVector3(0, 2, 0)));
                 }

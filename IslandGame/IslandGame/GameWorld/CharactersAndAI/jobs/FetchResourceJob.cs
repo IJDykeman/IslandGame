@@ -75,9 +75,16 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override BlockLoc? getGoalBlock()
+        public override List<BlockLoc> getGoalBlock()
         {
-            return currentGoalBlock;
+            List<BlockLoc> result =  new List<BlockLoc>() ;
+            result.Add(currentGoalBlock);
+            if (jobToReturnTo != null)
+            {
+                result.AddRange(jobToReturnTo.getGoalBlock());
+            }
+            return result;
+        
         }
 
 

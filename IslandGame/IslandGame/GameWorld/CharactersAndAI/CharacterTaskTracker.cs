@@ -25,10 +25,10 @@ namespace IslandGame.GameWorld
             HashSet<BlockLoc> result = new HashSet<BlockLoc>();
             foreach (Actor test in characters)
             {
-                BlockLoc? claimed = test.blockClaimedToWorkOn();
-                if (claimed.HasValue)
+                List<BlockLoc> claimed = test.blockClaimedToWorkOn();
+                foreach (BlockLoc claimedLoc in claimed) 
                 {
-                    result.Add((BlockLoc)claimed);
+                    result.Add(claimedLoc);
                 }
             }
             return result;

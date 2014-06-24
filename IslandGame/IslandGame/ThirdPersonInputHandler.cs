@@ -169,23 +169,23 @@ namespace IslandGame
                 {
                     case InterfaceStates.placingFarm:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.farm));
-                        //currentInterfaceState = InterfaceStates.playing; 
+                        currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingWoodStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWood));
-                        //currentInterfaceState = InterfaceStates.playing; 
+                        currentInterfaceState = InterfaceStates.playing; 
                         break;
                     case InterfaceStates.placingWheatStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeWheat));
-                        //currentInterfaceState = InterfaceStates.playing;
+                        currentInterfaceState = InterfaceStates.playing;
                         break;
                     case InterfaceStates.placingStoneStorage:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.storeStone));
-                        //currentInterfaceState = InterfaceStates.playing;
+                        currentInterfaceState = InterfaceStates.playing;
                         break;
                     case InterfaceStates.placingExcavation:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.excavate));
-                        //currentInterfaceState = InterfaceStates.playing;
+                        currentInterfaceState = InterfaceStates.playing;
                         break;
 
                 }

@@ -107,13 +107,14 @@ namespace IslandGame.GameWorld
             return path != null;
         }
 
-        public override BlockLoc? getGoalBlock()
+        public override List<BlockLoc> getGoalBlock()
         {
+            List<BlockLoc> result = new List<BlockLoc>();
             if (toReturnTo != null)
             {
-                return toReturnTo.getGoalBlock();
+                result.AddRange(toReturnTo.getGoalBlock());
             }
-            return path.getLast();
+            return result;
 
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using CubeAnimator;
 
 namespace IslandGame.GameWorld
 {
@@ -57,32 +58,41 @@ namespace IslandGame.GameWorld
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
+            AnimatedBodyPartGroup wheatBale = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\wheatBale.chr", 1.0f / 7.0f);
+            AnimatedBodyPartGroup log = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\log.chr", 1.0f / 7.0f);
+            AnimatedBodyPartGroup standardBlock = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\standardBlock.chr", 1.0f / 7.0f);
+            wheatBale.setScale(1f / 7f);
+            log.setScale(1f / 7f);
+            standardBlock.setScale(1f / 7f);
+
             foreach (BlockLoc key in resourceBlocks.Keys)
             {
-                string resourceBlockPath = @"resources\log.chr";
                 switch (resourceBlocks[key].getResourceType())
                 {
                     case ResourceBlock.ResourceType.Wood:
-                        resourceBlockPath = @"resources\log.chr";
+                        log.setRootPartLocation(key.getMiddleInWorldSpace());
+                        log.draw(device, effect);
                         break;
                     case ResourceBlock.ResourceType.Wheat:
-                        resourceBlockPath = @"resources\wheatBale.chr";
+                        wheatBale.setRootPartLocation(key.getMiddleInWorldSpace());
+                        wheatBale.draw(device, effect);
                         break;
 
-                    case ResourceBlock.ResourceType.Stone: 
-                        resourceBlockPath = @"resources\standardBlock.chr";
+                    case ResourceBlock.ResourceType.Stone:
+                        standardBlock.setRootPartLocation(key.getMiddleInWorldSpace());
+                        standardBlock.draw(device, effect);
                         break;
                 }
 
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + resourceBlockPath,
-                                           key.getMiddleInWorldSpace(), 1.0f/7.0f);
+            }
+            foreach (Stockpile stockpile in stockpiles)
+            {
+                stockpile.draw(device, effect, parameters);
             }
 
 
-                foreach (Stockpile stockpile in stockpiles)
-                {
-                    stockpile.draw(device, effect, parameters);
-                }
+
+
             
         }
 

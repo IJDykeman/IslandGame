@@ -8,7 +8,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
     class PlaceBlockJob : Job
     {
         WoodBuildSite buildSite;
-        WaitJob currentWait = null;
+        Job toReturnTo;
         Character character;
         BlockLoc placementloc;
         bool hasFailedToFindOneBlockToBuild = false;
@@ -25,6 +25,17 @@ namespace IslandGame.GameWorld.CharactersAndAI
             placementloc = placeToPlaceBlock;
         }
 
+        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, Job nToReturnTo, IslandWorkingProfile nworkingProfile)
+        {
+            workingProfile = nworkingProfile;
+            buildSite = nBuildSite;
+            character = nCharacter;
+            setJobType(JobType.building);
+            placementloc = placeToPlaceBlock;
+            toReturnTo = nToReturnTo;
+        }
+
+
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
 
@@ -37,7 +48,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
             else
             {
-                                return new CharacterTask.SwitchJob(new BuildKickoffJob(buildSite, character,workingProfile));
+                                return new CharacterTask.SwitchJob(toReturnTo);
 
             }
 

@@ -26,9 +26,11 @@ namespace IslandGame.GameWorld
             workingProfile =nWorkingProfile;
         }
 
-        public override BlockLoc? getGoalBlock()
+        public override List<BlockLoc> getGoalBlock()
         {
-            return currentBlockToChop;
+            List<BlockLoc> result = new List<BlockLoc>();
+            result.Add(currentBlockToChop);
+            return result;
         }
 
         public override bool isComplete()

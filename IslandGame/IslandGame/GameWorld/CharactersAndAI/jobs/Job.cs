@@ -42,15 +42,12 @@ namespace IslandGame.GameWorld
             
         }
 
-        public virtual BlockLoc? getGoalBlock()
+        public virtual List<BlockLoc> getGoalBlock()
         {
-            return null;
+            return new List<BlockLoc>();
         }
 
-        public virtual CharacterTask.Task checkForWorkConflictsNullIfNoResponse(CharacterTaskTracker taskTracker)
-        {
-            return null;
-        }
+ 
     }
 
     [Serializable]

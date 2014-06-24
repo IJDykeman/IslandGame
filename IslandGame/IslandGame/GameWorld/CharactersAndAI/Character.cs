@@ -164,6 +164,7 @@ namespace IslandGame.GameWorld
                     CharacterTask.BuildBlock buildBlock = (CharacterTask.BuildBlock)toDo;
                     actions.Add(new ActorStrikeBlockAction(this, buildBlock.getBlockLocToBuild(), JobType.building));
                     StartHammerAnimationIfPossible();
+                    load.dropItem();
                     break;
                 case CharacterTask.Type.ChopBlockForFrame:
                     animations.Add(AnimationType.standing);
@@ -241,6 +242,7 @@ namespace IslandGame.GameWorld
                 case CharacterTask.Type.PickUpResource:
                     CharacterTask.PickUpResource pickUpResource = (CharacterTask.PickUpResource)toDo;
                     actions.Add(new ActorPickUpResourceAction(pickUpResource.getLocToPlaceResource(), pickUpResource.getTypeToPlace()));
+                    load.pickUpItem(pickUpResource.getTypeToPlace());
                     StartHammerAnimationIfPossible();
                     break;
                 default:
@@ -321,9 +323,9 @@ namespace IslandGame.GameWorld
             }
         }
 
-        public override BlockLoc? blockClaimedToWorkOn()
+        public override List<BlockLoc> blockClaimedToWorkOn()
         {
-            BlockLoc? result = job.getGoalBlock();
+            List<BlockLoc> result = job.getGoalBlock();
             return result;
         }
 

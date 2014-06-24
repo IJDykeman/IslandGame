@@ -50,12 +50,7 @@ namespace IslandGame
         public static void addCharacter(string path, Vector3 position,float scale, float opacity)
         {
             FileInfo fileInfo = new FileInfo(path);
-            if (fileInfo.Extension.ToUpper().Equals(".VOX"))
-            {
-                
-
-            }
-            else if (fileInfo.Extension.ToUpper().Equals(".CHR"))
+            if (fileInfo.Extension.ToUpper().Equals(".CHR"))
             {
                 AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(path, scale);
                 character.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity, opacity);
@@ -69,22 +64,14 @@ namespace IslandGame
             
         }
 
-        /*
-        public static void addFlagWithMatrix(string path,Matrix matrix)
-        {
-            //path = path.ToUpper();
-            if (FilePathsAndPositions.ContainsKey(path.ToUpper()))
-            {
-                FilePathsAndPositions[path.ToUpper()].addPose(new MatrixAndOpacity(matrix));
-            }
-            else
-            {
-                List<MatrixAndOpacity> PosScaleListForNewPath = new List<MatrixAndOpacity>();
-                PosScaleListForNewPath.Add(new MatrixAndOpacity(matrix));
-                FilePathsAndPositions.Add(path.ToUpper(), PosScaleListForNewPath);
 
-            }
-        }*/
+        public static void addCharacter(AnimatedBodyPartGroup group, Vector3 position, float scale, float opacity)
+        {
+
+            group.addToWorldMarkup(Matrix.CreateTranslation(position), Quaternion.Identity,opacity);
+
+        }
+
 
         public static void addFlagWithMatrix(string path, Matrix matrix, PaintedCubeSpaceDisplayComponant model, float opacity)
         {
