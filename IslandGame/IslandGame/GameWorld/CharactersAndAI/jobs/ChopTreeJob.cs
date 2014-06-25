@@ -12,14 +12,13 @@ namespace IslandGame.GameWorld
         Character character;
 
         bool failedToFindATreeToChop = false;
-        BlockLoc currentGoalBlock;
         IslandWorkingProfile workingProfile;
 
 
 
         public ChopTreeJob(Character nCharacter, IslandWorkingProfile nWorkingProfile, BlockLoc blockToChop)
         {
-            currentGoalBlock = blockToChop;
+            targetBlock = blockToChop;
 
             character = nCharacter;
             setJobType(JobType.logging);
@@ -48,9 +47,9 @@ namespace IslandGame.GameWorld
             if (workingProfile.getTreeJobSite().getTreeTrunkBlocks().Count > 0)
             {
 
-                if (workingProfile.getTreeJobSite().getTreeTrunkBlocks().Contains(currentGoalBlock))
+                if (workingProfile.getTreeJobSite().getTreeTrunkBlocks().Contains(targetBlock))
                 {
-                    return new CharacterTask.ChopBlockForFrame(currentGoalBlock);
+                    return new CharacterTask.ChopBlockForFrame(targetBlock);
                 }
                 else
                 {

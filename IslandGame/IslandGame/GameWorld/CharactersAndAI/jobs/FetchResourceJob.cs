@@ -12,7 +12,6 @@ namespace IslandGame.GameWorld
         
         IslandWorkingProfile workingProfile;
         Character character;
-        BlockLoc currentGoalBlock;
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType typeToFetch;
         bool hasTriedToPickUpResource = false;
@@ -51,7 +50,7 @@ namespace IslandGame.GameWorld
                     getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(), new BlockLoc(character.getFootLocation()),
                     workingProfile.getPathingProfile(), goalsForBlockPickup, 2, out blockToPlaceResourceIn);
 
-                currentGoalBlock = blockToPlaceResourceIn;
+                targetBlock = blockToPlaceResourceIn;
                 TravelAlongPath travel = new TravelAlongPath(path,new PickUpResourceJob(typeToFetch,character,jobToReturnTo,workingProfile,blockToPlaceResourceIn));
                 return new CharacterTask.SwitchJob(travel);
             }
@@ -78,7 +77,7 @@ namespace IslandGame.GameWorld
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result =  new List<BlockLoc>() ;
-            result.Add(currentGoalBlock);
+            result.Add(targetBlock);
             if (jobToReturnTo != null)
             {
                 result.AddRange(jobToReturnTo.getGoalBlock());

@@ -24,6 +24,8 @@ namespace IslandGame.GameWorld
         public abstract CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker);
         public abstract bool isComplete();
         public abstract bool isUseable();
+        //PUT TARGETBLOCK FIELD HERE
+        protected BlockLoc targetBlock;
 
         public JobType getJobType()
         {

@@ -8,14 +8,13 @@ namespace IslandGame.GameWorld
     class DestroyBlockJob : MultiBlockOngoingJob
     {
         Character character;
-        BlockLoc currentGoalBlock;
         IslandWorkingProfile workingProfile;
 
 
 
         public DestroyBlockJob(Character nCharacter, IslandWorkingProfile nWorkingProfile, BlockLoc blockToDestroy)
         {
-            currentGoalBlock = blockToDestroy;
+            targetBlock = blockToDestroy;
 
             character = nCharacter;
             setJobType(JobType.mining);
@@ -25,7 +24,7 @@ namespace IslandGame.GameWorld
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(currentGoalBlock);
+            result.Add(targetBlock);
             return result;
         }
 
@@ -41,9 +40,9 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (workingProfile.getPathingProfile().isProfileSolidAt(currentGoalBlock))
+            if (workingProfile.getPathingProfile().isProfileSolidAt(targetBlock))
             {
-                    return new CharacterTask.DestroyBlock(currentGoalBlock);
+                    return new CharacterTask.DestroyBlock(targetBlock);
             }
             else
             {

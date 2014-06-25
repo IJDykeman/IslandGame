@@ -11,7 +11,6 @@ namespace IslandGame.GameWorld
     {
 
         Character character;
-        BlockLoc whereToPlaceRescource;
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasDroppedLoad = false;
@@ -23,7 +22,7 @@ namespace IslandGame.GameWorld
         public PlaceResourceJob(ResourceBlock.ResourceType nCarriedType,
             Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile, BlockLoc nLocToPlace)
         {
-            whereToPlaceRescource = nLocToPlace;
+            targetBlock = nLocToPlace;
             jobToReturnTo = njobToReturnTo;
             carriedType = nCarriedType;
             character = nCharacter;
@@ -37,7 +36,7 @@ namespace IslandGame.GameWorld
             if (!hasDroppedLoad)
             {
                 hasDroppedLoad = true;
-                return new CharacterTask.PlaceResource(whereToPlaceRescource, carriedType);
+                return new CharacterTask.PlaceResource(targetBlock, carriedType);
             }
             else 
             {
@@ -60,7 +59,7 @@ namespace IslandGame.GameWorld
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(whereToPlaceRescource);
+            result.Add(targetBlock);
             if (jobToReturnTo != null)
             {
                 result.AddRange(jobToReturnTo.getGoalBlock());

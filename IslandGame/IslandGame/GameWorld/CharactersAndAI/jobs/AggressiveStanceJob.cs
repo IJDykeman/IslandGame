@@ -11,8 +11,8 @@ namespace IslandGame.GameWorld
         IslandPathingProfile pathingProfile;
         ActorStateProfile actorProfile;
         Character character;
-        TravelAlongPath currentWalkJob;
-        WaitJob currentWait = null;
+
+
         float agroRange = 20;
 
         public AggressiveStanceJob(IslandPathingProfile nPathingProfile, ActorStateProfile nActorStateProfile, Character nCharacter)
@@ -34,12 +34,19 @@ namespace IslandGame.GameWorld
             }
             if (character.getFaction() != Actor.Faction.friendly)
             {
-                return updateWandering(taskTracker);
+                PathHandler pathHandler = new PathHandler();
+                Path path = pathHandler.getPathToSingleBlock(pathingProfile,
+                    new BlockLoc(character.getFootLocation()), pathingProfile,
+                    BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove()), 2);
+                TravelAlongPath currentWalkJob = new TravelAlongPath(path, new AggressiveStanceJob(pathingProfile, actorProfile, character));
+                if (currentWalkJob.isUseable())
+                {
+                    return new CharacterTask.SwitchJob(currentWalkJob);
+                }
             }
-            else
-            {
+
                 return new CharacterTask.NoTask();
-            }
+            
         }
 
         private Actor getNearestEnemyInAgroRange()
@@ -60,50 +67,7 @@ namespace IslandGame.GameWorld
             return nearestInRange;
         }
 
-        private CharacterTask.Task updateWandering(CharacterTaskTracker taskTracker)
-        {
-            if (currentWalkJob == null)
-            {
-                setWalkJobToRandomStep();
-            }
-            if (currentWait == null)
-            {
-                currentWait = new WaitJob(0);
-                currentWait.update();
-            }
-
-
-            if (currentWalkJob.isUseable() && !currentWalkJob.isComplete() && (currentWait.isComplete()))
-            {
-                return currentWalkJob.getCurrentTask(taskTracker);
-            }
-            else
-            {
-                if (currentWait.isComplete())
-                {
-                    currentWait = new WaitJob(new Random().Next(30, 120));
-
-                }
-                currentWait.update();
-                if (currentWait.isComplete())
-                {
-                    setWalkJobToRandomStep();
-
-                }
-
-                return currentWait.getCurrentTask(taskTracker);
-            }
-        }
-
-        private void setWalkJobToRandomStep()
-        {
-            PathHandler pathHandler = new PathHandler();
-            Path path = pathHandler.getPathToSingleBlock(pathingProfile,
-                new BlockLoc(character.getFootLocation()), pathingProfile,
-                BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove()), 2);
-            currentWalkJob = new TravelAlongPath(path);
-        }
-
+        
         public override bool isComplete()
         {
             return false;

@@ -16,7 +16,6 @@ namespace IslandGame.GameWorld
         ResourceBlock.ResourceType carriedType;
         Job jobToReturnTo;
         IslandWorkingProfile workingProfile;
-        BlockLoc blockToPlaceResourceIn;
 
 
 
@@ -33,7 +32,7 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            //return new CharacterTask.PlaceResource(whereToPickUpRescource, carriedType);
+            //return new CharacterTask.PlaceResource(targetBlock, carriedType);
             List<BlockLoc> goalsForBlockPlacement = workingProfile.getResourcesJobSite().getBlocksToStoreThisTypeIn(carriedType).ToList();
            
             foreach(BlockLoc test in taskTracker.blocksCurrentlyClaimed())
@@ -49,10 +48,10 @@ namespace IslandGame.GameWorld
                  
                 Path path = pathHandler.
                     getPathToMakeTheseBlocksAvaiable( workingProfile.getPathingProfile(), new BlockLoc(character.getFootLocation()),
-                    workingProfile.getPathingProfile(), goalsForBlockPlacement, 2, out blockToPlaceResourceIn);
+                    workingProfile.getPathingProfile(), goalsForBlockPlacement, 2, out targetBlock);
 
                 Job toSwichToAfterWalk = new PlaceResourceJob(carriedType, character, 
-                    jobToReturnTo, workingProfile, blockToPlaceResourceIn);
+                    jobToReturnTo, workingProfile, targetBlock);
 
                 walkJob = new TravelAlongPath(path,toSwichToAfterWalk);
                 if(path.length()==0){
@@ -81,7 +80,7 @@ namespace IslandGame.GameWorld
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(blockToPlaceResourceIn);
+            result.Add(targetBlock);
             if (jobToReturnTo != null)
             {
                 result.AddRange(jobToReturnTo.getGoalBlock());

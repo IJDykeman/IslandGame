@@ -10,7 +10,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
         WoodBuildSite buildSite;
         Job toReturnTo;
         Character character;
-        BlockLoc placementloc;
         bool hasFailedToFindOneBlockToBuild = false;
         bool hasPlacedBlock = false;
         private IslandWorkingProfile workingProfile;
@@ -22,7 +21,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             buildSite = nBuildSite;
             character = nCharacter;
             setJobType(JobType.building);
-            placementloc = placeToPlaceBlock;
+            targetBlock = placeToPlaceBlock;
         }
 
         public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, Job nToReturnTo, IslandWorkingProfile nworkingProfile)
@@ -31,7 +30,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             buildSite = nBuildSite;
             character = nCharacter;
             setJobType(JobType.building);
-            placementloc = placeToPlaceBlock;
+            targetBlock = placeToPlaceBlock;
             toReturnTo = nToReturnTo;
         }
 
@@ -39,10 +38,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
 
-            if ( !hasPlacedBlock && buildSite.numBlocksLeftToBuild() > 0 && buildSite.containsBlockToBuild(placementloc))
+            if ( !hasPlacedBlock && buildSite.numBlocksLeftToBuild() > 0 && buildSite.containsBlockToBuild(targetBlock))
             {
                 hasPlacedBlock = true;
-                return new CharacterTask.BuildBlock(placementloc, (byte)5);
+                return new CharacterTask.BuildBlock(targetBlock, (byte)5);
 
             }
 
@@ -69,7 +68,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public BlockLoc? getCurrentGoalBlock()
         {
-            return placementloc;
+            return targetBlock;
         }
 
     }

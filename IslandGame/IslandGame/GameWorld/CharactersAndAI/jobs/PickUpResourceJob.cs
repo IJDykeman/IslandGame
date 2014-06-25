@@ -11,7 +11,6 @@ namespace IslandGame.GameWorld
     {
 
         Character character;
-        BlockLoc whereToPickUpRescource;
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasPickedUpLoad = false;
@@ -24,7 +23,7 @@ namespace IslandGame.GameWorld
             Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile, BlockLoc nLocToPlace)
         {
 
-            whereToPickUpRescource = nLocToPlace;
+            targetBlock = nLocToPlace;
             jobToReturnTo = njobToReturnTo;
             carriedType = nCarriedType;
             character = nCharacter;
@@ -42,7 +41,7 @@ namespace IslandGame.GameWorld
             if (!hasPickedUpLoad)
             {
                 hasPickedUpLoad = true;
-                return new CharacterTask.PickUpResource(whereToPickUpRescource, carriedType);
+                return new CharacterTask.PickUpResource(targetBlock, carriedType);
             }
             else 
             {
@@ -65,7 +64,7 @@ namespace IslandGame.GameWorld
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(whereToPickUpRescource);
+            result.Add(targetBlock);
             if (jobToReturnTo != null)
             {
                 result.AddRange(jobToReturnTo.getGoalBlock());

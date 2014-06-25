@@ -10,7 +10,6 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
         Farm farm;
         WaitJob currentWait = null;
         Character character;
-        BlockLoc blockToTend;
         bool hasTendedBlock = false;
         IslandWorkingProfile workingProfile;
         // new TendFarmBlockJob(path.Last,workingProfile,farm, character)
@@ -18,7 +17,7 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
         public TendFarmBlockJob(BlockLoc nBlockToTend, IslandWorkingProfile nWorkingProfile,
             Farm nfarm,Character ncharacter)
         {
-            blockToTend = nBlockToTend;
+            targetBlock = nBlockToTend;
             workingProfile = nWorkingProfile;
             farm = nfarm;
             character = ncharacter;
@@ -30,13 +29,13 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
             {
 
                 hasTendedBlock = true;
-                if (farm.blockIsFullGrown(blockToTend))
+                if (farm.blockIsFullGrown(targetBlock))
                 {
-                    return new CharacterTask.HarvestFarmBlock(blockToTend, farm, workingProfile);
+                    return new CharacterTask.HarvestFarmBlock(targetBlock, farm, workingProfile);
                 }
                 else
                 {
-                    return new CharacterTask.MakeFarmBlockGrow(blockToTend);
+                    return new CharacterTask.MakeFarmBlockGrow(targetBlock);
                 }
             }
             else
@@ -62,7 +61,7 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
         public override List<BlockLoc> getGoalBlock()
         {
             List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(blockToTend);
+            result.Add(targetBlock);
 
             return result;
         }

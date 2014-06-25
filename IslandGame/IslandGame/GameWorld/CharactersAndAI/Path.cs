@@ -8,9 +8,11 @@ namespace IslandGame.GameWorld
     public class Path
     {
         List<BlockLoc> list;
+        bool somePathWasFound = true;
 
         public Path()
         {
+            somePathWasFound = false;
             list = new List<BlockLoc>();
         }
 
@@ -18,6 +20,7 @@ namespace IslandGame.GameWorld
         {
             if (nList == null)
             {
+                somePathWasFound = false;
                 list = new List<BlockLoc>();
             }
             else
@@ -72,7 +75,7 @@ namespace IslandGame.GameWorld
 
         public bool isUseable()
         {
-            return list.Count > 0;
+            return somePathWasFound;
         }
 
     }

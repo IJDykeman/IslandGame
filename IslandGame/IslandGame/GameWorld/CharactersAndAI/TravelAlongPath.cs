@@ -46,7 +46,14 @@ namespace IslandGame.GameWorld
                      return maybeTask;
                  }
             }*/
-            if (( path == null || path.length() == 0))
+
+
+            if (!path.isUseable())
+            {
+                return new CharacterTask.SwitchJob(new UnemployedJob());
+            }
+
+            else if ( path.length() == 0)
             {
                 if (toReturnTo != null)
                 {

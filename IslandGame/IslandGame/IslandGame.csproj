@@ -181,7 +181,6 @@
     <Compile Include="GameWorld\CharactersAndAI\StoneBuildSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\TreeJobSite.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\CompleteTaskJob.cs" />
-    <Compile Include="GameWorld\CharactersAndAI\jobs\WalkToAndDestroyBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\TravelAlongPath.cs" />
     <Compile Include="GameWorld\Chunk.cs" />
     <Compile Include="GameWorld\ColorPallete.cs" />
