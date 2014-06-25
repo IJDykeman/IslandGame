@@ -192,7 +192,7 @@
     <Compile Include="GameWorld\IslandGeneration\IslandGenerator.cs" />
     <Compile Include="GameWorld\IslandGeneration\IslandGeneratorLoader.cs" />
     <Compile Include="GameWorld\IslandLocationProfile.cs" />
-    <Compile Include="GameWorld\IslandPathingProfile.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\IslandPathingProfile.cs" />
     <Compile Include="GameWorld\CharactersAndAI\JobSiteManager.cs" />
     <Compile Include="GameWorld\LocationInterpolator.cs" />
     <Compile Include="GameWorld\MeshBuilder.cs" />

@@ -25,7 +25,6 @@ namespace IslandGame.GameWorld
         static NoiseGenerator()
         {
             Random r = new Random();
-            //LOOOL
             NoiseGenerator.Seed = r.Next(Int32.MaxValue);
             NoiseGenerator.Octaves = 8;
             NoiseGenerator.Amplitude = 1;///1;
@@ -36,7 +35,6 @@ namespace IslandGame.GameWorld
         public static void randomizeSeed()
         {
             Random r = new Random();
-            //LOOOL
             NoiseGenerator.Seed = r.Next(Int32.MaxValue);
         }
 

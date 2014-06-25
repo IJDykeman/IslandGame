@@ -195,9 +195,12 @@ namespace IslandGame.GameWorld
             device.SetVertexBuffer(vertexBuffer);
         }
 
+         public void createModel(GraphicsDevice device, byte[,,] unmippedArray, int spaceWidth, int spaceHeight)
+         {
+             createModel(device, unmippedArray, spaceWidth, spaceHeight, 0, 0, 0);
+         }
 
-
-        public void createModel(GraphicsDevice device, byte[,,] unmippedArray, int spaceWidth, int spaceHeight)
+        public void createModel(GraphicsDevice device, byte[,,] unmippedArray, int spaceWidth, int spaceHeight, int modelOffsetX, int modelOffsetY, int modelOffsetZ)
         {
 
             byte[, ,] mippedArray = unmippedArray;
@@ -213,7 +216,7 @@ namespace IslandGame.GameWorld
             }
 
 
-            VerticesAndIndices vertsAndInts = MeshBuilder.buildMesh(mippedArray, spaceWidthMipped, spaceHeightMipped);
+            VerticesAndIndices vertsAndInts = MeshBuilder.buildMesh(mippedArray, spaceWidthMipped, spaceHeightMipped, modelOffsetX,modelOffsetY,modelOffsetZ);
 
             vertices = vertsAndInts.vertices;
             indices = vertsAndInts.indices;

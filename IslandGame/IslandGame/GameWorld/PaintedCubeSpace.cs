@@ -151,7 +151,7 @@ new VertexAndIndexBuffers(mippedDisplayer.getVertexBuffer(), mippedDisplayer.get
 
         public void createModel(GraphicsDevice device)
         {
-            getCurrentDisplayer().createModel(device, array, spaceWidth, spaceHeight);
+            getCurrentDisplayer().createModel(device, array, spaceWidth, spaceHeight, (int)loc.X,(int)loc.Y,(int)loc.Z);
         }
 
         public IndexBuffer getIndexBuffer()

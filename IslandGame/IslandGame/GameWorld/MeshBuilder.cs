@@ -8,6 +8,8 @@ namespace IslandGame.GameWorld
 {
     static class MeshBuilder
     {
+
+
         static readonly Vector3 frontNormal = new Vector3(0, 0, -1f);
         static readonly Vector3 backNormal = new Vector3(3f, -.5f, 1f);
         static readonly Vector3 rightNormal = new Vector3(-.6f, -.5f, 1f);
@@ -73,6 +75,8 @@ namespace IslandGame.GameWorld
         static readonly byte[] yOffSetsAtCorners = { 1, 1, 0, 0, 1, 1, 0, 0 };
         static readonly byte[] zOffSetsAtCorners = { 1, 0, 1, 0, 1, 0, 1, 0 };
 
+        static Random rand = new Random();
+
         public static int getNumFaces(byte[, ,] array, int spaceWidth, int spaceHeight)
         {
 
@@ -131,7 +135,7 @@ namespace IslandGame.GameWorld
                 {
                     int y = spaceHeight - 1;
 
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
                 }
             }
 
@@ -141,7 +145,7 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int x = spaceWidth - 1;
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
                 }
             }
 
@@ -150,7 +154,7 @@ namespace IslandGame.GameWorld
                 for (int y = 0; y < spaceHeight; y++)
                 {
                     int z = spaceWidth - 1;
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
                 }
             }
 
@@ -160,7 +164,7 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int y = -1;
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
                 }
             }
 
@@ -170,7 +174,7 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int x = -1;
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
                 }
             }
 
@@ -180,7 +184,7 @@ namespace IslandGame.GameWorld
                 {
                     int z = -1;
                     int before = numFaces;
-                    countFacesWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
+                    countFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, x, y, z, ref numFaces);
 
                 }
             }
@@ -191,7 +195,7 @@ namespace IslandGame.GameWorld
             return numFaces;
         }
 
-        public static VerticesAndIndices buildMesh(byte[, ,] array, int spaceWidth, int spaceHeight)
+        public static VerticesAndIndices buildMesh(byte[, ,] array, int spaceWidth, int spaceHeight, int modelOffsetX, int modelOffsetY, int modelOffsetZ)
         {
             int numFaces = getNumFaces(array, spaceWidth, spaceHeight);
 
@@ -216,17 +220,17 @@ namespace IslandGame.GameWorld
                             if (array[x, y + 1, z] == (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[1],
-                                    topIndices, topNormal, topCorners, ref USETOStoreVertexCountSoFar);
+                                    topIndices, topNormal, topCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                             }
                             if (array[x + 1, y, z] == (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[0],
-                                    leftIndices, leftNormal, leftCorners, ref USETOStoreVertexCountSoFar);
+                                    leftIndices, leftNormal, leftCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                             }
                             if (array[x, y, z + 1] == (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[2],
-                                    backIndices, backNormal, backCorners, ref USETOStoreVertexCountSoFar);
+                                    backIndices, backNormal, backCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                             }
                         }
                         else //xyz is air
@@ -234,18 +238,18 @@ namespace IslandGame.GameWorld
                             if (array[x, y + 1, z] != (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x, y + 1, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y + 1, z, array, spaceWidth, spaceHeight)[1],
-                                    bottomIndices, bottomNormal, bottomCorners, ref USETOStoreVertexCountSoFar);
+                                    bottomIndices, bottomNormal, bottomCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                             }
                             if (array[x + 1, y, z] != (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x + 1, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x + 1, y, z, array, spaceWidth, spaceHeight)[0],
-                                    rightIndices, rightNormal, rightCorners, ref USETOStoreVertexCountSoFar);
+                                    rightIndices, rightNormal, rightCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
 
                             }
                             if (array[x, y, z + 1] != (byte)PaintedCubeSpace.AIR)
                             {
                                 drawFace(x, y, z + 1, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z + 1, array, spaceWidth, spaceHeight)[2],
-                                    frontIndices, frontNormal, frontCorners, ref USETOStoreVertexCountSoFar);
+                                    frontIndices, frontNormal, frontCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                             }
                         }
                     }
@@ -257,8 +261,8 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int y = spaceHeight - 1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -269,8 +273,8 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int x = spaceWidth - 1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -279,8 +283,8 @@ namespace IslandGame.GameWorld
                 for (int y = 0; y < spaceHeight; y++)
                 {
                     int z = spaceWidth - 1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -290,8 +294,8 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int y = -1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -301,8 +305,8 @@ namespace IslandGame.GameWorld
                 for (int z = 0; z < spaceWidth; z++)
                 {
                     int x = -1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -311,8 +315,8 @@ namespace IslandGame.GameWorld
                 for (int y = 0; y < spaceHeight; y++)
                 {
                     int z = -1;
-                    createFacesWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
-                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z);
+                    createFacesOnBlockWithWithinChecks(array, spaceWidth, spaceHeight, vertices, ref verticesSoFar,
+                        indices, ref indicesSoFar, USETOStoreVertexCountSoFar, x, y, z, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
 
@@ -324,7 +328,7 @@ namespace IslandGame.GameWorld
             return new VerticesAndIndices(vertices, indices);
         }
 
-        private static void countFacesWithWithinChecks(byte[, ,] array, int spaceWidth, int spaceHeight, int x, int y, int z, ref int numFaces)
+        private static void countFacesOnBlockWithWithinChecks(byte[, ,] array, int spaceWidth, int spaceHeight, int x, int y, int z, ref int numFaces)
         {
 
             if (withinSpace(x, y, z, spaceWidth, spaceHeight) && array[x, y, z] != (byte)PaintedCubeSpace.AIR)
@@ -371,7 +375,8 @@ namespace IslandGame.GameWorld
 
         }
 
-        private static void createFacesWithWithinChecks(byte[, ,] array, int spaceWidth, int spaceHeight, VertexPostitionColorPaintNormal[] vertices, ref int verticesSoFar, short[] indices, ref int indicesSoFar, int USETOStoreVertexCountSoFar, int x, int y, int z)
+        private static void createFacesOnBlockWithWithinChecks(byte[, ,] array, int spaceWidth, int spaceHeight, VertexPostitionColorPaintNormal[] vertices, ref int verticesSoFar,
+            short[] indices, ref int indicesSoFar, int USETOStoreVertexCountSoFar, int x, int y, int z, int modelOffsetX, int modelOffsetY, int modelOffsetZ)
         {
             if (withinSpace(x, y, z, spaceWidth, spaceHeight) && array[x, y, z] != (byte)PaintedCubeSpace.AIR)
             {
@@ -380,21 +385,21 @@ namespace IslandGame.GameWorld
                 if (!withinSpace(x, y + 1, z, spaceWidth, spaceHeight) || array[x, y + 1, z] == (byte)PaintedCubeSpace.AIR)
                 {
                     drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[1],
-                        topIndices, topNormal, topCorners, ref USETOStoreVertexCountSoFar);
+                        topIndices, topNormal, topCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
 
                 //if (withinSpace(i+1, y, z, spaceWidth, spaceHeight))
                 if (!withinSpace(x + 1, y, z, spaceWidth, spaceHeight) || array[x + 1, y, z] == (byte)PaintedCubeSpace.AIR)
                 {
                     drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[0],
-                        leftIndices, leftNormal, leftCorners, ref USETOStoreVertexCountSoFar);
+                        leftIndices, leftNormal, leftCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
 
                 //if (withinSpace(i, y, z+1, spaceWidth, spaceHeight))
                 if (!withinSpace(x, y, z + 1, spaceWidth, spaceHeight) || array[x, y, z + 1] == (byte)PaintedCubeSpace.AIR)
                 {
                     drawFace(x, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z, array, spaceWidth, spaceHeight)[2],
-                        backIndices, backNormal, backCorners, ref USETOStoreVertexCountSoFar);
+                        backIndices, backNormal, backCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                 }
             }
             else //xyz is air or outside maybeSpace
@@ -403,14 +408,14 @@ namespace IslandGame.GameWorld
                     if (array[x, y + 1, z] != (byte)PaintedCubeSpace.AIR)
                     {
                         drawFace(x, y + 1, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y + 1, z, array, spaceWidth, spaceHeight)[1],
-                            bottomIndices, bottomNormal, bottomCorners, ref USETOStoreVertexCountSoFar);
+                            bottomIndices, bottomNormal, bottomCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                     }
 
                 if (withinSpace(x + 1, y, z, spaceWidth, spaceHeight))
                     if (array[x + 1, y, z] != (byte)PaintedCubeSpace.AIR)
                     {
                         drawFace(x + 1, y, z, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x + 1, y, z, array, spaceWidth, spaceHeight)[0],
-                            rightIndices, rightNormal, rightCorners, ref USETOStoreVertexCountSoFar);
+                            rightIndices, rightNormal, rightCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
 
                     }
 
@@ -418,14 +423,14 @@ namespace IslandGame.GameWorld
                     if (array[x, y, z + 1] != (byte)PaintedCubeSpace.AIR)
                     {
                         drawFace(x, y, z + 1, ref array, vertices, ref verticesSoFar, indices, ref indicesSoFar, cornersCoveredAlongforAOArray(x, y, z + 1, array, spaceWidth, spaceHeight)[2],
-                            frontIndices, frontNormal, frontCorners, ref USETOStoreVertexCountSoFar);
+                            frontIndices, frontNormal, frontCorners, ref USETOStoreVertexCountSoFar, modelOffsetX, modelOffsetY, modelOffsetZ);
                     }
             }
 
         }
 
         static void drawFace(int x, int y, int z, ref byte[, ,] array, VertexPostitionColorPaintNormal[] vertices, ref int verticesSoFar, short[] indices, ref int indicesSoFar, byte[] AOarray,
-            byte[] indicesForThisFace, Vector3 normal, cornr2AOArrLc[] corners, ref int USETOStoreVertexCountSoFar)
+            byte[] indicesForThisFace, Vector3 normal, cornr2AOArrLc[] corners, ref int USETOStoreVertexCountSoFar, int modelOffsetX, int modelOffsetY, int modelOffsetZ)
         {
             USETOStoreVertexCountSoFar = verticesSoFar;
 
@@ -436,31 +441,27 @@ namespace IslandGame.GameWorld
                 //indices.Add((short)(USETOStoreVertexCountSoFar + i));
             }
 
-            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[0], ref normal, ref AOarray, array[x, y, z]);
-            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[1], ref normal, ref AOarray, array[x, y, z]);
-            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[2], ref normal, ref AOarray, array[x, y, z]);
-            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[3], ref normal, ref AOarray, array[x, y, z]);
-
-            /*AddVertexToVertices(i, y, z, ref vertices, corners[0], ref normal, ref AOarray);
-            AddVertexToVertices(i, y, z, ref vertices, corners[1], ref normal, ref AOarray);
-            AddVertexToVertices(i, y, z, ref vertices, corners[2], ref normal, ref AOarray);
-            AddVertexToVertices(i, y, z, ref vertices, corners[0], ref normal, ref AOarray);
-            AddVertexToVertices(i, y, z, ref vertices, corners[3], ref normal, ref AOarray);
-            AddVertexToVertices(i, y, z, ref vertices, corners[1], ref normal, ref AOarray);*/
-
-
-            //{ cornr2AOArrLc.XhYlZh, cornr2AOArrLc.XhYhZl, cornr2AOArrLc.XhYhZh, cornr2AOArrLc.XhYlZl };
+            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[0], ref normal, ref AOarray, array[x, y, z],modelOffsetX, modelOffsetY, modelOffsetZ);
+            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[1], ref normal, ref AOarray, array[x, y, z], modelOffsetX, modelOffsetY, modelOffsetZ);
+            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[2], ref normal, ref AOarray, array[x, y, z], modelOffsetX, modelOffsetY, modelOffsetZ);
+            AddVertexToVertices(x, y, z, ref vertices, ref verticesSoFar, corners[3], ref normal, ref AOarray, array[x, y, z], modelOffsetX, modelOffsetY, modelOffsetZ);
 
         }
 
 
         private static void AddVertexToVertices(int x, int y, int z, ref VertexPostitionColorPaintNormal[] vertices, ref int verticesSoFar,
-            cornr2AOArrLc corner, ref Vector3 normal, ref byte[] AOarray, byte type)
+            cornr2AOArrLc corner, ref Vector3 normal, ref byte[] AOarray, byte type, int modelOffsetX, int modelOffsetY, int modelOffsetZ)
         {
             VertexPostitionColorPaintNormal Zero = new VertexPostitionColorPaintNormal();
             Zero.Position = new Vector3(x + xOffSetsAtCorners[(int)corner], y + yOffSetsAtCorners[(int)corner], z + zOffSetsAtCorners[(int)corner]);
             Zero.Normal = normal;
-            Zero.PaintColor = ColorPallete.colorArray[type];
+           // NoiseGenerator.Amplitude=2;
+            //float simplex = (float)NoiseGenerator.Noise(x, z)+1;
+            //Zero.PaintColor = new Color((int)(simplex * 255), (int)(simplex * 255), (int)(simplex * 255));
+            Random rand = new Random(1+(x + xOffSetsAtCorners[(int)corner]+modelOffsetX) 
+                * (y + yOffSetsAtCorners[(int)corner]+modelOffsetY) 
+                * ( z + zOffSetsAtCorners[(int)corner]+modelOffsetZ));
+            Zero.PaintColor = new Color( ColorPallete.colorArray[type].R + rand.Next(-3,3),ColorPallete.colorArray[type].G + rand.Next(-3,3),ColorPallete.colorArray[type].B + rand.Next(-3,3));
             Zero.Color.R = AOarray[(int)corner];
             vertices[verticesSoFar] = Zero;
             verticesSoFar++;
