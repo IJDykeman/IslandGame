@@ -21,12 +21,7 @@ namespace IslandGame.GameWorld
             workingProfile =nWorkingProfile;
         }
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(targetBlock);
-            return result;
-        }
+
 
         public override bool isComplete()
         {
@@ -42,6 +37,7 @@ namespace IslandGame.GameWorld
         {
             if (workingProfile.getPathingProfile().isProfileSolidAt(targetBlock))
             {
+                    character.pickUpItem(ResourceBlock.ResourceType.Stone);
                     return new CharacterTask.DestroyBlock(targetBlock);
             }
             else

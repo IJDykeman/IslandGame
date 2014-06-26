@@ -5,28 +5,20 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
-    class LoggingJob : MultiBlockOngoingJob
+    class LoggingKickoffJob : MultiBlockOngoingJob
     {
-        BlockLoc currentBlockToChop;
-        WaitJob currentWait = null;
         Character character;
         bool failedToFindATreeToChop = false;
-        BlockLoc currentGoalBlock;
         IslandWorkingProfile workingProfile;
 
 
 
-        public LoggingJob(Character nCharacter, IslandWorkingProfile nWorkingProfile)
+        public LoggingKickoffJob(Character nCharacter, IslandWorkingProfile nWorkingProfile)
         {
 
             character = nCharacter;
             setJobType(JobType.logging);
             workingProfile =nWorkingProfile;
-        }
-
-        public override List<BlockLoc> getGoalBlock()
-        {
-            return new List<BlockLoc>();
         }
 
         public override bool isComplete()
@@ -58,7 +50,6 @@ namespace IslandGame.GameWorld
                 workingProfile.getTreeJobSite().getProfile(),
                 nextBlocksToBuild,
                 2, out blockFoundToChop);
-            currentGoalBlock = blockFoundToChop;
 
             TravelAlongPath walkJob = new TravelAlongPath(path,new ChopTreeJob(character,workingProfile,blockFoundToChop));
 

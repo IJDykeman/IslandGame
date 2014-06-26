@@ -6,6 +6,7 @@ using CubeAnimator;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using IslandGame.GameWorld.CharactersAndAI;
+using System.Diagnostics;
 
 namespace IslandGame.GameWorld
 {
@@ -61,7 +62,7 @@ namespace IslandGame.GameWorld
                     setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+@"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
-                    switch (currentJobType)
+                    switch (job.getJobType())
                     {
 
                         case JobType.combat:
@@ -79,14 +80,35 @@ namespace IslandGame.GameWorld
                         case JobType.logging:
                             setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"axeMinotuar.chr");
                             break;
-                        case JobType.CarryingWood:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
+                        case JobType.CarryingSomething:
+                            
+                            
                             break;
                         default:
                             setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"minotuar.chr");
                             break;
                     }
-                    
+                    if (load.isCaryingItem())
+                    {
+                        switch (load.getLoad())
+                        {
+                            case ResourceBlock.ResourceType.Stone:
+                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingStandardBlockMinotuar.chr");
+                                break;
+                            case ResourceBlock.ResourceType.Wheat:
+                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingWheatMinotuar.chr");
+                                break;
+                            case ResourceBlock.ResourceType.Wood:
+                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
+                                break;
+
+                        }
+
+                    }
+                    else
+                    {
+                        setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "minotuar.chr");
+                    }
                     break;
                 default:
                     break;
@@ -164,7 +186,7 @@ namespace IslandGame.GameWorld
                     CharacterTask.BuildBlock buildBlock = (CharacterTask.BuildBlock)toDo;
                     actions.Add(new ActorStrikeBlockAction(this, buildBlock.getBlockLocToBuild(), JobType.building));
                     StartHammerAnimationIfPossible();
-                    load.dropItem();
+                    dropItem();
                     break;
                 case CharacterTask.Type.ChopBlockForFrame:
                     animations.Add(AnimationType.standing);
@@ -233,17 +255,20 @@ namespace IslandGame.GameWorld
                     setJobAndCheckUseability(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Wheat,this,
                         new FarmingKickoffJob(harvestTask.getFarm(),this,harvestTask.getWorkingProfile()),harvestTask.getWorkingProfile()));
                     StartHammerAnimationIfPossible();
+                    pickUpItem(ResourceBlock.ResourceType.Wheat);
                     break;
                 case CharacterTask.Type.PlaceResource:
                     CharacterTask.PlaceResource placeResource = (CharacterTask.PlaceResource)toDo;
                     actions.Add(new ActorPlaceResourceAction(placeResource.getLocToPlaceResource(),placeResource.getTypeToPlace()));
                     StartHammerAnimationIfPossible();
+                    dropLoad();
                     break;
                 case CharacterTask.Type.PickUpResource:
                     CharacterTask.PickUpResource pickUpResource = (CharacterTask.PickUpResource)toDo;
                     actions.Add(new ActorPickUpResourceAction(pickUpResource.getLocToPlaceResource(), pickUpResource.getTypeToPlace()));
                     load.pickUpItem(pickUpResource.getTypeToPlace());
                     StartHammerAnimationIfPossible();
+                    pickUpItem(pickUpResource.getTypeToPlace());
                     break;
                 default:
                     throw new Exception("unhandled task");
@@ -255,6 +280,12 @@ namespace IslandGame.GameWorld
                 job = new UnemployedJob();
             }
             return animations;
+        }
+
+        private void dropItem()
+        {
+            load.dropItem();
+            setupBodyPartGroupGivenCurrentJob();
         }
 
         public void StartHammerAnimationIfPossible()
@@ -440,6 +471,7 @@ namespace IslandGame.GameWorld
         public void pickUpItem(ResourceBlock.ResourceType nItem)
         {
             load.pickUpItem(nItem);
+            setupBodyPartGroupGivenCurrentJob();
         }
 
         public bool isCarryingItem()

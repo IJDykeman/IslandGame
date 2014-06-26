@@ -14,7 +14,6 @@ namespace IslandGame.GameWorld
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasDroppedLoad = false;
-        Job jobToReturnTo;
         IslandWorkingProfile workingProfile;
 
 
@@ -23,10 +22,10 @@ namespace IslandGame.GameWorld
             Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile, BlockLoc nLocToPlace)
         {
             targetBlock = nLocToPlace;
-            jobToReturnTo = njobToReturnTo;
+            toReturnTo = njobToReturnTo;
             carriedType = nCarriedType;
             character = nCharacter;
-            setJobType(JobType.CarryingWood);
+            setJobType(JobType.CarryingSomething);
             workingProfile = nworkingProfile;
 
         }
@@ -40,7 +39,7 @@ namespace IslandGame.GameWorld
             }
             else 
             {
-                return new CharacterTask.SwitchJob(jobToReturnTo);
+                return new CharacterTask.SwitchJob(toReturnTo);
             }
 
 
@@ -55,19 +54,6 @@ namespace IslandGame.GameWorld
         {
             return true;
         }
-
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(targetBlock);
-            if (jobToReturnTo != null)
-            {
-                result.AddRange(jobToReturnTo.getGoalBlock());
-            }
-            return result;
-
-        }
-
 
 
 

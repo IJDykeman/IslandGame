@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
         mining,
         building,
         logging,
-        CarryingWood
+        CarryingSomething
     }
 
     public abstract class Job
@@ -26,8 +26,9 @@ namespace IslandGame.GameWorld
         public abstract bool isUseable();
         //PUT TARGETBLOCK FIELD HERE
         protected BlockLoc targetBlock;
+        protected Job toReturnTo;
 
-        public JobType getJobType()
+        public virtual JobType getJobType()
         {
             return jobType;
         }
@@ -44,11 +45,20 @@ namespace IslandGame.GameWorld
             
         }
 
-        public virtual List<BlockLoc> getGoalBlock()
+        public List<BlockLoc> getGoalBlock()
         {
-            return new List<BlockLoc>();
-        }
+            List<BlockLoc> result = new List<BlockLoc>(1);
+            if (targetBlock != null)
+            {
+                result.Add(targetBlock);
+            }
+            if (toReturnTo != null)
+            {
+                result.AddRange(toReturnTo.getGoalBlock());
+            }
+            return result;
 
+        }
  
     }
 

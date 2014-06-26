@@ -38,14 +38,9 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public void pickUpItem(ResourceBlock.ResourceType nCarriedResource)
         {
-            if (!isCaryingItem())
-            {
-                carriedResource = nCarriedResource;
-            }
-            else
-            {
-                throw new Exception("already carrying item!");
-            }
+            dropItem();
+            carriedResource = nCarriedResource;
+
         }
 
     }

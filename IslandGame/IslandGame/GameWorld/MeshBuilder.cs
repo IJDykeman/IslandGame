@@ -458,10 +458,11 @@ namespace IslandGame.GameWorld
            // NoiseGenerator.Amplitude=2;
             //float simplex = (float)NoiseGenerator.Noise(x, z)+1;
             //Zero.PaintColor = new Color((int)(simplex * 255), (int)(simplex * 255), (int)(simplex * 255));
-            Random rand = new Random(1+(x + xOffSetsAtCorners[(int)corner]+modelOffsetX) 
-                * (y + yOffSetsAtCorners[(int)corner]+modelOffsetY) 
-                * ( z + zOffSetsAtCorners[(int)corner]+modelOffsetZ));
-            Zero.PaintColor = new Color( ColorPallete.colorArray[type].R + rand.Next(-3,3),ColorPallete.colorArray[type].G + rand.Next(-3,3),ColorPallete.colorArray[type].B + rand.Next(-3,3));
+            //Random rand = new Random(1+(x + xOffSetsAtCorners[(int)corner]+modelOffsetX) 
+            //    * (y + yOffSetsAtCorners[(int)corner]+modelOffsetY) 
+            //    * ( z + zOffSetsAtCorners[(int)corner]+modelOffsetZ));
+            //Zero.PaintColor = new Color( ColorPallete.colorArray[type].R + rand.Next(-3,3),ColorPallete.colorArray[type].G + rand.Next(-3,3),ColorPallete.colorArray[type].B + rand.Next(-3,3));
+            Zero.PaintColor = new Color(ColorPallete.colorArray[type].R , ColorPallete.colorArray[type].G, ColorPallete.colorArray[type].B );
             Zero.Color.R = AOarray[(int)corner];
             vertices[verticesSoFar] = Zero;
             verticesSoFar++;

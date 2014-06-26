@@ -8,7 +8,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
     class PlaceBlockJob : Job
     {
         WoodBuildSite buildSite;
-        Job toReturnTo;
         Character character;
         bool hasFailedToFindOneBlockToBuild = false;
         bool hasPlacedBlock = false;

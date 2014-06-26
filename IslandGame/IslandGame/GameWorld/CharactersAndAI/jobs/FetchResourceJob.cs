@@ -15,14 +15,14 @@ namespace IslandGame.GameWorld
         bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType typeToFetch;
         bool hasTriedToPickUpResource = false;
-        Job jobToReturnTo;
+        Job toReturnTo;
 
 
 
         public FetchResourceJob(IslandWorkingProfile nworkingProfile, ResourceBlock.ResourceType nTypeToFetch,
             Character nCharacter, Job njobToReturnTo)
         {
-            jobToReturnTo = njobToReturnTo;
+            toReturnTo = njobToReturnTo;
             workingProfile = nworkingProfile;
             typeToFetch = nTypeToFetch;
             character = nCharacter;
@@ -51,7 +51,7 @@ namespace IslandGame.GameWorld
                     workingProfile.getPathingProfile(), goalsForBlockPickup, 2, out blockToPlaceResourceIn);
 
                 targetBlock = blockToPlaceResourceIn;
-                TravelAlongPath travel = new TravelAlongPath(path,new PickUpResourceJob(typeToFetch,character,jobToReturnTo,workingProfile,blockToPlaceResourceIn));
+                TravelAlongPath travel = new TravelAlongPath(path,new PickUpResourceJob(typeToFetch,character,toReturnTo,workingProfile,blockToPlaceResourceIn));
                 return new CharacterTask.SwitchJob(travel);
             }
             else
@@ -74,17 +74,7 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result =  new List<BlockLoc>() ;
-            result.Add(targetBlock);
-            if (jobToReturnTo != null)
-            {
-                result.AddRange(jobToReturnTo.getGoalBlock());
-            }
-            return result;
-        
-        }
+
 
 
     }

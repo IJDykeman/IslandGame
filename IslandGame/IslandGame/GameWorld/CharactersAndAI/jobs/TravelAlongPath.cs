@@ -11,7 +11,7 @@ namespace IslandGame.GameWorld
     {
         Path path;
         IslandGame.GameWorld.CharacterTask.StepToBlock currentStep;
-        Job toReturnTo;
+
 
 
         public TravelAlongPath(Path nPath, Job nToReturnTo)
@@ -23,6 +23,7 @@ namespace IslandGame.GameWorld
             {
                 currentStep = new CharacterTask.StepToBlock(path.getAt(0));
             }
+            setJobType(JobType.none);
         }
 
         public TravelAlongPath(Path nPath)
@@ -38,14 +39,6 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            /*if (toReturnTo != null)
-            {
-                 CharacterTask.Task maybeTask = toReturnTo.checkForWorkConflictsNullIfNoResponse(taskTracker);
-                 if (maybeTask != null)
-                 {
-                     return maybeTask;
-                 }
-            }*/
 
 
             if (!path.isUseable())
@@ -97,32 +90,22 @@ namespace IslandGame.GameWorld
 
         public override bool isComplete()
         {
-            return false;/*
-            if (path == null || path.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }*/
+            return false;
         }
 
+        public override JobType getJobType()
+        {
+            if (toReturnTo != null)
+            {
+                return toReturnTo.getJobType();
+            }
+            return base.getJobType();
+        }
 
         public bool foundPath()
         {
             return path != null;
         }
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result = new List<BlockLoc>();
-            if (toReturnTo != null)
-            {
-                result.AddRange(toReturnTo.getGoalBlock());
-            }
-            return result;
-
-        }
     }
 }

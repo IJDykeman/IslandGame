@@ -25,13 +25,6 @@ namespace IslandGame.GameWorld
             workingProfile =nWorkingProfile;
         }
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(currentBlockToChop);
-            return result;
-        }
-
         public override bool isComplete()
         {
             return !workingProfile.getTreeJobSite().hasAtLeastOneTree() || failedToFindATreeToChop;
@@ -53,11 +46,12 @@ namespace IslandGame.GameWorld
                 }
                 else
                 {
-
+                    character.pickUpItem(ResourceBlock.ResourceType.Wood);
                     return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(
                         ResourceBlock.ResourceType.Wood,
                         character,
-                        new LoggingJob(character, workingProfile), workingProfile));
+                        new LoggingKickoffJob(character, workingProfile), workingProfile));
+                    
 
                 }
 

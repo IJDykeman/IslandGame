@@ -58,12 +58,6 @@ namespace IslandGame.GameWorld.CharactersAndAI.jobs
 
 
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            List<BlockLoc> result = new List<BlockLoc>();
-            result.Add(targetBlock);
 
-            return result;
-        }
     }
 }

@@ -90,7 +90,7 @@ namespace IslandGame.GameWorld
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
         {
-            return new LoggingJob(newWorker, workingProfile);
+            return new LoggingKickoffJob(newWorker, workingProfile);
         }
 
         public override void updateMesh(int mipLevel)

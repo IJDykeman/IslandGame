@@ -64,13 +64,5 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override List<BlockLoc> getGoalBlock()
-        {
-            return new List<BlockLoc>();
-
-
-        }
-
-
     }
 }
