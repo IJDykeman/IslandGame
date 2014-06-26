@@ -27,7 +27,7 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            float distToTarget  = Vector3.Distance(character.getLocation(), target.getLocation());
+            float distToTarget = Vector3.Distance(character.getLocation(), target.getLocation());
             if (distToTarget > loseInterestDistance || target.isDead())
             {
                 return new CharacterTask.SwitchJob(new AggressiveStanceJob(pathingProfile, actorProfile, character));
@@ -38,7 +38,7 @@ namespace IslandGame.GameWorld
             }
             else
             {
-                return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(),  target.getLocation() - character.getLocation());
+                return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), target.getLocation() - character.getLocation());
             }
 
 

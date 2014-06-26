@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
         IslandManager islandManager;
         ActorManager actorManager;
         GameDirector gameDirector;
-
+        Random rand = new Random();
 
         public World()
         {
@@ -34,6 +34,7 @@ namespace IslandGame.GameWorld
         {
             gameDirector.update();
             Compositer.setSkyColors(gameDirector.getSkyHorizonColor(), gameDirector.getSkyZenithColor(), gameDirector.getAmbientBrighness());
+            updateMonsterSpawning();
             handleActorActions(actorManager.update());
             islandManager.update();
         }
@@ -288,7 +289,6 @@ namespace IslandGame.GameWorld
             }
             return new UnemployedJob();
         }
-
 
         public AxisAlignedBoundingBox AABBPhysicsCollisionOnly(AxisAlignedBoundingBox currentAABB, AxisAlignedBoundingBox desiredAABB)
         {
@@ -618,6 +618,25 @@ namespace IslandGame.GameWorld
         public void addBoatAt(Vector3 nLoc)
         {
             actorManager.addBoatAt(nLoc);
+        }
+
+        public void updateMonsterSpawning()
+        {
+            if (gameDirector.monstersAreSpawning())
+            {
+                
+                if (rand.Next(100) == 2)
+                {
+                    foreach (Island island in islandManager.getIslandEnumerable())
+                    {
+                        BoundingBox box = island.getBoundingBox();
+                        int x = rand.Next((int)box.Min.X, (int)box.Max.X);
+                        int z = rand.Next((int)box.Min.Z, (int)box.Max.Z);
+                        addCharacterAt(new Vector3(x, 40, z), Actor.Faction.enemy);
+
+                    }
+                }
+            }
         }
 
     }

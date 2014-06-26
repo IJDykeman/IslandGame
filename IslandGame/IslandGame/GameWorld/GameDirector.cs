@@ -37,5 +37,10 @@ namespace IslandGame
         {
             return dayNightCycler.getCurrentAmbientBrightness();
         }
+
+        public bool monstersAreSpawning()
+        {
+            return dayNightCycler.monstersSpawning();
+        }
     }
 }

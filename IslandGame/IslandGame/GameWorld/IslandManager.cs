@@ -426,11 +426,14 @@ namespace IslandGame.GameWorld
             getClosestIslandToLocation(loc.toWorldSpaceVector3()).addResourceBlock(loc, type);
         }
 
-
-
         public void removeResourceBlock(BlockLoc blockLoc, ResourceBlock.ResourceType resourceType)
         {
             getClosestIslandToLocation(blockLoc.toWorldSpaceVector3()).removeResourceBlock(blockLoc, resourceType);
+        }
+
+        public IEnumerable<Island> getIslandEnumerable()
+        {
+            return islands.ToArray();
         }
     }
 }

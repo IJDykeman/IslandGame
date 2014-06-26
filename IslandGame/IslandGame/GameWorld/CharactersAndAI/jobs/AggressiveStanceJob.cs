@@ -11,6 +11,7 @@ namespace IslandGame.GameWorld
         IslandPathingProfile pathingProfile;
         ActorStateProfile actorProfile;
         Character character;
+        float loseInterestDistance = 70f;
 
 
         float agroRange = 20;
@@ -30,19 +31,40 @@ namespace IslandGame.GameWorld
             Actor toAttack = getNearestEnemyInAgroRange();
             if (toAttack != null)
             {
-                return new CharacterTask.SwitchJob(new AttackActorJob(toAttack,pathingProfile,actorProfile,character));
+                float distToTarget = Vector3.Distance(character.getLocation(), toAttack.getLocation());
+                if (distToTarget > loseInterestDistance || toAttack.isDead())
+                {
+                    return new CharacterTask.SwitchJob(new AggressiveStanceJob(pathingProfile, actorProfile, character));
+                }
+                else if (distToTarget > getDesiredDistanceFromTarget())
+                {
+                    return new CharacterTask.WalkTowardPoint(toAttack.getLocation());
+                }
+                else
+                {
+                    return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), toAttack.getLocation() - character.getLocation());
+                }
             }
             if (character.getFaction() != Actor.Faction.friendly)
             {
-                PathHandler pathHandler = new PathHandler();
+               /* PathHandler pathHandler = new PathHandler();
                 Path path = pathHandler.getPathToSingleBlock(pathingProfile,
                     new BlockLoc(character.getFootLocation()), pathingProfile,
                     BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove()), 2);
                 TravelAlongPath currentWalkJob = new TravelAlongPath(path, new AggressiveStanceJob(pathingProfile, actorProfile, character));
                 if (currentWalkJob.isUseable())
                 {
-                    return new CharacterTask.SwitchJob(currentWalkJob);
+                   // return new CharacterTask.SwitchJob(currentWalkJob);
+                }*/
+                BlockLoc toTry = BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove());
+                if (pathingProfile.isStandableAtWithHeight(toTry, 2))
+                {
+                    List<BlockLoc> pathList = new List<BlockLoc>();
+                    pathList.Add(toTry);
+                    Path path = new Path(pathList);
+                    return new CharacterTask.SwitchJob(new TravelAlongPath(path,new AggressiveStanceJob(pathingProfile,actorProfile,character)));
                 }
+
             }
 
                 return new CharacterTask.NoTask();
@@ -76,6 +98,12 @@ namespace IslandGame.GameWorld
         public override bool isUseable()
         {
             return true;
+        }
+
+
+        float getDesiredDistanceFromTarget()
+        {
+            return character.getStrikeRange() * .8f;
         }
     }
     

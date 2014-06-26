@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace IslandGame.GameWorld
 {
@@ -16,17 +17,27 @@ namespace IslandGame.GameWorld
 
         public DayNightCycler()
         {
-            TimeOfDay morning = new TimeOfDay(new Vector4(.498f, .1843f, .0627f, 1), new Vector4(.0863f, .098f, .1569f, 1), .4f, 4, false);
-            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f, 6, false);
-            TimeOfDay evening = new TimeOfDay(new Vector4(.694f, .416f, .306f, 1), new Vector4(.0588f, .2706f, .512f, 1), .4f, 4, false);
-            TimeOfDay night = new TimeOfDay(new Vector4(0, 0, 0, 1), new Vector4(0, 0, 0, 1), .2f, 4, true);
+            TimeOfDay morning = new TimeOfDay(new Vector4(.498f, .1843f, .0627f, 1), new Vector4(.0863f, .098f, .1569f, 1), .4f, 2, false);
+            TimeOfDay broadDay = new TimeOfDay(new Vector4(.392f, .584f, .733f, 1), new Vector4(.019f, .243f, .549f, 1) * 1.7f, .9f, 3, false);
+            TimeOfDay evening = new TimeOfDay(new Vector4(.694f, .416f, .306f, 1), new Vector4(.0588f, .2706f, .512f, 1), .4f, 2, false);
+            TimeOfDay night = new TimeOfDay(new Vector4(0, 0, 0, 1), new Vector4(0, 0, 0, 1), .2f, 2, true);
 
             timesOfDay = new TimeOfDay []{ morning, broadDay, evening,night };
         }
 
         public void update()
         {
-            timeLeftInCurrentTimeOfDayInSeconds-= 1/60.0f;
+            float timeStep = 1/60.0f;
+            if (Keyboard.GetState().IsKeyDown(Keys.F9))
+            {
+                timeStep *= 80;
+            }
+            advaneTime(timeStep);
+        }
+
+        private void advaneTime(float timeStep)
+        {
+            timeLeftInCurrentTimeOfDayInSeconds -= timeStep;
             if (timeLeftInCurrentTimeOfDayInSeconds <= 0)
             {
                 incrementPlaceInList();
