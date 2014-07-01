@@ -7,8 +7,6 @@ namespace IslandGame.GameWorld
 {
     class ChopTreeJob : MultiBlockOngoingJob
     {
-        BlockLoc currentBlockToChop;
-        WaitJob currentWait = null;
         Character character;
 
         bool failedToFindATreeToChop = false;

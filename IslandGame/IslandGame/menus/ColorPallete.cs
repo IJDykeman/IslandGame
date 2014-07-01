@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace IslandGame.menus
 {
-    class ColorPallete : UIElement
+    class UIColorPallete : UIElement
     {
         Texture2D highlightBoxTexture;
         public Color[] colorArray;
@@ -16,7 +16,7 @@ namespace IslandGame.menus
         readonly int colorPickerBlockWidth;
         readonly int colorPickerBlockHeight;
 
-        public ColorPallete(Texture2D nTexture, Texture2D nHighlightBoxTexture, Vector2 nLoc)
+        public UIColorPallete(Texture2D nTexture, Texture2D nHighlightBoxTexture, Vector2 nLoc)
         {
             colorPickerBlockWidth = ContentDistributor.colorPallete.Width / 16;
             colorPickerBlockHeight = ContentDistributor.colorPallete.Height / 16;
@@ -305,7 +305,7 @@ namespace IslandGame.menus
 
                 int arrayLoc = (yInPickerSpace / colorPickerBlockHeight) * 16 + xInPickerSpace / colorPickerBlockWidth;
                 selectedBlock = (byte)arrayLoc;
-                result.Add(new ColorPalleteColorSelection(selectedBlock));
+                result.Add(new ColorSelection(selectedBlock));
                 
             }
             return result;

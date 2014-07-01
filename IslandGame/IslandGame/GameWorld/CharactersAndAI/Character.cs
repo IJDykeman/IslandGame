@@ -184,7 +184,7 @@ namespace IslandGame.GameWorld
                 case CharacterTask.Type.BuildBlock:
                     animations.Add(AnimationType.standing);
                     CharacterTask.BuildBlock buildBlock = (CharacterTask.BuildBlock)toDo;
-                    actions.Add(new ActorStrikeBlockAction(this, buildBlock.getBlockLocToBuild(), JobType.building));
+                    actions.Add(new ActorPlaceBlockAction(buildBlock.getBlockLocToBuild(), buildBlock.getBlockTypeToBuild()));
                     StartHammerAnimationIfPossible();
                     dropItem();
                     break;

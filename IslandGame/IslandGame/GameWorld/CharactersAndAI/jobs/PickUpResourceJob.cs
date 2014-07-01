@@ -11,7 +11,6 @@ namespace IslandGame.GameWorld
     {
 
         Character character;
-        bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType carriedType;
         bool hasPickedUpLoad = false;
         IslandWorkingProfile workingProfile;

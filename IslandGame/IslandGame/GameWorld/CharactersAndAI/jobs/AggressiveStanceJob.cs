@@ -42,7 +42,8 @@ namespace IslandGame.GameWorld
                 }
                 else
                 {
-                    return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), toAttack.getLocation() - character.getLocation());
+                  //  return new CharacterTask.NoTask();
+                   return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), toAttack.getLocation() - character.getLocation());
                 }
             }
             if (character.getFaction() != Actor.Faction.friendly)

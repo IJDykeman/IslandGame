@@ -11,6 +11,7 @@ namespace IslandGame
     class GameDirector
     {
         DayNightCycler dayNightCycler;
+        UnlockableManager unlockManager;
 
         public GameDirector()
         {

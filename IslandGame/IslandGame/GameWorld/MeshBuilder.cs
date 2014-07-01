@@ -461,8 +461,8 @@ namespace IslandGame.GameWorld
             //Random rand = new Random(1+(x + xOffSetsAtCorners[(int)corner]+modelOffsetX) 
             //    * (y + yOffSetsAtCorners[(int)corner]+modelOffsetY) 
             //    * ( z + zOffSetsAtCorners[(int)corner]+modelOffsetZ));
-            //Zero.PaintColor = new Color( ColorPallete.colorArray[type].R + rand.Next(-3,3),ColorPallete.colorArray[type].G + rand.Next(-3,3),ColorPallete.colorArray[type].B + rand.Next(-3,3));
-            Zero.PaintColor = new Color(ColorPallete.colorArray[type].R , ColorPallete.colorArray[type].G, ColorPallete.colorArray[type].B );
+            //Zero.PaintColor = new Color( UIColorPallete.colorArray[type].R + rand.Next(-3,3),UIColorPallete.colorArray[type].G + rand.Next(-3,3),UIColorPallete.colorArray[type].B + rand.Next(-3,3));
+            Zero.PaintColor = new Color(ColorPallete.getColorFromByte(type).R, ColorPallete.getColorFromByte(type).G, ColorPallete.getColorFromByte(type).B);
             Zero.Color.R = AOarray[(int)corner];
             vertices[verticesSoFar] = Zero;
             verticesSoFar++;

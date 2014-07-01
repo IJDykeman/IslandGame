@@ -10,19 +10,19 @@ namespace IslandGame.GameWorld.CharactersAndAI
     [Serializable]
     class WoodBuildSite : MultiblockJobSite
     {
-        protected HashSet<BlockLoc> blocksToBuild;
+        protected Dictionary<BlockLoc,byte> blocksToBuild;
         protected string markerName = "stoneMarkerBlock";
 
 
         public WoodBuildSite(IslandPathingProfile nProfile)
         {
-            blocksToBuild = new HashSet<BlockLoc>();
+            blocksToBuild = new Dictionary<BlockLoc,byte>();
             profile = nProfile;
         }
 
         public override float? intersects(Ray ray)
         {
-            return Intersection.intersects(ray, blocksToBuild);
+            return Intersection.intersects(ray, blocksToBuild.Keys);
         }
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
@@ -42,9 +42,9 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
 
 
-        public List<BlockLoc> getNextBlocksToBuild()
+        public List<BlockLoc> getAllBlocksToBuild()
         {
-            return blocksToBuild.ToList();
+            return blocksToBuild.Keys.ToList();
         }
 
 
@@ -60,7 +60,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
-            foreach (BlockLoc test in blocksToBuild)
+            foreach (BlockLoc test in blocksToBuild.Keys)
             {
                 WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"worldMarkup\"+markerName+".chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.0f/12.0f,.6f);
@@ -68,14 +68,14 @@ namespace IslandGame.GameWorld.CharactersAndAI
         }
 
 
-        public void addBlock(BlockLoc newBlockToPlace)
+        public void addBlock(BlockLoc newBlockToPlace, byte type)
         {
-            blocksToBuild.Add(newBlockToPlace);
+            blocksToBuild.Add(newBlockToPlace, type);
         }
 
         public bool containsBlockToBuild(BlockLoc currentGoalBlock)
         {
-            return blocksToBuild.Contains(currentGoalBlock);
+            return blocksToBuild.Keys.Contains(currentGoalBlock);
         }
 
         public void removeBlock(BlockLoc newBlockToPlace)
@@ -86,11 +86,24 @@ namespace IslandGame.GameWorld.CharactersAndAI
         public override HashSet<BlockLoc> getAllBlocksInSite()
         {
             HashSet<BlockLoc> result = new HashSet<BlockLoc>();
-            foreach (BlockLoc test in blocksToBuild)
+            foreach (BlockLoc test in blocksToBuild.Keys)
             {
                 result.Add(test);
             }
             return result;
+        }
+
+        public byte getTypeAt(BlockLoc location)
+        {
+            if (blocksToBuild.ContainsKey(location))
+            {
+                return blocksToBuild[location];
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
     }
 }

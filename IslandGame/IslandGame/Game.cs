@@ -36,7 +36,7 @@ namespace IslandGame
         public Game(GraphicsDevice device)
         {
             
-            GameWorld.ColorPallete.loadContent();
+            ColorPallete.loadContent();
             Compositer.device = device;
             player = new Player();
             newGame();
@@ -302,7 +302,7 @@ namespace IslandGame
 
                     case PlayerAction.Type.PlaceWoodBlockPlan:
                         Ray placeWoodBlockClickRay = ((PlayerAction.MouseAction)action).getRay();
-                        world.placeWoodBlockPlanAlongRay(placeWoodBlockClickRay);
+                        world.placeWoodBlockPlanAlongRay(placeWoodBlockClickRay, player.getSelectedBlockType());
                         break;
 
 

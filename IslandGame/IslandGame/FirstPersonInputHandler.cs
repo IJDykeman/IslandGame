@@ -19,6 +19,7 @@ namespace IslandGame
 
         public FirstPersonInputHandler(Character nSelectedCharacter)
         {
+            selectedBlockType = 7;
             currentMenu = MenuScreen.getFirstPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             embodiedCharacter = nSelectedCharacter;
         }

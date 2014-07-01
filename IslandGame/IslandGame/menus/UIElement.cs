@@ -55,6 +55,17 @@ namespace IslandGame.menus
             color = nColor;
         }
 
+        public UIElement(MenuAction naction, Texture2D ntexture, Vector2 nLoc, float nScale, Color nColor, Color nMousedOverColor, string ntoolTip)
+        {
+            toolTip = ntoolTip;
+            action = naction;
+            texture = ntexture;
+            location = nLoc;
+            scale = nScale;
+            color = nColor;
+            mousedOverColor = nMousedOverColor;
+        }
+
         public virtual List<MenuAction> click(Vector2 clickLoc)
         {
             List<MenuAction> result = new List<MenuAction>();
@@ -72,7 +83,7 @@ namespace IslandGame.menus
             return result;
         }
 
-        public bool locIsWithinElement(Vector2 clickLoc){
+        public virtual bool locIsWithinElement(Vector2 clickLoc){
         
             return getRectangle().Contains(new Point((int)clickLoc.X, (int)clickLoc.Y));
         }
@@ -110,10 +121,6 @@ namespace IslandGame.menus
         }
 
 
-        public virtual void draw(SpriteBatch spriteBatch, Vector2 mouseLocation)
-        {
-            spriteBatch.Draw(getTexture(), getRectangle(), getColor(mouseLocation));
-        }
 
         public virtual void draw(SpriteBatch spriteBatch, buttonInteractionState interactionState)
         {

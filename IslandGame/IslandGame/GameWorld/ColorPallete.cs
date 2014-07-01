@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace IslandGame.GameWorld
+namespace IslandGame
 {
     static class ColorPallete
     {
-        public static Color[] colorArray;
+        private static Color[] colorArray;
 
 
 
@@ -274,7 +274,9 @@ namespace IslandGame.GameWorld
 "200,171,153",
 "167,142,122",
 "134,108,85",
-"152,94,83",
+"152,94,83",
+
+
 
         #endregion
                               };
@@ -304,6 +306,11 @@ namespace IslandGame.GameWorld
             Vector3 one = new Vector3(color1.R, color1.G, color1.B);
             Vector3 two = new Vector3(color2.R, color2.G, color2.B);
             return Vector3.Distance(one, two);
+        }
+
+        public static Color getColorFromByte(byte index)
+        {
+            return colorArray[index];
         }
     }
 }

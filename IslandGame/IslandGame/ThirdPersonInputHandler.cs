@@ -14,6 +14,7 @@ namespace IslandGame
 
         public ThirdPersonInputHandler()
         {
+            selectedBlockType = 7;
             currentMenu = MenuScreen.getThirdPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             currentInterfaceState = InterfaceStates.playing;
         }

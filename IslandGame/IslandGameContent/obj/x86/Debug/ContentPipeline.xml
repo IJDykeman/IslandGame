@@ -287,6 +287,15 @@
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\hammerIcon.xnb</Output>
       <Time>2014-06-22T10:51:59.535892-04:00</Time>
     </Item>
+    <Item>
+      <Source>UI\colorSwatchBox.png</Source>
+      <Name>UI\colorSwatchBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchBox.xnb</Output>
+      <Time>2014-06-30T13:48:35.0255246-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

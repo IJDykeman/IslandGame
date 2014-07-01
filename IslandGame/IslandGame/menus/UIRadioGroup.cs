@@ -10,16 +10,20 @@ namespace IslandGame.menus
         //will be used for color selector and first person tool selector
         int currentlySelectedIndex = 0;
 
+        public UIRadioGroup()
+        {
+        }
+
         public UIRadioGroup(List<UIElement> nList)
         {
             children = nList;
         }
 
-        public override void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Microsoft.Xna.Framework.Vector2 mouseLocation)
+        public override void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, buttonInteractionState state)
         {
             for (int i = 0; i < children.Count; i++)
             {
-                UIElement.buttonInteractionState state = buttonInteractionState.none;
+                state = buttonInteractionState.none;
                 if (i == currentlySelectedIndex)
                 {
                     state = buttonInteractionState.mousedOver;
@@ -48,6 +52,8 @@ namespace IslandGame.menus
             result.AddRange(children[currentlySelectedIndex].getAction());
             return result;
         }
+
+
 
     }
 }

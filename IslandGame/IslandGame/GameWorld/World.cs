@@ -79,6 +79,9 @@ namespace IslandGame.GameWorld
                     case ActorActions.strike:
                         handleStrikeAction(action);
                         break;
+                    case ActorActions.placeBlock:
+                        placeBlock(((ActorPlaceBlockAction)action).getlocToPlaceBlock(), ((ActorPlaceBlockAction)action).getTypeToPlace());
+                        break;
                     case ActorActions.die:
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
@@ -128,7 +131,7 @@ namespace IslandGame.GameWorld
                         islandManager.acceptWorkStrike((ActorStrikeAction)action);
                         break;
                     case JobType.building:
-                        buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
+                        placeBlock(((ActorStrikeBlockAction)action).getStrikeTarget(),
                             5);
                         break;
                     case JobType.mining:
@@ -160,7 +163,7 @@ namespace IslandGame.GameWorld
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
                     case JobType.building:
-                        //buildBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget(),
+                        //placeBlock(((ActorStrikeBlockAction)action).getStrikeTarget(),
                         //    5);
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
@@ -198,7 +201,7 @@ namespace IslandGame.GameWorld
             moveAction.character.setAABB(newAABBforCharacter);
         }
 
-        private void buildBlockAt(BlockLoc blockLoc, byte typeToBuild)
+        private void placeBlock(BlockLoc blockLoc, byte typeToBuild)
         {
             islandManager.buildBlockAt(blockLoc, typeToBuild);
         }
@@ -591,10 +594,10 @@ namespace IslandGame.GameWorld
             islandManager.getClosestIslandToLocation(addedFrom).addPlayerDraggedJobsiteWithBlocks(blocksToAdd, dragType);
         }
 
-        public void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay)
+        public void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay, byte typeToAdd)
         {
             Island island = islandManager.getClosestIslandToLocation(placeWoodBlockClickRay.Position);
-            island.placeWoodBlockPlan(placeWoodBlockClickRay);
+            island.placeWoodBlockPlan(placeWoodBlockClickRay, typeToAdd);
         }
 
         public void removeWoodBlockPlanAlongRay(Ray removeWoodBlockClickRay)
@@ -625,7 +628,7 @@ namespace IslandGame.GameWorld
             if (gameDirector.monstersAreSpawning())
             {
                 
-                if (rand.Next(100) == 2)
+                if (rand.Next(600) == 2)
                 {
                     foreach (Island island in islandManager.getIslandEnumerable())
                     {

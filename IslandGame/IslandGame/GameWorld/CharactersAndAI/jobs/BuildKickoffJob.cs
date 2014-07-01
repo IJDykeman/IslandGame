@@ -8,7 +8,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
     class BuildKickoffJob : Job
     {
         WoodBuildSite buildSite;
-        WaitJob currentWait = null;
         Character character;
         IslandWorkingProfile workingProfile;
 
@@ -27,7 +26,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             {
                 if (buildSite.numBlocksLeftToBuild() > 0)
                 {
-                    List<BlockLoc> nextBlocksToBuild = buildSite.getNextBlocksToBuild().ToList();
+                    List<BlockLoc> nextBlocksToBuild = buildSite.getAllBlocksToBuild().ToList();
 
                     foreach (BlockLoc claimed in taskTracker.blocksCurrentlyClaimed())
                     {
@@ -41,17 +40,17 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
                     PathHandlerPreferringLowerBlocks pathhandler = new PathHandlerPreferringLowerBlocks();
                     Path path = pathhandler.getPathToMakeTheseBlocksAvaiable(
-                buildSite.getProfile(),
-                new BlockLoc(character.getFootLocation()),
-                buildSite.getProfile(),
-                nextBlocksToBuild,
-                2, out blockFoundToBuild);
+                        buildSite.getProfile(),
+                        new BlockLoc(character.getFootLocation()),
+                        buildSite.getProfile(),
+                        nextBlocksToBuild,
+                        2, out blockFoundToBuild);
 
 
 
-                    PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild, 
-                        new BuildKickoffJob(buildSite,character,workingProfile), workingProfile);
-                    TravelAlongPath walkJob = new TravelAlongPath(path, placeBlockJob);;
+                    PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild,
+                        new BuildKickoffJob(buildSite, character, workingProfile), workingProfile, buildSite.getTypeAt(blockFoundToBuild));
+                    TravelAlongPath walkJob = new TravelAlongPath(path, placeBlockJob); ;
                     return new CharacterTask.SwitchJob(walkJob);
 
                 }
@@ -65,7 +64,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             {
                 if (buildSite.numBlocksLeftToBuild() > 0)
                 {
-                    List<BlockLoc> nextBlocksToBuild = buildSite.getNextBlocksToBuild().ToList();
+                    List<BlockLoc> nextBlocksToBuild = buildSite.getAllBlocksToBuild().ToList();
 
                     foreach (BlockLoc claimed in taskTracker.blocksCurrentlyClaimed())
                     {
@@ -87,8 +86,8 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
 
 
-                    //PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild, workingProfile);
-                    BuildKickoffJob build =  new BuildKickoffJob(buildSite, character, workingProfile);
+                    //PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, location, workingProfile);
+                    BuildKickoffJob build = new BuildKickoffJob(buildSite, character, workingProfile);
                     FetchResourceJob fetch = new FetchResourceJob(workingProfile, ResourceBlock.ResourceType.Stone, character, build);
                     return new CharacterTask.SwitchJob(fetch);
 

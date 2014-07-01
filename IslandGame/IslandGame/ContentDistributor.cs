@@ -15,7 +15,7 @@ namespace IslandGame
     static class ContentDistributor
     {
         public static Texture2D newGameButton, quitButton, consoleBackground, saveButton, loadButton, continueButton, menuBackground;
-        public static Texture2D colorPallete, colorSwatchHighlightBox;
+        public static Texture2D colorPallete, colorSwatchHighlightBox, colorSwatchBox;
         public static Texture2D excavationIcon, farmIcon, woodBlockIcon, boatIcon, 
             playerBuildIcon, storageIcon, swordIcon, axeIcon, characterIcon, hammerIcon;
         public static Texture2D crossReticle;
@@ -43,12 +43,13 @@ namespace IslandGame
             axeIcon = content.Load<Texture2D>("UI/axeIcon");
             characterIcon = content.Load<Texture2D>("UI/characterIcon");
             hammerIcon = content.Load<Texture2D>("UI/hammerIcon");
-
+            
 
             
 
             colorPallete = content.Load<Texture2D>("UI/colorsImage");
             colorSwatchHighlightBox = content.Load<Texture2D>("UI/colorSwatchHighlightBox");
+            colorSwatchBox = content.Load<Texture2D>("UI/colorSwatchBox");
 
             random = content.Load<Texture2D>("random");
 

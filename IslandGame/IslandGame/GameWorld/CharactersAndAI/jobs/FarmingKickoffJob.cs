@@ -10,9 +10,7 @@ namespace IslandGame.GameWorld
     class FarmingKickoffJob : MultiBlockOngoingJob
     {
         Farm farm;
-        WaitJob currentWait = null;
         Character character;
-        BlockLoc currentGoalBlock;
         bool hasFailedToFindBlock = false;
         IslandWorkingProfile workingProfile;
 

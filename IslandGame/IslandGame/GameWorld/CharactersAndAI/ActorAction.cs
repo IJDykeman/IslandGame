@@ -16,6 +16,7 @@ namespace IslandGame.GameWorld
         strike,
         PlaceResource,
         PickUpResource,
+        placeBlock
 
 
     }
@@ -57,6 +58,30 @@ namespace IslandGame.GameWorld
         public BlockLoc getBoatLocToPlace()
         {
             return toPlaceBoatAt;
+        }
+    }
+
+    [Serializable]
+    public class ActorPlaceBlockAction : ActorAction
+    {
+        BlockLoc whereToPlaceBlock;
+        byte blockType;
+
+        public ActorPlaceBlockAction(BlockLoc nwhereToPlaceBlock, byte nBlockType)
+        {
+            type = ActorActions.placeBlock;
+            whereToPlaceBlock = nwhereToPlaceBlock;
+            blockType = nBlockType;
+        }
+
+        public BlockLoc getlocToPlaceBlock()
+        {
+            return whereToPlaceBlock;
+        }
+
+        public byte getTypeToPlace()
+        {
+            return blockType;
         }
     }
 
@@ -267,9 +292,6 @@ namespace IslandGame.GameWorld
         {
             return toStrike;
         }
-
-
-
     }
 
 

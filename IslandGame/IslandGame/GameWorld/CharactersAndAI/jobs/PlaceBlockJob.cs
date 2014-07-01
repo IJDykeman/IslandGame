@@ -12,18 +12,10 @@ namespace IslandGame.GameWorld.CharactersAndAI
         bool hasFailedToFindOneBlockToBuild = false;
         bool hasPlacedBlock = false;
         private IslandWorkingProfile workingProfile;
+        byte typeToPlace;
 
-
-        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, IslandWorkingProfile nworkingProfile)
-        {
-            workingProfile = nworkingProfile;
-            buildSite = nBuildSite;
-            character = nCharacter;
-            setJobType(JobType.building);
-            targetBlock = placeToPlaceBlock;
-        }
-
-        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, Job nToReturnTo, IslandWorkingProfile nworkingProfile)
+        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, 
+            Job nToReturnTo, IslandWorkingProfile nworkingProfile, byte nTypeToPlace)
         {
             workingProfile = nworkingProfile;
             buildSite = nBuildSite;
@@ -31,6 +23,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
             setJobType(JobType.building);
             targetBlock = placeToPlaceBlock;
             toReturnTo = nToReturnTo;
+            typeToPlace = nTypeToPlace;
         }
 
 
@@ -40,18 +33,12 @@ namespace IslandGame.GameWorld.CharactersAndAI
             if ( !hasPlacedBlock && buildSite.numBlocksLeftToBuild() > 0 && buildSite.containsBlockToBuild(targetBlock))
             {
                 hasPlacedBlock = true;
-                return new CharacterTask.BuildBlock(targetBlock, (byte)5);
-
+                return new CharacterTask.BuildBlock(targetBlock, typeToPlace);
             }
-
             else
             {
-                                return new CharacterTask.SwitchJob(toReturnTo);
-
+                return new CharacterTask.SwitchJob(toReturnTo);
             }
-
-
-
         }
 
 

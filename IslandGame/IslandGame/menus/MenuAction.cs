@@ -17,12 +17,13 @@ namespace IslandGame.menus
         WoodBuildHudClick,
         WoodStorageHudClick,
         WheatStorageHudClick,
-        ColorPalleteColorSelection,
+        ColorSelection,
         PlayerBuildHudClick,
         PlayerBuildBoatHudClick,
         JobTypeSwitch,
         NewCharacterHudClick,
-        StoneStorageHudClick
+        StoneStorageHudClick,
+        
     }
 
     public class MenuAction
@@ -30,6 +31,8 @@ namespace IslandGame.menus
         public MenuActionType type;
 
     }
+
+
 
     public class NewGameMenuAction : MenuAction
     {
@@ -143,13 +146,13 @@ namespace IslandGame.menus
         }
     }
 
-    public class ColorPalleteColorSelection : MenuAction
+    public class ColorSelection : MenuAction
     {
         public byte selectedColor;
-        public ColorPalleteColorSelection(byte nSelectedColor)
+        public ColorSelection(byte nSelectedColor)
         {
             selectedColor = nSelectedColor;
-            type = MenuActionType.ColorPalleteColorSelection;
+            type = MenuActionType.ColorSelection;
         }
     }
 

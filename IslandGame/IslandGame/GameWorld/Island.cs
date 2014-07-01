@@ -374,9 +374,10 @@ namespace IslandGame.GameWorld
             jobSiteManager.addPlayerDraggedJobsiteWithBlocks(blocksToAdd, getPathingProfile(), dragType);
         }
 
-        public void placeWoodBlockPlan(Ray placeWoodBlockClickRay)
+        public void placeWoodBlockPlan(Ray placeWoodBlockClickRay, byte typeToAdd)
         {
-            jobSiteManager.placeWoodBlockPlanAlongRay(placeWoodBlockClickRay, getLastSpaceAlongRayInAndFromWorldSpace(placeWoodBlockClickRay), getPathingProfile());
+            jobSiteManager.placeWoodBlockPlanAlongRay(placeWoodBlockClickRay, getLastSpaceAlongRayInAndFromWorldSpace(placeWoodBlockClickRay),
+                getPathingProfile(), typeToAdd);
         }
 
         public void buildBlock(BlockLoc blockLoc, byte typeToBuild)

@@ -91,6 +91,7 @@ namespace IslandGame.menus
                     scale, hudTint, "place stone stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 9, height - verticlePadding),
                     scale, hudTint, "create new character (-12 wheat)"));
+                buttonList.Add(new UIColorSelector(width,height));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;
             }
@@ -116,6 +117,7 @@ namespace IslandGame.menus
                 List<UIElement> interfaceList = new List<UIElement>();
                 interfaceList.Add(group);
 
+
                 MenuScreen newInterface = new MenuScreen(interfaceList);
                 return newInterface;
             }
@@ -123,7 +125,7 @@ namespace IslandGame.menus
             public static MenuScreen getColorPalleteInterface(int height, int width)
             {
                 List<UIElement> UIElementList = new List<UIElement>();
-                UIElementList.Add(new ColorPallete(ContentDistributor.colorPallete,ContentDistributor.colorSwatchHighlightBox, new Vector2(200,200)));
+                UIElementList.Add(new UIColorPallete(ContentDistributor.colorPallete,ContentDistributor.colorSwatchHighlightBox, new Vector2(200,200)));
                 MenuScreen newInterface = new MenuScreen(UIElementList);
                 return newInterface;
             }
@@ -132,7 +134,8 @@ namespace IslandGame.menus
             {
                 foreach (UIElement button in UIElements)
                 {
-                    button.draw(spriteBatch, mouseLocation);
+                    UIElement.buttonInteractionState state = getInteractionState(ref mouseLocation, button);
+                    button.draw(spriteBatch, state);
 
                 }
 
@@ -155,6 +158,16 @@ namespace IslandGame.menus
                 }
 
                 
+            }
+
+            private static UIElement.buttonInteractionState getInteractionState(ref Vector2 mouseLocation, UIElement button)
+            {
+                UIElement.buttonInteractionState state = UIElement.buttonInteractionState.none;
+                if (button.locIsWithinElement(mouseLocation))
+                {
+                    state = UIElement.buttonInteractionState.mousedOver;
+                }
+                return state;
             }
 
             public bool disablesPlayerInteraction()

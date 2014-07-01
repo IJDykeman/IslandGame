@@ -168,8 +168,8 @@ namespace IslandGame
                         result.Add(new PlayerAction.DeselectCharacter());
                         setInterfaceState(PlayerInputHandler.InterfaceStates.placingBoat);
                         break;
-                    case MenuActionType.ColorPalleteColorSelection:
-                        selectedBlockType = ((ColorPalleteColorSelection)action).selectedColor;
+                    case MenuActionType.ColorSelection:
+                        selectedBlockType = ((ColorSelection)action).selectedColor;
                         break;
                     case MenuActionType.JobTypeSwitch:
                         result.Add(new PlayerAction.JobTypeSwitch(((JobTypeSwitch)action).getJobType()));

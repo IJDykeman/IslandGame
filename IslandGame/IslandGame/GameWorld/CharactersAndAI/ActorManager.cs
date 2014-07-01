@@ -63,21 +63,29 @@ namespace IslandGame.GameWorld
             actors.Add(character);
         }
 
-        public T getNearestActorOfTypeAlongRay<T>(Ray ray) where T:Actor
+        public T getNearestActorOfTypeAlongRay<T>(Ray ray) where T : Actor
+        {
+            return getNearestActorOfTypeAlongRay<T>(ray, null);
+        }
+
+        public T getNearestActorOfTypeAlongRay<T>(Ray ray, Actor toIgnore) where T:Actor
         {
             Actor result = null;
             float minDist = float.MaxValue;
 
             foreach (Actor test in actors)
             {
-                float? distToStrike = ray.Intersects(test.getBoundingBox());
-                if (distToStrike.HasValue)
+                if (test != toIgnore)
                 {
-                    if ((float)distToStrike < minDist)
+                    float? distToStrike = ray.Intersects(test.getBoundingBox());
+                    if (distToStrike.HasValue)
                     {
-                        if (test is T)
+                        if ((float)distToStrike < minDist)
                         {
-                            result = test;
+                            if (test is T)
+                            {
+                                result = test;
+                            }
                         }
                     }
                 }
@@ -123,7 +131,7 @@ namespace IslandGame.GameWorld
         public void handleStrike(Actor striker, Vector3 origen, Vector3 direction, float range, float damage)
         {
             Ray strikeRay = new Ray(origen, direction);
-            Actor struck = getNearestActorOfTypeAlongRay<Actor>(strikeRay);
+            Actor struck = getNearestActorOfTypeAlongRay<Actor>(strikeRay, striker);
             if (struck != null)
             {
                 if (Actor.areHostile(striker.getFaction(), struck.getFaction()))

@@ -12,10 +12,8 @@ namespace IslandGame.GameWorld
         
         IslandWorkingProfile workingProfile;
         Character character;
-        bool hasFailedToFindBlock = false;
         ResourceBlock.ResourceType typeToFetch;
-        bool hasTriedToPickUpResource = false;
-        Job toReturnTo;
+
 
 
 

@@ -17,6 +17,7 @@ namespace IslandGame.GameWorld
         ResourceBlockJobSite resourceBlockJobsite;
         ExcavationSite excavationSite;
         IslandWorkingProfile workingProfile;
+        WoodBuildSite buildSite;
 
         public JobSiteManager(IslandWorkingProfile nworkingProfile)
         {
@@ -28,6 +29,8 @@ namespace IslandGame.GameWorld
             jobSites.Add(excavationSite);
             resourceBlockJobsite = new ResourceBlockJobSite(nworkingProfile.getPathingProfile());
             jobSites.Add(resourceBlockJobsite);
+            buildSite = new WoodBuildSite(workingProfile.getPathingProfile());
+            jobSites.Add(buildSite);
         }
 
         public void display(GraphicsDevice device, Effect effect, IslandLocationProfile locationProfile, DisplayParameters parameters)
@@ -202,19 +205,6 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        private IEnumerable<WoodBuildSite> getWoodBuildSiteEnumerable()
-        {
-            List<WoodBuildSite> result = new List<WoodBuildSite>();
-            foreach (JobSite site in jobSites)
-            {
-                if (site is WoodBuildSite)
-                {
-                    result.Add((WoodBuildSite)site);
-                }
-            }
-            return result;
-        }
-
         public HashSet<BlockLoc> getAllFarmBlocksFarmedIn()
         {
             HashSet<BlockLoc> result = new HashSet<BlockLoc>();
@@ -250,13 +240,13 @@ namespace IslandGame.GameWorld
         }
 
 
-        private void addBlockToBuildSite(WoodBuildSite toAddToPotentially, BlockLoc newBlockToPlace)
+        private void addBlockToBuildSite(WoodBuildSite toAddToPotentially, BlockLoc newBlockToPlace, byte typeToAdd)
         {
             if (allBlocksWithJobSites().Contains(newBlockToPlace))
             {
                 return;
             }
-            toAddToPotentially.addBlock(newBlockToPlace);
+            toAddToPotentially.addBlock(newBlockToPlace, typeToAdd);
         }
 
         public void blockWasBuilt(BlockLoc blockLoc)
@@ -271,52 +261,30 @@ namespace IslandGame.GameWorld
         {
 
 
-            IEnumerable<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable();
-            removeWoodBlockClickRay.Direction.Normalize();
-
-            if (woodBuildSites.Count() == 0)
+            float? intersectsJobSite = buildSite.intersects(removeWoodBlockClickRay);
+            if (intersectsJobSite.HasValue)
             {
-                return;
-            }
-            woodBuildSites = getWoodBuildSiteEnumerable();
 
-            WoodBuildSite buildSite = null;
+                Vector3 locationOfSelectedSpaceOnJobSite = removeWoodBlockClickRay.Position + removeWoodBlockClickRay.Direction * ((float)intersectsJobSite);
 
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
-            {
-                buildSite = toAddToPotentially;//Assumes there is only one item in collection.  Bit of a hack.
-            }
-
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
-            {
-                float? intersectsJobSite = toAddToPotentially.intersects(removeWoodBlockClickRay);
-                if (intersectsJobSite.HasValue)
+                if (exactBlockHitLocOnIsland.HasValue)
                 {
-
-                    Vector3 locationOfSelectedSpaceOnJobSite = removeWoodBlockClickRay.Position + removeWoodBlockClickRay.Direction * ((float)intersectsJobSite);
-
-                    if (exactBlockHitLocOnIsland.HasValue)
+                    if (Vector3.Distance((Vector3)exactBlockHitLocOnIsland, removeWoodBlockClickRay.Position) >
+                        Vector3.Distance(locationOfSelectedSpaceOnJobSite, removeWoodBlockClickRay.Position))
                     {
-                        if (Vector3.Distance((Vector3)exactBlockHitLocOnIsland, removeWoodBlockClickRay.Position) >
-                            Vector3.Distance(locationOfSelectedSpaceOnJobSite, removeWoodBlockClickRay.Position))
-                        {
-                            BlockLoc newBlockToPlace = new BlockLoc(locationOfSelectedSpaceOnJobSite + removeWoodBlockClickRay.Direction*.01f);
-                            toAddToPotentially.removeBlock(newBlockToPlace);
-                            return;
-                        }
-                    }
-                    else
-                    {
-
-                        BlockLoc newBlockToPlace = new BlockLoc(removeWoodBlockClickRay.Position + removeWoodBlockClickRay.Direction * ((float)intersectsJobSite));
-                        toAddToPotentially.removeBlock(newBlockToPlace);
+                        BlockLoc blockToRemove = new BlockLoc(locationOfSelectedSpaceOnJobSite + removeWoodBlockClickRay.Direction * .01f);
+                        buildSite.removeBlock(blockToRemove);
                         return;
                     }
                 }
-            }
+                else
+                {
 
-            //WoodBuildSite nSite = new WoodBuildSite(pathingProfile);
-            //intersectables.Add(nSite);
+                    BlockLoc blockToRemove = new BlockLoc(removeWoodBlockClickRay.Position + removeWoodBlockClickRay.Direction * ((float)intersectsJobSite));
+                    buildSite.removeBlock(blockToRemove);
+                    return;
+                }
+            }
 
         }
 
@@ -346,41 +314,26 @@ namespace IslandGame.GameWorld
             }
         }
 
-        internal void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay, Vector3? exactSpaceHitLocOnIsland, IslandPathingProfile profile)
+        internal void placeWoodBlockPlanAlongRay(Ray placeWoodBlockClickRay, Vector3? exactSpaceHitLocOnIsland, IslandPathingProfile profile, byte typeToAdd)
         {
 
 
             
             placeWoodBlockClickRay.Direction.Normalize();
 
-            List<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable().ToList();
-            if (woodBuildSites.Count() == 0)
-            {
-                jobSites.Add(new WoodBuildSite(profile));
-            }
-            woodBuildSites = getWoodBuildSiteEnumerable().ToList();
-
             Vector3? bestBlockToPlaceOnBuildSite = getLastSpaceAlongRayConsideringBuildSite(placeWoodBlockClickRay, exactSpaceHitLocOnIsland);
 
             if (bestBlockToPlaceOnBuildSite.HasValue)
             {
-                addBlockToBuildSite(woodBuildSites[0],new BlockLoc((Vector3)bestBlockToPlaceOnBuildSite));
+                addBlockToBuildSite(buildSite,new BlockLoc((Vector3)bestBlockToPlaceOnBuildSite),typeToAdd);
                 return;
             }
         }
 
         public Vector3? getLastSpaceAlongRayConsideringBuildSite(Ray ray, Vector3? exactSpaceHitLocOnIsland)
         {
-            List<WoodBuildSite> woodBuildSites = getWoodBuildSiteEnumerable().ToList();
-
-            if (woodBuildSites.Count==0)
-            {
-                return exactSpaceHitLocOnIsland;
-            }
-
-            foreach (WoodBuildSite toAddToPotentially in woodBuildSites)
-            {
-                float? intersectsJobSite = toAddToPotentially.intersects(ray);
+            
+                float? intersectsJobSite = buildSite.intersects(ray);
                 if (intersectsJobSite.HasValue)
                 {
 
@@ -409,7 +362,7 @@ namespace IslandGame.GameWorld
 
                     return exactSpaceHitLocOnIsland;
                 }
-            }
+            
             return null;
         }
 
@@ -534,9 +487,10 @@ namespace IslandGame.GameWorld
             resourceBlockJobsite.debitResource(cost, resourceType);
         }
 
-
-
-
+        internal object getBuildSite()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
