@@ -47,7 +47,7 @@ namespace IslandGame.GameWorld
                     BlockLoc? toTend = path.getLast();
                     if (toTend != null)
                     {
-                        TravelAlongPath travelToSwitchTo = new TravelAlongPath(path, new TendFarmBlockJob((BlockLoc)toTend, workingProfile, farm, character));
+                        TravelAlongPath travelToSwitchTo = new TravelAlongPath(path,getWaitJobWithReturn(30, new TendFarmBlockJob((BlockLoc)toTend, workingProfile, farm, character)));
                         return new CharacterTask.SwitchJob(travelToSwitchTo);
                     }
                     return new CharacterTask.NoTask();

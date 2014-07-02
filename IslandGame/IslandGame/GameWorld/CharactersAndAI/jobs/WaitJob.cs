@@ -11,10 +11,11 @@ namespace IslandGame.GameWorld
         int waitDuration;
         int waitSoFar;
 
-        public WaitJob(int duration)
+        public WaitJob(int duration, Job ntoReturnTo)
         {
             waitDuration = duration;
             waitSoFar = 0;
+            toReturnTo = ntoReturnTo;
         }
 
         public void update()
@@ -24,11 +25,20 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            return new CharacterTask.NoTask();
+            waitSoFar++;
+            if (waitSoFar >= waitDuration)
+            {
+                return new CharacterTask.SwitchJob(toReturnTo);
+            }
+            else
+            {
+                return new CharacterTask.NoTask();
+            }
+            
         }
         public override bool isComplete()
         {
-            return waitSoFar >= waitDuration;
+            return false;
         }
         public override bool isUseable()
         {

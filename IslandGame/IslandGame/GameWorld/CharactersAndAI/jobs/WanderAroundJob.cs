@@ -11,7 +11,7 @@ namespace IslandGame.GameWorld
         ActorStateProfile actorProfile;
         Character character;
         TravelAlongPath currentWalkJob;
-        WaitJob currentWait = null;
+
 
         public WanderAroundJob(IslandPathingProfile nPathingProfile, ActorStateProfile nActorStateProfile, Character nCharacter)
         {
@@ -22,37 +22,14 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (currentWalkJob == null)
+            if (currentWalkJob == null || !currentWalkJob.isUseable() || !currentWalkJob.isComplete())
             {
                 setWalkJobToRandomStep();
             }
-            if (currentWait == null)
-            {
-                currentWait = new WaitJob(0);
-                currentWait.update();
-            }
 
 
-            if (currentWalkJob.isUseable() && !currentWalkJob.isComplete() && (currentWait.isComplete()))
-            {
-                return currentWalkJob.getCurrentTask(taskTracker);
-            }
-            else
-            {
-                if (currentWait.isComplete())
-                {
-                    currentWait = new WaitJob(new Random().Next(30,120));
-                    
-                }
-                currentWait.update();
-                if(currentWait.isComplete())
-                {
-                    setWalkJobToRandomStep();
-
-                }
-
-                return currentWait.getCurrentTask(taskTracker);
-            }
+            return currentWalkJob.getCurrentTask(taskTracker);
+            
 
 
         }

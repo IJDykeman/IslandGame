@@ -296,6 +296,24 @@
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchBox.xnb</Output>
       <Time>2014-06-30T13:48:35.0255246-04:00</Time>
     </Item>
+    <Item>
+      <Source>UI\brickPileIcon.png</Source>
+      <Name>UI\brickPileIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\brickPileIcon.xnb</Output>
+      <Time>2014-07-01T14:03:32.1397613-04:00</Time>
+    </Item>
+    <Item>
+      <Source>UI\woodPileIcon.png</Source>
+      <Name>UI\woodPileIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodPileIcon.xnb</Output>
+      <Time>2014-07-01T14:02:12.9022291-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

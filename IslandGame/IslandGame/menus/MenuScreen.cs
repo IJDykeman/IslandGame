@@ -83,11 +83,11 @@ namespace IslandGame.menus
                     scale, hudTint, "build structures by hand"));
                 buttonList.Add(new UIElement(new PlayerBuildBoatHudClick(), ContentDistributor.boatIcon, new Vector2(width - horizontalPadding * 5, height - verticlePadding),
                     scale, hudTint, "designate a boat build site"));
-                buttonList.Add(new UIElement(new PlayerPlaceWoodStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 6, height - verticlePadding),
+                buttonList.Add(new UIElement(new PlayerPlaceWoodStorageHudClick(), ContentDistributor.woodStorageIcon, new Vector2(width - horizontalPadding * 6, height - verticlePadding),
                     scale, hudTint, "place wood stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceWheatStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 7, height - verticlePadding),
                     scale, hudTint, "place wheat stockpile"));
-                buttonList.Add(new UIElement(new PlayerPlaceStoneStorageHudClick(), ContentDistributor.storageIcon, new Vector2(width - horizontalPadding * 8, height - verticlePadding),
+                buttonList.Add(new UIElement(new PlayerPlaceStoneStorageHudClick(), ContentDistributor.brickStorageIcon, new Vector2(width - horizontalPadding * 8, height - verticlePadding),
                     scale, hudTint, "place stone stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 9, height - verticlePadding),
                     scale, hudTint, "create new character (-12 wheat)"));

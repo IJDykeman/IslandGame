@@ -59,6 +59,16 @@ namespace IslandGame.GameWorld
             return result;
 
         }
+
+        public CharacterTask.Task waitBeforeDoingReturnTo(int timeToWait)
+        {
+            return new CharacterTask.SwitchJob(new WaitJob(timeToWait, toReturnTo));
+        }
+
+        public Job getWaitJobWithReturn(int timeToWait, Job ntoReturnTo)
+        {
+            return new WaitJob(timeToWait, ntoReturnTo);
+        }
  
     }
 
