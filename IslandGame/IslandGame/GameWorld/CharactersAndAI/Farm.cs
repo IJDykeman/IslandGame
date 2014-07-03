@@ -91,6 +91,18 @@ namespace IslandGame.GameWorld
             return true;
         }
 
+        private bool noBlocksAreGrown()
+        {
+            foreach (BlockLoc key in plantBlocks.Keys)
+            {
+                if (blockIsFullGrown(key))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         internal IEnumerable<BlockLoc> getBlocksNeedingTending()
         {
@@ -103,9 +115,10 @@ namespace IslandGame.GameWorld
                 harvestTime = true;
             }
 
+
             if (harvestTime)
             {
-                if (noBlocksArePlanted())
+                if (noBlocksArePlanted() || noBlocksAreGrown())
                 {
                     harvestTime = false;
                 }
@@ -142,6 +155,8 @@ namespace IslandGame.GameWorld
             return leastGrownBlocks;
 
         }
+
+
 
         public override void makeFarmBlockGrow(BlockLoc toFarm)
         {

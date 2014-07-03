@@ -264,81 +264,80 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Compile Include="sounds\rustling\rustle1.wav">
-      <Name>rustle1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\rustling\rustle2.wav">
+    <Compile Include="sounds\rustling\rustle2.mp3">
       <Name>rustle2</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle3.wav">
+    <Compile Include="sounds\rustling\rustle3.mp3">
       <Name>rustle3</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle4.wav">
+    <Compile Include="sounds\rustling\rustle4.mp3">
       <Name>rustle4</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle5.wav">
+    <Compile Include="sounds\rustling\rustle5.mp3">
       <Name>rustle5</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle6.wav">
-      <Name>rustle6</Name>
-      <Importer>WavImporter</Importer>
+    <Compile Include="sounds\rustling\rustle1.mp3">
+      <Name>rustle1</Name>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle7.wav">
-      <Name>rustle7</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\rustling\rustle8.wav">
-      <Name>rustle8</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\rustling\rustle9.wav">
-      <Name>rustle9</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\rustling\rustle10.wav">
-      <Name>rustle10</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="sounds\rustling\rustle11.wav">
+    <Compile Include="sounds\rustling\rustle11.mp3">
       <Name>rustle11</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle12.wav">
+    <Compile Include="sounds\rustling\rustle12.mp3">
       <Name>rustle12</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle13.wav">
+    <Compile Include="sounds\rustling\rustle13.mp3">
       <Name>rustle13</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle14.wav">
+    <Compile Include="sounds\rustling\rustle14.mp3">
       <Name>rustle14</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\rustling\rustle15.wav">
+    <Compile Include="sounds\rustling\rustle15.mp3">
       <Name>rustle15</Name>
-      <Importer>WavImporter</Importer>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\rustling\rustle10.mp3">
+      <Name>rustle10</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\rustling\rustle9.mp3">
+      <Name>rustle9</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\rustling\rustle8.mp3">
+      <Name>rustle8</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\rustling\rustle7.mp3">
+      <Name>rustle7</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\rustling\rustle6.mp3">
+      <Name>rustle6</Name>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>

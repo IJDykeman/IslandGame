@@ -45,6 +45,7 @@ namespace IslandGame
         {
             game = new Game(graphics.GraphicsDevice);
             ContentDistributor.loadContent(Content);
+            SoundsManager.loadContent(Content);
             game.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 

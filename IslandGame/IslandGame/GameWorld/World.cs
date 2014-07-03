@@ -70,6 +70,10 @@ namespace IslandGame.GameWorld
 
                         islandManager.addResourceBlock(((ActorPlaceResourceAction)action).getLocToPlace()
                             , ((ActorPlaceResourceAction)action).getRescourceTypeToPlace());
+                        if (((ActorPlaceResourceAction)action).getRescourceTypeToPlace() == ResourceBlock.ResourceType.Wheat)
+                        {
+                            SoundsManager.playSoundType(SoundsManager.SoundType.wheatRustling, ((ActorPlaceResourceAction)action).getLocToPlace().getMiddleInWorldSpace());
+                        }
                         break;
                     case ActorActions.PickUpResource:
 
@@ -129,6 +133,8 @@ namespace IslandGame.GameWorld
 
                     case JobType.agriculture:
                         islandManager.acceptWorkStrike((ActorStrikeAction)action);
+                        SoundsManager.playSoundType(SoundsManager.SoundType.wheatRustling, 
+                            ((ActorStrikeAction)action).getStriker().getLocation(),.3f);
                         break;
                     case JobType.building:
                         placeBlock(((ActorStrikeBlockAction)action).getStrikeTarget(),

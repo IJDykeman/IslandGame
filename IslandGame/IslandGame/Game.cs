@@ -51,7 +51,8 @@ namespace IslandGame
         public void LoadContent(ContentManager content)
         {
             Compositer.LoadContent(content);
-            player.loadContent();  
+            player.loadContent();
+            SoundsManager.setPlayer(player);
         }
 
         public void saveGame()

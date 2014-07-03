@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="audio\SoundGroup.cs" />
     <Compile Include="BlockLoc.cs" />
     <Compile Include="CubeStudioCode\AnimationFunctions.cs" />
     <Compile Include="CubeStudioCode\Animation\AnimatedBodyPartGroup.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="menus\Image.cs" />
     <Compile Include="menus\UIRadioGroup.cs" />
     <Compile Include="menus\UIElementWithChildren.cs" />
+    <Compile Include="audio\SoundsManager.cs" />
     <Compile Include="ThirdPersonInputHandler.cs" />
     <Compile Include="GameWorld\Tree.cs" />
     <Compile Include="GameWorld\VerticesAndIndices.cs" />
