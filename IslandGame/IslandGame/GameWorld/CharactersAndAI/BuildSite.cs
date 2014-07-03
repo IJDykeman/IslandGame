@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using CubeAnimator;
 
 namespace IslandGame.GameWorld.CharactersAndAI
 {
@@ -60,6 +61,8 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
+            AnimatedBodyPartGroup standardBlock = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"worldMarkup\" + markerName + ".chr", 1.0f / 7.0f);
+            standardBlock.setScale(1f / 7f);
             foreach (BlockLoc test in blocksToBuild.Keys)
             {
                 WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"worldMarkup\"+markerName+".chr",

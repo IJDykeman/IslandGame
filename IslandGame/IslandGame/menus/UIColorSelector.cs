@@ -13,14 +13,33 @@ namespace IslandGame.menus
         {
             children = new List<UIElement>();
 
-            addColorButton(new Vector2((colorSwatchWidth()+10)*1,
-                screenHeight - colorSwatchHeight()-10), 3);
+            float xSpaceBetweenColorSwatched = (colorSwatchWidth() + 10);
 
-            addColorButton(new Vector2((colorSwatchWidth() + 10) * 2,
-                screenHeight - colorSwatchHeight() - 10), 67);
+            int numButtons=0;
 
-            addColorButton(new Vector2((colorSwatchWidth() + 10) * 3,
-                screenHeight - colorSwatchHeight() - 10), 125);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 5);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 6);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 7);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 8);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 32);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 35);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 39);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 59);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 60);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 51);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 49);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 50);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 154);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 97);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 86);
+            addColorButton(screenHeight, screenWidth, xSpaceBetweenColorSwatched, numButtons++, 254);
+
+        }
+
+        private void addColorButton(int screenHeight, int screenWidth, float xSpaceBetweenColorSwatched, int numButtonsPrevious, byte color)
+        {
+            addColorButton(new Vector2(xSpaceBetweenColorSwatched * numButtonsPrevious+10,
+                screenHeight - colorSwatchHeight() - 10), color);
         }
 
         private void addColorButton(Vector2 loc, byte color)

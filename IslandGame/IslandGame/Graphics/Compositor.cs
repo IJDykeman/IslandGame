@@ -19,21 +19,18 @@ namespace IslandGame
         public static Matrix viewMatrix;
 
         static Effect effect;
-        static Effect shadowEffect;
         static Sky sky;
         static Ocean ocean;
         static float ambientBrightness = .9f;
 
         static RenderTarget2D renderTarget;
-        //static Texture2D r;
         static Texture2D mainRenderImage;
 
-        static RenderTarget2D shadowRendertarget;
-        //static Texture2D shadowMap;
+
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
 
-        static float shadowBufferScale = 3.2f;
+
 
 
 
@@ -43,7 +40,6 @@ namespace IslandGame
             device = Main.graphics.GraphicsDevice;
             spriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
             effect = content.Load<Effect>("effects");
-            //shadowEffect = content.Load<Effect>("shadowEffect");
             
             sky = new Sky();
             sky.loadContent(content);
@@ -55,34 +51,6 @@ namespace IslandGame
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
 
 
-           // shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
-           //      false,
-           //                                         SurfaceFormat.Vector4,
-            //                                        DepthFormat.Depth24);
-
-            //device.SetRenderTarget(shadowRendertarget);
-            //device.Clear(Color.White);
-           // device.SetRenderTarget(null);
-            /*
-            shadowRendertarget = new RenderTarget2D(device, getShadowBufferWidth(), getShadowBufferHeight(),
-                 false,
-                                                    SurfaceFormat.Vector4,
-                                                    DepthFormat.Depth24);
-
-            device.SetRenderTarget(shadowRendertarget);
-            device.Clear(Color.White);
-            device.SetRenderTarget(null);*/
-
-        }
-
-        private static int getShadowBufferHeight()
-        {
-            return (int)(device.PresentationParameters.BackBufferHeight * shadowBufferScale);
-        }
-
-        private static int getShadowBufferWidth()
-        {
-            return (int)(device.PresentationParameters.BackBufferWidth * shadowBufferScale);
         }
 
         public static void drawFinalImageFirst(Player player, bool isAnimating)
@@ -113,8 +81,7 @@ namespace IslandGame
             setStatesForMainDraw(player);
 
             world.runPreDrawCalculations();
-           
-            //drawShadows(player, world);
+
 
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.FillMode = FillMode.Solid;
@@ -148,8 +115,7 @@ namespace IslandGame
             SamplerState.PointClamp, DepthStencilState.Default,
             RasterizerState.CullNone);
             spriteBatch.Draw(mainRenderImage, new Vector2(0, 0), Color.White);
-            //device.SamplerStates[1] = SamplerState.PointClamp;
-            //spriteBatch.Draw(shadowMap, new Rectangle(0, 0, 400, 240), Color.Green);
+
             spriteBatch.End();
 
             WorldMarkupHandler.resetWorldMarkup();
@@ -162,14 +128,7 @@ namespace IslandGame
             effect.Parameters["xView"].SetValue(viewMatrix);
             effect.Parameters["xProjection"].SetValue(getPerspectiveMatrix(1000));
 
-            effect.Parameters["xShadowWorld"].SetValue(getShadowWorldMatrix());
-            effect.Parameters["xShadowView"].SetValue(getShadowViewMatrix(player));
-            effect.Parameters["xShadowProjection"].SetValue(getShadowProjectionMatrix());
-            //effect.Parameters["xTexture"].SetValue(shadowMap);
-            effect.Parameters["xLightPos"].SetValue(getLightLoc(player));
-            //Vector2 shadowMapPixelSize = new Vector2(0.5f / shadowRendertarget.Width, 0.5f / shadowRendertarget.Height);
-            //effect.Parameters["ShadowMapPixelSize"].SetValue(shadowMapPixelSize);
-            //effect.Parameters["ShadowMapSize"].SetValue(new Vector2(shadowRendertarget.Width, shadowRendertarget.Height));
+
             effect.Parameters["xEnableLighting"].SetValue(true);
             Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
             lightDirection.Normalize();
@@ -214,142 +173,7 @@ namespace IslandGame
 
         }
 
-        private static void displayShadowCasters(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse, DisplayParameters parameters)
-        {
-
-            world.displayIslands(device, effectToUse, new BoundingFrustum(getShadowViewMatrix(player)*getShadowProjectionMatrix()), parameters);
-
-            //world.displayActors(device, effectToUse, doNotDisplay);
-            effectToUse.CurrentTechnique = effectToUse.Techniques["Instanced"];
-            WorldMarkupHandler.drawCharacters(device, effectToUse);
-            effectToUse.CurrentTechnique = effectToUse.Techniques["Colored"];
-
-        }
-
-        public static void drawShadows(Player player, World world)
-        {
-
-
-
-            device.SetRenderTarget(shadowRendertarget);
-
-
-            device.DepthStencilState = new DepthStencilState()
-            {
-                DepthBufferEnable = true
-            };
-            device.Clear(Color.White);
-
-            shadowEffect.Parameters["xWorld"].SetValue(getShadowWorldMatrix());
-            shadowEffect.Parameters["xView"].SetValue(getShadowViewMatrix(player));
-            shadowEffect.Parameters["xProjection"].SetValue(getShadowProjectionMatrix());
-            shadowEffect.Parameters["xEnableLighting"].SetValue(true);
-            Vector3 lightDirection = new Vector3(-.3f, .5f, -1f);
-            lightDirection.Normalize();
-            lightDirection *= (float).3f;
-            shadowEffect.Parameters["xLightDirection"].SetValue(lightDirection);
-            shadowEffect.Parameters["xAmbient"].SetValue(ambientBrightness);
-            shadowEffect.Parameters["xOpacity"].SetValue(1f);
-            shadowEffect.Parameters["xCamPos"].SetValue(getLightLoc(player));
-
-            
-
-            //displayShadowCasters(world, player, null, shadowEffect);
-
-            //shadowMap = (Texture2D)shadowRendertarget;
-            device.SetRenderTarget(null);
-
-        }
-
-        private static Matrix getShadowProjectionMatrix()
-        {
-
-            BoundingSphere sphere = getViewFrustumBoundingSphereForShadows();
-
-            const float NearClip = 1f;
-
-
-            float farClip = 100;
-
-
-            Matrix shadowProjMatrix = Matrix.CreateOrthographic(sphere.Radius * 2, sphere.Radius*2, NearClip, farClip);
-
-            
-            /*float ShadowMapSize = shadowRendertarget.Width;
-            Vector3 shadowOrigin = Vector3.Transform(Vector3.Zero, shadowProjMatrix);
-            shadowOrigin *= (shadowRendertarget.Width / 2.0f);
-            //shadowOrigin.X *= (shadowRendertarget.Width / 2.0f);
-            Vector2 roundedOrigin = new Vector2((float)Math.Round(shadowOrigin.X), (float)Math.Round(shadowOrigin.X));
-            Vector2 rounding = roundedOrigin - new Vector2(shadowOrigin.X,shadowOrigin.Y);
-            rounding /= (ShadowMapSize / 2.0f);
-
-            Matrix roundMatrix = Matrix.CreateTranslation(rounding.X, rounding.Y, 0.0f);
-            shadowProjMatrix *= roundMatrix;*/
-
-
-
-            return shadowProjMatrix;
-
-        }
-        
-        private static float getShadowViewWidthInWorldSpace()
-        {
-            return getViewFrustumBoundingSphereForShadows().Radius * 2.0f;
-        }
-
-        private static Matrix getShadowViewMatrix(Player player)
-        {
-            Vector3 shadowCamPos = getLightLoc(player);
-
-
-            Vector3 direction = new Vector3(1,1,0);
-            direction.Normalize();
-            float backupDist = 20f + 1 + getViewFrustumBoundingSphereForShadows().Radius;
-            shadowCamPos = getViewFrustumBoundingSphereForShadows().Center + direction * backupDist;
-            Matrix shadowViewMatrix = Matrix.CreateLookAt(shadowCamPos, getViewFrustumBoundingSphereForShadows().Center, Vector3.Up);
-
-
-            //Matrix shadowViewMatrix = Matrix.CreateLookAt(getViewFrustumBoundingSphereForShadows().Center + new Vector3(1,.2f,0)*30, getViewFrustumBoundingSphereForShadows().Center,
-             //   Vector3.Up);
-
-            return shadowViewMatrix;
-        }
-
-        static Matrix getLightRotation()
-        {
-            return Matrix.CreateFromYawPitchRoll(0, 0, .8f);
-        }
-
-        private static Vector3 getLightLoc(Player player)
-        {
-            BoundingSphere sphere = getViewFrustumBoundingSphereForShadows();
-
-            Vector3 shadowCamPos = sphere.Center;
-            shadowCamPos.Y = 80;
-
-            /*shadowCamPos.X /= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
-            shadowCamPos.Z /= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();
-            shadowCamPos.X = (int)shadowCamPos.X;
-            shadowCamPos.Z = (int)shadowCamPos.Z;
-            shadowCamPos.X *= getShadowViewWidthInWorldSpace() / getShadowBufferHeight();
-            shadowCamPos.Z *= getShadowViewWidthInWorldSpace() / getShadowBufferWidth();*/
-
-            return shadowCamPos;
-        }
-
-        private static BoundingSphere getViewFrustumBoundingSphereForShadows()
-        {
-            BoundingSphere sphere = BoundingSphere.CreateFromFrustum(new BoundingFrustum(viewMatrix * getPerspectiveMatrix(30)));
-            //sphere.Center /= 10;
-            //sphere.Center = new Vector3((int)sphere.Center.X, (int)sphere.Center.Y, (int)sphere.Center.Z);
-            //sphere.Center *= 10;
-            return sphere;
-        }
-
-        private static Matrix getShadowWorldMatrix()
-        {
-            return Matrix.Identity;
-        }
+    
 
         public static Matrix getPerspectiveMatrix(int viewDistance)
         {

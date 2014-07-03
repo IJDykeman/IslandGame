@@ -38,6 +38,7 @@ bool xShowNormals;
 float3 xCamPos;
 float3 xCamUp;
 float xPointSpriteSize;
+float4 xTint;
 
 //------- Texture Samplers --------
 
@@ -144,6 +145,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
         Output.Color *= float4(0.6,0.6,0.7,0);
 
     };*/
+	//Output.Color *= xTint;
 	Output.Color.a=xOpacity;
 	return Output;
 }
