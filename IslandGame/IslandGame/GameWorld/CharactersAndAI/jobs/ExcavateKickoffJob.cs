@@ -38,7 +38,7 @@ namespace IslandGame.GameWorld
                     Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
                         new BlockLoc(character.getFootLocation()), workingProfile.getPathingProfile(),
                         blocksToRemove, 2, out toDestroy);
-                    TravelAlongPath toSwitchTo = new TravelAlongPath(path, new DestroyBlockJob(character, workingProfile, toDestroy));
+                    TravelAlongPath toSwitchTo = new TravelAlongPath(path,getWaitJobWithReturn(45, new DestroyBlockJob(character, workingProfile, toDestroy)));
                     return new CharacterTask.SwitchJob(toSwitchTo);
                     //return path;
                 }

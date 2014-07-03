@@ -45,7 +45,7 @@ namespace IslandGame.GameWorld
                 else
                 {
                     character.pickUpItem(ResourceBlock.ResourceType.Wood);
-                    return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(
+                    return new CharacterTask.SwitchJob(new CarryResourceToStockpileKickoffJob(
                         ResourceBlock.ResourceType.Wood,
                         character,
                         new LoggingKickoffJob(character, workingProfile), workingProfile));

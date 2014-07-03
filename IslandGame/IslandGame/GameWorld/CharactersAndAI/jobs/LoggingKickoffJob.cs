@@ -51,7 +51,7 @@ namespace IslandGame.GameWorld
                 nextBlocksToBuild,
                 2, out blockFoundToChop);
 
-            TravelAlongPath walkJob = new TravelAlongPath(path,new ChopTreeJob(character,workingProfile,blockFoundToChop));
+            TravelAlongPath walkJob = new TravelAlongPath(path, getWaitJobWithReturn(45, new ChopTreeJob(character, workingProfile, blockFoundToChop)));
 
             if (!walkJob.isUseable())
             {

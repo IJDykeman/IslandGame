@@ -42,7 +42,7 @@ namespace IslandGame.GameWorld
             }
             else
             {
-                return new CharacterTask.SwitchJob(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Stone,character,
+                return new CharacterTask.SwitchJob(new CarryResourceToStockpileKickoffJob(ResourceBlock.ResourceType.Stone,character,
                     new ExcavateKickoffJob(workingProfile,character), workingProfile));
             }
 

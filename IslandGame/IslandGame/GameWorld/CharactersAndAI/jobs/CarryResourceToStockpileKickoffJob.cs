@@ -7,7 +7,7 @@ using System.Text;
 namespace IslandGame.GameWorld
 {
     [Serializable]
-    class CarryResourceToStockpileJob : MultiBlockOngoingJob
+    class CarryResourceToStockpileKickoffJob : MultiBlockOngoingJob
     {
 
         Character character;
@@ -18,7 +18,7 @@ namespace IslandGame.GameWorld
 
 
 
-        public CarryResourceToStockpileJob(ResourceBlock.ResourceType nCarriedType,
+        public CarryResourceToStockpileKickoffJob(ResourceBlock.ResourceType nCarriedType,
             Character nCharacter, Job njobToReturnTo, IslandWorkingProfile nworkingProfile)
         {
             toReturnTo = njobToReturnTo;
@@ -52,7 +52,7 @@ namespace IslandGame.GameWorld
                 Job toSwichToAfterWalk = new PlaceResourceJob(carriedType, character, 
                     toReturnTo, workingProfile, targetBlock);
 
-                walkJob = new TravelAlongPath(path,toSwichToAfterWalk);
+                walkJob = new TravelAlongPath(path,getWaitJobWithReturn(20, toSwichToAfterWalk));
                 if(path.length()==0){
                     return new CharacterTask.SwitchJob(new UnemployedJob());
                 }

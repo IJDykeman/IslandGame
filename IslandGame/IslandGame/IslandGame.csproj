@@ -143,7 +143,7 @@
     <Compile Include="GameWorld\CharactersAndAI\jobs\PlaceBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\LoggingKickoffJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\PlaceResourceJob.cs" />
-    <Compile Include="GameWorld\CharactersAndAI\jobs\CarryResourceJob.cs" />
+    <Compile Include="GameWorld\CharactersAndAI\jobs\CarryResourceToStockpileKickoffJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\FetchResourceJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\jobs\tendFarmBlockJob.cs" />
     <Compile Include="GameWorld\CharactersAndAI\Path.cs" />

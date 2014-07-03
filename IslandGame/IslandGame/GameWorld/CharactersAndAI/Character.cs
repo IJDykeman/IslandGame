@@ -252,7 +252,7 @@ namespace IslandGame.GameWorld
                     CharacterTask.HarvestFarmBlock harvestTask = (CharacterTask.HarvestFarmBlock)toDo;
                     actions.Add(new ActorStrikeBlockAction(this, ((CharacterTask.HarvestFarmBlock)toDo).getBlockToFarm(),
                         JobType.agriculture));
-                    setJobAndCheckUseability(new CarryResourceToStockpileJob(ResourceBlock.ResourceType.Wheat,this,
+                    setJobAndCheckUseability(new CarryResourceToStockpileKickoffJob(ResourceBlock.ResourceType.Wheat,this,
                         new FarmingKickoffJob(harvestTask.getFarm(),this,harvestTask.getWorkingProfile()),harvestTask.getWorkingProfile()));
                     StartHammerAnimationIfPossible();
                     pickUpItem(ResourceBlock.ResourceType.Wheat);

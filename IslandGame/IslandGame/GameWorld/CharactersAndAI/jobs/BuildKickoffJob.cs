@@ -50,7 +50,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
                     PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, blockFoundToBuild,
                         new BuildKickoffJob(buildSite, character, workingProfile), workingProfile, buildSite.getTypeAt(blockFoundToBuild));
-                    TravelAlongPath walkJob = new TravelAlongPath(path, placeBlockJob); ;
+                    TravelAlongPath walkJob = new TravelAlongPath(path, getWaitJobWithReturn(30, placeBlockJob)); ;
                     return new CharacterTask.SwitchJob(walkJob);
 
                 }
