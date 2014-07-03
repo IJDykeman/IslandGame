@@ -52,7 +52,7 @@ namespace IslandGame.GameWorld
                 Job toSwichToAfterWalk = new PlaceResourceJob(carriedType, character, 
                     toReturnTo, workingProfile, targetBlock);
 
-                walkJob = new TravelAlongPath(path,getWaitJobWithReturn(20, toSwichToAfterWalk));
+                walkJob = new TravelAlongPath(path,getWaitJobWithReturn(5, toSwichToAfterWalk));
                 if(path.length()==0){
                     return new CharacterTask.SwitchJob(new UnemployedJob());
                 }
