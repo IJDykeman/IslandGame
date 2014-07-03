@@ -61,12 +61,18 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
-            AnimatedBodyPartGroup standardBlock = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"worldMarkup\" + markerName + ".chr", 1.0f / 7.0f);
-            standardBlock.setScale(1f / 7f);
+            AnimatedBodyPartGroup block = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"worldMarkup\" + markerName + ".chr", 1.0f / 7.0f);
+            block.setScale(1f / 12f);
             foreach (BlockLoc test in blocksToBuild.Keys)
             {
-                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"worldMarkup\"+markerName+".chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.0f/12.0f,.6f);
+                //WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"worldMarkup\"+markerName+".chr",
+                //                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.0f/12.0f,.6f);
+                block.setRootPartLocation(test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                effect.Parameters["xOpacity"].SetValue(.7f);
+                effect.Parameters["xTint"].SetValue(ColorPallete.getColorFromByte(blocksToBuild[test]).ToVector4()*1.2f);
+                block.draw(device, effect);
+                effect.Parameters["xTint"].SetValue(Color.White.ToVector4());
+                effect.Parameters["xOpacity"].SetValue(1f);
             }
         }
 

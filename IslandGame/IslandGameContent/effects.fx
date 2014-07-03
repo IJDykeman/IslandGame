@@ -145,7 +145,7 @@ PixelToFrame ColoredPS(VertexToPixel PSIn)
         Output.Color *= float4(0.6,0.6,0.7,0);
 
     };*/
-	//Output.Color *= xTint;
+	Output.Color *= xTint;
 	Output.Color.a=xOpacity;
 	return Output;
 }

@@ -137,12 +137,7 @@ namespace IslandGame
             effect.Parameters["xAmbient"].SetValue(ambientBrightness);
             effect.Parameters["xOpacity"].SetValue(1f);
             effect.Parameters["xCamPos"].SetValue(player.getCameraLoc());
-
-            // Matrix sunRotation = Matrix.CreateRotationX(MathHelper.ToRadians(updateCount)) * Matrix.CreateRotationZ(MathHelper.ToRadians(updateCount));
-
-
-
-
+            effect.Parameters["xTint"].SetValue(Color.White.ToVector4());
         }
 
         private static void display3DObjects(GameWorld.World world, Player player, Character doNotDisplay, Effect effectToUse, DisplayParameters displayParameters)
