@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
-
+    [Serializable]
     public enum JobType
     {
         none,
@@ -17,6 +17,7 @@ namespace IslandGame.GameWorld
         CarryingSomething
     }
 
+    [Serializable]
     public abstract class Job
     {
         private JobType jobType = JobType.none;
@@ -60,14 +61,14 @@ namespace IslandGame.GameWorld
 
         }
 
-        public CharacterTask.Task waitBeforeDoingReturnTo(int timeToWait)
+        public CharacterTask.Task waitBeforeDoingReturnTo(int timeToWait, JobType type)
         {
-            return new CharacterTask.SwitchJob(new WaitJob(timeToWait, toReturnTo));
+            return new CharacterTask.SwitchJob(new WaitJob(timeToWait, toReturnTo, type));
         }
 
         public Job getWaitJobWithReturn(int timeToWait, Job ntoReturnTo)
         {
-            return new WaitJob(timeToWait, ntoReturnTo);
+            return new WaitJob(timeToWait, ntoReturnTo, ntoReturnTo.getJobType());
         }
  
     }

@@ -25,6 +25,7 @@ namespace IslandGame.GameWorld
 
         float timeSinceLastSwing = float.MaxValue/3f;
         float timeBetweenSwings = 35;
+        private string currentBodyPath = "";
 
 
 
@@ -51,7 +52,7 @@ namespace IslandGame.GameWorld
                 walkspeed *= .9f;
             }
 
-            setupBodyPartGroupGivenCurrentJob();
+            switchBodies(ContentDistributor.getRootPath() + "minotuar.chr");
         }
 
         void setupBodyPartGroupGivenCurrentJob()
@@ -59,59 +60,70 @@ namespace IslandGame.GameWorld
             switch (bodyType)
             {
                 case BodyType.Ghoul:
-                    setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+@"ghoul\ghoul.chr");
+                    setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
                     switch (job.getJobType())
                     {
 
                         case JobType.combat:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"armedMinotuar.chr");
+                            switchBodies(ContentDistributor.getRootPath() + "armedMinotuar.chr");
                             break;
                         case JobType.agriculture:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"farmMinotuar.chr");
+                            switchBodies(ContentDistributor.getRootPath() + "farmMinotuar.chr");
                             break;
                         case JobType.mining:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"mineMinotuar.chr");
+                            switchBodies(ContentDistributor.getRootPath() + "mineMinotuar.chr");
                             break;
                         case JobType.building:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"buildMinotuar.chr");
+                            switchBodies(ContentDistributor.getRootPath() + "buildMinotuar.chr");
                             break;
                         case JobType.logging:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"axeMinotuar.chr");
+                            switchBodies(ContentDistributor.getRootPath() + "axeMinotuar.chr");
                             break;
                         case JobType.CarryingSomething:
-                            
-                            
+                            handleBodyPartChangeForCarryingItem();
                             break;
+
+                            
                         default:
-                            setupAnimatedBodyPartGroup(ContentDistributor.getRootPath()+"minotuar.chr");
+                            //switchBodies(ContentDistributor.getRootPath() + "minotuar.chr");
                             break;
-                    }
-                    if (load.isCaryingItem())
-                    {
-                        switch (load.getLoad())
-                        {
-                            case ResourceBlock.ResourceType.Stone:
-                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingStandardBlockMinotuar.chr");
-                                break;
-                            case ResourceBlock.ResourceType.Wheat:
-                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingWheatMinotuar.chr");
-                                break;
-                            case ResourceBlock.ResourceType.Wood:
-                                setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
-                                break;
 
-                        }
 
                     }
-                    else
-                    {
-                        setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + "minotuar.chr");
-                    }
                     break;
-                default:
-                    break;
+            }
+
+        }
+
+        void switchBodies(String nPath)
+        {
+            if (!nPath.Equals( currentBodyPath))
+            {
+                currentBodyPath = nPath;
+                setupAnimatedBodyPartGroup(nPath);
+            }
+        }
+
+        private void handleBodyPartChangeForCarryingItem()
+        {
+            if (load.isCaryingItem())
+            {
+                switch (load.getLoad())
+                {
+                    case ResourceBlock.ResourceType.Stone:
+                        switchBodies(ContentDistributor.getRootPath() + "carryingStandardBlockMinotuar.chr");
+                        break;
+                    case ResourceBlock.ResourceType.Wheat:
+                        switchBodies(ContentDistributor.getRootPath() + "carryingWheatMinotuar.chr");
+                        break;
+                    case ResourceBlock.ResourceType.Wood:
+                        switchBodies(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
+                        break;
+
+                }
+
             }
         }
 
@@ -136,6 +148,7 @@ namespace IslandGame.GameWorld
                 actions.Add(new ActorDieAction(this));
             }
 
+            setupBodyPartGroupGivenCurrentJob();
 
             return actions;
         }

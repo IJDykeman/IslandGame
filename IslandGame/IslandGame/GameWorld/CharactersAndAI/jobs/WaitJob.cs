@@ -11,11 +11,12 @@ namespace IslandGame.GameWorld
         int waitDuration;
         int waitSoFar;
 
-        public WaitJob(int duration, Job ntoReturnTo)
+        public WaitJob(int duration, Job ntoReturnTo, JobType nType)
         {
             waitDuration = duration;
             waitSoFar = 0;
             toReturnTo = ntoReturnTo;
+            setJobType(nType);
         }
 
         public void update()

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     class PathHandlerPreferringLowerBlocks : PathHandler
     {
         private List<BlockLoc> PathToMakeGoalsAvailable(IslandPathingProfile startProfile, ref BlockLoc startLoc, out BlockLoc lowestAvailableBlockFound, 

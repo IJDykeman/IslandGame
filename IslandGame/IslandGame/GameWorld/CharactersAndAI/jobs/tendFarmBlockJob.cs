@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld.CharactersAndAI.jobs
 {
+    [Serializable]
     class TendFarmBlockJob : Job
     {
         Farm farm;

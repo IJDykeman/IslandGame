@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld
 {
+    [Serializable]
     public abstract class MultiBlockOngoingJob : Job
     {
        

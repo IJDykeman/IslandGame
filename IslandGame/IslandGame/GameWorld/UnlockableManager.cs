@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IslandGame
 {
+    [Serializable]
     public class UnlockableManager
     {
         static int numColorsUnlocked=0;
