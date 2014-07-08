@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld.CharactersAndAI
 {
+    [Serializable]
     class CharacterLoad
     {
         private ResourceBlock.ResourceType? carriedResource;

@@ -66,6 +66,8 @@ namespace IslandGame
             game.Update(this);
 
             base.Update(gameTime);
+
+            IsMouseVisible = game.cursorShouldbeVisible();
         }
 
         protected override void Draw(GameTime gameTime)

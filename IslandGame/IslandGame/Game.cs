@@ -437,5 +437,10 @@ namespace IslandGame
 
 
         }
+
+        internal bool cursorShouldbeVisible()
+        {
+            return !player.isEmbodyingCharacter();
+        }
     }
 }
