@@ -88,6 +88,7 @@ namespace IslandGame
             world = (GameWorld.World)formatter.Deserialize(stream);
             stream.Close();
             world.setUpAfterGameLoad();
+            GC.Collect();
         }
 
         public void UnloadContent()

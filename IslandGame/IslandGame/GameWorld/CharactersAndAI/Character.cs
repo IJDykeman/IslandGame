@@ -63,7 +63,7 @@ namespace IslandGame.GameWorld
                     setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
-                    switch (job.getJobType())
+                    switch (currentJobType)
                     {
 
                         case JobType.combat:
@@ -444,7 +444,7 @@ namespace IslandGame.GameWorld
             }
         }
 
-        public JobType getJobType()
+        private JobType getJobType()
         {
             return currentJobType;
         }
