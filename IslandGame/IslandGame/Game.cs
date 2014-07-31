@@ -247,29 +247,29 @@ namespace IslandGame
                                switch (dragClick.getDragType())
                                {
                                    case PlayerAction.Dragging.DragType.farm:
-                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\farmMarker.chr",
+                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\farmMarker.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
                                        break;
                                    case PlayerAction.Dragging.DragType.storeWheat:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\wheatBale.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
                                             test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\wheatBale.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                                        break;
                                    case PlayerAction.Dragging.DragType.storeWood:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\log.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
                                             test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\log.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                                        break;
                                    case PlayerAction.Dragging.DragType.storeStone:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\standardBlock.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
                                             test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"resources\standardBlock.chr",
+                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                                        break;
                                    case PlayerAction.Dragging.DragType.excavate:
-                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath() + @"worldMarkup\redCubeOutline.chr",
+                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\redCubeOutline.chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f),1.1f/7f);
                                        break;
                                    default:

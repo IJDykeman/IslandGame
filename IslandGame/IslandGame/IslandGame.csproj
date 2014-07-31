@@ -153,6 +153,7 @@
     <Compile Include="GameWorld\CharactersAndAI\Stockpile.cs" />
     <Compile Include="GameWorld\Drawable.cs" />
     <Compile Include="GameWorld\Intersectable.cs" />
+    <Compile Include="GameWorld\IslandGeneration\Noise.cs" />
     <Compile Include="GameWorld\PlayerCam.cs" />
     <Compile Include="GameWorld\UnlockableManager.cs" />
     <Compile Include="Graphics\DisplayParameters.cs" />

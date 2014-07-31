@@ -461,7 +461,7 @@ namespace IslandGame.GameWorld
                 space.X = (int)space.X;
                 space.Y = (int)space.Y;
                 space.Z = (int)space.Z;
-                WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath() + @"worldMarkup\" + "stoneMarkerOutline" + ".chr",
+                WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"worldMarkup\" + "stoneMarkerOutline" + ".chr",
                                            ((Vector3)space) + new Vector3(.5f, .5f, .5f), 1.0f / 12.0f, .6f);
             }
 

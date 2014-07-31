@@ -212,7 +212,7 @@ namespace IslandGame
 
         public static void addFlagForThisFrame(Vector3 loc, string Color)
         {
-            AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup(ContentDistributor.getRootPath()+@"worldMarkup\short" + Color + "Flag.chr", 1f / 12f);
+            AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString()+@"worldMarkup\short" + Color + "Flag.chr", 1f / 12f);
             flag.setRootPartLocation((Vector3)loc);
             addAnimatedBodyPartGroupForThisFrame(flag);
         }

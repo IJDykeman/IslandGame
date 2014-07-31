@@ -38,7 +38,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
-            WorldMarkupHandler.addCharacter(ContentDistributor.getRootPath()+@"boats\greenOnePersonBoat.chr",
+            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString()+@"boats\greenOnePersonBoat.chr",
             objectLoc.toWorldSpaceVector3() + new Vector3(.5f, 0, .5f),
             IslandGame.GameWorld.Boat.SCALE, .5f);
         }

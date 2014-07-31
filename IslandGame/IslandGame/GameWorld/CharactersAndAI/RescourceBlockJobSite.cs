@@ -58,9 +58,9 @@ namespace IslandGame.GameWorld
 
         public override void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
-            AnimatedBodyPartGroup wheatBale = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\wheatBale.chr", 1.0f / 7.0f);
-            AnimatedBodyPartGroup log = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\log.chr", 1.0f / 7.0f);
-            AnimatedBodyPartGroup standardBlock = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"resources\standardBlock.chr", 1.0f / 7.0f);
+            AnimatedBodyPartGroup wheatBale = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr", 1.0f / 7.0f);
+            AnimatedBodyPartGroup log = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString() + @"resources\log.chr", 1.0f / 7.0f);
+            AnimatedBodyPartGroup standardBlock = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr", 1.0f / 7.0f);
             wheatBale.setScale(1f / 7f);
             log.setScale(1f / 7f);
             standardBlock.setScale(1f / 7f);

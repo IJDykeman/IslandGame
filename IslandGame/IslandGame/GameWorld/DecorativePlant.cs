@@ -19,7 +19,7 @@ namespace IslandGame.GameWorld
             string[] possiblePlants = { "yellowFlower", "blueFlower", "shortLeafyPlant", "bush" };
             string plantName = possiblePlants[rand.Next(possiblePlants.Length)];
             setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3() + new Vector3(0, 1, 0), FootLocation.toWorldSpaceVector3() + new Vector3(0, 1, 0) + new Vector3(1f, height, 1f)),
-                ContentDistributor.getRootPath()+ @"world_decoration\" + plantName + ".chr");
+                ContentDistributor.getEmptyString()+ @"world_decoration\" + plantName + ".chr");
 
             setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
         }

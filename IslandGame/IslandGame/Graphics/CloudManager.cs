@@ -12,9 +12,9 @@ namespace IslandGame.Graphics
     {
         //switch this system to work through the WorldMarkupManager!  It will be faster that way.
         List<AnimatedBodyPartGroup> clouds;
-        String[] cloudPaths = {ContentDistributor.getRootPath()+@"world_decoration\clouds\cloud1.chr",
-                                  ContentDistributor.getRootPath()+@"world_decoration\clouds\cloud2.chr",
-                                  ContentDistributor.getRootPath()+@"world_decoration\clouds\cloud3.chr",
+        String[] cloudPaths = {ContentDistributor.getEmptyString()+@"world_decoration\clouds\cloud1.chr",
+                                  ContentDistributor.getEmptyString()+@"world_decoration\clouds\cloud2.chr",
+                                  ContentDistributor.getEmptyString()+@"world_decoration\clouds\cloud3.chr",
                               };
 
 

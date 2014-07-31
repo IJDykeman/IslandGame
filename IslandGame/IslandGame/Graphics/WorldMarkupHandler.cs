@@ -42,7 +42,7 @@ namespace IslandGame
             path = path.ToUpper();
             if (!path.Contains(@"C:\".ToUpper()))
             {
-                path = ContentDistributor.getRootPath() + path;
+                path = ContentDistributor.getEmptyString() + path;
             }
             return path;
         }

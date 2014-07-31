@@ -20,6 +20,7 @@ namespace IslandGame.GameWorld
             maple,
             poplar,
             pine,
+            snowyPine,
             redwood,
             bayou
         }
@@ -36,7 +37,7 @@ namespace IslandGame.GameWorld
                     string[] possibleTrees = { "tree1", "tree2" };
                     string treeName = possibleTrees[rand.Next(possibleTrees.Length)];//"fallTree1";
                     setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
-                        ContentDistributor.getRootPath()+@"trees\" + treeName + ".chr" , .8f + (float)new Random().NextDouble() * .4f);
+                        ContentDistributor.getEmptyString()+@"trees\" + treeName + ".chr" , .8f + (float)new Random().NextDouble() * .4f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
                 case treeTypes.poplar:
@@ -45,7 +46,7 @@ namespace IslandGame.GameWorld
                     string[] poplarNames = { "tree", "tree2", "tree3" };
                     string poplarName = poplarNames[rand.Next(poplarNames.Length)];//"fallTree1";
                     setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
-                        ContentDistributor.getRootPath()+@"poplarTree\" + poplarName + ".chr", .2f);
+                        ContentDistributor.getEmptyString()+@"poplarTree\" + poplarName + ".chr", .2f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
                 case treeTypes.pine:
@@ -53,8 +54,9 @@ namespace IslandGame.GameWorld
 
                     string[] pineNames = { "tree" };
                     string pineName = pineNames[rand.Next(pineNames.Length)];//"fallTree1";
+                    String path = ContentDistributor.getEmptyString() + @"pineTree\" + pineName + ".chr";
                     setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
-                        ContentDistributor.getRootPath()+@"pineTree\" + pineName + ".chr", .4f + (float)rand.NextDouble()*.3f);
+                        path, .4f + (float)rand.NextDouble()*.3f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
                 case treeTypes.redwood:
@@ -63,7 +65,17 @@ namespace IslandGame.GameWorld
                     string[] redwoodNames = { "tree" };
                     string redwoodName = redwoodNames[rand.Next(redwoodNames.Length)];//"fallTree1";
                     setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
-                        ContentDistributor.getRootPath()+@"redwood\" + redwoodName + ".chr", .2f);
+                        ContentDistributor.getEmptyString()+@"redwood\" + redwoodName + ".chr", .2f);
+                    setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
+                    break;
+                case treeTypes.snowyPine:
+                    height = 5;
+
+                    string[] snowPineTreeNames = { "snowyPineTree" };
+                    string snowPineTreeName = snowPineTreeNames[rand.Next(snowPineTreeNames.Length)];//"fallTree1";
+                    String snowPinePath = ContentDistributor.getEmptyString() + @"pineTree\" + snowPineTreeName + ".chr";
+                    setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
+                        snowPinePath, .4f + (float)rand.NextDouble() * .3f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
                 default:

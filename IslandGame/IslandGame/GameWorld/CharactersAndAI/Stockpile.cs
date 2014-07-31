@@ -69,7 +69,7 @@ namespace IslandGame.GameWorld
                     break;
 
             }
-            AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(ContentDistributor.getRootPath() + path, 1.0f / 7.0f);
+            AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString() + path, 1.0f / 7.0f);
             float opacity = .2f;
             if (!parameters.hasParameter(DisplayParameter.drawStockpiles))
             {

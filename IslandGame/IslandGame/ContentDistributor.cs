@@ -60,7 +60,7 @@ namespace IslandGame
             toolTipFont = content.Load<SpriteFont>("toolTipFont");
         }
 
-        public static string getRootPath()
+        public static string getEmptyString()
         {
             return "";
         }

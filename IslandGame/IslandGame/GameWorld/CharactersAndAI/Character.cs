@@ -52,7 +52,7 @@ namespace IslandGame.GameWorld
                 walkspeed *= .9f;
             }
 
-            switchBodies(ContentDistributor.getRootPath() + "minotuar.chr");
+            switchBodies(ContentDistributor.getEmptyString() + "minotuar.chr");
         }
 
         void setupBodyPartGroupGivenCurrentJob()
@@ -60,26 +60,26 @@ namespace IslandGame.GameWorld
             switch (bodyType)
             {
                 case BodyType.Ghoul:
-                    setupAnimatedBodyPartGroup(ContentDistributor.getRootPath() + @"ghoul\ghoul.chr");
+                    setupAnimatedBodyPartGroup(ContentDistributor.getEmptyString() + @"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
                     switch (currentJobType)
                     {
 
                         case JobType.combat:
-                            switchBodies(ContentDistributor.getRootPath() + "armedMinotuar.chr");
+                            switchBodies(ContentDistributor.getEmptyString() + "armedMinotuar.chr");
                             break;
                         case JobType.agriculture:
-                            switchBodies(ContentDistributor.getRootPath() + "farmMinotuar.chr");
+                            switchBodies(ContentDistributor.getEmptyString() + "farmMinotuar.chr");
                             break;
                         case JobType.mining:
-                            switchBodies(ContentDistributor.getRootPath() + "mineMinotuar.chr");
+                            switchBodies(ContentDistributor.getEmptyString() + "mineMinotuar.chr");
                             break;
                         case JobType.building:
-                            switchBodies(ContentDistributor.getRootPath() + "buildMinotuar.chr");
+                            switchBodies(ContentDistributor.getEmptyString() + "buildMinotuar.chr");
                             break;
                         case JobType.logging:
-                            switchBodies(ContentDistributor.getRootPath() + "axeMinotuar.chr");
+                            switchBodies(ContentDistributor.getEmptyString() + "axeMinotuar.chr");
                             break;
                         case JobType.CarryingSomething:
                             handleBodyPartChangeForCarryingItem();
@@ -87,7 +87,7 @@ namespace IslandGame.GameWorld
 
                             
                         default:
-                            //switchBodies(ContentDistributor.getRootPath() + "minotuar.chr");
+                            //switchBodies(ContentDistributor.getEmptyString() + "minotuar.chr");
                             break;
 
 
@@ -113,13 +113,13 @@ namespace IslandGame.GameWorld
                 switch (load.getLoad())
                 {
                     case ResourceBlock.ResourceType.Stone:
-                        switchBodies(ContentDistributor.getRootPath() + "carryingStandardBlockMinotuar.chr");
+                        switchBodies(ContentDistributor.getEmptyString() + "carryingStandardBlockMinotuar.chr");
                         break;
                     case ResourceBlock.ResourceType.Wheat:
-                        switchBodies(ContentDistributor.getRootPath() + "carryingWheatMinotuar.chr");
+                        switchBodies(ContentDistributor.getEmptyString() + "carryingWheatMinotuar.chr");
                         break;
                     case ResourceBlock.ResourceType.Wood:
-                        switchBodies(ContentDistributor.getRootPath() + "carryingLogMinotuar.chr");
+                        switchBodies(ContentDistributor.getEmptyString() + "carryingLogMinotuar.chr");
                         break;
 
                 }

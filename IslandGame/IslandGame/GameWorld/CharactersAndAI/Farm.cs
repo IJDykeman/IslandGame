@@ -52,7 +52,7 @@ namespace IslandGame.GameWorld
             foreach (BlockLoc test in plantBlocks.Keys)
             {
                 string number = plantBlocks[test].getGrowthLevel() + "";
-                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getRootPath()+@"worldMarkup\wheatGrowthStage"+number+".chr",
+                WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString()+@"worldMarkup\wheatGrowthStage"+number+".chr",
                                            test.toWorldSpaceVector3() + new Vector3(.5f, -.5f, .5f));
             }
         }
