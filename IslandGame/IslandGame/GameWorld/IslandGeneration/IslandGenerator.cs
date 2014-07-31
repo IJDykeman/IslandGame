@@ -9,6 +9,8 @@ namespace IslandGame.GameWorld
     [Serializable]
     public abstract class IslandGenerator
     {
+
+        protected static byte regularSandColor = 53;
         
         public abstract void generateIsland(ChunkSpace chunkSpace, SetPieceManager setPieceManager, JobSiteManager jobSiteManager, IslandLocationProfile locationProfile);
 

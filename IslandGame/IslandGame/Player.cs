@@ -22,7 +22,7 @@ namespace IslandGame
     {
         
 
-        public static bool galleryMode = false;
+        public static bool galleryMode = true;
 
         public static MouseState oldMouseState;
         public static MouseState currentMouseState;

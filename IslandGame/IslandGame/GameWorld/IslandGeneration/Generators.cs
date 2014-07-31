@@ -90,7 +90,7 @@ namespace IslandGame.GameWorld
                         {
                             if (y <= 1)
                             {
-                                chunkSpace.setBlockAt(56, x, y, z);//sand
+                                chunkSpace.setBlockAt(regularSandColor, x, y, z);//sand
                             }
                             else
                             {
@@ -308,7 +308,7 @@ namespace IslandGame.GameWorld
                         {
                             if (y <= 1)
                             {
-                                chunkSpace.setBlockAt(56, x, y, z);
+                                chunkSpace.setBlockAt(regularSandColor, x, y, z);
                             }
                             else
                             {
@@ -417,7 +417,7 @@ namespace IslandGame.GameWorld
 
                         if (heightNormal > (float)y / (float)ChunkSpace.chunkHeight)
                         {
-                            chunkSpace.setBlockAt((byte)(y <= 1 ? 56 : 184), x, y, z);
+                            chunkSpace.setBlockAt((byte)(y <= 1 ? regularSandColor : 184), x, y, z);
 
                         }
                         else if (y == 0)
