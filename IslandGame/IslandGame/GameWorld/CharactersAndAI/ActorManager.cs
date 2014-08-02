@@ -47,11 +47,6 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        public void addCharacterAt(Vector3 location, Actor.Faction faction)
-        {
-
-            actors.Add(new Character(new AxisAlignedBoundingBox(location + new Vector3(), .6f, .6f, 1.8f), faction));
-        }
 
         public void addCharacterAt(Vector3 location, Actor.Faction faction, IslandPathingProfile islandPathingProfile, ActorStateProfile actorStateProfile)
         {

@@ -36,6 +36,7 @@ namespace IslandGame.GameWorld
             PineForest,
             PoplarForest,
             Plains,
+            Cold,
             SmoothWithBluffs
         }
         
@@ -47,18 +48,19 @@ namespace IslandGame.GameWorld
                 new SmoothWithBluffsGenerator(),new PoplarForestGenerator()};
 
             generators[(int)TerrainType.medium] = new IslandGenerator[]{ 
-                new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator()};
+                new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator(), new SnowyIslandGenerator()};
 
             generators[(int)TerrainType.hard] = new IslandGenerator[]{ 
                 new Volcanic()};
             generators[(int)TerrainType.any] = new IslandGenerator[]{ 
                 new SmoothWithBluffsGenerator(),new PoplarForestGenerator(), 
                 new HillyGenerator(), new PlainsGenerator(), new PineForestGenerator(),
-                new Volcanic()};
+                new Volcanic(), new SnowyIslandGenerator()};
             generators[(int)TerrainType.PineForest] = new IslandGenerator[]{  new PineForestGenerator()};
             generators[(int)TerrainType.PoplarForest] = new IslandGenerator[] { new PoplarForestGenerator() };
             generators[(int)TerrainType.Plains] = new IslandGenerator[] { new PlainsGenerator() };
             generators[(int)TerrainType.SmoothWithBluffs] = new IslandGenerator[] { new SmoothWithBluffsGenerator() };
+            generators[(int)TerrainType.Cold] = new IslandGenerator[] { new SnowyIslandGenerator() };
 
 
             terrainDifficulty = nTerrainDifficulty;

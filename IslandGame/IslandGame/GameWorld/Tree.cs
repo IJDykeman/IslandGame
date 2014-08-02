@@ -21,6 +21,7 @@ namespace IslandGame.GameWorld
             poplar,
             pine,
             snowyPine,
+            snowyLargePine,
             redwood,
             bayou
         }
@@ -75,7 +76,17 @@ namespace IslandGame.GameWorld
                     string snowPineTreeName = snowPineTreeNames[rand.Next(snowPineTreeNames.Length)];//"fallTree1";
                     String snowPinePath = ContentDistributor.getEmptyString() + @"pineTree\" + snowPineTreeName + ".chr";
                     setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
-                        snowPinePath, .4f + (float)rand.NextDouble() * .3f);
+                        snowPinePath, .2f + (float)rand.NextDouble() * .2f);
+                    setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
+                    break;
+                case treeTypes.snowyLargePine:
+                    height = 5;
+
+                    string[] snowLargePineTreeNames = { "snowyDiskBasedPineTree" };
+                    string snowyLargePineTreeName = snowLargePineTreeNames[rand.Next(snowLargePineTreeNames.Length)];//"fallTree1";
+                    String snowyLargePinePath = ContentDistributor.getEmptyString() + @"pineTree\" + snowyLargePineTreeName + ".chr";
+                    setupSetPiece(new AxisAlignedBoundingBox(FootLocation.toWorldSpaceVector3(), FootLocation.toWorldSpaceVector3() + new Vector3(1f, height, 1f)),
+                        snowyLargePinePath, .5f + (float)rand.NextDouble() * .3f);
                     setRootPartRotationOffset(Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY((float)new Random().NextDouble() * 10.0f)));
                     break;
                 default:

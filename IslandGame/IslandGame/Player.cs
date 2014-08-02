@@ -84,10 +84,6 @@ namespace IslandGame
             List<PlayerAction.Action> result = new List<PlayerAction.Action>();
             result = inputHandler.updateAndGetPlayerActions();
 
-            
-            
-
-
             return result;
         }
 
@@ -105,10 +101,15 @@ namespace IslandGame
 
             if (galleryMode)
             {
-                int islandWidth = ChunkSpace.chunkWidth * ChunkSpace.widthInChunksStaticForGallery;
+                float distanceFromIslandCenter = ChunkSpace.chunkWidth * ChunkSpace.widthInChunksStaticForGallery * .9f;
+                float islandWidth = ChunkSpace.chunkWidth * ChunkSpace.widthInChunksStaticForGallery;
                 smoothCam = new PlayerCam(
-                    new Vector3((float)Math.Cos(age / 40.0), ((float)Math.Cos(age / 100.0 + 10.0) + 1.0f) / 4f
-                        + .1f, (float)Math.Sin(age / 40.0)) * islandWidth 
+                    new Vector3((float)Math.Cos(age / 40.0),
+                        ((float)Math.Cos(age / 100.0 + 10.0) + 1.0f) / 4f
+                        + .1f, 
+                        (float)Math.Sin(age / 40.0)) * 
+                        distanceFromIslandCenter
+
                         + new Vector3(islandWidth / 2, 0, islandWidth / 2));
             }
 

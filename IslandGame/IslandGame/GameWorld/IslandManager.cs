@@ -33,7 +33,7 @@ namespace IslandGame.GameWorld
             {
                 float islandLocationScalar = 5.0f;
 
-                generateAndAddIslandToList(new Island(new Vector3(370, 0, 267) * islandLocationScalar, Island.TerrainType.PoplarForest));
+                generateAndAddIslandToList(new Island(new Vector3(370, 0, 267) * islandLocationScalar, Island.TerrainType.Cold));
 
                 Vector3[] islandLocations = new Vector3[] {
                     

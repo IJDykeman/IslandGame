@@ -44,15 +44,16 @@ namespace IslandGame.GameWorld
             faction = nFaction;
             if (faction == Faction.friendly)
             {
-                bodyType = BodyType.Minotuar;              
+                bodyType = BodyType.Minotuar;
+                switchBodies(ContentDistributor.getEmptyString() + "minotuar.chr");
             }
             else
             {
                 bodyType = BodyType.Ghoul;
+                switchBodies(ContentDistributor.getEmptyString() + @"ghoul\ghoul.chr");
                 walkspeed *= .9f;
             }
 
-            switchBodies(ContentDistributor.getEmptyString() + "minotuar.chr");
         }
 
         void setupBodyPartGroupGivenCurrentJob()
@@ -60,7 +61,7 @@ namespace IslandGame.GameWorld
             switch (bodyType)
             {
                 case BodyType.Ghoul:
-                    setupAnimatedBodyPartGroup(ContentDistributor.getEmptyString() + @"ghoul\ghoul.chr");
+                    switchBodies(ContentDistributor.getEmptyString() + @"ghoul\ghoul.chr");
                     break;
                 case BodyType.Minotuar:
                     switch (currentJobType)
@@ -176,7 +177,6 @@ namespace IslandGame.GameWorld
             CharacterTask.Task toDo = job.getCurrentTask(taskTracker);
 
             List<AnimationType> animations = new List<AnimationType>();
-
             switch (toDo.taskType)
             {
                 case CharacterTask.Type.NoTask:
@@ -238,6 +238,7 @@ namespace IslandGame.GameWorld
                     
                     setRotationWithGivenDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc() - getLocation());
                     //positionQueue = getHammerAnimation();
+                    animations.Add(AnimationType.walking);
                     break;
                 case CharacterTask.Type.LookTowardPoint:
 
@@ -309,6 +310,7 @@ namespace IslandGame.GameWorld
                 StartHammerAnimation();
             }
         }
+
          public void startHammerAnimation()
         {
             StartHammerAnimation();
