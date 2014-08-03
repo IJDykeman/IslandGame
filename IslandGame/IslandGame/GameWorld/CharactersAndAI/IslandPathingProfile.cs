@@ -86,6 +86,7 @@ namespace IslandGame.GameWorld
         public bool isStandableAtWithHeight(BlockLoc IslandSpace, int entityHeight)
         {
             BlockLoc underFoot = new BlockLoc(IslandSpace.WSX(), IslandSpace.WSY() - 1, IslandSpace.WSZ());//locInPath + new IntVector3(0, -1, 0);
+            
             if (!isProfileSolidAt(IslandSpace) && isInProfileScope(IslandSpace))
             {
                 if (isProfileSolidAt(underFoot))
