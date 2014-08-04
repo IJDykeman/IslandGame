@@ -209,5 +209,20 @@ namespace IslandGame.GameWorld
             return new IntVector3(pick.X, pick.Y, pick.Z);
         }
 
+
+        public bool isActorStanding(Actor actor)
+        {
+            for(int x=(int)(actor.getFootLocation().X-actor.getXWidth()) ; x<actor.getFootLocation().X+actor.getXWidth();x++)
+            {
+                for (int z = (int)(actor.getFootLocation().Z - actor.getZWidth()); z < actor.getFootLocation().Z + actor.getXWidth(); z++)
+                {
+                    if (isProfileSolidAt(new BlockLoc( x, (int)(actor.getFootLocation().Y - .01f), z)))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

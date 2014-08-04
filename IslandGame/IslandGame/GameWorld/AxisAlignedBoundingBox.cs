@@ -139,5 +139,10 @@ namespace IslandGame.GameWorld
         {
             return new BoundingBox(loc, loc + new Vector3(Xwidth, height, Zwidth));
         }
+
+        public AxisAlignedBoundingBox addVector(Vector3 vector3)
+        {
+            return new AxisAlignedBoundingBox(loc + vector3, max() + vector3);
+        }
     }
 }

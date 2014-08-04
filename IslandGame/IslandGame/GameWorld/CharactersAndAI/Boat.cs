@@ -31,7 +31,7 @@ namespace IslandGame.GameWorld
         {
             
             List<ActorAction> actions = new List<ActorAction>();
-            actions.Add(getMoveToActionWithMoveByVector(getVelocity()));
+            actions.Add(getAddVelocityAction(getVelocity(),false));
             physics.AABB.loc.Y = permanentYLocation;
             setRootPartLocation(physics.AABB.middle());
             setRootPartRotationOffset(getYRotationFromDeltaVector(getVelocity()));

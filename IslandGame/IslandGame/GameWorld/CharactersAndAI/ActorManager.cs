@@ -134,7 +134,7 @@ namespace IslandGame.GameWorld
                     float distToStrike = (float)strikeRay.Intersects(struck.getBoundingBox());
                     if (distToStrike <= range)
                     {
-                        struck.damage(damage);
+                        struck.getHit(damage,direction);
                     }
                 }
             }
@@ -152,6 +152,11 @@ namespace IslandGame.GameWorld
                     }
                 }
             }
+        }
+
+        internal IEnumerable<Actor> getActors()
+        {
+            return actors.ToArray();
         }
     }
 

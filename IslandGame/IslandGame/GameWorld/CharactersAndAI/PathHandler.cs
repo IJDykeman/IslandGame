@@ -13,9 +13,6 @@ namespace IslandGame.GameWorld
 
         protected List<BlockLoc> getPathWithStartAndEndGroupValidation(IslandPathingProfile startProfile, BlockLoc startLoc, IslandPathingProfile endProfile, HashSet<BlockLoc> goals, int heightOfEntity)
         {
-
-  
-
             goals = removeUnstandableAndUnswimmableItemsInSet(endProfile, goals, heightOfEntity);
             if (goals.Count == 0)
             {

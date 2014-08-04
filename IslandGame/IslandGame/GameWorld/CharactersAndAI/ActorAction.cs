@@ -8,7 +8,8 @@ namespace IslandGame.GameWorld
 {
     public enum ActorActions
     {
-        moveTo,
+        addToVelocity,
+        requestKinneticsUpdate,
         placeBoat,
         rightClickAction,
         setShipVelocity,
@@ -28,18 +29,37 @@ namespace IslandGame.GameWorld
     }
 
     [Serializable]
-    public class ActorMoveToAction : ActorAction
+    public class ActorAddToVelocityAction : ActorAction
     {
         public AxisAlignedBoundingBox currentAABB;
-        public AxisAlignedBoundingBox desiredAABB;
+        public Vector3 velocityAddition;
         public Actor character;
+        private bool footPropelled;
 
-        public ActorMoveToAction(AxisAlignedBoundingBox nCurrentAABB, AxisAlignedBoundingBox nDesiredAABB, Actor ncharacter)
+        public ActorAddToVelocityAction(AxisAlignedBoundingBox nCurrentAABB, Vector3 nMoveBy, Actor ncharacter, bool nIsFootPropelled)
         {
-            type = ActorActions.moveTo;
+            type = ActorActions.addToVelocity;
             currentAABB = nCurrentAABB;
-            desiredAABB = nDesiredAABB;
+            velocityAddition = nMoveBy;
             character = ncharacter;
+            footPropelled = nIsFootPropelled;
+        }
+
+        public bool isFootPropelled() 
+        {
+            return footPropelled;
+        }
+    }
+
+    [Serializable]
+    public class ActorRequestKineticsUpdate : ActorAction
+    {
+        public Actor character;
+        public ActorRequestKineticsUpdate(Actor ncharacter)
+        {
+            character = ncharacter;
+            type = ActorActions.requestKinneticsUpdate;
+
         }
     }
 

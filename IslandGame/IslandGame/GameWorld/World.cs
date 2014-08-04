@@ -24,7 +24,6 @@ namespace IslandGame.GameWorld
 
         }
 
-
         public void setUpAfterGameLoad()
         {
             islandManager.setUpAfterGameLoad();
@@ -36,6 +35,13 @@ namespace IslandGame.GameWorld
             Compositer.setSkyColors(gameDirector.getSkyHorizonColor(), gameDirector.getSkyZenithColor(), gameDirector.getAmbientBrighness());
             updateMonsterSpawning();
             handleActorActions(actorManager.update());
+
+            foreach (Actor actor in actorManager.getActors()){
+                Island closestIsland = islandManager.getClosestIslandToLocation(actor.getLocation());
+                runPhysicsWithMoveActionAndIsland(actor, actor.getVelocity(), closestIsland);
+            }
+
+
             islandManager.update();
         }
 
@@ -50,9 +56,8 @@ namespace IslandGame.GameWorld
                         addBoatAt(((ActorPlaceBoatAction)action).getBoatLocToPlace().toWorldSpaceVector3());
                         break;
 
-                    case ActorActions.moveTo:
-                        handleMoveToAction(action);
-
+                    case ActorActions.addToVelocity:
+                        handleAddVelocityAction((ActorAddToVelocityAction)action);
                         break;
                     case ActorActions.rightClickAction:
                         Ray ray = new Ray( ((ActorRightClickAction)action).nearClickPoint,
@@ -86,6 +91,11 @@ namespace IslandGame.GameWorld
                     case ActorActions.placeBlock:
                         placeBlock(((ActorPlaceBlockAction)action).getlocToPlaceBlock(), ((ActorPlaceBlockAction)action).getTypeToPlace());
                         break;
+                    case ActorActions.requestKinneticsUpdate:
+                        ActorRequestKineticsUpdate request = (ActorRequestKineticsUpdate)action;
+                        request.character.getPhysicsHandler()
+                            .update(islandManager.getClosestIslandToLocation(request.character.getLocation()).getPathingProfile().isActorStanding(request.character));
+                        break;
                     case ActorActions.die:
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
@@ -94,9 +104,11 @@ namespace IslandGame.GameWorld
             }
         }
 
-        private void handleMoveToAction(ActorAction action)
+        private void handleAddVelocityAction(ActorAddToVelocityAction action)
         {
-            ActorMoveToAction moveAction = (ActorMoveToAction)action;
+            ActorAddToVelocityAction moveAction = (ActorAddToVelocityAction)action;
+
+
 
             Island closestIsland = islandManager.getClosestIslandToLocation(moveAction.character.getLocation());
             if (closestIsland == null)// if no islands are loaded
@@ -108,15 +120,21 @@ namespace IslandGame.GameWorld
 
                 List<BlockLoc> intersectedByActor = moveAction.character.getBlocksIntersectedByAABB();
                 IslandPathingProfile profile = closestIsland.getPathingProfile();
+                if (!profile.isActorStanding(moveAction.character) && moveAction.character.canBeKnockedBack() && moveAction.isFootPropelled())
+                {
+                    return;
+                }
                 foreach (BlockLoc test in intersectedByActor)
                 {
+
+
                     if (profile.isProfileSolidAt(test))
                     {
                         moveAction.character.setFootLocation(moveAction.character.getFootLocation() + new Vector3(0, .3f, 0));
                         return;
                     }
                 }
-                runPhysicsWithMoveActionAndIsland(moveAction, closestIsland);
+                moveAction.character.addToVelocity(action.velocityAddition);
             }
         }
 
@@ -184,13 +202,13 @@ namespace IslandGame.GameWorld
             }
         }
 
-        private static void runPhysicsWithMoveActionAndIsland(ActorMoveToAction moveAction, Island closestIsland)
+        private static void runPhysicsWithMoveActionAndIsland(Actor toMove, Vector3 movement, Island closestIsland)
         {
-            Vector3 originalDesiredCharacterAABBMiddle = moveAction.desiredAABB.middle();
+            Vector3 originalDesiredCharacterAABBMiddle = toMove.getAABB().addVector(movement).middle();
 
 
-            AxisAlignedBoundingBox newAABBforCharacter = closestIsland.AABBPhysics(moveAction.currentAABB, moveAction.desiredAABB);
-            Vector3 newVelocity = moveAction.character.getVelocity();
+            AxisAlignedBoundingBox newAABBforCharacter = closestIsland.AABBPhysics(toMove.getAABB(), movement);
+            Vector3 newVelocity = toMove.getVelocity();
             if (newAABBforCharacter.middle().X != originalDesiredCharacterAABBMiddle.X)
             {
                 newVelocity.X = 0;
@@ -203,8 +221,8 @@ namespace IslandGame.GameWorld
             {
                 newVelocity.Z = 0;
             }
-            moveAction.character.setVelocity(newVelocity);
-            moveAction.character.setAABB(newAABBforCharacter);
+            toMove.setVelocity(newVelocity);
+            toMove.setAABB(newAABBforCharacter);
         }
 
         private void placeBlock(BlockLoc blockLoc, byte typeToBuild)
@@ -299,14 +317,14 @@ namespace IslandGame.GameWorld
             return new UnemployedJob();
         }
 
-        public AxisAlignedBoundingBox AABBPhysicsCollisionOnly(AxisAlignedBoundingBox currentAABB, AxisAlignedBoundingBox desiredAABB)
+        public AxisAlignedBoundingBox AABBPhysicsCollisionOnly(AxisAlignedBoundingBox currentAABB, Vector3 moveBy)
         {
-            Island closestIsland = islandManager.getClosestIslandToLocation(desiredAABB.middle());
+            Island closestIsland = islandManager.getClosestIslandToLocation(currentAABB.middle());
             if (closestIsland == null)// if no islands are loaded
             {
-                return desiredAABB;
+                return currentAABB;
             }
-            AxisAlignedBoundingBox newAABB = closestIsland.AABBPhysics(currentAABB, desiredAABB);
+            AxisAlignedBoundingBox newAABB = closestIsland.AABBPhysics(currentAABB, moveBy);
 
 
             return newAABB;

@@ -37,6 +37,11 @@ namespace IslandGame.GameWorld
             return physics.velocity;
         }
 
+        public void addToVelocity(Vector3 toAddToVelocity)
+        {
+            physics.velocity += toAddToVelocity;
+        }
+
         public void setAABB(AxisAlignedBoundingBox nAABB)
         {
             physics.AABB = nAABB;
@@ -45,6 +50,11 @@ namespace IslandGame.GameWorld
         public Vector3 getLocation()
         {
             return physics.AABB.middle();
+        }
+
+        public AxisAlignedBoundingBox getAABB()
+        {
+            return new AxisAlignedBoundingBox(physics.AABB.loc, physics.AABB.max());
         }
 
         public Vector3 getFootLocation()
@@ -62,23 +72,20 @@ namespace IslandGame.GameWorld
             physics.AABB.loc += (nLoc - physics.AABB.middle());
         }
 
-        public virtual ActorAction getMoveToActionWithMoveByVector(Vector3 moveBy)
+        public virtual ActorAction getAddVelocityAction(Vector3 moveBy, bool isFootPropelled)
         {
-            return getActorMoveToActionFromDeltaVec(ref moveBy);
+            return getActorMoveToActionFromDeltaVec(ref moveBy, isFootPropelled);
         }
 
-        protected ActorAction getActorMoveToActionFromDeltaVec(ref Vector3 moveBy)
+        protected ActorAction getActorMoveToActionFromDeltaVec(ref Vector3 moveBy, bool isFootPropelled)
         {
             Vector3 halfAABBWidthVec = new Vector3(physics.AABB.Xwidth / 2f, physics.AABB.height / 2f, physics.AABB.Zwidth / 2f);
 
             AxisAlignedBoundingBox currentAABB = new AxisAlignedBoundingBox(physics.AABB.middle()
                 - halfAABBWidthVec, physics.AABB.middle() + halfAABBWidthVec);
 
-            AxisAlignedBoundingBox desiredAABB = new AxisAlignedBoundingBox(physics.AABB.middle()
-                - halfAABBWidthVec + moveBy, physics.AABB.middle() + halfAABBWidthVec + moveBy);
-
-            return new ActorMoveToAction(currentAABB,
-                desiredAABB, this);
+            return new ActorAddToVelocityAction(currentAABB,
+                moveBy, this, isFootPropelled);
         }
 
         protected Quaternion getYRotationFromDeltaVector(Vector3 delta)
@@ -127,12 +134,6 @@ namespace IslandGame.GameWorld
             setRotationWithGivenDeltaVec(lookTarget - getLocation());
         }
 
-        protected void runPhysics(List<ActorAction> actions)
-        {
-            physics.gravitate();
-            actions.Add(getMoveToActionWithMoveByVector(physics.velocity));
-        }
-
         public List<BlockLoc> getBlocksIntersectedByAABB()
         {
             List<BlockLoc> result  = new List<BlockLoc>();
@@ -161,7 +162,17 @@ namespace IslandGame.GameWorld
             return faction;
         }
 
-        public void damage(float damage)
+        public void getHit(float damage, Vector3 hitForceDirection)
+        {
+            recieveDamage(damage);
+            
+            hitForceDirection /= 5f;
+            hitForceDirection.Y = .1f;
+            //hitForceDirection.Normalize();
+            setVelocity(getVelocity() + hitForceDirection);
+        }
+
+        private void recieveDamage(float damage)
         {
             health -= damage;
         }
@@ -200,5 +211,27 @@ namespace IslandGame.GameWorld
               
         }
 
+        //public bool 
+
+
+        public virtual bool canBeKnockedBack()
+        {
+            return true;
+        }
+
+        internal float getXWidth()
+        {
+            return getBoundingBox().Max.X - getBoundingBox().Min.X;
+        }
+
+        internal float getZWidth()
+        {
+            return getBoundingBox().Max.Z - getBoundingBox().Min.Z;
+        }
+
+        public PhysicsHandler getPhysicsHandler()
+        {
+            return physics;
+        }
     }
 }

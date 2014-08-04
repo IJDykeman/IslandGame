@@ -21,9 +21,19 @@ namespace IslandGame.GameWorld
 
 
 
-        public void gravitate()
+        public void update(bool isStanding)
         {
-            velocity += new Vector3(0, -1f/60.0f, 0);
+            if (isStanding)
+            {
+                velocity.X -= velocity.X * .4f;
+                velocity.Z -= velocity.Z * .4f;
+            }
+            gravitate();
+        }
+
+        private void gravitate()
+        {
+            velocity += new Vector3(0, -1f / 60.0f, 0);
         }
 
 

@@ -180,13 +180,16 @@ namespace IslandGame.GameWorld
             switch (toDo.taskType)
             {
                 case CharacterTask.Type.NoTask:
-                    runPhysics(actions);
+                    //runPhysics(actions);
+                    actions.Add(new ActorRequestKineticsUpdate(this));
                     animations.Add(AnimationType.standing);
                     break;
 
                 case CharacterTask.Type.StepToBlock:
                     updateStepTask((CharacterTask.StepToBlock)toDo, animations);
+                    setVelocity(new Vector3());
                     break;
+
                 case CharacterTask.Type.DestoryBlock:
                     animations.Add(AnimationType.standing);
                     CharacterTask.DestroyBlock destroyBlock = (CharacterTask.DestroyBlock)toDo;
@@ -194,6 +197,7 @@ namespace IslandGame.GameWorld
                     
                     StartHammerAnimationIfPossible();
                     break;
+
                 case CharacterTask.Type.BuildBlock:
                     animations.Add(AnimationType.standing);
                     CharacterTask.BuildBlock buildBlock = (CharacterTask.BuildBlock)toDo;
@@ -201,12 +205,14 @@ namespace IslandGame.GameWorld
                     StartHammerAnimationIfPossible();
                     dropItem();
                     break;
+
                 case CharacterTask.Type.ChopBlockForFrame:
                     animations.Add(AnimationType.standing);
                     CharacterTask.ChopBlockForFrame chopBlock = (CharacterTask.ChopBlockForFrame)toDo;
                     actions.Add(new ActorStrikeBlockAction(this, chopBlock.getBlockToChop(), JobType.logging));
                     StartHammerAnimationIfPossible();
                     break;
+
                 case CharacterTask.Type.ObjectBuildForFrame:
                     CharacterTask.ObjectBuildForFrame objectBuildTask = (CharacterTask.ObjectBuildForFrame)toDo;
                     objectBuildTask.getSiteToWorkOn().buildForAFrame();
@@ -228,12 +234,15 @@ namespace IslandGame.GameWorld
                     break;
 
                 case CharacterTask.Type.WalkTowardPoint:
-                    
+                    //runPhysics(actions);
+                    actions.Add(new ActorRequestKineticsUpdate(this));
                     animations.Add(AnimationType.walking);
 
-                    physics.gravitate();
-                    Vector3 move = getWalkTowardDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc()) + physics.velocity;
-                    actions.Add(getMoveToActionWithMoveByVector(move));
+
+                    Vector3 move = getWalkTowardDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc());
+                    move.Normalize();
+                    move *= getSpeed();
+                    actions.Add(getAddVelocityAction(move,false));
 
                     
                     setRotationWithGivenDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc() - getLocation());
@@ -316,8 +325,6 @@ namespace IslandGame.GameWorld
             StartHammerAnimation();
         }
 
-        
-
         private Vector3 getWalkTowardDeltaVec(Vector3 target)
         {
             Vector3 delta = target - getFootLocation();
@@ -385,16 +392,15 @@ namespace IslandGame.GameWorld
             return new ActorStrikeAlongRayAction(this, nearPoint, getStrikeRange(), farPoint - nearPoint, getJobType());
         }
 
-
-        public override ActorAction getMoveToActionWithMoveByVector(Vector3 moveBy)
+        public override ActorAction getAddVelocityAction(Vector3 toAddToVelocity, bool isFootPropelled)
         {
             if (job is CaptainingBoatJob)
             {
-                return new ActorSetShipVelocity(((CaptainingBoatJob)job).getBoat(), moveBy);
+                return new ActorSetShipVelocity(((CaptainingBoatJob)job).getBoat(), toAddToVelocity);
             }
             else
             {
-                return getActorMoveToActionFromDeltaVec(ref moveBy);
+                return getActorMoveToActionFromDeltaVec(ref toAddToVelocity, isFootPropelled);
             }
         }
 
@@ -497,6 +503,11 @@ namespace IslandGame.GameWorld
         public ResourceBlock.ResourceType getLoad()
         {
             return load.getLoad();
+        }
+
+        public override bool canBeKnockedBack()
+        {
+            return !(job is TravelAlongPath);
         }
         
     }

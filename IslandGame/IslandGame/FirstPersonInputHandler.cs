@@ -91,7 +91,7 @@ namespace IslandGame
 
             if (moveVector.Length() > 0.0f)
             {
-                ActorAction moveAction = embodiedCharacter.getMoveToActionWithMoveByVector(moveVector);
+                ActorAction moveAction = embodiedCharacter.getAddVelocityAction(moveVector,true);
                 embodiedCharacter.setIsWalkingOverride(true);
                 result.Add(moveAction);
             }

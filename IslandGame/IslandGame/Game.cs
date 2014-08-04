@@ -314,13 +314,7 @@ namespace IslandGame
                         break;
 
 
-                    case PlayerAction.Type.MoveTo:
-                        PlayerAction.MoveTo move = (PlayerAction.MoveTo)action;
-                        AxisAlignedBoundingBox newAABB = world.AABBPhysicsCollisionOnly(move.currentAABB, move.desiredAABB);
 
-                        player.setCameraLoc(move.desiredAABB.middle());
-                        
-                        break;
                     case PlayerAction.Type.setCameraLocation:
                         player.setCameraLoc(((PlayerAction.SetCameraLocation)action).newCameraLocation, (((PlayerAction.SetCameraLocation)action).getNeckAdjustment()));
                         break;
@@ -330,7 +324,7 @@ namespace IslandGame
                         AxisAlignedBoundingBox goalMoveAABB = player.getThirdPersonAABB();
                         goalMoveAABB.loc += moveBy.moveBy;
 
-                        AxisAlignedBoundingBox newMoveAABB = world.AABBPhysicsCollisionOnly(oldMoveAABB, goalMoveAABB);
+                        AxisAlignedBoundingBox newMoveAABB = world.AABBPhysicsCollisionOnly(oldMoveAABB, moveBy.moveBy);
                         
                         //AxisAlignedBoundingBox newAABB = world.AABBPhysicsCollisionOnly(move.currentAABB, move.desiredAABB);
 

@@ -137,8 +137,9 @@ namespace IslandGame.GameWorld
         }
 
         //TODO split this into different class
-        public AxisAlignedBoundingBox AABBPhysics(AxisAlignedBoundingBox currentAABB, AxisAlignedBoundingBox newAABB)
+        public AxisAlignedBoundingBox AABBPhysics(AxisAlignedBoundingBox currentAABB, Vector3 moveBy)
         {
+            AxisAlignedBoundingBox newAABB = currentAABB.addVector(moveBy);
             float fudge = .001f;
             currentAABB.loc = worldSpaceToIslandSpaceForPhysics(currentAABB.loc);
             newAABB.loc = worldSpaceToIslandSpaceForPhysics(newAABB.loc);
