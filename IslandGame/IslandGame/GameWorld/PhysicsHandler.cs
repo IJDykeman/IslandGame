@@ -21,19 +21,17 @@ namespace IslandGame.GameWorld
 
 
 
-        public void update(bool isStanding)
+        public void update(float coefficientOfFriction)
         {
-            if (isStanding)
-            {
-                velocity.X -= velocity.X * .4f;
-                velocity.Z -= velocity.Z * .4f;
-            }
+            velocity.X -= velocity.X * coefficientOfFriction;
+            velocity.Z -= velocity.Z * coefficientOfFriction;
+
             gravitate();
         }
 
         private void gravitate()
         {
-            velocity += new Vector3(0, -1f / 60.0f, 0);
+            velocity += new Vector3(0, -.6f / 60.0f, 0);
         }
 
 

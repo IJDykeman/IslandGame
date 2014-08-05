@@ -22,6 +22,11 @@ namespace IslandGame.GameWorld
 
         public abstract List<ActorAction> update(CharacterTaskTracker taskTracker);
 
+        public virtual void updatePhysics(float coefficientOfFricton)
+        {
+            physics.update(coefficientOfFricton);
+        }
+
         public BoundingBox getBoundingBox()
         {
             return new BoundingBox(physics.AABB.loc, physics.AABB.max());
@@ -211,9 +216,6 @@ namespace IslandGame.GameWorld
               
         }
 
-        //public bool 
-
-
         public virtual bool canBeKnockedBack()
         {
             return true;
@@ -233,5 +235,11 @@ namespace IslandGame.GameWorld
         {
             return physics;
         }
+
+        public virtual bool needsKineticsUpdates()
+        {
+            return true;
+        }
+
     }
 }

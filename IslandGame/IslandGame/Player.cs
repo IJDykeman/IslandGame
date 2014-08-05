@@ -93,8 +93,8 @@ namespace IslandGame
             Vector2 deltaTilt = inputHandler.getDeltaTiltFromMouselook();
             leftRightRot += deltaTilt.X;
             upDownRot += deltaTilt.Y;
-            //upDownRot = -(float)Math.PI / 2.0f;
 
+            limitUpDownRot();
 
             oldKeyboardState = currentKeyboardState;
             oldMouseState = currentMouseState;
@@ -116,6 +116,20 @@ namespace IslandGame
             smoothCam.getMoveByVecWithMinSpeed(floatingCameraSpeed);
 
             age++;
+        }
+
+        private static void limitUpDownRot()
+        {
+            float distanceFromMaxTiltToMaintain = .1f;
+            if (upDownRot < -Math.PI / 2 + distanceFromMaxTiltToMaintain)
+            {
+                upDownRot = -MathHelper.PiOver2 + distanceFromMaxTiltToMaintain;
+            }
+
+            if (upDownRot > Math.PI / 2 - distanceFromMaxTiltToMaintain)
+            {
+                upDownRot = MathHelper.PiOver2 - distanceFromMaxTiltToMaintain;
+            }
         }
 
 

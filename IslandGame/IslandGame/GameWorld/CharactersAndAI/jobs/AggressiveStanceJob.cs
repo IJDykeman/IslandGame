@@ -34,7 +34,7 @@ namespace IslandGame.GameWorld
                 float distToTarget = Vector3.Distance(character.getLocation(), toAttack.getLocation());
                 if (distToTarget > loseInterestDistance || toAttack.isDead())
                 {
-                    return new CharacterTask.SwitchJob(new AggressiveStanceJob(pathingProfile, actorProfile, character));
+                    return new CharacterTask.NoTask();
                 }
                 else if (distToTarget > getDesiredDistanceFromTarget())
                 {
@@ -43,7 +43,14 @@ namespace IslandGame.GameWorld
                 else
                 {
                   //  return new CharacterTask.NoTask();
-                   return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), toAttack.getLocation() - character.getLocation());
+                    if (character.canSwing())
+                    {
+                        return new CharacterTask.DoStrikeOfWorkAlongRay(character, character.getLocation(), character.getStrikeRange(), toAttack.getLocation() - character.getLocation());
+                    }
+                    else
+                    {
+                        return new CharacterTask.NoTask();
+                    }
                 }
             }
             if (character.getFaction() != Actor.Faction.friendly)

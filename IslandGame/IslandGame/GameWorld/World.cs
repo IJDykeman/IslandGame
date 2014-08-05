@@ -57,7 +57,8 @@ namespace IslandGame.GameWorld
                         break;
 
                     case ActorActions.addToVelocity:
-                        handleAddVelocityAction((ActorAddToVelocityAction)action);
+                        ActorAddToVelocityAction addVelocity = (ActorAddToVelocityAction)action;
+                        handleAddVelocityAction(addVelocity.velocityAddition, addVelocity.character, addVelocity.isFootPropelled());
                         break;
                     case ActorActions.rightClickAction:
                         Ray ray = new Ray( ((ActorRightClickAction)action).nearClickPoint,
@@ -68,8 +69,9 @@ namespace IslandGame.GameWorld
                             ((ActorRightClickAction)action).character.rightClickedBoat(boatClicked);
                         }
                         break;
-                    case ActorActions.setShipVelocity:
-                        ((ActorSetShipVelocity)action).getBoat().setVelocity(((ActorSetShipVelocity)action).getNewVelocity());
+                    case ActorActions.addToShipVelocity:
+                        ActorAddToShipVelocity addShipVelocity = (ActorAddToShipVelocity)action;
+                        handleAddVelocityAction(addShipVelocity.getVelocityAddition(), addShipVelocity.getBoat(), false);
                         break;
                     case ActorActions.PlaceResource:
 
@@ -91,37 +93,54 @@ namespace IslandGame.GameWorld
                     case ActorActions.placeBlock:
                         placeBlock(((ActorPlaceBlockAction)action).getlocToPlaceBlock(), ((ActorPlaceBlockAction)action).getTypeToPlace());
                         break;
-                    case ActorActions.requestKinneticsUpdate:
-                        ActorRequestKineticsUpdate request = (ActorRequestKineticsUpdate)action;
-                        request.character.getPhysicsHandler()
-                            .update(islandManager.getClosestIslandToLocation(request.character.getLocation()).getPathingProfile().isActorStanding(request.character));
-                        break;
+
                     case ActorActions.die:
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
 
                 }
             }
+
+            updateActorPhysics();
         }
 
-        private void handleAddVelocityAction(ActorAddToVelocityAction action)
+        private void updateActorPhysics()
         {
-            ActorAddToVelocityAction moveAction = (ActorAddToVelocityAction)action;
+            foreach (Actor actor in actorManager.getActors())
+            {
+                float coefficientOfFriction = .01f;
 
+                //if the actor is on solid groung
+                if (islandManager.getClosestIslandToLocation(actor.getLocation()).getPathingProfile().isActorStanding(actor))
+                {
+                    coefficientOfFriction = .2f;
+                }
 
+                if (Ocean.pointIsUnderWater(actor.getFootLocation()))
+                {
+                    coefficientOfFriction += .1f;
+                }
 
-            Island closestIsland = islandManager.getClosestIslandToLocation(moveAction.character.getLocation());
+                actor.updatePhysics(coefficientOfFriction);
+            }
+        }
+
+        private void handleAddVelocityAction(Vector3 velocityAddition, Actor actor, bool isFootPropelled)
+        {
+
+            Island closestIsland = islandManager.getClosestIslandToLocation(actor.getLocation());
             if (closestIsland == null)// if no islands are loaded
             {
-                moveAction.character.setVelocity(new Vector3());
+                actor.setVelocity(new Vector3());
             }
             else
             {
 
-                List<BlockLoc> intersectedByActor = moveAction.character.getBlocksIntersectedByAABB();
+                List<BlockLoc> intersectedByActor = actor.getBlocksIntersectedByAABB();
                 IslandPathingProfile profile = closestIsland.getPathingProfile();
-                if (!profile.isActorStanding(moveAction.character) && moveAction.character.canBeKnockedBack() && moveAction.isFootPropelled())
+                if (!profile.isActorStanding(actor) && actor.canBeKnockedBack() && isFootPropelled && !Ocean.pointIsUnderWater(actor.getFootLocation()))
                 {
+                    actor.addToVelocity(velocityAddition*.02f);//character propells slowly in midair
                     return;
                 }
                 foreach (BlockLoc test in intersectedByActor)
@@ -130,11 +149,11 @@ namespace IslandGame.GameWorld
 
                     if (profile.isProfileSolidAt(test))
                     {
-                        moveAction.character.setFootLocation(moveAction.character.getFootLocation() + new Vector3(0, .3f, 0));
+                        actor.setFootLocation(actor.getFootLocation() + new Vector3(0, .3f, 0));
                         return;
                     }
                 }
-                moveAction.character.addToVelocity(action.velocityAddition);
+                actor.addToVelocity(velocityAddition);
             }
         }
 

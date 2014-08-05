@@ -9,10 +9,9 @@ namespace IslandGame.GameWorld
     public enum ActorActions
     {
         addToVelocity,
-        requestKinneticsUpdate,
         placeBoat,
         rightClickAction,
-        setShipVelocity,
+        addToShipVelocity,
         die,
         strike,
         PlaceResource,
@@ -51,17 +50,6 @@ namespace IslandGame.GameWorld
         }
     }
 
-    [Serializable]
-    public class ActorRequestKineticsUpdate : ActorAction
-    {
-        public Actor character;
-        public ActorRequestKineticsUpdate(Actor ncharacter)
-        {
-            character = ncharacter;
-            type = ActorActions.requestKinneticsUpdate;
-
-        }
-    }
 
     [Serializable]
     public class ActorPlaceBoatAction : ActorAction
@@ -122,16 +110,16 @@ namespace IslandGame.GameWorld
     }
 
     [Serializable]
-    public class ActorSetShipVelocity : ActorAction
+    public class ActorAddToShipVelocity : ActorAction
     {
         Boat boat;
-        Vector3 newVelocity;
+        Vector3 toAddToVelocity;
 
-        public ActorSetShipVelocity(Boat nBoat, Vector3 nNewVelocity)
+        public ActorAddToShipVelocity(Boat nBoat, Vector3 nToAdd)
         {
-            type = ActorActions.setShipVelocity;
+            type = ActorActions.addToShipVelocity;
             boat = nBoat;
-            newVelocity = nNewVelocity;
+            toAddToVelocity = nToAdd;
         }
 
         public Boat getBoat()
@@ -139,9 +127,9 @@ namespace IslandGame.GameWorld
             return boat;
         }
 
-        public Vector3 getNewVelocity()
+        public Vector3 getVelocityAddition()
         {
-            return newVelocity;
+            return toAddToVelocity;
         }
     }
 

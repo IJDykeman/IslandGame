@@ -345,7 +345,7 @@ namespace IslandGame.GameWorld
             Vector3? SolidBlockHit = getNearestBlockHit(ray);
 
             Vector3 rayPosOnYOceanLevel = ray.Position;
-            rayPosOnYOceanLevel.Y=.7f;
+            rayPosOnYOceanLevel.Y=Ocean.oceanLevel;
 
             BoundingBox oceanBoundingBox = new BoundingBox(rayPosOnYOceanLevel + new Vector3(-10000, -1, -1000), rayPosOnYOceanLevel + new Vector3(10000, 0, 1000));
             float? oceanIntersectionDist = oceanBoundingBox.Intersects(ray);

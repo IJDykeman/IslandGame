@@ -86,7 +86,7 @@ namespace IslandGame
 
             Vector3 moveVector = getMoveVector(currentKeyboardstate);
             moveVector.Normalize();
-            moveVector *= embodiedCharacter.getSpeed();
+            moveVector *= embodiedCharacter.getWalkForceUnderDirectControl();
             embodiedCharacter.setRotationWithGivenDeltaVec(Player.getPlayerAimingAtPointAtDistance(1, currentMouseState) - Player.getPlayerAimingAtPointAtDistance(0, currentMouseState));
 
             if (moveVector.Length() > 0.0f)

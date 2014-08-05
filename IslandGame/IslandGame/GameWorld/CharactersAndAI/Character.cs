@@ -15,8 +15,9 @@ namespace IslandGame.GameWorld
     {
         
         Job job;
-        readonly float jumpPower = .2f;
-        float walkspeed = 1.0f / 10.0f;
+        readonly float jumpPower = .25f;
+        float walkSpeedWhilePathing = 1.0f / 10.0f;
+        float walkForce = 1f / 20f;
         BodyType bodyType;
         JobType currentJobType = JobType.none;
         private bool isWalkingOverride = false;
@@ -51,7 +52,7 @@ namespace IslandGame.GameWorld
             {
                 bodyType = BodyType.Ghoul;
                 switchBodies(ContentDistributor.getEmptyString() + @"ghoul\ghoul.chr");
-                walkspeed *= .9f;
+                walkSpeedWhilePathing *= .9f;
             }
 
         }
@@ -181,7 +182,6 @@ namespace IslandGame.GameWorld
             {
                 case CharacterTask.Type.NoTask:
                     //runPhysics(actions);
-                    actions.Add(new ActorRequestKineticsUpdate(this));
                     animations.Add(AnimationType.standing);
                     break;
 
@@ -223,8 +223,9 @@ namespace IslandGame.GameWorld
                     StartHammerAnimationIfPossible();
                     break;
                 case CharacterTask.Type.CaptainBoat:
-                    setRotationWithGivenDeltaVec(((CharacterTask.CaptainBoat)toDo).getBoat().getFootLocation() - getFootLocation());
+                    //setRotationWithGivenDeltaVec(((CharacterTask.CaptainBoat)toDo).getBoat().getFootLocation() - getFootLocation());
                     setFootLocation(((CharacterTask.CaptainBoat)toDo).getBoat().getLocation()+ new Vector3(0,.6f,0));
+                    setVelocity(new Vector3());
                     break;
                 case CharacterTask.Type.GetInBoat:
                     getInBoat(((CharacterTask.GetInBoat)toDo).getBoat());
@@ -234,26 +235,22 @@ namespace IslandGame.GameWorld
                     break;
 
                 case CharacterTask.Type.WalkTowardPoint:
-                    //runPhysics(actions);
-                    actions.Add(new ActorRequestKineticsUpdate(this));
                     animations.Add(AnimationType.walking);
 
 
                     Vector3 move = getWalkTowardDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc());
                     move.Normalize();
-                    move *= getSpeed();
+                    move *= getWalkSpeedWhilePathing();
                     actions.Add(getAddVelocityAction(move,false));
 
                     
                     setRotationWithGivenDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc() - getLocation());
-                    //positionQueue = getHammerAnimation();
-                    animations.Add(AnimationType.walking);
+
                     break;
                 case CharacterTask.Type.LookTowardPoint:
 
                     animations.Add(AnimationType.standing);
                     setRotationWithGivenDeltaVec(((CharacterTask.LookTowardPoint)toDo).getTargetLoc() - getLocation());
-                    //positionQueue = getHammerAnimation();
                     break;
                 case CharacterTask.Type.DoStrikeOfWorkAlongRay:
 
@@ -330,17 +327,17 @@ namespace IslandGame.GameWorld
             Vector3 delta = target - getFootLocation();
             delta.Y = 0;
             delta.Normalize();
-            delta *= getSpeed();
+            delta *= getWalkSpeedWhilePathing();
             return delta;
         }
 
         private void updateStepTask(CharacterTask.StepToBlock stepTask, List<AnimationType> result)
         {
-            Vector3 newFootLoc = LinearLocationInterpolator.interpolate(getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), walkspeed);
+            Vector3 newFootLoc = LinearLocationInterpolator.interpolate(getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), walkSpeedWhilePathing);
             setFootLocation(newFootLoc);
             setRotationWithGivenDeltaVec(stepTask.getGoalLoc().toWorldSpaceVector3()+ new Vector3(.5f,.5f,.5f) - getFootLocation());
 
-            if (LinearLocationInterpolator.isLinearInterpolationComplete(getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), walkspeed))
+            if (LinearLocationInterpolator.isLinearInterpolationComplete(getFootLocation(), stepTask.getGoalLoc().toWorldSpaceVector3() + new Vector3(.5f, 0, .5f), walkSpeedWhilePathing))
             {
                 stepTask.taskWasCompleted();
             }
@@ -352,9 +349,14 @@ namespace IslandGame.GameWorld
             physics.velocity.Y += jumpPower;
         }
 
-        public float getSpeed()
+        public float getWalkSpeedWhilePathing()
         {
-            return walkspeed;
+            return walkSpeedWhilePathing;
+        }
+
+        public float getWalkForceUnderDirectControl()
+        {
+            return walkForce;
         }
 
         public void setJobAndCheckUseability(Job newJob)
@@ -396,7 +398,7 @@ namespace IslandGame.GameWorld
         {
             if (job is CaptainingBoatJob)
             {
-                return new ActorSetShipVelocity(((CaptainingBoatJob)job).getBoat(), toAddToVelocity);
+                return new ActorAddToShipVelocity(((CaptainingBoatJob)job).getBoat(), toAddToVelocity);
             }
             else
             {

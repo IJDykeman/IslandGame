@@ -14,7 +14,7 @@ namespace IslandGame.GameWorld
 
         public static readonly float SCALE = .2f;
         float speed = .16f;
-        float permanentYLocation= .4f;
+        float permanentYLocation= .6f;
 
 
         public Boat(Vector3 nLoc)
@@ -29,13 +29,17 @@ namespace IslandGame.GameWorld
 
         public override List<ActorAction> update(CharacterTaskTracker taskTracker)
         {
-            
             List<ActorAction> actions = new List<ActorAction>();
-            actions.Add(getAddVelocityAction(getVelocity(),false));
+           return actions;
+        }
+
+        public override void updatePhysics(float coefficientOfFriction)
+        {
+            physics.velocity.Y = 0;
             physics.AABB.loc.Y = permanentYLocation;
             setRootPartLocation(physics.AABB.middle());
             setRootPartRotationOffset(getYRotationFromDeltaVector(getVelocity()));
-           return actions;
+            base.updatePhysics(coefficientOfFriction);
         }
 
         public override List<BlockLoc> blockClaimedToWorkOn()
