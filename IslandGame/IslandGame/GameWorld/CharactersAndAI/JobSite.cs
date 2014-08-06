@@ -58,5 +58,10 @@ namespace IslandGame.GameWorld
         {
             
         }
+
+        public virtual bool respondToDeleteClickAndReturnIfShouldBeDeleted(Ray ray)
+        {
+            return true;
+        }
     }
 }

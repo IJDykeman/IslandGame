@@ -42,7 +42,8 @@ namespace IslandGame
             FinishDraggingStorage,
             DraggingStorage,
             JobTypeSwitch,
-            CharacterPlacement
+            CharacterPlacement,
+            DeleteWorksiteClick
         }
 
         public abstract class Action
@@ -222,6 +223,16 @@ namespace IslandGame
                 nearPoint = nNearPoint;
                 farPoint = nFarPoint;
                 type = Type.CharacterPlacement;
+            }
+        }
+
+        public class RemoveWorksiteClick : MouseAction
+        {
+            public RemoveWorksiteClick(Vector3 nNearPoint, Vector3 nFarPoint)
+            {
+                nearPoint = nNearPoint;
+                farPoint = nFarPoint;
+                type = Type.DeleteWorksiteClick;
             }
         }
 

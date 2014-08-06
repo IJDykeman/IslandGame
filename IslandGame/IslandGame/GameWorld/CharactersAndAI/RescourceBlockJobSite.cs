@@ -26,7 +26,13 @@ namespace IslandGame.GameWorld
 
         public override float? intersects(Ray ray)
         {
-            return Intersection.intersects(ray, resourceBlocks.Keys);
+            //return Intersection.intersects(ray, resourceBlocks.Keys);
+            Intersectable intersected = Intersection.getNearestIntersectableAlongRay(ray, stockpiles);
+            if (intersected != null)
+            {
+                return intersected.intersects(ray);
+            }
+            return null;
         }
 
         public override Job getJob(Character newWorker, Ray ray, IslandWorkingProfile workingProfile)
@@ -229,6 +235,13 @@ namespace IslandGame.GameWorld
                 }
             }
             return resourceBlocksToRemove;
+        }
+
+        public override bool respondToDeleteClickAndReturnIfShouldBeDeleted(Ray ray)
+        {
+            Stockpile stockPileAlongRay = (Stockpile)Intersection.getNearestIntersectableAlongRay(ray, stockpiles);
+            stockpiles.Remove(stockPileAlongRay);
+            return false;
         }
 
 

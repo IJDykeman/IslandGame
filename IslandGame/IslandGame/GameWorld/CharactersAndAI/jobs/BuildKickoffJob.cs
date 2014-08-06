@@ -8,12 +8,12 @@ namespace IslandGame.GameWorld.CharactersAndAI
     [Serializable]
     class BuildKickoffJob : Job
     {
-        WoodBuildSite buildSite;
+        BuildStie buildSite;
         Character character;
         IslandWorkingProfile workingProfile;
 
 
-        public BuildKickoffJob( WoodBuildSite nBuildSite, Character nCharacter, IslandWorkingProfile nworkingProfile)
+        public BuildKickoffJob( BuildStie nBuildSite, Character nCharacter, IslandWorkingProfile nworkingProfile)
         {
             workingProfile = nworkingProfile;
             buildSite = nBuildSite;

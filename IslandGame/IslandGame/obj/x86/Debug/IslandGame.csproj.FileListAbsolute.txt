@@ -366,3 +366,4 @@ C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\C
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle8.xnb
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle7.xnb
 C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle6.xnb
+C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\cancelIcon.xnb

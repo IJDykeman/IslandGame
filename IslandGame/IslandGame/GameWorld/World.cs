@@ -635,7 +635,7 @@ namespace IslandGame.GameWorld
         public void removeWoodBlockPlanAlongRay(Ray removeWoodBlockClickRay)
         {
             Island island = islandManager.getClosestIslandToLocation(removeWoodBlockClickRay.Position);
-            island.removeWoodBlockPlan(removeWoodBlockClickRay);
+            island.removeBlueprintBlockAlongRay(removeWoodBlockClickRay);
         }
 
         public void placeBlockAlongRay(Ray placementRay, byte typeToPlace)
@@ -674,5 +674,13 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public void handleDeleteWorksite(Ray ray)
+        {
+            Island relevant = islandManager.getClosestIslandToLocation(ray.Position);
+            if (relevant != null)
+            {
+                relevant.deleteJobsiteAlongRay(ray);
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IslandGame.GameWorld.CharactersAndAI
 {
-    /*class StoneBuildSite : WoodBuildSite
+    /*class StoneBuildSite : BuildStie
     {
         public StoneBuildSite()
         {

@@ -23,7 +23,8 @@ namespace IslandGame.menus
         JobTypeSwitch,
         NewCharacterHudClick,
         StoneStorageHudClick,
-        
+        SelectDeleteWorksiteHudClick,
+
     }
 
     public class MenuAction
@@ -145,6 +146,15 @@ namespace IslandGame.menus
             type = MenuActionType.NewCharacterHudClick;
         }
     }
+
+    public class PlayerSelectDeleteWorksiteToolHudClick : MenuAction
+    {
+        public PlayerSelectDeleteWorksiteToolHudClick()
+        {
+            type = MenuActionType.SelectDeleteWorksiteHudClick;
+        }
+    }
+
 
     public class ColorSelection : MenuAction
     {

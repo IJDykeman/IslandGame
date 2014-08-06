@@ -449,6 +449,15 @@
       <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle6.xnb</Output>
       <Time>2014-07-03T15:09:44.2353852-04:00</Time>
     </Item>
+    <Item>
+      <Source>UI\cancelIcon.png</Source>
+      <Name>UI\cancelIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\cancelIcon.xnb</Output>
+      <Time>2014-08-05T15:28:16.4441295-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

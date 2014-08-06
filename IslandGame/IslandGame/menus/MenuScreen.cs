@@ -91,6 +91,8 @@ namespace IslandGame.menus
                     scale, hudTint, "place stone stockpile"));
                 buttonList.Add(new UIElement(new PlayerPlaceNewCharacterHudClick(), ContentDistributor.characterIcon, new Vector2(width - horizontalPadding * 9, height - verticlePadding),
                     scale, hudTint, "create new character (-12 wheat)"));
+                buttonList.Add(new UIElement(new PlayerSelectDeleteWorksiteToolHudClick(), ContentDistributor.cancelIcon, new Vector2(width - horizontalPadding * 10, height - verticlePadding),
+                    scale, hudTint, "Remove a worksite"));
                 buttonList.Add(new UIColorSelector(width,height));
                 MenuScreen newInterface = new MenuScreen(buttonList);
                 return newInterface;

@@ -98,7 +98,6 @@ namespace IslandGame.GameWorld
             chunkSpace.forceUpdateAllMeshes();
         }
 
-
         public void updateMeshes()
         {
             chunkSpace.updateAllMeshes(mipLevel);
@@ -389,7 +388,7 @@ namespace IslandGame.GameWorld
             jobSiteManager.blockWasBuilt(blockLoc);
         }
 
-        public void removeWoodBlockPlan(Ray removeWoodBlockClickRay)
+        public void removeBlueprintBlockAlongRay(Ray removeWoodBlockClickRay)
         {
             jobSiteManager.removeWoodBlockPlanAlongRay(removeWoodBlockClickRay, getNearestBlockAlongRayInAndFromWorldSpace(removeWoodBlockClickRay), getPathingProfile());
 
@@ -564,6 +563,10 @@ namespace IslandGame.GameWorld
             jobSiteManager.debitResource(cost, resourceType);
         }
 
-
+        internal void deleteJobsiteAlongRay(Ray ray)
+        {
+            removeBlueprintBlockAlongRay(ray);
+            jobSiteManager.deleteJobsiteAlongRay(ray);
+        }
     }
 }

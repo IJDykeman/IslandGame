@@ -17,7 +17,7 @@ namespace IslandGame.GameWorld
         ResourceBlockJobSite resourceBlockJobsite;
         ExcavationSite excavationSite;
         IslandWorkingProfile workingProfile;
-        WoodBuildSite buildSite;
+        BuildStie buildSite;
 
         public JobSiteManager(IslandWorkingProfile nworkingProfile)
         {
@@ -29,7 +29,7 @@ namespace IslandGame.GameWorld
             jobSites.Add(excavationSite);
             resourceBlockJobsite = new ResourceBlockJobSite(nworkingProfile.getPathingProfile());
             jobSites.Add(resourceBlockJobsite);
-            buildSite = new WoodBuildSite(workingProfile.getPathingProfile());
+            buildSite = new BuildStie(workingProfile.getPathingProfile());
             jobSites.Add(buildSite);
         }
 
@@ -240,7 +240,7 @@ namespace IslandGame.GameWorld
         }
 
 
-        private void addBlockToBuildSite(WoodBuildSite toAddToPotentially, BlockLoc newBlockToPlace, byte typeToAdd)
+        private void addBlockToBuildSite(BuildStie toAddToPotentially, BlockLoc newBlockToPlace, byte typeToAdd)
         {
             if (allBlocksWithJobSites().Contains(newBlockToPlace))
             {
@@ -257,7 +257,7 @@ namespace IslandGame.GameWorld
             }
         }
 
-        internal void removeWoodBlockPlanAlongRay(Ray removeWoodBlockClickRay, Vector3? exactBlockHitLocOnIsland, IslandPathingProfile profile)
+        public void removeWoodBlockPlanAlongRay(Ray removeWoodBlockClickRay, Vector3? exactBlockHitLocOnIsland, IslandPathingProfile profile)
         {
 
 
@@ -287,7 +287,6 @@ namespace IslandGame.GameWorld
             }
 
         }
-
 
         public TreesJobSite getTreeJobSite()
         {
@@ -487,9 +486,16 @@ namespace IslandGame.GameWorld
             resourceBlockJobsite.debitResource(cost, resourceType);
         }
 
-        internal object getBuildSite()
+        internal void deleteJobsiteAlongRay(Ray ray)
         {
-            throw new NotImplementedException();
+            JobSite alongRay = getJobSiteAlongRay(ray);
+            if (alongRay != null)
+            {
+                if (alongRay.respondToDeleteClickAndReturnIfShouldBeDeleted(ray))
+                {
+                    jobSites.Remove(alongRay);
+                }
+            }
         }
     }
 }

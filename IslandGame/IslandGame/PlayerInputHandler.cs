@@ -35,7 +35,8 @@ namespace IslandGame
             buildingDirectly,
             placingBoat,
             placingCharacter,
-            placingStoneStorage
+            placingStoneStorage,
+            removingWorksite
         }
 
 
@@ -177,6 +178,9 @@ namespace IslandGame
                     case MenuActionType.NewCharacterHudClick:
                         result.Add(new PlayerAction.DeselectCharacter());
                         setInterfaceState(InterfaceStates.placingCharacter);
+                        break;
+                    case MenuActionType.SelectDeleteWorksiteHudClick:
+                        setInterfaceState(InterfaceStates.removingWorksite);
                         break;
                     default:
                         throw new Exception("unhandled menu action");

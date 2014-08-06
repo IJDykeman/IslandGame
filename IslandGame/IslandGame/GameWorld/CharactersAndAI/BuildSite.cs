@@ -9,13 +9,13 @@ using CubeAnimator;
 namespace IslandGame.GameWorld.CharactersAndAI
 {
     [Serializable]
-    class WoodBuildSite : MultiblockJobSite
+    class BuildStie : MultiblockJobSite
     {
         protected Dictionary<BlockLoc,byte> blocksToBuild;
         protected string markerName = "stoneMarkerBlock";
 
 
-        public WoodBuildSite(IslandPathingProfile nProfile)
+        public BuildStie(IslandPathingProfile nProfile)
         {
             blocksToBuild = new Dictionary<BlockLoc,byte>();
             profile = nProfile;
@@ -40,8 +40,6 @@ namespace IslandGame.GameWorld.CharactersAndAI
         {
             return numBlocksLeftToBuild() == 0;
         }
-
-
 
         public List<BlockLoc> getAllBlocksToBuild()
         {
@@ -87,9 +85,9 @@ namespace IslandGame.GameWorld.CharactersAndAI
             return blocksToBuild.Keys.Contains(currentGoalBlock);
         }
 
-        public void removeBlock(BlockLoc newBlockToPlace)
+        public void removeBlock(BlockLoc toRemove)
         {
-            blocksToBuild.Remove(newBlockToPlace);
+            blocksToBuild.Remove(toRemove);
         }
 
         public override HashSet<BlockLoc> getAllBlocksInSite()
@@ -113,6 +111,12 @@ namespace IslandGame.GameWorld.CharactersAndAI
                 return 0;
             }
             
+        }
+
+        public virtual bool getsDeletedByDeleteRequest()
+        {
+
+            return false;
         }
     }
 }

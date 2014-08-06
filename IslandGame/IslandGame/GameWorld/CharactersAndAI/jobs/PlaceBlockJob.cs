@@ -8,14 +8,14 @@ namespace IslandGame.GameWorld.CharactersAndAI
     [Serializable]
     class PlaceBlockJob : Job
     {
-        WoodBuildSite buildSite;
+        BuildStie buildSite;
         Character character;
         bool hasFailedToFindOneBlockToBuild = false;
         bool hasPlacedBlock = false;
         private IslandWorkingProfile workingProfile;
         byte typeToPlace;
 
-        public PlaceBlockJob(WoodBuildSite nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, 
+        public PlaceBlockJob(BuildStie nBuildSite, Character nCharacter, BlockLoc placeToPlaceBlock, 
             Job nToReturnTo, IslandWorkingProfile nworkingProfile, byte nTypeToPlace)
         {
             workingProfile = nworkingProfile;

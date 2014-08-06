@@ -69,6 +69,13 @@ namespace IslandGame
 
         public void updateFirstStep()
         {
+            if (isEmbodyingCharacter()) 
+            {
+                if (selectedCharacter.isDead())
+                {
+                    disembodyCharacter();
+                }
+            }
 
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();

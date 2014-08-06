@@ -212,6 +212,10 @@ namespace IslandGame
                         world.handleCharacterPlacement(((PlayerAction.CharacterPlacement)action).getRay());
                         break;
 
+                    case PlayerAction.Type.DeleteWorksiteClick:
+                        world.handleDeleteWorksite(((PlayerAction.RemoveWorksiteClick)action).getRay());
+                        break;
+
 
                     case PlayerAction.Type.StartDragging:
                         PlayerAction.StartDragging starDragClick = (PlayerAction.StartDragging)action;
@@ -225,80 +229,12 @@ namespace IslandGame
 
 
                     case PlayerAction.Type.Dragging:
-                        PlayerAction.Dragging dragClick = (PlayerAction.Dragging)action;
-                        Ray dragRay = dragClick.getRay();
-                        Vector3? dragBlock = world.getBlockAlongRay(dragRay);
-
-                        if (dragBlock.HasValue)
-                        {
-                           BlockLoc currentDragBlock= new BlockLoc((int)((Vector3)dragBlock).X,(int)((Vector3)dragBlock).Y,(int)((Vector3)dragBlock).Z);
-                           IEnumerable<BlockLoc> draggedBlocks;
-                           if (dragClick.getDragType() == PlayerAction.Dragging.DragType.excavate)
-                           {
-                               draggedBlocks = world.GetBlocksBoundBy(player.getFirstBlockInDrag(), currentDragBlock);
-                           }
-                           else
-                           {
-                               draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentDragBlock);
-                           }
-                           float draggedBlockOpacity = .5f;
-                           foreach (BlockLoc test in draggedBlocks)
-                           {
-                               switch (dragClick.getDragType())
-                               {
-                                   case PlayerAction.Dragging.DragType.farm:
-                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\farmMarker.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
-                                       break;
-                                   case PlayerAction.Dragging.DragType.storeWheat:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
-                                            test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       break;
-                                   case PlayerAction.Dragging.DragType.storeWood:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
-                                            test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       break;
-                                   case PlayerAction.Dragging.DragType.storeStone:
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
-                                            test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                                       break;
-                                   case PlayerAction.Dragging.DragType.excavate:
-                                       WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\redCubeOutline.chr",
-                                           test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f),1.1f/7f);
-                                       break;
-                                   default:
-                                       throw new Exception("unhandled dragType " + dragClick.getDragType());
-                                       
-                               }
-                           }
-                        }
+                        handleDragging(action);
                         break;
 
 
                     case PlayerAction.Type.FinishDragging:
-                        PlayerAction.FinishDragging finishDragClick = (PlayerAction.FinishDragging)action;
-                        Ray finishDragRay = finishDragClick.getRay();
-                        Vector3? finishDragBlock = world.getBlockAlongRay(finishDragRay);
-                        if (finishDragBlock.HasValue)
-                        {
-                            BlockLoc currentFinishBlock = new BlockLoc((int)((Vector3)finishDragBlock).X, (int)((Vector3)finishDragBlock).Y, (int)((Vector3)finishDragBlock).Z);
-                            IEnumerable<BlockLoc> draggedBlocks;
-                            if (finishDragClick.getDragType() == PlayerAction.Dragging.DragType.excavate)
-                            {
-                                draggedBlocks = world.GetBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
-                            }
-                            else
-                            {
-                                draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
-                            }
-                            world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks.ToList(), finishDragClick.getDragType());
-                        }
+                        handleFinishDragging(action);
                         break;
 
 
@@ -357,6 +293,84 @@ namespace IslandGame
                     
                     default:
                         throw new Exception("unhandled player action " + action.type);
+                }
+            }
+        }
+
+        private void handleFinishDragging(PlayerAction.Action action)
+        {
+            PlayerAction.FinishDragging finishDragClick = (PlayerAction.FinishDragging)action;
+            Ray finishDragRay = finishDragClick.getRay();
+            Vector3? finishDragBlock = world.getBlockAlongRay(finishDragRay);
+            if (finishDragBlock.HasValue)
+            {
+                BlockLoc currentFinishBlock = new BlockLoc((int)((Vector3)finishDragBlock).X, (int)((Vector3)finishDragBlock).Y, (int)((Vector3)finishDragBlock).Z);
+                IEnumerable<BlockLoc> draggedBlocks;
+                if (finishDragClick.getDragType() == PlayerAction.Dragging.DragType.excavate)
+                {
+                    draggedBlocks = world.GetBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
+                }
+                else
+                {
+                    draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentFinishBlock);
+                }
+                world.handlePlayerFinishDrag(player.getCameraLoc(), draggedBlocks.ToList(), finishDragClick.getDragType());
+            }
+        }
+
+        private void handleDragging(PlayerAction.Action action)
+        {
+            PlayerAction.Dragging dragClick = (PlayerAction.Dragging)action;
+            Ray dragRay = dragClick.getRay();
+            Vector3? dragBlock = world.getBlockAlongRay(dragRay);
+
+            if (dragBlock.HasValue)
+            {
+                BlockLoc currentDragBlock = new BlockLoc((int)((Vector3)dragBlock).X, (int)((Vector3)dragBlock).Y, (int)((Vector3)dragBlock).Z);
+                IEnumerable<BlockLoc> draggedBlocks;
+                if (dragClick.getDragType() == PlayerAction.Dragging.DragType.excavate)
+                {
+                    draggedBlocks = world.GetBlocksBoundBy(player.getFirstBlockInDrag(), currentDragBlock);
+                }
+                else
+                {
+                    draggedBlocks = world.getSurfaceBlocksBoundBy(player.getFirstBlockInDrag(), currentDragBlock);
+                }
+                float draggedBlockOpacity = .5f;
+                foreach (BlockLoc test in draggedBlocks)
+                {
+                    switch (dragClick.getDragType())
+                    {
+                        case PlayerAction.Dragging.DragType.farm:
+                            WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\farmMarker.chr",
+                                test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
+                            break;
+                        case PlayerAction.Dragging.DragType.storeWheat:
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
+                                 test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
+                                test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            break;
+                        case PlayerAction.Dragging.DragType.storeWood:
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
+                                 test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
+                                test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            break;
+                        case PlayerAction.Dragging.DragType.storeStone:
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
+                                 test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
+                                test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
+                            break;
+                        case PlayerAction.Dragging.DragType.excavate:
+                            WorldMarkupHandler.addFlagPathWithPosition(ContentDistributor.getEmptyString() + @"worldMarkup\redCubeOutline.chr",
+                                test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f), 1.1f / 7f);
+                            break;
+                        default:
+                            throw new Exception("unhandled dragType " + dragClick.getDragType());
+
+                    }
                 }
             }
         }

@@ -42,9 +42,6 @@ namespace IslandGame.GameWorld
             return profile;
         }
 
-        public object getBuildSite()
-        {
-            return jobSiteManager.getBuildSite();
-        }
+
     }
 }

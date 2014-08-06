@@ -159,10 +159,13 @@ namespace IslandGame
                 {
                     result.Add(new PlayerAction.PlaceWoodBlockPlan(nearPoint, farPoint));
                 }
-                result.Add(new PlayerAction.RightClick(nearPoint, farPoint));
+                else
+                {
+                    result.Add(new PlayerAction.RightClick(nearPoint, farPoint));
+                }
             }
 
-
+            //left click
             if (leftMouseButtonReleased(ref currentMouseState, ref oldMouseState) )
             {
                    
@@ -186,6 +189,10 @@ namespace IslandGame
                         break;
                     case InterfaceStates.placingExcavation:
                         result.Add(new PlayerAction.FinishDragging(nearPoint, farPoint, PlayerAction.Dragging.DragType.excavate));
+                        currentInterfaceState = InterfaceStates.playing;
+                        break;
+                    case InterfaceStates.removingWorksite:
+                        result.Add(new PlayerAction.RemoveWorksiteClick(nearPoint, farPoint));
                         currentInterfaceState = InterfaceStates.playing;
                         break;
 

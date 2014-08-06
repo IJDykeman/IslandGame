@@ -24,7 +24,7 @@ namespace IslandGame.GameWorld
 
         public virtual void updatePhysics(float coefficientOfFricton)
         {
-            physics.update(coefficientOfFricton);
+            physics.update(coefficientOfFricton, true);
         }
 
         public BoundingBox getBoundingBox()

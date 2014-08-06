@@ -21,12 +21,20 @@ namespace IslandGame.GameWorld
 
 
 
-        public void update(float coefficientOfFriction)
+        public void update(float coefficientOfFriction, bool isEffectedByGravity)
         {
             velocity.X -= velocity.X * coefficientOfFriction;
             velocity.Z -= velocity.Z * coefficientOfFriction;
 
-            gravitate();
+            if (isEffectedByGravity)
+            {
+                gravitate();
+            }
+            if (velocity.Length() > 1)
+            {
+                velocity.Normalize();
+            }
+
         }
 
         private void gravitate()

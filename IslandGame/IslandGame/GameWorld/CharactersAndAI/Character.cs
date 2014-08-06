@@ -511,6 +511,11 @@ namespace IslandGame.GameWorld
         {
             return !(job is TravelAlongPath);
         }
+
+        public override void updatePhysics(float coefficientOfFricton)
+        {
+            physics.update(coefficientOfFricton, canBeKnockedBack());
+        }
         
     }
 }
