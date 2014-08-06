@@ -403,13 +403,15 @@ namespace IslandGame.GameWorld
             }
         }
 
-        public void destroyBlockAlongRay(Ray destructionRay)
+        public bool destroyBlockAlongRayReturnTrueIfSomethingDestroyed(Ray destructionRay)
         {
             Vector3? hit = getNearestBlockAlongRayInAndFromWorldSpace(destructionRay);
             if (hit.HasValue)
             {
                 destroyBlock(new BlockLoc((Vector3)hit));
+                return true;
             }
+            return false;
         }
 
         public bool vehiclePlacedHereCouldBeBoarded(BlockLoc vehicleLoc)
@@ -446,6 +448,8 @@ namespace IslandGame.GameWorld
                 Ray ray = new Ray(rayStrike.getStrikeOrigen(), rayStrike.getStrikeDirectionNormal());
                 JobSite intersectedSite = getJobSiteAlongRay(ray);
                 Vector3? blockClicked = getNearestBlockAlongRayInAndFromWorldSpace(ray);
+
+                //figuring out what to do if both a block and site are along the ray
                 if (blockClicked != null && intersectedSite != null)
                 {
                     if (Math.Abs(Vector3.Distance((Vector3)blockClicked, rayStrike.getStrikeOrigen()) - (float)intersectedSite.intersects(ray))<.01)
@@ -482,10 +486,16 @@ namespace IslandGame.GameWorld
             switch (rayStrike.getJobType())
             {
                 case JobType.mining:
-                    destroyBlockAlongRay(ray);
+                    bool destroyedSomething = destroyBlockAlongRayReturnTrueIfSomethingDestroyed(ray);
+
+                    if (destroyedSomething)
+                    {
+                        rayStrike.notifyThatActionHasDestroyedBlock();
+                    }
                     break;
                 case JobType.building:
                     buildBlock(new BlockLoc((Vector3)getLastSpaceAlongRayInAndFromWorldSpace(ray)), 5);
+                    rayStrike.notifyThatActionHasPlacedBlock();
                     break;
             }
         }

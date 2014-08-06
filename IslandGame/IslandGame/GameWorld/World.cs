@@ -647,7 +647,7 @@ namespace IslandGame.GameWorld
         public void destroyBlockAlongRay(Ray destructionRay)
         {
             Island island = islandManager.getClosestIslandToLocation(destructionRay.Position);
-            island.destroyBlockAlongRay(destructionRay);
+            island.destroyBlockAlongRayReturnTrueIfSomethingDestroyed(destructionRay);
         }
 
         public void addBoatAt(Vector3 nLoc)

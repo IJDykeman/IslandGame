@@ -228,6 +228,8 @@ namespace IslandGame.GameWorld
         }
 
         public abstract Vector3 getLookDeltaVec();
+
+        
     }
 
     [Serializable]
@@ -237,7 +239,8 @@ namespace IslandGame.GameWorld
         Vector3 strikeOrigen;
         float strikeDistance;
         Vector3 strikeDirectionNormal;
-
+        //this class stores strike information and allows the striker to be told what the results
+        //of its action are
 
         public ActorStrikeAlongRayAction(Actor nstriker, Vector3 nStrikeOrigen, float nStrikeDistance, Vector3 nStrikeDirectionNormal, JobType nJobType)
         {
@@ -269,6 +272,25 @@ namespace IslandGame.GameWorld
         {
             return strikeDistance;
         }
+
+        public void notifyThatActionHasDestroyedBlock()
+        {
+            if (striker is Character)
+            {
+                Character toNotify = (Character)striker;
+                toNotify.pickUpItem(ResourceBlock.ResourceType.Stone);
+            }
+        }
+
+        public void notifyThatActionHasPlacedBlock()
+        {
+            if (striker is Character)
+            {
+                Character toNotify = (Character)striker;
+                toNotify.dropLoad();
+            }
+        }
+
 
 
     }
