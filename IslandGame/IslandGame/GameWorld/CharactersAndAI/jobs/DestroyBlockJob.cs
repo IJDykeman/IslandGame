@@ -38,12 +38,12 @@ namespace IslandGame.GameWorld
         {
             if (workingProfile.getPathingProfile().isProfileSolidAt(targetBlock))
             {
-                    character.pickUpItem(ResourceBlock.ResourceType.Stone);
+                    character.pickUpItem(ResourceBlock.ResourceType.standardBlock);
                     return new CharacterTask.DestroyBlock(targetBlock);
             }
             else
             {
-                return new CharacterTask.SwitchJob(new CarryResourceToStockpileKickoffJob(ResourceBlock.ResourceType.Stone,character,
+                return new CharacterTask.SwitchJob(new CarryResourceToStockpileKickoffJob(ResourceBlock.ResourceType.standardBlock,character,
                     new ExcavateKickoffJob(workingProfile,character), workingProfile));
             }
 

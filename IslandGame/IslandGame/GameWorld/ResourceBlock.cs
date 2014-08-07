@@ -15,10 +15,26 @@ namespace IslandGame.GameWorld
         {
             Wood,
             Wheat,
-            Stone
+            standardBlock
         }
 
         ResourceType type;
+
+        public static string getPathForResourceType(ResourceType type)
+        {
+            switch (type)
+            {
+                case ResourceType.standardBlock:
+                    return ContentDistributor.getEmptyString() + @"resources\standardBlock.chr";
+                case ResourceType.Wheat:
+                    return ContentDistributor.getEmptyString() + @"resources\wheatBale.chr";
+                case ResourceType.Wood:
+                    return ContentDistributor.getEmptyString() + @"resources\log.chr";
+                default:
+                    throw new Exception("unhandled resource type");
+            }
+
+        }
 
         public ResourceBlock(ResourceType nType)
         {

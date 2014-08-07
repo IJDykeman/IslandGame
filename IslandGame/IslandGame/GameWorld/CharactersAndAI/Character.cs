@@ -114,7 +114,7 @@ namespace IslandGame.GameWorld
             {
                 switch (load.getLoad())
                 {
-                    case ResourceBlock.ResourceType.Stone:
+                    case ResourceBlock.ResourceType.standardBlock:
                         switchBodies(ContentDistributor.getEmptyString() + "carryingStandardBlockMinotuar.chr");
                         break;
                     case ResourceBlock.ResourceType.Wheat:

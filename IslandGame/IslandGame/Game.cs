@@ -346,21 +346,21 @@ namespace IslandGame
                                 test.toWorldSpaceVector3() + new Vector3(.5f, .5f, .5f));
                             break;
                         case PlayerAction.Dragging.DragType.storeWheat:
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.Wheat),
                                  test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\wheatBale.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.Wheat),
                                 test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                             break;
                         case PlayerAction.Dragging.DragType.storeWood:
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.Wood),
                                  test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\log.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.Wood),
                                 test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                             break;
                         case PlayerAction.Dragging.DragType.storeStone:
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.standardBlock),
                                  test.toWorldSpaceVector3() + new Vector3(.5f, 1.5f, .5f), 1f / 7f, draggedBlockOpacity);
-                            WorldMarkupHandler.addCharacter(ContentDistributor.getEmptyString() + @"resources\standardBlock.chr",
+                            WorldMarkupHandler.addCharacter(ResourceBlock.getPathForResourceType(ResourceBlock.ResourceType.standardBlock),
                                 test.toWorldSpaceVector3() + new Vector3(.5f, 2.5f, .5f), 1f / 7f, draggedBlockOpacity);
                             break;
                         case PlayerAction.Dragging.DragType.excavate:

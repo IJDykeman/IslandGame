@@ -23,7 +23,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (character.isCarryingItem() && character.getLoad() == ResourceBlock.ResourceType.Stone)
+            if (character.isCarryingItem() && character.getLoad() == ResourceBlock.ResourceType.standardBlock)
             {
                 if (buildSite.numBlocksLeftToBuild() > 0)
                 {
@@ -89,7 +89,7 @@ namespace IslandGame.GameWorld.CharactersAndAI
 
                     //PlaceBlockJob placeBlockJob = new PlaceBlockJob(buildSite, character, location, workingProfile);
                     BuildKickoffJob build = new BuildKickoffJob(buildSite, character, workingProfile);
-                    FetchResourceJob fetch = new FetchResourceJob(workingProfile, ResourceBlock.ResourceType.Stone, character, build);
+                    FetchResourceJob fetch = new FetchResourceJob(workingProfile, ResourceBlock.ResourceType.standardBlock, character, build);
                     return new CharacterTask.SwitchJob(fetch);
 
                 }

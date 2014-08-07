@@ -107,7 +107,7 @@ namespace IslandGame.GameWorld
                     placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Wood);
                     break;
                 case PlayerAction.Dragging.DragType.storeStone:
-                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.Stone);
+                    placeStorageAreaWithBlocksToPlaceOn(blocksToAdd, profile, ResourceBlock.ResourceType.standardBlock);
                     break;
                 case PlayerAction.Dragging.DragType.excavate:
                     foreach (BlockLoc test in blocksToAdd)

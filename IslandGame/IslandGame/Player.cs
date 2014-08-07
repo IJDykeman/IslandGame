@@ -161,6 +161,20 @@ namespace IslandGame
 
         public void display3D()
         {
+            if (isEmbodyingCharacter())
+            {
+                if (selectedCharacter.isCarryingItem())
+                {
+                    ResourceBlock.ResourceType type = selectedCharacter.getLoad();
+                    String blockChrPath = ResourceBlock.getPathForResourceType(type);
+                    Vector3 centerOfFloatingCube = getPlayerAimingAtPointAtDistance(.7f, currentMouseState);
+                    
+                    WorldMarkupHandler.addFlagPathWithPosition(blockChrPath,centerOfFloatingCube,1f/7f/12f);
+                    
+                }
+
+            }
+
             if (selectedCharacter != null && !isEmbodyingCharacter())
             {
                 Compositer.addFlagForThisFrame(selectedCharacter.getLocation() + new Vector3(0, 1.1f, 0), "white");

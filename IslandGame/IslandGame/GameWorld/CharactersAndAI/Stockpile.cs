@@ -55,20 +55,7 @@ namespace IslandGame.GameWorld
         public void draw(GraphicsDevice device, Effect effect, DisplayParameters parameters)
         {
             string path = @"worldMarkup\farmMarker.chr";
-            switch (typeToStore)
-            {
-                case ResourceBlock.ResourceType.Wheat:
-                    path = @"resources\wheatBale.chr";
-                    //path = @"worldMarkup\singleWhiteCube.chr";
-                    break;
-                case ResourceBlock.ResourceType.Wood:
-                    path = @"resources\log.chr";
-                    break;
-                case ResourceBlock.ResourceType.Stone:
-                    path = @"resources\standardBlock.chr";
-                    break;
-
-            }
+            path = ResourceBlock.getPathForResourceType(typeToStore);
             AnimatedBodyPartGroup character = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString() + path, 1.0f / 7.0f);
             float opacity = .2f;
             if (!parameters.hasParameter(DisplayParameter.drawStockpiles))

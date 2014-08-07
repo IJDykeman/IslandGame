@@ -278,7 +278,7 @@ namespace IslandGame.GameWorld
             if (striker is Character)
             {
                 Character toNotify = (Character)striker;
-                toNotify.pickUpItem(ResourceBlock.ResourceType.Stone);
+                toNotify.pickUpItem(ResourceBlock.ResourceType.standardBlock);
             }
         }
 
