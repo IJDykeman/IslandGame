@@ -186,6 +186,8 @@ namespace IslandGame.GameWorld
                         islandManager.acceptWorkStrike((ActorStrikeAction)action);
                         //chopBlockAt(((ActorStrikeBlockAction)action).getStrikeTarget());
                         break;
+                    default:
+                        throw new Exception("unhandled job type");
                 }
 
             }
@@ -206,14 +208,15 @@ namespace IslandGame.GameWorld
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
                     case JobType.building:
-                        //placeBlock(((ActorStrikeBlockAction)action).getStrikeTarget(),
-                        //    5);
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
                     case JobType.mining:
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
                     case JobType.logging:
+                        islandManager.acceptWorkStrike(rayStrike);
+                        break;
+                    case JobType.CarryingSomething:
                         islandManager.acceptWorkStrike(rayStrike);
                         break;
                 }

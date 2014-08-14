@@ -61,6 +61,7 @@ namespace IslandGame
         public void loadContent()
         {
             inputHandler = new ThirdPersonInputHandler();
+            inputHandler.selectedBlockType = 7;
             oldMouseState = Mouse.GetState();
 
             inputHandler.openMainMenu();
@@ -74,6 +75,13 @@ namespace IslandGame
                 if (selectedCharacter.isDead())
                 {
                     disembodyCharacter();
+                }
+            }
+            if (hasCharacterSelected())
+            {
+                if (selectedCharacter.isDead())
+                {
+                    deselectCharacter();
                 }
             }
 
@@ -138,12 +146,6 @@ namespace IslandGame
                 upDownRot = MathHelper.PiOver2 - distanceFromMaxTiltToMaintain;
             }
         }
-
-
-
-
-
-
 
         public void display2D(SpriteBatch spriteBatch)
         {
@@ -230,7 +232,9 @@ namespace IslandGame
             {
                 embodying = true;
                 selectedCharacter = nEmbodied;
+                byte oldSelectedBlock = inputHandler.selectedBlockType;
                 inputHandler = new FirstPersonInputHandler(selectedCharacter);
+                inputHandler.selectedBlockType = oldSelectedBlock;
                 selectedCharacter.wasJustEmbodiedByPlayer();
                 selectedCharacter.quitCurrentJob();
             }
@@ -246,7 +250,10 @@ namespace IslandGame
             embodying = false;
             selectedCharacter.setIsWalkingOverride(false);
             setCameraLoc(selectedCharacter.getFootLocation() + new Vector3(0,10,0));
+
+            byte oldSelectedBlock = inputHandler.selectedBlockType;
             inputHandler = new ThirdPersonInputHandler();
+            inputHandler.selectedBlockType = oldSelectedBlock;
         }
 
         public Character getSelectedCharacter()
@@ -320,6 +327,11 @@ namespace IslandGame
         public bool wantsStockpilesDisplayed()
         {
             return inputHandler.wantsStockpilesDisplayed();
+        }
+
+        public bool gameIsPaused()
+        {
+            return inputHandler.wantsGamePaused();
         }
 
 

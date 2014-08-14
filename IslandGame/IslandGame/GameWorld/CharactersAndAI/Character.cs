@@ -261,7 +261,7 @@ namespace IslandGame.GameWorld
                         CharacterTask.DoStrikeOfWorkAlongRay strike = (CharacterTask.DoStrikeOfWorkAlongRay)toDo;
                         StartStrikeAnimation();
                         swing();
-                        actions.Add(new ActorStrikeAlongRayAction(this, strike.getStrikeOrigen(), strike.getStrikeDistance(), strike.getStrikeDirectionNormal(), JobType.combat));
+                        actions.Add(new ActorStrikeAlongRayAction(this, strike.getStrikeOrigen(), strike.getStrikeDistance(), strike.getStrikeDirectionNormal(), JobType.combat,0));
                     }
                     break;
                 case CharacterTask.Type.MakeFarmBlockGrow:
@@ -389,9 +389,13 @@ namespace IslandGame.GameWorld
             return new ActorRightClickAction(nearPoint, farPoint, this);
         }
 
-        public ActorAction getLeftClickAction(Vector3 nearPoint, Vector3 farPoint)
+        public ActorAction getLeftClickAction(Vector3 nearPoint, Vector3 farPoint, byte currentlySelectedBlockType)
         {
-            return new ActorStrikeAlongRayAction(this, nearPoint, getStrikeRange(), farPoint - nearPoint, getJobType());
+            if (isCarryingItem())
+            {
+                return new ActorPlaceResourceAlongRay(this, nearPoint, getStrikeRange(), farPoint - nearPoint, getLoad(), currentlySelectedBlockType);
+            }
+            return new ActorStrikeAlongRayAction(this, nearPoint, getStrikeRange(), farPoint - nearPoint, getJobType(), currentlySelectedBlockType);
         }
 
         public override ActorAction getAddVelocityAction(Vector3 toAddToVelocity, bool isFootPropelled)

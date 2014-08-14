@@ -19,7 +19,6 @@ namespace IslandGame
 
         public FirstPersonInputHandler(Character nSelectedCharacter)
         {
-            selectedBlockType = 7;
             currentMenu = MenuScreen.getFirstPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             embodiedCharacter = nSelectedCharacter;
         }
@@ -126,7 +125,7 @@ namespace IslandGame
                 if (timeToStrikeLeft())
                 {
                     result.Add(embodiedCharacter.getLeftClickAction(Player.getPlayerAimingAtPointAtDistance(0, currentMouseState),
-                                Player.getPlayerAimingAtPointAtDistance(1, currentMouseState)));
+                                Player.getPlayerAimingAtPointAtDistance(1, currentMouseState), selectedBlockType));
                 }
                 if (timeToSwingLeft())
                 {

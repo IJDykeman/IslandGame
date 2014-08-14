@@ -494,8 +494,22 @@ namespace IslandGame.GameWorld
                     }
                     break;
                 case JobType.building:
-                    buildBlock(new BlockLoc((Vector3)getLastSpaceAlongRayInAndFromWorldSpace(ray)), 5);
+                    buildBlock(new BlockLoc((Vector3)getLastSpaceAlongRayInAndFromWorldSpace(ray)), rayStrike.getSelectedBlockType());
                     rayStrike.notifyThatActionHasPlacedBlock();
+                    break;
+                case JobType.CarryingSomething:
+                    switch (((ActorPlaceResourceAlongRay)rayStrike).getResourceType())
+                    {
+                        case ResourceBlock.ResourceType.standardBlock:
+                            buildBlock(new BlockLoc((Vector3)getLastSpaceAlongRayInAndFromWorldSpace(ray)), rayStrike.getSelectedBlockType());
+                            ((ActorPlaceResourceAlongRay)rayStrike).notifyThatActionHasPlacedResourceBlock();
+                            break;
+                        case ResourceBlock.ResourceType.Wheat:
+                            
+                            break;
+                        case ResourceBlock.ResourceType.Wood:
+                            break;
+                    }
                     break;
             }
         }

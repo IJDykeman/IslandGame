@@ -229,20 +229,22 @@ namespace IslandGame.GameWorld
 
         public abstract Vector3 getLookDeltaVec();
 
-        
+
     }
 
     [Serializable]
     public class ActorStrikeAlongRayAction : ActorStrikeAction
     {
         
-        Vector3 strikeOrigen;
-        float strikeDistance;
-        Vector3 strikeDirectionNormal;
+        protected Vector3 strikeOrigen;
+        protected float strikeDistance;
+        protected Vector3 strikeDirectionNormal;
+        protected byte currentlySelectedBlockType;
         //this class stores strike information and allows the striker to be told what the results
         //of its action are
+        public ActorStrikeAlongRayAction() { }
 
-        public ActorStrikeAlongRayAction(Actor nstriker, Vector3 nStrikeOrigen, float nStrikeDistance, Vector3 nStrikeDirectionNormal, JobType nJobType)
+        public ActorStrikeAlongRayAction(Actor nstriker, Vector3 nStrikeOrigen, float nStrikeDistance, Vector3 nStrikeDirectionNormal, JobType nJobType, byte nSelectedBlockType)
         {
             type = ActorActions.strike;
             jobType = nJobType;
@@ -251,6 +253,7 @@ namespace IslandGame.GameWorld
             strikeOrigen = nStrikeOrigen;
             strikeDistance = nStrikeDistance;
             strikeDirectionNormal = Vector3.Normalize( nStrikeDirectionNormal);
+            currentlySelectedBlockType = nSelectedBlockType;
         }
 
         public override Vector3 getLookDeltaVec()
@@ -291,8 +294,69 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public byte getSelectedBlockType()
+        {
+            return currentlySelectedBlockType;
+        }
+        
+    }
 
+    [Serializable]
+    public class ActorPlaceResourceAlongRay : ActorStrikeAlongRayAction
+    {
+        
 
+        ResourceBlock.ResourceType resourceType;
+        //this class stores strike information and allows the striker to be told what the results
+        //of its action are
+
+        public ActorPlaceResourceAlongRay(Actor nstriker, Vector3 nStrikeOrigen, 
+            float nStrikeDistance, Vector3 nStrikeDirectionNormal, ResourceBlock.ResourceType nType, byte nSelectedBlockType)
+        {
+            type = ActorActions.strike;
+            jobType = JobType.CarryingSomething;
+            resourceType = nType;
+            strikeType = StrikeType.AlongRay;
+            striker = nstriker;
+            strikeOrigen = nStrikeOrigen;
+            strikeDistance = nStrikeDistance;
+            strikeDirectionNormal = Vector3.Normalize( nStrikeDirectionNormal);
+            currentlySelectedBlockType = nSelectedBlockType;
+        }
+
+        public override Vector3 getLookDeltaVec()
+        {
+            return strikeDirectionNormal;
+        } 
+
+        public Vector3 getStrikeOrigen()
+        {
+            return strikeOrigen;
+        }
+
+        public Vector3 getStrikeDirectionNormal()
+        {
+            return strikeDirectionNormal;
+        }
+
+        public float getStrikeDistance()
+        {
+            return strikeDistance;
+        }
+
+        public void notifyThatActionHasPlacedResourceBlock()
+        {
+            if (striker is Character)
+            {
+                Character toNotify = (Character)striker;
+                toNotify.dropLoad();
+            }
+        }
+
+        public ResourceBlock.ResourceType getResourceType()
+        {
+            return resourceType;
+        }
     }
 
     [Serializable]

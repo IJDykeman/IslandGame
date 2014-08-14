@@ -26,7 +26,7 @@ namespace IslandGame
         public static readonly int screenHeight = 720;
 
 
-
+        int numFramesInGameSofar = 0;
         public GameWorld.World world;
         Player player;
         Main main;
@@ -107,11 +107,17 @@ namespace IslandGame
             
 
             player.updateFirstStep();
-            handlePlayerActions(player.getPlayerActions());
-            world.update();
-            world.handleActorActions(player.getActorActions());
+
+                handlePlayerActions(player.getPlayerActions());
+
+            if (!(player.gameIsPaused() && numFramesInGameSofar>1))
+            {
+                world.update();
+                world.handleActorActions(player.getActorActions());
+            }
 
             player.updateLastStep();
+            numFramesInGameSofar++;
 
 
         }
