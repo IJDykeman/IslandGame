@@ -19,6 +19,7 @@ namespace IslandGame
 
         public FirstPersonInputHandler(Character nSelectedCharacter)
         {
+            
             currentMenu = MenuScreen.getFirstPersonHud(Compositer.getScreenWidth(), Compositer.getScreenHeight());
             embodiedCharacter = nSelectedCharacter;
         }
@@ -180,6 +181,12 @@ namespace IslandGame
         {
             return timeOfLeftClickHold == 0;
         }
+
+        public override bool wantsGamePaused()
+        {
+            return false;
+        }
+        
 
          /*           if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
             {

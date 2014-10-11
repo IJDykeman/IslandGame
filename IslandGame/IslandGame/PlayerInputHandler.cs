@@ -222,7 +222,7 @@ namespace IslandGame
             return currentMenu;
         }
 
-        public bool wantsGamePaused()
+        public virtual bool wantsGamePaused()
         {
             return currentInterfaceState == InterfaceStates.inMainMenu;
         }
