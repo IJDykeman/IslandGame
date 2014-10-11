@@ -97,6 +97,13 @@ namespace IslandGame.GameWorld
                     case ActorActions.die:
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
+                    case ActorActions.jump:
+                        WorldPathingProfile profile = new WorldPathingProfile(islandManager);
+                        if (profile.isStandableAtExactLocation(((ActorJumpAction)action).getActorToJump().getAABB()))
+                        {
+                            ((ActorJumpAction)action).getActorToJump().addJumpVelocityToVelocity();
+                        }
+                        break;
 
                 }
             }
@@ -147,7 +154,7 @@ namespace IslandGame.GameWorld
                 {
 
 
-                    if (profile.isProfileSolidAt(test))
+                    if (profile.isProfileSolidAtWithWithinCheck(test))
                     {
                         actor.setFootLocation(actor.getFootLocation() + new Vector3(0, .3f, 0));
                         return;

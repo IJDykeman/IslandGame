@@ -36,7 +36,7 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (workingProfile.getPathingProfile().isProfileSolidAt(targetBlock))
+            if (workingProfile.getPathingProfile().isProfileSolidAtWithWithinCheck(targetBlock))
             {
                     character.pickUpItem(ResourceBlock.ResourceType.standardBlock);
                     return new CharacterTask.DestroyBlock(targetBlock);

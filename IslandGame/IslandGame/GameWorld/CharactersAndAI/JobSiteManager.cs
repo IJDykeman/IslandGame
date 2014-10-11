@@ -146,7 +146,7 @@ namespace IslandGame.GameWorld
                 HashSet<BlockLoc> locsNotSolid = new HashSet<BlockLoc>();
                 foreach (BlockLoc test in locsNotOfWork)
                 {
-                    if (!profile.isProfileSolidAt(test))
+                    if (!profile.isProfileSolidAtWithWithinCheck(test))
                     {
                         locsNotSolid.Add(test);
                     }

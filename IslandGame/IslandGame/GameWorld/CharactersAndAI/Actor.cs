@@ -9,6 +9,7 @@ namespace IslandGame.GameWorld
     [Serializable]
     public abstract class Actor : CubeAnimator.AnimatedBodyPartGroup
     {
+        private readonly float jumpPower = .25f;
         protected PhysicsHandler physics;
         protected Faction faction = Faction.neutral;
         float health = 10;
@@ -239,6 +240,11 @@ namespace IslandGame.GameWorld
         public virtual bool needsKineticsUpdates()
         {
             return true;
+        }
+
+        public void addJumpVelocityToVelocity()
+        {
+            physics.velocity.Y += jumpPower;
         }
 
     }

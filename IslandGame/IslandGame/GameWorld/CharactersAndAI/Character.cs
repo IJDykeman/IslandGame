@@ -15,7 +15,7 @@ namespace IslandGame.GameWorld
     {
         
         Job job;
-        readonly float jumpPower = .25f;
+        
         float walkSpeedWhilePathing = 1.0f / 10.0f;
         float walkForce = 1f / 20f;
         BodyType bodyType;
@@ -344,10 +344,7 @@ namespace IslandGame.GameWorld
             result.Add(AnimationType.walking);
         }
 
-        public void jump()
-        {
-            physics.velocity.Y += jumpPower;
-        }
+
 
         public float getWalkSpeedWhilePathing()
         {

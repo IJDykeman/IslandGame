@@ -45,9 +45,7 @@ namespace IslandGame.GameWorld
             island = nIsland;
         }
 
-
-
-        public virtual bool isProfileSolidAt(BlockLoc loc)
+        public virtual bool isProfileSolidAtWithWithinCheck(BlockLoc loc)
         {
             if (withinIsland(loc.toISIntVec3(this)))
             {
@@ -87,14 +85,14 @@ namespace IslandGame.GameWorld
         {
             BlockLoc underFoot = new BlockLoc(IslandSpace.WSX(), IslandSpace.WSY() - 1, IslandSpace.WSZ());//locInPath + new IntVector3(0, -1, 0);
             
-            if (!isProfileSolidAt(IslandSpace) && isInProfileScope(IslandSpace))
+            if (!isProfileSolidAtWithWithinCheck(IslandSpace) && isInProfileScope(IslandSpace))
             {
-                if (isProfileSolidAt(underFoot))
+                if (isProfileSolidAtWithWithinCheck(underFoot))
                 {
 
                     for (int i = 1; i < entityHeight; i++)
                     {
-                        if (isProfileSolidAt(IslandSpace.getVector3WithAddedIntvec( new IntVector3(0, i, 0))))
+                        if (isProfileSolidAtWithWithinCheck(IslandSpace.getVector3WithAddedIntvec( new IntVector3(0, i, 0))))
                         {
                             return false;
                         }
@@ -112,17 +110,47 @@ namespace IslandGame.GameWorld
             }
         }
 
+        public bool isStandableAtExactLocation(AxisAlignedBoundingBox AABB)
+        {
+            for (int x = (int)AABB.loc.X; x < AABB.loc.X + AABB.Xwidth; x++)
+            {
+                for (int y = (int)AABB.loc.Y; y < AABB.loc.Y + AABB.height; y++)
+                {
+                    for (int z = (int)AABB.loc.Z; z < AABB.loc.Z + AABB.Zwidth; z++)
+                    {
+                        if (isProfileSolidAtWithWithinCheck(new BlockLoc(x, y, z)))
+                        {
+                            return false; //return false if entity is intersecting a block
+                        }
+                    }
+                }
+            }
+
+            for (int x = (int)AABB.loc.X; x < AABB.loc.X + AABB.Xwidth; x++)
+            {
+                for (int z = (int)AABB.loc.Z; z < AABB.loc.Z + AABB.Zwidth; z++)
+                {
+                    if (isProfileSolidAtWithWithinCheck(new BlockLoc(x, (int)(AABB.loc.Y-.01f), z)))
+                    {
+                        return true; //return true now if entity has a block under it.
+                    }
+                }
+            }
+            return false;//if no blocks are under entity
+
+        }
+
         public bool isSwimableAtWithHeight(BlockLoc IslandSpace, int entityHeight)
         {
             
-            if (!isProfileSolidAt(IslandSpace))
+            if (!isProfileSolidAtWithWithinCheck(IslandSpace))
             {
                 if (IslandSpace.WSY()==0)
                 {
 
                     for (int i = 1; i < entityHeight; i++)
                     {
-                        if (isProfileSolidAt(IslandSpace.getVector3WithAddedIntvec(new IntVector3(0, i, 0))))
+                        if (isProfileSolidAtWithWithinCheck(IslandSpace.getVector3WithAddedIntvec(new IntVector3(0, i, 0))))
                         {
                             return false;
                         }
@@ -216,7 +244,7 @@ namespace IslandGame.GameWorld
             {
                 for (int z = (int)(actor.getFootLocation().Z - actor.getZWidth()); z < actor.getFootLocation().Z + actor.getXWidth(); z++)
                 {
-                    if (isProfileSolidAt(new BlockLoc( x, (int)(actor.getFootLocation().Y - .01f), z)))
+                    if (isProfileSolidAtWithWithinCheck(new BlockLoc( x, (int)(actor.getFootLocation().Y - .01f), z)))
                     {
                         return true;
                     }

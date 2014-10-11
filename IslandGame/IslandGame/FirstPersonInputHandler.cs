@@ -77,7 +77,7 @@ namespace IslandGame
 
             if (justHit(Keys.Space, currentKeyboardstate, oldKeyboardState))
             {
-                embodiedCharacter.jump();
+                result.Add(new ActorJumpAction(embodiedCharacter));
             }
 
             handleMouse(ref currentMouseState, ref oldMouseState, result);

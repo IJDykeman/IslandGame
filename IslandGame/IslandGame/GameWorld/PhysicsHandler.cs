@@ -39,7 +39,7 @@ namespace IslandGame.GameWorld
 
         private void gravitate()
         {
-            velocity += new Vector3(0, -.6f / 60.0f, 0);
+            velocity += new Vector3(0, -.52f / 60.0f, 0);
         }
 
 

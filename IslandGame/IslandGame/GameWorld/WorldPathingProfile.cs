@@ -19,10 +19,12 @@ namespace IslandGame.GameWorld
             return true;
         }
 
-        public override bool isProfileSolidAt(BlockLoc loc)
+        public override bool isProfileSolidAtWithWithinCheck(BlockLoc loc)
         {
-            return islandManager.getClosestIslandToLocation(loc.toWorldSpaceVector3()).getPathingProfile().isProfileSolidAt(loc);
+            return islandManager.getClosestIslandToLocation(loc.toWorldSpaceVector3()).getPathingProfile().isProfileSolidAtWithWithinCheck(loc);
         }
+
+
 
     }
 }

@@ -16,7 +16,8 @@ namespace IslandGame.GameWorld
         strike,
         PlaceResource,
         PickUpResource,
-        placeBlock
+        placeBlock,
+        jump
 
 
     }
@@ -388,6 +389,22 @@ namespace IslandGame.GameWorld
         }
     }
 
+
+    [Serializable]
+    public class ActorJumpAction : ActorAction
+    {
+        Actor toJump;
+        public ActorJumpAction(Actor nJumper)
+        {
+            type = ActorActions.jump;
+            toJump = nJumper;
+        }
+
+        public Actor getActorToJump()
+        {
+            return toJump;
+        }
+    }
 
 
 }
