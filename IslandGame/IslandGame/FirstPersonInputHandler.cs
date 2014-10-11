@@ -72,10 +72,10 @@ namespace IslandGame
             MouseState currentMouseState = Player.currentMouseState;
             MouseState oldMouseState = Player.oldMouseState;
             List<ActorAction> result = new List<ActorAction>();
-            
 
 
-            if (justHit(Keys.Space, currentKeyboardstate, oldKeyboardState))
+
+            if (currentKeyboardstate.IsKeyDown(Keys.Space)) 
             {
                 result.Add(new ActorJumpAction(embodiedCharacter));
             }
