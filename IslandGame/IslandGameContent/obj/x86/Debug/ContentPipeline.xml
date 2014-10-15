@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\NewGameButton.xnb</Output>
-      <Time>2014-10-10T19:52:17.0425792-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\NewGameButton.xnb</Output>
+      <Time>2014-10-14T19:26:41.7212257-05:00</Time>
     </Item>
     <Item>
       <Source>UI\QuitButton.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\QuitButton.xnb</Output>
-      <Time>2014-10-10T19:52:17.0425792-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\QuitButton.xnb</Output>
+      <Time>2014-10-14T19:26:41.7333432-05:00</Time>
     </Item>
     <Item>
       <Source>UI\consoleBGPixel.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\consoleBGPixel.xnb</Output>
-      <Time>2014-10-10T19:52:17.0475842-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\consoleBGPixel.xnb</Output>
+      <Time>2014-10-14T19:26:41.8908165-05:00</Time>
     </Item>
     <Item>
       <Source>UI\SaveGameButton.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\SaveGameButton.xnb</Output>
-      <Time>2014-10-10T19:52:17.0455822-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\SaveGameButton.xnb</Output>
+      <Time>2014-10-14T19:26:41.7626199-05:00</Time>
     </Item>
     <Item>
       <Source>UI\LoadGameButton.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\LoadGameButton.xnb</Output>
-      <Time>2014-10-10T19:52:17.0415782-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\LoadGameButton.xnb</Output>
+      <Time>2014-10-14T19:26:41.6798309-05:00</Time>
     </Item>
     <Item>
       <Source>UI\continueButton.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\continueButton.xnb</Output>
-      <Time>2014-10-10T19:52:17.0485852-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\continueButton.xnb</Output>
+      <Time>2014-10-14T19:26:41.9029251-05:00</Time>
     </Item>
     <Item>
       <Source>UI\crossReticle.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\crossReticle.xnb</Output>
-      <Time>2014-10-10T19:52:17.0485852-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\crossReticle.xnb</Output>
+      <Time>2014-10-14T19:26:41.9140262-05:00</Time>
     </Item>
     <Item>
       <Source>random.png</Source>
@@ -73,8 +73,8 @@
         <Data Key="GenerateMipmaps">True</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\random.xnb</Output>
-      <Time>2014-10-10T19:52:17.0706072-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\random.xnb</Output>
+      <Time>2014-10-14T19:26:42.7115865-05:00</Time>
     </Item>
     <Item>
       <Source>UI\excavationIcon.png</Source>
@@ -82,8 +82,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\excavationIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0495862-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\excavationIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.9402665-05:00</Time>
     </Item>
     <Item>
       <Source>UI\farmIcon.png</Source>
@@ -91,8 +91,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\farmIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0495862-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\farmIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.9513706-05:00</Time>
     </Item>
     <Item>
       <Source>UI\woodBlockIcon.png</Source>
@@ -100,8 +100,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodBlockIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0625992-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodBlockIcon.xnb</Output>
+      <Time>2014-10-14T19:26:42.3682811-05:00</Time>
     </Item>
     <Item>
       <Source>UI\colorsImage.png</Source>
@@ -109,8 +109,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorsImage.xnb</Output>
-      <Time>2014-10-10T19:52:17.0475842-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorsImage.xnb</Output>
+      <Time>2014-10-14T19:26:41.8787073-05:00</Time>
     </Item>
     <Item>
       <Source>UI\colorSwatchHighlightBox.png</Source>
@@ -118,8 +118,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchHighlightBox.xnb</Output>
-      <Time>2014-10-10T19:52:17.0475842-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchHighlightBox.xnb</Output>
+      <Time>2014-10-14T19:26:41.8665922-05:00</Time>
     </Item>
     <Item>
       <Source>UI\playerBuildIcon.png</Source>
@@ -127,8 +127,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\playerBuildIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0615982-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\playerBuildIcon.xnb</Output>
+      <Time>2014-10-14T19:26:42.3430536-05:00</Time>
     </Item>
     <Item>
       <Source>UI\boatIcon.png</Source>
@@ -136,8 +136,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\boatIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0465832-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\boatIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.8080427-05:00</Time>
     </Item>
     <Item>
       <Source>UI\MainMenuBackground.png</Source>
@@ -145,8 +145,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\MainMenuBackground.xnb</Output>
-      <Time>2014-10-10T19:52:17.0425792-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\MainMenuBackground.xnb</Output>
+      <Time>2014-10-14T19:26:41.7040572-05:00</Time>
     </Item>
     <Item>
       <Source>UI\lockedChest.png</Source>
@@ -154,8 +154,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\lockedChest.xnb</Output>
-      <Time>2014-10-10T19:52:17.0495862-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\lockedChest.xnb</Output>
+      <Time>2014-10-14T19:26:41.9806596-05:00</Time>
     </Item>
     <Item>
       <Source>UI\swordIcon.png</Source>
@@ -163,8 +163,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\swordIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0615982-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\swordIcon.xnb</Output>
+      <Time>2014-10-14T19:26:42.3551624-05:00</Time>
     </Item>
     <Item>
       <Source>UI\axeIcon.png</Source>
@@ -172,8 +172,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\axeIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0455822-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\axeIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.7787659-05:00</Time>
     </Item>
     <Item>
       <Source>UI\characterIcon.png</Source>
@@ -181,8 +181,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\characterIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0465832-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\characterIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.8433669-05:00</Time>
     </Item>
     <Item>
       <Source>UI\hammerIcon.png</Source>
@@ -190,8 +190,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\hammerIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0495862-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\hammerIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.9685428-05:00</Time>
     </Item>
     <Item>
       <Source>UI\colorSwatchBox.png</Source>
@@ -199,8 +199,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchBox.xnb</Output>
-      <Time>2014-10-10T19:52:17.0475842-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\colorSwatchBox.xnb</Output>
+      <Time>2014-10-14T19:26:41.8544766-05:00</Time>
     </Item>
     <Item>
       <Source>UI\woodPileIcon.png</Source>
@@ -208,8 +208,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodPileIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0625992-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\woodPileIcon.xnb</Output>
+      <Time>2014-10-14T19:26:42.3803945-05:00</Time>
     </Item>
     <Item>
       <Source>UI\brickPileIcon.png</Source>
@@ -217,8 +217,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\brickPileIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0465832-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\brickPileIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.8201537-05:00</Time>
     </Item>
     <Item>
       <Source>UI\cancelIcon.png</Source>
@@ -226,8 +226,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\cancelIcon.xnb</Output>
-      <Time>2014-10-10T19:52:17.0465832-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\UI\cancelIcon.xnb</Output>
+      <Time>2014-10-14T19:26:41.8312582-05:00</Time>
     </Item>
     <Item>
       <Source>effects.fx</Source>
@@ -235,8 +235,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2014-10-10T19:52:17.0625992-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\effects.xnb</Output>
+      <Time>2014-10-14T19:26:42.3925121-05:00</Time>
     </Item>
     <Item>
       <Source>sky.fx</Source>
@@ -244,8 +244,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
-      <Time>2014-10-10T19:52:17.0716082-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sky.xnb</Output>
+      <Time>2014-10-14T19:26:42.7519864-05:00</Time>
     </Item>
     <Item>
       <Source>Ocean.fx</Source>
@@ -253,8 +253,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\Ocean.xnb</Output>
-      <Time>2014-10-10T19:52:17.0405772-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\Ocean.xnb</Output>
+      <Time>2014-10-14T19:26:41.6354156-05:00</Time>
     </Item>
     <Item>
       <Source>shadowEffect.fx</Source>
@@ -262,8 +262,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb</Output>
-      <Time>2014-10-10T19:52:17.0716082-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\shadowEffect.xnb</Output>
+      <Time>2014-10-14T19:26:42.7307781-05:00</Time>
     </Item>
     <Item>
       <Source>SpriteFont1.spritefont</Source>
@@ -271,8 +271,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2014-10-10T19:52:17.0405772-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2014-10-14T19:26:41.6556082-05:00</Time>
     </Item>
     <Item>
       <Source>toolTipFont.spritefont</Source>
@@ -280,8 +280,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\toolTipFont.xnb</Output>
-      <Time>2014-10-10T19:52:17.0986352-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\toolTipFont.xnb</Output>
+      <Time>2014-10-14T19:26:43.2032511-05:00</Time>
     </Item>
     <Item>
       <Source>sphere.x</Source>
@@ -289,11 +289,11 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sphere.xnb</Output>
-      <Time>2014-10-10T19:52:17.0986352-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sphere.xnb</Output>
+      <Time>2014-10-14T19:26:43.192143-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\sphere_0.xml</Key>
-        <Value>2014-10-10T19:52:46.2387462-05:00</Value>
+        <Value>2014-10-14T19:29:28.5418044-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -302,11 +302,11 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\plane.xnb</Output>
-      <Time>2014-10-10T19:52:17.0696062-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\plane.xnb</Output>
+      <Time>2014-10-14T19:26:42.6439385-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\plane_0.xml</Key>
-        <Value>2014-10-10T19:52:46.3158232-05:00</Value>
+        <Value>2014-10-14T19:29:28.7437653-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -315,8 +315,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle2.xnb</Output>
-      <Time>2014-10-10T19:52:17.0796162-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle2.xnb</Output>
+      <Time>2014-10-14T19:26:42.9761104-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle3.mp3</Source>
@@ -324,8 +324,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle3.xnb</Output>
-      <Time>2014-10-10T19:52:17.0806172-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle3.xnb</Output>
+      <Time>2014-10-14T19:26:42.9942832-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle4.mp3</Source>
@@ -333,8 +333,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle4.xnb</Output>
-      <Time>2014-10-10T19:52:17.0816182-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle4.xnb</Output>
+      <Time>2014-10-14T19:26:43.0195185-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle5.mp3</Source>
@@ -342,8 +342,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle5.xnb</Output>
-      <Time>2014-10-10T19:52:17.0816182-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle5.xnb</Output>
+      <Time>2014-10-14T19:26:43.0387009-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle1.mp3</Source>
@@ -351,8 +351,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle1.xnb</Output>
-      <Time>2014-10-10T19:52:17.0736102-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle1.xnb</Output>
+      <Time>2014-10-14T19:26:42.7964138-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle11.mp3</Source>
@@ -360,8 +360,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle11.xnb</Output>
-      <Time>2014-10-10T19:52:17.0746112-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle11.xnb</Output>
+      <Time>2014-10-14T19:26:42.8549697-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle12.mp3</Source>
@@ -369,8 +369,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle12.xnb</Output>
-      <Time>2014-10-10T19:52:17.0756122-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle12.xnb</Output>
+      <Time>2014-10-14T19:26:42.8701078-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle13.mp3</Source>
@@ -378,8 +378,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle13.xnb</Output>
-      <Time>2014-10-10T19:52:17.0776142-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle13.xnb</Output>
+      <Time>2014-10-14T19:26:42.8963483-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle14.mp3</Source>
@@ -387,8 +387,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle14.xnb</Output>
-      <Time>2014-10-10T19:52:17.0786152-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle14.xnb</Output>
+      <Time>2014-10-14T19:26:42.9215883-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle15.mp3</Source>
@@ -396,8 +396,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle15.xnb</Output>
-      <Time>2014-10-10T19:52:17.0786152-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle15.xnb</Output>
+      <Time>2014-10-14T19:26:42.9488465-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle10.mp3</Source>
@@ -405,8 +405,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle10.xnb</Output>
-      <Time>2014-10-10T19:52:17.0746112-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle10.xnb</Output>
+      <Time>2014-10-14T19:26:42.8307411-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle9.mp3</Source>
@@ -414,8 +414,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle9.xnb</Output>
-      <Time>2014-10-10T19:52:17.0956322-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle9.xnb</Output>
+      <Time>2014-10-14T19:26:43.132593-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle8.mp3</Source>
@@ -423,8 +423,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle8.xnb</Output>
-      <Time>2014-10-10T19:52:17.0956322-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle8.xnb</Output>
+      <Time>2014-10-14T19:26:43.1083516-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle7.mp3</Source>
@@ -432,8 +432,8 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle7.xnb</Output>
-      <Time>2014-10-10T19:52:17.0946312-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle7.xnb</Output>
+      <Time>2014-10-14T19:26:43.0891624-05:00</Time>
     </Item>
     <Item>
       <Source>sounds\rustling\rustle6.mp3</Source>
@@ -441,22 +441,22 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle6.xnb</Output>
-      <Time>2014-10-10T19:52:17.0816182-05:00</Time>
+      <Output>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\sounds\rustling\rustle6.xnb</Output>
+      <Time>2014-10-14T19:26:43.0649357-05:00</Time>
     </Item>
     <Item>
       <Source>sphere.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\sphere_0.xml</Output>
-      <Time>2014-10-10T19:52:17.0986352-05:00</Time>
+      <Time>2014-10-14T19:26:43.192143-05:00</Time>
     </Item>
     <Item>
       <Source>plane.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\plane_0.xml</Output>
-      <Time>2014-10-10T19:52:17.0696062-05:00</Time>
+      <Time>2014-10-14T19:26:42.6439385-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -464,10 +464,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGameContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGameContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>U:\IslandGame\IslandGame\IslandGameContent\</RootDirectory>
+      <LoggerRootDirectory>U:\IslandGame\IslandGame\IslandGame\</LoggerRootDirectory>
+      <IntermediateDirectory>U:\IslandGame\IslandGame\IslandGameContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>U:\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

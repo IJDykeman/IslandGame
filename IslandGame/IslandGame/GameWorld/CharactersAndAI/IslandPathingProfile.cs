@@ -112,18 +112,9 @@ namespace IslandGame.GameWorld
 
         public bool isStandableAtExactLocation(AxisAlignedBoundingBox AABB)
         {
-            for (int x = (int)AABB.loc.X; x < AABB.loc.X + AABB.Xwidth; x++)
+            if (!couldStandExactlyAt(AABB))
             {
-                for (int y = (int)AABB.loc.Y; y < AABB.loc.Y + AABB.height; y++)
-                {
-                    for (int z = (int)AABB.loc.Z; z < AABB.loc.Z + AABB.Zwidth; z++)
-                    {
-                        if (isProfileSolidAtWithWithinCheck(new BlockLoc(x, y, z)))
-                        {
-                            return false; //return false if entity is intersecting a block
-                        }
-                    }
-                }
+                return false;
             }
 
             for (int x = (int)AABB.loc.X; x < AABB.loc.X + AABB.Xwidth; x++)
@@ -138,6 +129,24 @@ namespace IslandGame.GameWorld
             }
             return false;//if no blocks are under entity
 
+        }
+
+        public bool couldStandExactlyAt(AxisAlignedBoundingBox AABB)
+        {
+            for (int x = (int)AABB.loc.X; x < AABB.loc.X + AABB.Xwidth; x++)
+            {
+                for (int y = (int)AABB.loc.Y; y < AABB.loc.Y + AABB.height; y++)
+                {
+                    for (int z = (int)AABB.loc.Z; z < AABB.loc.Z + AABB.Zwidth; z++)
+                    {
+                        if (isProfileSolidAtWithWithinCheck(new BlockLoc(x, y, z)))
+                        {
+                            return false; //return false if entity is intersecting a block
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public bool isSwimableAtWithHeight(BlockLoc IslandSpace, int entityHeight)

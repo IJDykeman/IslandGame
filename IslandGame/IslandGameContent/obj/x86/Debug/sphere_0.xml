@@ -3,7 +3,7 @@
   <Asset Type="Graphics:NodeContent">
     <Name>Root</Name>
     <Identity>
-      <SourceFilename>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGameContent\sphere.x</SourceFilename>
+      <SourceFilename>U:\IslandGame\IslandGame\IslandGameContent\sphere.x</SourceFilename>
       <SourceTool>XImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 0 -1 0 0 -1 0 0 0 0 0 1</Transform>
@@ -36,7 +36,7 @@
   <Resources>
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Identity>
-        <SourceFilename>C:\Users\ijd1\Desktop\IslandGame\IslandGame\IslandGameContent\sphere.x</SourceFilename>
+        <SourceFilename>U:\IslandGame\IslandGame\IslandGameContent\sphere.x</SourceFilename>
         <SourceTool>XImporter</SourceTool>
       </Identity>
       <OpaqueData>

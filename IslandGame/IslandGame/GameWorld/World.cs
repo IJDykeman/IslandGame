@@ -115,6 +115,7 @@ namespace IslandGame.GameWorld
         {
             foreach (Actor actor in actorManager.getActors())
             {
+                
                 float coefficientOfFriction = .01f;
 
                 //if the actor is on solid groung
