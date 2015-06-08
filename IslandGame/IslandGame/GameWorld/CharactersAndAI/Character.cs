@@ -17,7 +17,7 @@ namespace IslandGame.GameWorld
         Job job;
         
         float walkSpeedWhilePathing = 1.0f / 10.0f;
-        float walkForce = 1f / 20f;
+        float walkForce = 2f / 20f;
         BodyType bodyType;
         JobType currentJobType = JobType.none;
         private bool isWalkingOverride = false;
