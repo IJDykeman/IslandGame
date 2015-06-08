@@ -10,16 +10,13 @@ namespace IslandGame.GameWorld
     public class AttackActorJob : Job
     {
         Actor target;
-        IslandPathingProfile pathingProfile;
-        ActorStateProfile actorProfile;
+
         Character character;
         float loseInterestDistance = 70f;
 
         public AttackActorJob(Actor nTarget, IslandPathingProfile nPathingProfile, ActorStateProfile nActorStateProfile, Character nCharacter)
         {
             target = nTarget;
-            pathingProfile = nPathingProfile;
-            actorProfile = nActorStateProfile;
             character = nCharacter;
             setJobType(JobType.combat);
         }
@@ -30,7 +27,7 @@ namespace IslandGame.GameWorld
             float distToTarget = Vector3.Distance(character.getLocation(), target.getLocation());
             if (distToTarget > loseInterestDistance || target.isDead())
             {
-                return new CharacterTask.SwitchJob(new AggressiveStanceJob(pathingProfile, actorProfile, character));
+                return new CharacterTask.SwitchJob(new AggressiveStanceJob(character));
             }
             else if (distToTarget > getDesiredDistanceFromTarget())
             {

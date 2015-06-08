@@ -46,3 +46,4 @@ Content\sounds\rustling\rustle9.xnb
 Content\sounds\rustling\rustle8.xnb
 Content\sounds\rustling\rustle7.xnb
 Content\sounds\rustling\rustle6.xnb
+Content\deferredShader.xnb

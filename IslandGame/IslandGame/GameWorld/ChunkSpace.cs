@@ -19,7 +19,7 @@ namespace IslandGame.GameWorld
 
         Chunk[,] chunks;
 
-        public static int widthInChunksStaticForGallery = 8;
+        public static int widthInChunksStaticForGallery = 12;
         public int widthInChunks = widthInChunksStaticForGallery;
         
 

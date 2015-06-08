@@ -53,7 +53,7 @@ namespace IslandGame.GameWorld
             Character character = new Character(new AxisAlignedBoundingBox(location + new Vector3(), .6f, .6f, 1.8f), faction);
             if (faction == Actor.Faction.enemy)
             {
-                character.setJobAndCheckUseability(new AggressiveStanceJob(islandPathingProfile, actorStateProfile, character));
+                character.setJobAndCheckUseability(new AggressiveStanceJob(character));
             }
             actors.Add(character);
         }
@@ -118,11 +118,6 @@ namespace IslandGame.GameWorld
             return result;
         }
 
-        public ActorStateProfile getActorProfile()
-        {
-            return new ActorStateProfile(this);
-        }
-
         public void handleStrike(Actor striker, Vector3 origen, Vector3 direction, float range, float damage)
         {
             Ray strikeRay = new Ray(origen, direction);
@@ -134,7 +129,7 @@ namespace IslandGame.GameWorld
                     float distToStrike = (float)strikeRay.Intersects(struck.getBoundingBox());
                     if (distToStrike <= range)
                     {
-                        struck.getHit(damage,direction);
+                        struck.getHit(damage,direction, striker);
                     }
                 }
             }

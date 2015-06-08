@@ -26,12 +26,10 @@ namespace IslandGame
         static RenderTarget2D renderTarget;
         static Texture2D mainRenderImage;
 
+        static RenderTarget2D albedoRT, normalRT, depthRT;
 
 
         static List<AnimatedBodyPartGroup> CharactersForThisFrame = new List<AnimatedBodyPartGroup>();
-
-
-
 
 
         public static void LoadContent(ContentManager content)
@@ -46,21 +44,16 @@ namespace IslandGame
 
             ocean = new Ocean();
             ocean.loadContent(content);
-
+            int screenWidth = device.PresentationParameters.BackBufferWidth;
+            int screenHeight = device.PresentationParameters.BackBufferHeight;
             renderTarget = new RenderTarget2D(device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight,
                 false, device.DisplayMode.Format, DepthFormat.Depth24Stencil8, 4, RenderTargetUsage.DiscardContents);
-
-
         }
 
         public static void drawFinalImageFirst(Player player, bool isAnimating)
         {
             effect.CurrentTechnique = effect.Techniques["Colored"];
-
             UpdateViewMatrix(player.getCameraLoc(), player.getCameraRotation());
-            //  blurer = new GaussianBlurHandler(main.Content.LoadGame<Effect>("GaussianBlur"), device,
-            //graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            //device.Clear((isAnimating ? Color.CornflowerBlue : new Color(160, 160, 170)));
         }
 
         public static void display(GameWorld.World world, Player player, Character doNotDisplay)
@@ -75,9 +68,6 @@ namespace IslandGame
             device.RasterizerState = rs;
             device.BlendState = BlendState.Opaque;
 
-
-            
-
             setStatesForMainDraw(player);
 
             world.runPreDrawCalculations();
@@ -90,6 +80,8 @@ namespace IslandGame
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DarkSlateBlue, 1.0f, 0);
             device.SetRenderTarget(renderTarget);
+
+
             device.BlendState = BlendState.NonPremultiplied;
             device.DepthStencilState = new DepthStencilState()
             {
@@ -168,8 +160,6 @@ namespace IslandGame
 
         }
 
-    
-
         public static Matrix getPerspectiveMatrix(int viewDistance)
         {
 
@@ -209,7 +199,6 @@ namespace IslandGame
 
         }
 
-
         public static void addFlagForThisFrame(Vector3 loc, string Color)
         {
             AnimatedBodyPartGroup flag = new AnimatedBodyPartGroup(ContentDistributor.getEmptyString()+@"worldMarkup\short" + Color + "Flag.chr", 1f / 12f);
@@ -221,7 +210,6 @@ namespace IslandGame
         {
             CharactersForThisFrame.Add(toAdd);
         }
-
 
         internal static int getScreenWidth()
         {

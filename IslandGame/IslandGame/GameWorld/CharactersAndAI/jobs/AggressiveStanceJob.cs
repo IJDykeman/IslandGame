@@ -8,23 +8,19 @@ namespace IslandGame.GameWorld
 {
     class AggressiveStanceJob : Job
     {
-        IslandPathingProfile pathingProfile;
-        ActorStateProfile actorProfile;
+
         Character character;
         float loseInterestDistance = 70f;
 
 
         float agroRange = 20;
 
-        public AggressiveStanceJob(IslandPathingProfile nPathingProfile, ActorStateProfile nActorStateProfile, Character nCharacter)
+        public AggressiveStanceJob( Character nCharacter)
         {
-            pathingProfile = nPathingProfile;
-            actorProfile = nActorStateProfile;
+
             character = nCharacter;
             setJobType(JobType.combat);
         }
-
-
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
@@ -39,6 +35,13 @@ namespace IslandGame.GameWorld
                 else if (distToTarget > getDesiredDistanceFromTarget())
                 {
                     return new CharacterTask.WalkTowardPoint(toAttack.getLocation());
+                }
+                else if (distToTarget < 1)
+                {
+                    Vector3 fromTargetToMe = (character.getFootLocation() - toAttack.getFootLocation());
+                    fromTargetToMe.Normalize();
+                    return new CharacterTask.WalkTowardPoint(character.getFootLocation() + fromTargetToMe);
+
                 }
                 else
                 {
@@ -64,13 +67,13 @@ namespace IslandGame.GameWorld
                 {
                    // return new CharacterTask.SwitchJob(currentWalkJob);
                 }*/
-                BlockLoc toTry = BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), pathingProfile.getRandomMove());
-                if (pathingProfile.isStandableAtWithHeight(toTry, 2))
+                BlockLoc toTry = BlockLoc.AddIntVec3(new BlockLoc(character.getFootLocation()), World.getPathingProfile().getRandomMove());
+                if (World.getPathingProfile().isStandableAtWithHeight(toTry, 2))
                 {
                     List<BlockLoc> pathList = new List<BlockLoc>();
                     pathList.Add(toTry);
                     Path path = new Path(pathList);
-                    return new CharacterTask.SwitchJob(new TravelAlongPath(path,new AggressiveStanceJob(pathingProfile,actorProfile,character)));
+                    return new CharacterTask.SwitchJob(new TravelAlongPath(path,new AggressiveStanceJob(character)));
                 }
 
             }
@@ -83,7 +86,7 @@ namespace IslandGame.GameWorld
         {
             Actor nearestInRange = null;
             float nearestDist = float.MaxValue;
-            List<Actor> playerAgents = actorProfile.getAllActorsWithFaction(Actor.getFactionHostileTo(character.getFaction()));
+            List<Actor> playerAgents = World.getActorProfile().getAllActorsWithFaction(Actor.getFactionHostileTo(character.getFaction()));
 
             foreach (Actor test in playerAgents)
             {
@@ -96,7 +99,6 @@ namespace IslandGame.GameWorld
             }
             return nearestInRange;
         }
-
         
         public override bool isComplete()
         {

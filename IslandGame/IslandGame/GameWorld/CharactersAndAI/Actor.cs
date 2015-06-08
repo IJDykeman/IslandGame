@@ -168,17 +168,21 @@ namespace IslandGame.GameWorld
             return faction;
         }
 
-        public void getHit(float damage, Vector3 hitForceDirection)
+        public virtual void getHit(float damage, Vector3 hitForceDirection, Actor striker)
         {
             recieveDamage(damage);
-            
-            hitForceDirection /= 5f;
-            hitForceDirection.Y = .1f;
-            //hitForceDirection.Normalize();
-            setVelocity(getVelocity() + hitForceDirection);
+            hitForceDirection = applyKnockBack(hitForceDirection);
         }
 
-        private void recieveDamage(float damage)
+        protected Vector3 applyKnockBack(Vector3 hitForceDirection)
+        {
+            hitForceDirection /= 5f;
+            hitForceDirection.Y = .1f;
+            setVelocity(getVelocity() + hitForceDirection);
+            return hitForceDirection;
+        }
+
+        protected void recieveDamage(float damage)
         {
             health -= damage;
         }

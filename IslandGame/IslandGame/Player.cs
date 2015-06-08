@@ -20,7 +20,7 @@ namespace IslandGame
 {
     public class Player
     {
-        
+
 
         public static bool galleryMode = false;
 
@@ -42,14 +42,11 @@ namespace IslandGame
 
         public static float leftRightRot = -5.6f;
         public static float upDownRot = 0;
-        float minCameraHeight = 1;
 
         int age = 0;
         
         
         PlayerInputHandler inputHandler;
-
-        private float mouseSensitivity = .004f;
 
 
         public Player()

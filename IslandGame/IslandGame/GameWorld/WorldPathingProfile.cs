@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace IslandGame.GameWorld
 {
-    class WorldPathingProfile : IslandPathingProfile
+    public class WorldPathingProfile : IslandPathingProfile
     {
         IslandManager islandManager;
 

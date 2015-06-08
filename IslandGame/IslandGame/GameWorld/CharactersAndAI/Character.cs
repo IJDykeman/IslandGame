@@ -237,11 +237,13 @@ namespace IslandGame.GameWorld
                 case CharacterTask.Type.WalkTowardPoint:
                     animations.Add(AnimationType.walking);
 
-
-                    Vector3 move = getWalkTowardDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc());
-                    move.Normalize();
-                    move *= getWalkSpeedWhilePathing();
-                    actions.Add(getAddVelocityAction(move,false));
+                    if (World.getPathingProfile().isActorStanding(this))
+                    {
+                        Vector3 move = getWalkTowardDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc());
+                        move.Normalize();
+                        move *= getWalkSpeedWhilePathing();
+                        actions.Add(getAddVelocityAction(move, false));
+                    }
 
                     
                     setRotationWithGivenDeltaVec(((CharacterTask.WalkTowardPoint)toDo).getTargetLoc() - getLocation());
@@ -343,8 +345,6 @@ namespace IslandGame.GameWorld
             }
             result.Add(AnimationType.walking);
         }
-
-
 
         public float getWalkSpeedWhilePathing()
         {
@@ -516,6 +516,14 @@ namespace IslandGame.GameWorld
         public override void updatePhysics(float coefficientOfFricton)
         {
             physics.update(coefficientOfFricton, canBeKnockedBack());
+        }
+
+        public override void getHit(float damage, Vector3 hitForceDirection, Actor striker)
+        {
+            recieveDamage(damage);
+            hitForceDirection = applyKnockBack(hitForceDirection);
+            setJobAndCheckUseability(new AttackActorJob(striker, World.getPathingProfile(), World.getActorProfile(), this));
+
         }
         
     }

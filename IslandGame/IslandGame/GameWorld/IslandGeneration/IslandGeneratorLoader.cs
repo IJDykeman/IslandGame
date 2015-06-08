@@ -35,6 +35,7 @@ namespace IslandGame.GameWorld
             }
             catch (Exception e)
             {
+                Console.WriteLine("failed compile!");
                 return false;
             }
 
@@ -50,7 +51,7 @@ namespace IslandGame.GameWorld
         {
             Dictionary<string, string> providerOptions = new Dictionary<string, string>
                 {
-                    {"CompilerVersion", "v3.5"}
+                    {"CompilerVersion", "v4.0"}
                 };
             CSharpCodeProvider provider = new CSharpCodeProvider(providerOptions);
             CompilerParameters compilerParams = new CompilerParameters

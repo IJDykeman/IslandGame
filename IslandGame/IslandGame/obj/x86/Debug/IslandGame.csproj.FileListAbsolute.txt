@@ -475,3 +475,4 @@ U:\IslandGame\IslandGame\IslandGame\obj\x86\Debug\IslandGame.csprojResolveAssemb
 U:\IslandGame\IslandGame\IslandGame\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 U:\IslandGame\IslandGame\IslandGame\obj\x86\Debug\IslandGame.exe
 U:\IslandGame\IslandGame\IslandGame\obj\x86\Debug\IslandGame.pdb
+C:\Users\Isaac\Documents\GitHub\IslandGame\IslandGame\IslandGame\bin\x86\Debug\Content\deferredShader.xnb

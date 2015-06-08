@@ -15,11 +15,15 @@ namespace IslandGame.GameWorld
         ActorManager actorManager;
         GameDirector gameDirector;
         Random rand = new Random();
+        private static WorldPathingProfile pathingProfile;
+        private static ActorStateProfile actorProfile;
 
         public World()
         {
             setupIslandManager();
+            pathingProfile = new WorldPathingProfile(islandManager);
             actorManager = new ActorManager();
+            actorProfile = new ActorStateProfile(actorManager);
             gameDirector = new GameDirector();
 
         }
@@ -98,7 +102,7 @@ namespace IslandGame.GameWorld
                         actorManager.deleteActor(((ActorDieAction)action).getActorToBeKilled());
                         break;
                     case ActorActions.jump:
-                        WorldPathingProfile profile = new WorldPathingProfile(islandManager);
+                        WorldPathingProfile profile = getPathingProfile();
                         if (profile.isStandableAtExactLocation(((ActorJumpAction)action).getActorToJump().getAABB()))
                         {
                             ((ActorJumpAction)action).getActorToJump().addJumpVelocityToVelocity();
@@ -121,7 +125,7 @@ namespace IslandGame.GameWorld
                 //if the actor is on solid groung
                 if (islandManager.getClosestIslandToLocation(actor.getLocation()).getPathingProfile().isActorStanding(actor))
                 {
-                    coefficientOfFriction = .2f;
+                    coefficientOfFriction = .3f;
                 }
 
                 if (Ocean.pointIsUnderWater(actor.getFootLocation()))
@@ -275,7 +279,7 @@ namespace IslandGame.GameWorld
             Actor clickedActor = actorManager.getNearestActorOfTypeAlongRay<Actor>(rightClickRay);
             if (clickedActor != null)
             {
-                character.setJobAndCheckUseability(clickedActor.getJobWhenClicked(character, getIslandManager().getClosestIslandToLocation(clickedActor.getLocation()).getPathingProfile(), actorManager.getActorProfile()));
+                character.setJobAndCheckUseability(clickedActor.getJobWhenClicked(character, getIslandManager().getClosestIslandToLocation(clickedActor.getLocation()).getPathingProfile(), getActorProfile()));
 
             }
             else
@@ -316,8 +320,8 @@ namespace IslandGame.GameWorld
                 goal.setValuesInWorldSpace(goal.WSX(),0,goal.WSZ());
                 BlockLoc start = new BlockLoc(character.getLocation());
                 start.setValuesInWorldSpace(start.WSX(), 0, start.WSZ());
-                Path path = pathHandler.getPathToSingleBlock(new WorldPathingProfile(islandManager),
-                    start, new WorldPathingProfile(islandManager), goal, 2);
+                Path path = pathHandler.getPathToSingleBlock(getPathingProfile(),
+                    start, getPathingProfile(), goal, 2);
                 
                 character.pathAlongOceanWithOceanPath(path);
             }
@@ -393,7 +397,7 @@ namespace IslandGame.GameWorld
         {
             actorManager.addCharacterAt(location, faction,
                 islandManager.getClosestIslandToLocation(location).getPathingProfile(),
-                actorManager.getActorProfile());
+                getActorProfile());
         }
 
         public IslandManager getIslandManager()
@@ -692,6 +696,16 @@ namespace IslandGame.GameWorld
             {
                 relevant.deleteJobsiteAlongRay(ray);
             }
+        }
+
+        public static WorldPathingProfile getPathingProfile()
+        {
+            return pathingProfile;
+        }
+
+        public static ActorStateProfile getActorProfile()
+        {
+            return actorProfile;
         }
     }
 }
