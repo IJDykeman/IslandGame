@@ -21,36 +21,28 @@ namespace IslandGame.GameWorld
 
         public override CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker)
         {
-            if (workingProfile.getExcavationSite().getBlocksToRemove().Count > 0)
+
+            List<BlockLoc> blocksToRemove = workingProfile.getExcavationSite().getBlocksToRemove();
+            if (blocksToRemove.Count > 0)
             {
-                List<BlockLoc> blocksToRemove = workingProfile.getExcavationSite().getBlocksToRemove();
-                if (blocksToRemove.Count > 0)
+                BlockLoc toDestroy;
+                foreach (BlockLoc claimed in taskTracker.blocksCurrentlyClaimed())
                 {
+                    blocksToRemove.Remove(claimed);
 
-                    BlockLoc toDestroy;
-
-                    foreach (BlockLoc claimed in taskTracker.blocksCurrentlyClaimed())
-                    {
-                        blocksToRemove.Remove(claimed);
-
-                    }
-                    PathHandler pathHandler = new PathHandlerPreferringHigherBlocks();
-                    Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
-                        new BlockLoc(character.getFootLocation()), workingProfile.getPathingProfile(),
-                        blocksToRemove, 2, out toDestroy);
-                    TravelAlongPath toSwitchTo = new TravelAlongPath(path,getWaitJobWithReturn(45, new DestroyBlockJob(character, workingProfile, toDestroy)));
-                    return new CharacterTask.SwitchJob(toSwitchTo);
-                    //return path;
                 }
-                else
-                {
-                    return new CharacterTask.SwitchJob(new UnemployedJob());
-                }
+                PathHandler pathHandler = new PathHandlerPreferringHigherBlocks();
+                Path path = pathHandler.getPathToMakeTheseBlocksAvaiable(workingProfile.getPathingProfile(),
+                    new BlockLoc(character.getFootLocation()), workingProfile.getPathingProfile(),
+                    blocksToRemove, 2, out toDestroy);
+                TravelAlongPath toSwitchTo = new TravelAlongPath(path, getWaitJobWithReturn(45, new DestroyBlockJob(character, workingProfile, toDestroy)));
+                return new CharacterTask.SwitchJob(toSwitchTo);
             }
             else
             {
                 return new CharacterTask.SwitchJob(new UnemployedJob());
             }
+
         }
 
 

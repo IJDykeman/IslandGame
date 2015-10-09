@@ -282,7 +282,7 @@ namespace IslandGame.GameWorld
                 case CharacterTask.Type.PlaceResource:
                     CharacterTask.PlaceResource placeResource = (CharacterTask.PlaceResource)toDo;
                     actions.Add(new ActorPlaceResourceAction(placeResource.getLocToPlaceResource(),placeResource.getTypeToPlace()));
-                    StartHammerAnimationIfPossible();
+                    //StartHammerAnimationIfPossible();
                     dropLoad();
                     break;
                 case CharacterTask.Type.PickUpResource:

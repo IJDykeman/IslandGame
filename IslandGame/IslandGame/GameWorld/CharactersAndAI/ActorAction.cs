@@ -237,7 +237,7 @@ namespace IslandGame.GameWorld
     public class ActorStrikeAlongRayAction : ActorStrikeAction
     {
         
-        protected Vector3 strikeOrigen;
+        protected Vector3 strikeOrigin;
         protected float strikeDistance;
         protected Vector3 strikeDirectionNormal;
         protected byte currentlySelectedBlockType;
@@ -251,7 +251,7 @@ namespace IslandGame.GameWorld
             jobType = nJobType;
             strikeType = StrikeType.AlongRay;
             striker = nstriker;
-            strikeOrigen = nStrikeOrigen;
+            strikeOrigin = nStrikeOrigen;
             strikeDistance = nStrikeDistance;
             strikeDirectionNormal = Vector3.Normalize( nStrikeDirectionNormal);
             currentlySelectedBlockType = nSelectedBlockType;
@@ -264,7 +264,7 @@ namespace IslandGame.GameWorld
 
         public Vector3 getStrikeOrigen()
         {
-            return strikeOrigen;
+            return strikeOrigin;
         }
 
         public Vector3 getStrikeDirectionNormal()
@@ -319,7 +319,7 @@ namespace IslandGame.GameWorld
             resourceType = nType;
             strikeType = StrikeType.AlongRay;
             striker = nstriker;
-            strikeOrigen = nStrikeOrigen;
+            strikeOrigin = nStrikeOrigen;
             strikeDistance = nStrikeDistance;
             strikeDirectionNormal = Vector3.Normalize( nStrikeDirectionNormal);
             currentlySelectedBlockType = nSelectedBlockType;
@@ -332,7 +332,7 @@ namespace IslandGame.GameWorld
 
         public Vector3 getStrikeOrigen()
         {
-            return strikeOrigen;
+            return strikeOrigin;
         }
 
         public Vector3 getStrikeDirectionNormal()

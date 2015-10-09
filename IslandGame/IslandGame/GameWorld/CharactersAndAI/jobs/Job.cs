@@ -24,8 +24,7 @@ namespace IslandGame.GameWorld
 
         public abstract CharacterTask.Task getCurrentTask(CharacterTaskTracker taskTracker);
         public abstract bool isComplete();
-        public abstract bool isUseable();
-        //PUT TARGETBLOCK FIELD HERE
+        public abstract bool isUseable(); // returns true if this job will complete its goal
         protected BlockLoc targetBlock;
         protected Job toReturnTo;
 
@@ -38,9 +37,7 @@ namespace IslandGame.GameWorld
         {
             jobType = newJobType;
         }
-
-
-
+        
         public virtual void jobWasCancelled()
         {
             
