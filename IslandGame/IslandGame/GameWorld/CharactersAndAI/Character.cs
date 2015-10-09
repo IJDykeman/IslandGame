@@ -343,7 +343,7 @@ namespace IslandGame.GameWorld
             {
                 stepTask.taskWasCompleted();
             }
-            result.Add(AnimationType.walking);
+            result.Add(AnimationType.running);
         }
 
         public float getWalkSpeedWhilePathing()

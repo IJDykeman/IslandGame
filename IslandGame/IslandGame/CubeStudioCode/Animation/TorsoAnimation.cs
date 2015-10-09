@@ -67,7 +67,7 @@ namespace CubeAnimator
                 //swingTime = (float)Math.Sin(MathHelper.ToRadians((float)age * 5));
                 periodInter.idealValue = 5;
                 magInter.idealValue = 1;
-                swingTimeInter.idealValue = (float)Math.Sin(MathHelper.ToRadians((float)age * 5)) * 1;
+                swingTimeInter.idealValue = (float)Math.Sin(MathHelper.ToRadians((float)age * 7)) * 1;
                 currentTarget = new MovementTarget( Quaternion.CreateFromYawPitchRoll(getYaw(), 0, 0),2f);
 
 
@@ -77,7 +77,7 @@ namespace CubeAnimator
             {
                 //swingTime = (float)Math.Sin(MathHelper.ToRadians((float)age * 12)) * 2;
                 //periodInter.idealValue = 10;
-                magInter.idealValue = 3;
+                magInter.idealValue = 2;
                 swingTimeInter.idealValue = (float)Math.Sin(MathHelper.ToRadians((float)age * 10)) * 2;
                 //rotation = Quaternion.CreateFromYawPitchRoll(getYaw(), 0, 0);
                 currentTarget = new MovementTarget(Quaternion.CreateFromYawPitchRoll(getYaw(), 0, 0), .2f);
