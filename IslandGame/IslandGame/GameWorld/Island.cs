@@ -384,8 +384,11 @@ namespace IslandGame.GameWorld
 
         public void buildBlock(BlockLoc blockLoc, byte typeToBuild)
         {
-            chunkSpace.setBlockAtWithMeshUpdate(typeToBuild, blockLoc.toISIntVec3(getPathingProfile()));
-            jobSiteManager.blockWasBuilt(blockLoc);
+            if (withinChunkSpaceInChunkSpace(blockLoc.toISIntVec3(getPathingProfile())))
+            {
+                chunkSpace.setBlockAtWithMeshUpdate(typeToBuild, blockLoc.toISIntVec3(getPathingProfile()));
+                jobSiteManager.blockWasBuilt(blockLoc);
+            }
         }
 
         public void removeBlueprintBlockAlongRay(Ray removeWoodBlockClickRay)
@@ -572,9 +575,9 @@ namespace IslandGame.GameWorld
             return chunkSpace.getLocation();
         }
 
-        internal bool withinChunkSpaceInChunkSpace(int x, int y, int z)
+        internal bool withinChunkSpaceInChunkSpace(IntVector3 vec)
         {
-            return chunkSpace.withinChunkSpaceInChunkSpace(x, y, z);
+            return chunkSpace.withinChunkSpaceInChunkSpace(vec.X, vec.Y, vec.Z);
         }
 
         public bool couldAffordResourceExpendeture(int cost, ResourceBlock.ResourceType resourceType)

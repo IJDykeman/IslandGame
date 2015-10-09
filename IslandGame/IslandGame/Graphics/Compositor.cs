@@ -191,7 +191,6 @@ namespace IslandGame
 
 
             viewMatrix = Matrix.CreateLookAt(loc, cameraFinalTarget, cameraRotatedUpVector);
-            //GALLERY
             if (Player.galleryMode)
             {
                 viewMatrix = Matrix.CreateLookAt(loc, new Vector3(60, 10, 60), Vector3.Up);

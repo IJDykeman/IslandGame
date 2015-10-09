@@ -430,18 +430,12 @@ namespace IslandGame
             }
         }
 
-
-
-
         public void Draw(SpriteBatch spriteBatch)
         {
             
             Compositer.UpdateViewMatrix(player.getCameraLoc(), player.getCameraRotation());
             Compositer.drawFinalImageFirst(player, false);
             Compositer.display(world, player, player.getControlledCharacter());
-
-            //Compositer.effectToUse.CurrentTechnique = Compositer.effectToUse.Techniques["GreyscaleToBrownsale"];
-
 
             spriteBatch.Begin();//0, BlendState.Opaque, null, null, null, Compositer.effectToUse);
                 IConsole.display(spriteBatch, Main.graphics.PreferredBackBufferWidth, Main.graphics.PreferredBackBufferHeight);

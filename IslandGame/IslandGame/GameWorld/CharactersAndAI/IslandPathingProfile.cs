@@ -185,12 +185,12 @@ namespace IslandGame.GameWorld
 
         private bool withinIsland(IntVector3 loc)
         {
-            return island.withinChunkSpaceInChunkSpace((int)loc.X, (int)loc.Y, (int)loc.Z);
+            return island.withinChunkSpaceInChunkSpace(loc);
         }
 
         protected virtual bool isInProfileScope(BlockLoc loc)
         {
-            return island.withinChunkSpaceInChunkSpace((int)loc.toISIntVec3(this).X, (int)loc.toISIntVec3(this).Y, (int)loc.toISIntVec3(this).Z);
+            return island.withinChunkSpaceInChunkSpace(loc.toISIntVec3(this));
         }
 
         public List<BlockLoc> getSpacesThatCanBeMovedToFrom(BlockLoc from, int entityHeight)
